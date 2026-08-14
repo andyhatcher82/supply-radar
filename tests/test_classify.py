@@ -10,6 +10,7 @@ from supply_radar.classify import (
     REJECT_TYPES,
     Verdict,
     prefilter,
+    resolve_category,
 )
 from supply_radar.costs import CostLedger
 from supply_radar.models import DiscoveredPlace, Source
@@ -63,6 +64,32 @@ class TestPrefilter:
 
     def test_reject_and_ambiguous_lists_do_not_overlap(self):
         assert not (REJECT_TYPES & AMBIGUOUS_TYPES)
+
+
+class TestResolveCategory:
+    def test_a_specific_classifier_category_wins(self):
+        p = place(raw={"matched_query": "boat tour"})
+        assert resolve_category(p, "food_drink") == "food_drink"
+
+    def test_falls_back_to_the_search_term_that_found_it(self):
+        """Operators accepted by the deterministic shortcut never reach the
+        classifier, so they arrive with no category. Without this fallback their
+        gap-fit score is silently zero and the axis dies for a third of the
+        pipeline."""
+        p = place(raw={"matched_query": "wine tasting"})
+        assert resolve_category(p, "other") == "food_drink"
+
+    def test_generic_classifier_answers_are_treated_as_absent(self):
+        p = place(raw={"matched_query": "kayak tour"})
+        for generic in ("other", "none", "", None):
+            assert resolve_category(p, generic) == "water_sports"
+
+    def test_returns_none_when_nothing_can_be_resolved(self):
+        assert resolve_category(place(raw={}), "other") is None
+
+    def test_an_unmapped_query_does_not_invent_a_category(self):
+        p = place(raw={"matched_query": "something we never search for"})
+        assert resolve_category(p, "none") is None
 
 
 class TestCostLedger:

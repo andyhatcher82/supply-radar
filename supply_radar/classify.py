@@ -22,12 +22,49 @@ from __future__ import annotations
 import random
 from dataclasses import dataclass, field
 from enum import Enum
+from functools import lru_cache
 from typing import Literal
 
+import yaml
 from pydantic import BaseModel, Field
 
+from supply_radar.config import CONFIG_DIR
 from supply_radar.llm import LLMClient
 from supply_radar.models import DiscoveredPlace
+
+GENERIC_CATEGORIES = {"", "other", "none", "unclear"}
+
+
+@lru_cache
+def load_query_categories(country: str = "croatia") -> dict[str, str]:
+    path = CONFIG_DIR / "destinations" / f"{country}.yaml"
+    pack = yaml.safe_load(path.read_text(encoding="utf-8"))
+    return {k.lower(): v for k, v in (pack.get("query_categories") or {}).items()}
+
+
+def resolve_category(
+    place: DiscoveredPlace,
+    classified_type: str | None,
+    country: str = "croatia",
+) -> str | None:
+    """Best available experience category for a place.
+
+    The classifier's answer wins when it gave a specific one. Otherwise fall
+    back to the search term that found the place, which is free and known
+    because we chose the queries.
+
+    Without this fallback, every operator accepted by the deterministic
+    shortcut carried the category "other" and scored zero on gap fit, killing
+    the axis for a third of the pipeline without any error appearing.
+    """
+    if classified_type and classified_type.lower() not in GENERIC_CATEGORIES:
+        return classified_type.lower()
+
+    query = ((place.raw or {}).get("matched_query") or "").lower()
+    mapped = load_query_categories(country).get(query)
+    if mapped and mapped not in GENERIC_CATEGORIES:
+        return mapped
+    return None
 
 
 class Verdict(str, Enum):

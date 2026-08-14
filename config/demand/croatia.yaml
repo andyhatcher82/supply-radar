@@ -1,0 +1,109 @@
+# Destination x category demand and bookable supply.
+#
+# SYNTHETIC. This is the one input only Viator can actually produce: demand
+# comes from their own search logs (what travellers searched for in a
+# destination and did not book), and bookable supply from their live catalogue.
+# The numbers below are plausible rather than real, and the UI labels them as
+# such wherever a gap-fit score is shown.
+#
+# Replacing this file with a query against Viator's search logs is the whole
+# integration. Nothing else in the pipeline changes.
+
+# Demand is an index where 100 is the strongest observed destination-category
+# combination in the country.
+demand_scale_max: 100
+
+# Supply at which a category is considered adequately served, expressed as a
+# fraction of its demand index. Below this there is unmet demand; at or above
+# it, adding operators mostly cannibalises existing ones.
+equilibrium_supply_ratio: 0.6
+
+# Used where a destination-category pair is not listed below.
+#
+# Supply is deliberately set BELOW the equilibrium point (0.6 x 25 = 15), so an
+# unknown cell scores a modest positive gap rather than zero. Sitting it exactly
+# at equilibrium made every fallback score 0.00, which reads as "definitely no
+# opportunity here" when the truth is "we do not know". Unknown and none are
+# different answers and must not look the same.
+default:
+  demand: 25
+  supply: 9
+
+destinations:
+  split:
+    boat_tour: {demand: 100, supply: 74}
+    day_trip: {demand: 78, supply: 41}
+    food_drink: {demand: 61, supply: 14}
+    water_sports: {demand: 54, supply: 26}
+    walking_tour: {demand: 48, supply: 33}
+    adventure: {demand: 44, supply: 19}
+    cultural: {demand: 39, supply: 27}
+    private_guide: {demand: 31, supply: 9}
+    transfer: {demand: 29, supply: 22}
+
+  dubrovnik:
+    walking_tour: {demand: 92, supply: 68}
+    boat_tour: {demand: 84, supply: 55}
+    day_trip: {demand: 71, supply: 44}
+    cultural: {demand: 66, supply: 51}
+    food_drink: {demand: 52, supply: 11}
+    water_sports: {demand: 41, supply: 18}
+    private_guide: {demand: 37, supply: 12}
+    adventure: {demand: 24, supply: 13}
+
+  hvar:
+    boat_tour: {demand: 88, supply: 47}
+    water_sports: {demand: 46, supply: 15}
+    food_drink: {demand: 43, supply: 8}
+    day_trip: {demand: 38, supply: 21}
+    walking_tour: {demand: 22, supply: 12}
+
+  zadar:
+    day_trip: {demand: 64, supply: 30}
+    boat_tour: {demand: 57, supply: 28}
+    adventure: {demand: 49, supply: 16}
+    food_drink: {demand: 36, supply: 7}
+    walking_tour: {demand: 33, supply: 19}
+
+  sibenik:
+    day_trip: {demand: 58, supply: 24}
+    adventure: {demand: 47, supply: 13}
+    boat_tour: {demand: 42, supply: 20}
+    cultural: {demand: 29, supply: 17}
+
+  rovinj:
+    food_drink: {demand: 69, supply: 16}
+    walking_tour: {demand: 44, supply: 26}
+    boat_tour: {demand: 41, supply: 23}
+    cultural: {demand: 35, supply: 21}
+
+  pula:
+    cultural: {demand: 63, supply: 39}
+    day_trip: {demand: 45, supply: 22}
+    food_drink: {demand: 42, supply: 10}
+    adventure: {demand: 31, supply: 14}
+
+  zagreb:
+    walking_tour: {demand: 71, supply: 52}
+    food_drink: {demand: 66, supply: 19}
+    cultural: {demand: 58, supply: 40}
+    day_trip: {demand: 51, supply: 33}
+
+  korcula:
+    food_drink: {demand: 54, supply: 9}
+    boat_tour: {demand: 47, supply: 24}
+    water_sports: {demand: 28, supply: 11}
+
+  omis:
+    adventure: {demand: 76, supply: 31}
+    water_sports: {demand: 52, supply: 20}
+    boat_tour: {demand: 34, supply: 18}
+
+  trogir:
+    boat_tour: {demand: 49, supply: 27}
+    walking_tour: {demand: 27, supply: 16}
+
+  makarska:
+    water_sports: {demand: 45, supply: 19}
+    adventure: {demand: 38, supply: 15}
+    boat_tour: {demand: 36, supply: 21}

@@ -82,6 +82,34 @@ search_terms:
   - sailing charter
   - quad safari
 
+# Which experience category each search term is looking for.
+#
+# We choose the queries, so the category a result was found by is known for
+# free. That matters because operators accepted by the deterministic shortcut
+# never reach the classifier and would otherwise carry no category at all,
+# which silently zeroed their gap-fit score.
+query_categories:
+  boat tour: boat_tour
+  sailing charter: boat_tour
+  excursion: day_trip
+  day trip: day_trip
+  tour operator: day_trip
+  travel agency: day_trip
+  kayak tour: water_sports
+  sea kayaking: water_sports
+  diving centre: water_sports
+  rafting: adventure
+  quad safari: adventure
+  zipline: adventure
+  wine tasting tour: food_drink
+  wine tasting: food_drink
+  food tour: food_drink
+  truffle hunting: food_drink
+  walking tour: walking_tour
+  free walking tour: walking_tour
+  private guide: private_guide
+  things to do: other
+
 sources:
   - google_places
   - web_search
