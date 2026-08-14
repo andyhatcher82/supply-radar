@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Supply Radar</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot" aria-hidden="true"></span>
+      <h1>Supply Radar</h1>
+      <span class="tag">Croatia</span>
+    </div>
+    <nav class="nav" id="nav">
+      <button class="nav-item is-active" data-view="discover">Discover</button>
+      <button class="nav-item" data-view="funnel">Pipeline</button>
+      <button class="nav-item" data-view="leads">Leads</button>
+      <button class="nav-item" data-view="review">Review</button>
+      <button class="nav-item" data-view="metrics">Metrics</button>
+      <button class="nav-item" data-view="economics">Economics</button>
+    </nav>
+    <div class="status" id="status" title="Service status">
+      <span class="pill pill-muted" id="status-pill">checking…</span>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="view" id="view-discover">
+      <div class="placeholder">
+        <h2>Discover</h2>
+        <p>Map, run modes and cost preview land here.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span id="version">—</span>
+    <span class="sep">·</span>
+    <span>Prototype built for the Viator supply automation case study</span>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+# Croatian locale pack.
+#
+# Held separately from the destination pack on purpose: normalisation rules are
+# country-specific, not destination-specific. Italy needs S.r.l., Spain needs
+# S.L. Getting this wrong is the most common source of false non-matches.
+
+locale: hr
+language: hr
+phone_region: HR
+
+# Legal forms stripped before name comparison. Longest first so that j.d.o.o.
+# is not partially eaten by d.o.o.
+legal_suffixes:
+  - j.d.o.o.
+  - jdoo
+  - d.o.o.
+  - doo
+  - d.d.
+  - dd
+  - j.t.d.
+  - k.d.
+  - t.d.
+  - obrt
+  - ustanova
+  - zadruga
+
+# Ownership prefixes seen on sole-trader (obrt) registrations.
+name_prefixes:
+  - vl.
+  - vlasnik
+
+# Folded before comparison. Đ is the one that trips naive normalisers, because
+# some systems render it dj and others d.
+diacritics:
+  č: c
+  ć: c
+  đ: d
+  š: s
+  ž: z
+  Č: C
+  Ć: C
+  Đ: D
+  Š: S
+  Ž: Z
+
+# Alternate transliterations that must be treated as equivalent.
+transliteration_variants:
+  đ: [d, dj]
+  ć: [c, ch]
+  č: [c, ch]
+
+# Descriptive words carrying no identity signal. Removed before fuzzy scoring
+# so that "Adriatic Tours" and "Adriatic Travel Agency" do not score as similar
+# purely because both contain a generic word.
+stopwords:
+  - tours
+  - tour
+  - travel
+  - agency
+  - agencija
+  - putnicka
+  - putnička
+  - turizam
+  - turisticka
+  - turistička
+  - excursions
+  - izleti
+  - adventure
+  - adventures
+  - experience
+  - experiences
+  - croatia
+  - hrvatska
+  - dmc

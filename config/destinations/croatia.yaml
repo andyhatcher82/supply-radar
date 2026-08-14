@@ -1,0 +1,94 @@
+# Croatia destination pack.
+#
+# A destination pack is pure configuration. Adding a country is adding one of
+# these files plus a locale pack. No code changes.
+
+country: HR
+country_name: Croatia
+locale: hr
+currency: EUR
+
+# Seed circles. The quadtree subdivides these further wherever a cell comes
+# back at the Places result cap, so these radii are a starting envelope, not a
+# claim about how finely the area gets swept.
+destinations:
+  - id: dubrovnik
+    name: Dubrovnik
+    lat: 42.6507
+    lng: 18.0944
+    radius_km: 12
+  - id: split
+    name: Split
+    lat: 43.5081
+    lng: 16.4402
+    radius_km: 15
+  - id: hvar
+    name: Hvar
+    lat: 43.1729
+    lng: 16.4412
+    radius_km: 10
+  - id: zadar
+    name: Zadar
+    lat: 44.1194
+    lng: 15.2314
+    radius_km: 12
+  - id: sibenik
+    name: Šibenik
+    lat: 43.7350
+    lng: 15.8952
+    radius_km: 12
+  - id: rovinj
+    name: Rovinj
+    lat: 45.0811
+    lng: 13.6387
+    radius_km: 10
+  - id: pula
+    name: Pula
+    lat: 44.8666
+    lng: 13.8496
+    radius_km: 12
+  - id: zagreb
+    name: Zagreb
+    lat: 45.8150
+    lng: 15.9819
+    radius_km: 15
+  - id: plitvice
+    name: Plitvice Lakes
+    lat: 44.8654
+    lng: 15.5820
+    radius_km: 15
+  - id: korcula
+    name: Korčula
+    lat: 42.9600
+    lng: 17.1350
+    radius_km: 10
+
+# Search terms issued per cell. Deliberately operator-shaped rather than
+# attraction-shaped, because the target is businesses that sell bookable
+# experiences, not places tourists visit.
+search_terms:
+  - boat tour
+  - excursion
+  - tour operator
+  - travel agency
+  - kayak tour
+  - diving centre
+  - wine tasting tour
+  - food tour
+  - walking tour
+  - day trip
+  - private guide
+  - rafting
+  - sailing charter
+  - quad safari
+
+sources:
+  - google_places
+  - web_search
+  # Second non-Google source resolved at build time; see decision log.
+  - dmo_registry
+
+scoring_weights:
+  quality: 0.35
+  readiness: 0.35
+  gap_fit: 0.30
