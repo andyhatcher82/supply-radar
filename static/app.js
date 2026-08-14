@@ -3,7 +3,7 @@ const $ = (sel) => document.querySelector(sel);
 async function loadHealth() {
   const pill = $("#status-pill");
   try {
-    const res = await fetch("/healthz");
+    const res = await fetch("/api/healthz");
     const data = await res.json();
 
     const caps = data.capabilities || {};

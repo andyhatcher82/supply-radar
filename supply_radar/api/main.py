@@ -28,10 +28,16 @@ app = FastAPI(
 )
 
 
-@app.get("/healthz")
+@app.get("/api/healthz")
 def healthz() -> dict:
     """Liveness probe. Deliberately reveals no secrets, only whether each
-    dependency has been configured at all."""
+    dependency has been configured at all.
+
+    Lives under /api rather than at /healthz because Google Front End
+    intercepts the bare /healthz path on Cloud Run and returns its own 404
+    before the request ever reaches the container. Found by deploying early;
+    it would have been an unpleasant discovery on Sunday night.
+    """
     return {
         "status": "ok",
         "version": __version__,

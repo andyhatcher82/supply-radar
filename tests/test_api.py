@@ -6,7 +6,7 @@ client = TestClient(app)
 
 
 def test_healthz_reports_ok_and_capabilities():
-    res = client.get("/healthz")
+    res = client.get("/api/healthz")
     assert res.status_code == 200
     body = res.json()
     assert body["status"] == "ok"
@@ -16,7 +16,7 @@ def test_healthz_reports_ok_and_capabilities():
 
 
 def test_healthz_never_leaks_secret_values():
-    body = client.get("/healthz").json()
+    body = client.get("/api/healthz").json()
     assert all(isinstance(v, bool) for v in body["capabilities"].values())
 
 
