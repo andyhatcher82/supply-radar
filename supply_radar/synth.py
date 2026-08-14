@@ -212,6 +212,14 @@ def _corrupt_address(address: str | None, applied: list[str], rng: random.Random
     return address
 
 
+def _jitter_coords(lat: float, lng: float, rng: random.Random, km: float):
+    """Nudge a coordinate. Stands in for geocoding imprecision, an address that
+    is the office rather than the meeting point, or a supplier who has moved."""
+    dlat = rng.uniform(-km, km) / 111.32
+    dlng = rng.uniform(-km, km) / 80.0
+    return round(lat + dlat, 6), round(lng + dlng, 6)
+
+
 def _phantom_name(rng: random.Random) -> str:
     first, second = PHANTOM_NAME_PARTS
     return f"{rng.choice(first)} {rng.choice(second)}"
@@ -283,14 +291,21 @@ def generate_supplier_list(
         else:
             legal_name = name
 
+        address = _corrupt_address(place.address, applied, rng, place.destination_id)
+        # A relocated record should carry a location that is wrong by more than
+        # rounding, otherwise geography would paper over the corruption.
+        spread = 6.0 if "address_moved" in applied else 0.4
+        lat, lng = _jitter_coords(place.lat, place.lng, rng, spread)
+
         suppliers.append(
             SupplierRecord(
                 supplier_id=(sid := next_id()),
                 legal_name=legal_name,
                 trading_name=trading_name,
-                address=_corrupt_address(place.address, applied, rng,
-                                         place.destination_id),
+                address=address,
                 city=place.destination_id,
+                lat=lat,
+                lng=lng,
                 phone=_corrupt_phone(place.phone, applied, rng),
                 website=_corrupt_website(place.website, applied, rng),
                 active=rng.random() > 0.06,
@@ -315,6 +330,8 @@ def generate_supplier_list(
                 legal_name=f"{name} {rng.choice(LEGAL_FORMS)}",
                 address=_make_address(rng),
                 city=None,
+                lat=round(rng.uniform(42.4, 46.4), 6),
+                lng=round(rng.uniform(13.5, 19.4), 6),
                 phone=_make_phone(rng),
                 website=_make_website(name, rng) if rng.random() > 0.4 else None,
                 active=rng.random() > 0.25,
@@ -335,12 +352,18 @@ def generate_supplier_list(
     #    unambiguously a false positive.
     for place in hard_sources:
         name = _confusable_name(place.name, rng)
+        # Deliberately placed in the same town as the operator they are
+        # confusable with. A competitor with a similar name two streets away is
+        # the hardest case there is, and it is entirely realistic.
+        lat, lng = _jitter_coords(place.lat, place.lng, rng, 1.5)
         suppliers.append(
             SupplierRecord(
                 supplier_id=(sid := next_id()),
                 legal_name=f"{name} {rng.choice(LEGAL_FORMS)}",
                 address=_make_address(rng, place.destination_id),
                 city=place.destination_id,
+                lat=lat,
+                lng=lng,
                 phone=_make_phone(rng),
                 website=_make_website(name, rng),
                 active=True,

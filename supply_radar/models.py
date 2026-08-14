@@ -59,6 +59,10 @@ class SupplierRecord(BaseModel):
     trading_name: str | None = None
     address: str | None = None
     city: str | None = None
+    # Held by the CRM but imprecise: geocoded from a postal address, sometimes
+    # years out of date. Useful as a discriminator, never as proof on its own.
+    lat: float | None = None
+    lng: float | None = None
     phone: str | None = None
     website: str | None = None
     active: bool = True
