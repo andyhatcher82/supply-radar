@@ -44,10 +44,15 @@ diacritics:
   Ž: Z
 
 # Alternate transliterations that must be treated as equivalent.
+#
+# Only đ is listed. Č and Ć are sometimes written "ch", but collapsing ch → c
+# would mangle ordinary English words that appear constantly in operator names
+# ("Beach", "Church"), turning "Beach Tours" into "Beac Tours". The cost of
+# that false merge is higher than the handful of ch spellings it would catch,
+# so the rule is deliberately omitted. This is the sort of trade-off a locale
+# pack exists to make explicit.
 transliteration_variants:
-  đ: [d, dj]
-  ć: [c, ch]
-  č: [c, ch]
+  dj: d
 
 # Descriptive words carrying no identity signal. Removed before fuzzy scoring
 # so that "Adriatic Tours" and "Adriatic Travel Agency" do not score as similar
