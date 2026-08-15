@@ -735,9 +735,13 @@ function renderRun(r) {
         ${stat('Operators', r.leads.length, c ? `${pct(c.model_share)} needed the model` : '')}
         ${stat('Cost', gbp(r.cost.gbp), 'this run, measured')}
       </div>
-      ${d.unresolved_cells ? `<div class="note warn">${d.unresolved_cells} cells were still returning a
-        full page at maximum depth. Coverage is incomplete there, and the tool says so rather
-        than reporting a clean result.</div>` : ''}
+      ${d.unresolved_cells ? note(
+        `<strong>${d.unresolved_cells} ${d.unresolved_cells === 1 ? 'square' : 'squares'} had
+         more operators than we could reach. There are others we did not find.</strong>`,
+        `<p>When a square comes back full, we split it into four smaller ones and search
+          again. There is a limit to how many times we do that, and ${d.unresolved_cells}
+          ${d.unresolved_cells === 1 ? 'square was' : 'squares were'} still full when we hit it.</p>
+        <p>Search a smaller area to get complete coverage there.</p>`, 'warn') : ''}
       ${r.scope ? note(
         '<strong>These are discovered operators, not net-new leads.</strong>',
         `<p>${esc(r.scope.detail)}</p>`, 'warn') : ''}

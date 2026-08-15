@@ -356,19 +356,14 @@ def run(
                 "destination."
             ),
         },
+        # Incomplete coverage is NOT repeated here. discovery.unresolved_cells
+        # carries the number, and the console renders it as a warning in its own
+        # right. Stating it in both places put the same sentence on screen twice,
+        # in two different wordings, which reads as two separate problems.
         "caveats": [
-            "Websites were not fetched, so readiness scores on contactability "
-            "alone and will read low. The Croatia snapshot shows the enriched "
-            "version.",
-            "Gap fit uses a synthetic demand table; in production it comes from "
-            "Viator's own search logs.",
-        ]
-        + (
-            [
-                f"{len(sweep.unresolved_cells)} cells were still returning a "
-                "full page at maximum depth, so coverage is incomplete there."
-            ]
-            if sweep.unresolved_cells
-            else []
-        ),
+            "We did not read operator websites, so readiness only reflects "
+            "whether we can contact them. The published lead list is enriched.",
+            "Demand data here is made up. In production it comes from Viator's "
+            "own search logs.",
+        ],
     }
