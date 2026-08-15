@@ -20,7 +20,7 @@ reproducible and explainable to a Destination Specialist.
 from __future__ import annotations
 
 import math
-from collections import defaultdict
+from collections import Counter, defaultdict
 from dataclasses import dataclass
 
 from rapidfuzz import fuzz
@@ -105,6 +105,26 @@ GENERIC_ONLY_CAP = 0.40
 # "Hemingway Boat Split") agree well below this, while genuine same-business
 # pairs sit well above it.
 PHONE_CORROBORATION_NAME_FLOOR = 0.70
+
+# The same floor, applied to domains that are demonstrably shared.
+#
+# identity_domain already refuses to treat a bare builder domain as identity,
+# keeping the full host so that two operators on wixsite.com do not collide.
+# That was necessary and it was not sufficient: measured on the real Split
+# sweep, EIGHT different operators list the same full host,
+# tantulika28.wixsite.com, and five more share cro-hr.com. A shared booking
+# agent's site is one host serving many businesses, and the subdomain does not
+# separate them because there is only one subdomain.
+#
+# Left uncorroborated this was not a small residue. It was ALL of it: every one
+# of the 7 remaining missed opportunities, the expensive error, came from this
+# single host. Phone was demoted for exactly this reason in Correction 7 and
+# domain simply never got the same treatment.
+#
+# Which hosts are shared is learned from the corpus rather than hardcoded, the
+# same way generic name tokens are. A curated builder list cannot know that
+# cro-hr.com is a Croatian agency portal, but counting can.
+DOMAIN_CORROBORATION_NAME_FLOOR = 0.70
 
 # Blocking grid, roughly 5 km of latitude. Coarse on purpose: neighbours are
 # searched too, so the cost of a slightly loose grid is a few extra comparisons,
@@ -334,6 +354,7 @@ class MatchIndex:
         suppliers: list[SupplierRecord],
         locale: LocalePack,
         extra_name_corpus: list[str] | None = None,
+        extra_domain_corpus: list[str | None] | None = None,
     ):
         self.locale = locale
         self.keys: dict[str, SupplierKeys] = {}
@@ -372,6 +393,21 @@ class MatchIndex:
         for text in extra_name_corpus or ():
             name_docs.append(set(normalise_name(text, locale).split()))
         self.idf = build_idf(name_docs, addr_docs)
+
+        # Learn which hosts serve more than one business, on either side of the
+        # join. Two references to one host across the two sides is what a
+        # genuine match looks like, so that is not evidence of sharing; two
+        # businesses on the SAME side is.
+        discovered_domains: Counter[str] = Counter()
+        for website in extra_domain_corpus or ():
+            if website:
+                d = identity_domain(website)
+                if d:
+                    discovered_domains[d] += 1
+        self.shared_domains: frozenset[str] = frozenset(
+            {d for d, ids in self._by_domain.items() if len(set(ids)) > 1}
+            | {d for d, n in discovered_domains.items() if n > 1}
+        )
 
     def candidates(self, place: DiscoveredPlace) -> list[SupplierKeys]:
         ids: set[str] = set()
@@ -514,14 +550,31 @@ def score_pair(
 
 
 def _hard_key_match(
-    place: DiscoveredPlace, keys: SupplierKeys, locale: LocalePack
+    place: DiscoveredPlace,
+    keys: SupplierKeys,
+    locale: LocalePack,
+    shared_domains: frozenset[str] = frozenset(),
 ) -> tuple[str, str] | None:
     """Return (signal, detail) when a single key is decisive on its own."""
+    place_norm = normalise_name(place.name, locale)
+
+    def name_agreement() -> float:
+        if not place_norm or not keys.norm_name:
+            return 0.0
+        return fuzz.token_set_ratio(place_norm, keys.norm_name) / 100
+
     place_domain = identity_domain(place.website) if place.website else None
     if place_domain and keys.domain and place_domain == keys.domain:
-        return "domain", place_domain
-
-    place_norm = normalise_name(place.name, locale)
+        # A host used by only one business is identity. A host used by several
+        # is an address, and needs the name to say which tenant this is.
+        if place_domain not in shared_domains:
+            return "domain", place_domain
+        agreement = name_agreement()
+        if agreement >= DOMAIN_CORROBORATION_NAME_FLOOR:
+            return (
+                "domain and name",
+                f"{place_domain} with {agreement:.0%} name agreement",
+            )
 
     # Phone alone is NOT identity in this market, and that is measured rather
     # than assumed: 13% of real Split operators share a number with a different
@@ -534,15 +587,11 @@ def _hard_key_match(
     # operator already-on-file.
     place_phone = normalise_phone(place.phone, locale.phone_region) if place.phone else None
     if place_phone and keys.phone and place_phone == keys.phone:
-        name_agreement = (
-            fuzz.token_set_ratio(place_norm, keys.norm_name) / 100
-            if place_norm and keys.norm_name
-            else 0.0
-        )
-        if name_agreement >= PHONE_CORROBORATION_NAME_FLOOR:
+        agreement = name_agreement()
+        if agreement >= PHONE_CORROBORATION_NAME_FLOOR:
             return (
                 "phone and name",
-                f"{place_phone} with {name_agreement:.0%} name agreement",
+                f"{place_phone} with {agreement:.0%} name agreement",
             )
 
     if (
@@ -584,7 +633,7 @@ def match_place(
         )
 
     for keys in candidates:
-        hit = _hard_key_match(place, keys, locale)
+        hit = _hard_key_match(place, keys, locale, index.shared_domains)
         if hit:
             signal, detail = hit
             return MatchResult(
@@ -656,7 +705,12 @@ def match_all(
 ) -> list[MatchResult]:
     # The discovered names go into the corpus too. A supplier list alone
     # under-counts how ordinary a word like "boat" really is in this market.
-    index = MatchIndex(suppliers, locale, extra_name_corpus=[p.name for p in places])
+    index = MatchIndex(
+        suppliers,
+        locale,
+        extra_name_corpus=[p.name for p in places],
+        extra_domain_corpus=[p.website for p in places],
+    )
     return [match_place(p, index, locale, thresholds) for p in places]
 
 

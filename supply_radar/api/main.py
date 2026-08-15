@@ -43,10 +43,14 @@ def healthz() -> dict:
         "status": "ok",
         "version": __version__,
         "environment": settings.environment,
+        # Only capabilities that actually do something. "bigquery" used to be
+        # reported here, set from whether an environment variable was present,
+        # which reads as "the BigQuery path is wired up" when nothing in the
+        # codebase imports the client. A health endpoint that overstates the
+        # system is worse than one that omits a field.
         "capabilities": {
             "places": settings.places_enabled,
             "llm": settings.llm_enabled,
-            "bigquery": bool(settings.bq_project),
         },
     }
 
@@ -66,9 +70,31 @@ def meta() -> dict:
 
 app.include_router(router)
 
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+class RevalidatingStatic(StaticFiles):
+    """Static files that must be revalidated before reuse.
+
+    Starlette sets last-modified and an etag but no Cache-Control, which leaves
+    freshness to browser heuristics. Measured on the deployed service: after a
+    deploy the browser kept serving the previous app.css, so a CSS fix was live
+    on the server and invisible in the page — the class was applied, the rule
+    was in the file, and the rule was not in the loaded stylesheet.
+
+    For a prototype that gets redeployed repeatedly and then demonstrated, a
+    stale asset is a far worse outcome than a revalidation request. "no-cache"
+    still allows the 304, so the cost is one conditional request per asset.
+    """
+
+    def file_response(self, *args, **kwargs):
+        response = super().file_response(*args, **kwargs)
+        response.headers["Cache-Control"] = "no-cache"
+        return response
+
+
+app.mount("/static", RevalidatingStatic(directory=STATIC_DIR), name="static")
 
 
 @app.get("/")
 def index() -> FileResponse:
-    return FileResponse(STATIC_DIR / "index.html")
+    return FileResponse(
+        STATIC_DIR / "index.html", headers={"Cache-Control": "no-cache"}
+    )

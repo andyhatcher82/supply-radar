@@ -23,6 +23,80 @@ from supply_radar.enrich import SiteFetcher, enrich  # noqa: E402
 from supply_radar.llm import LLMClient  # noqa: E402
 from supply_radar.models import DiscoveredPlace  # noqa: E402
 from supply_radar.scoring import score_lead  # noqa: E402
+from supply_radar.taxonomy import top_level  # noqa: E402
+
+
+UNMAPPED = "(unmapped)"
+UNMAPPED_CAP = 3
+
+
+def _stratified_sample(operators, places, limit):
+    """Sample across Viator tier-1 categories, scarcest first.
+
+    Taking the first N operators with a website inherits whatever the discovery
+    sweep found most of. In Split that is boat tours, and the result was a lead
+    list of 39 boat tours and 1 walking tour in which every single lead scored
+    gap_fit 0.00, because both categories are saturated. A 30%-weighted axis
+    contributing nothing to any lead is not a scoring bug — the bands are
+    calibrated for it — but it hides the argument the axis exists to make.
+
+    So: take EVERY operator in the scarce categories, and let the dominant one
+    absorb whatever is left. The dominant category's quota is therefore not
+    chosen, it is the remainder, which is the same discipline the match
+    thresholds follow. On the Split data that lands at 13 Food & Drink, 13
+    Outdoor Activities, 2 Art & Culture, and 9 of the 118 Tours, Sightseeing &
+    Cruises operators.
+
+    That is the correct output rather than a flattering one: the composite ranks
+    by opportunity, and adding a 40th boat tour to a saturated category is worth
+    less than adding a first food tour. A lead list weighted by what discovery
+    found most of would be ranking by volume, which is what a generic lead-gen
+    tool does.
+    """
+    from collections import defaultdict
+
+    def tier_of(c) -> str:
+        place = places[c["place_source_id"]]
+        category = resolve_category(place, c.get("experience_type"))
+        try:
+            return top_level(category) or UNMAPPED
+        except Exception:
+            return UNMAPPED
+
+    by_tier: dict[str, list] = defaultdict(list)
+    for c in operators:
+        if not places[c["place_source_id"]].website:
+            continue  # cannot be enriched, so it cannot be scored on readiness
+        by_tier[tier_of(c)].append(c)
+
+    if not by_tier:
+        return operators[:limit]
+
+    # Everything except the largest tier is taken whole, so the dominant tier's
+    # quota is the remainder rather than a number anyone picked.
+    dominant = max(by_tier, key=lambda t: len(by_tier[t]))
+
+    chosen = []
+    for tier, members in sorted(by_tier.items(), key=lambda kv: len(kv[1])):
+        if tier == dominant:
+            continue
+        # Uncategorised operators are capped. A few are worth showing, because
+        # pretending every operator resolves cleanly would be its own dishonesty,
+        # but ten of them would crowd out the categories that carry gap fit.
+        take = UNMAPPED_CAP if tier == UNMAPPED else len(members)
+        chosen.extend(members[: min(take, max(0, limit - len(chosen)))])
+
+    chosen.extend(by_tier[dominant][: max(0, limit - len(chosen))])
+
+    print("stratified sample across Viator tier-1:")
+    counts: dict[str, int] = defaultdict(int)
+    for c in chosen:
+        counts[tier_of(c)] += 1
+    for tier, n in sorted(counts.items(), key=lambda kv: -kv[1]):
+        note = "  <- remainder" if tier == dominant else ""
+        print(f"  {n:3d} of {len(by_tier[tier]):3d} available   {tier}{note}")
+    print()
+    return chosen[:limit]
 
 
 def main() -> None:
@@ -31,6 +105,12 @@ def main() -> None:
     ap.add_argument("--classified", default="data/split_classified.json")
     ap.add_argument("--limit", type=int, default=40)
     ap.add_argument("--out", default="data/split_leads.json")
+    ap.add_argument(
+        "--stratify",
+        action="store_true",
+        help="Sample across Viator tier-1 categories instead of taking the "
+             "first N with a website. See _stratified_sample.",
+    )
     args = ap.parse_args()
 
     places = {
@@ -43,7 +123,10 @@ def main() -> None:
     # Sites first: an operator with no website cannot be enriched, and putting
     # them last keeps the sample informative.
     operators.sort(key=lambda c: places[c["place_source_id"]].website is None)
-    if args.limit:
+
+    if args.stratify:
+        operators = _stratified_sample(operators, places, args.limit)
+    elif args.limit:
         operators = operators[: args.limit]
 
     print(f"{len(operators)} operators to enrich\n")

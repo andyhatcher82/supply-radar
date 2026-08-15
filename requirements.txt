@@ -12,10 +12,20 @@ PyYAML>=6.0
 httpx>=0.27
 beautifulsoup4>=4.12
 
+# The licensing register is published as a weekly XLSX, so reading it is a
+# dependency rather than a nicety.
+openpyxl>=3.1
+
 # Geometry
 shapely>=2.0
 
 # Storage
+#
+# NOT CURRENTLY USED. Both are here for the intended BigQuery snapshot store,
+# which is designed (section 1 of the decision log) and not built: nothing
+# imports either library and the published snapshot is a JSON file. Left in
+# place because the intent is real, flagged because a requirements line is not
+# evidence of an implementation.
 duckdb>=1.1
 google-cloud-bigquery>=3.25
 google-cloud-secret-manager>=2.20

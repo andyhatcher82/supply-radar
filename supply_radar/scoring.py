@@ -25,18 +25,31 @@ import yaml
 from supply_radar.config import CONFIG_DIR
 
 # Review counts reward operators who are already good at digital, which is
-# exactly the opposite of what a supply team hunting the long tail wants. Two
-# deliberate counterweights:
-#
-# 1. Volume is log-scaled and CAPPED at a modest number of reviews. Past the
-#    cap, more reviews buy nothing. A 5,000-review operator should not bury a
-#    genuinely excellent 60-review one.
-# 2. Ratings are shrunk toward the destination mean in proportion to how few
-#    reviews back them, so a 5.0 from three reviews does not outrank a 4.8
-#    from four hundred.
+# exactly the opposite of what a supply team hunting the long tail wants. The
+# counterweight: volume is log-scaled and CAPPED at a modest number of reviews.
+# Past the cap, more reviews buy nothing, so a 5,000-review operator cannot
+# bury a genuinely excellent 60-review one.
 REVIEW_VOLUME_CAP = 400
-RATING_PRIOR_MEAN = 4.3
-RATING_PRIOR_WEIGHT = 20
+
+# There used to be a second counterweight here: ratings shrunk toward a 4.3
+# destination mean in proportion to how few reviews backed them, so a 5.0 from
+# three reviews could not outrank a 4.8 from four hundred.
+#
+# It was removed, because review count was then being charged twice. Shrinkage
+# pulled the rating down BECAUSE n was low, and the volume component scored low
+# BECAUSE n was low. Measured across the Split leads, the axis correlated more
+# strongly with log(review count) at 0.786 than with the rating itself at
+# 0.761 — a "quality" axis that was mostly measuring how many people had
+# reviewed, not how good the operator was.
+#
+# Removing it takes the correlation with rating to 0.915 and with review count
+# to 0.644, which is the right way round. The thing shrinkage guarded against
+# does not happen anyway: with raw ratings a 5.0 from one review scores 0.646
+# and a 4.3 from four hundred scores 0.720, so thin evidence still loses. The
+# volume component was already doing the whole job.
+#
+# Raised by Andy twice before it was taken seriously, on the grounds that it
+# made no sense to a reader. It made no sense because it was wrong.
 
 # Lead bands, expressed as what Sales should DO rather than as score ranges.
 #
@@ -55,6 +68,46 @@ RATING_PRIOR_WEIGHT = 20
 # these are config and get recalibrated per destination pack.
 BAND_A = 0.55
 BAND_B = 0.42
+
+# Expressed as a share of what is actually ACHIEVABLE in a destination, because
+# a fixed cut-off is wrong twice over and has now been wrong in both directions.
+#
+# It was 0.65, against a ceiling of 0.651, so band A was unreachable and carried
+# no information (Correction 12). It was then lowered to 0.55 — correct at the
+# time — and when the quality axis was fixed the ceiling rose to 0.796, which
+# put 48% of leads in band A. "Contact first" that applies to half the list is
+# not a priority, it is a label.
+#
+# A ratio moves with the destination on its own, which is what the bands were
+# always documented as needing. Saturated categories cap gap fit at 0.00 and
+# therefore cap the composite, and those destinations should not be judged
+# against a ceiling they cannot reach.
+BAND_A_SHARE_OF_CEILING = 0.80
+BAND_B_SHARE_OF_CEILING = 0.55
+
+
+def band_cutoffs(leads: list[dict]) -> tuple[float, float, float]:
+    """Return (band_a, band_b, ceiling) for a destination's scored leads.
+
+    The ceiling is the best composite actually reachable here: the best observed
+    score on each axis, combined at the configured weights. Using the best
+    OBSERVED composite instead would collapse the top band onto whoever happens
+    to lead the list.
+    """
+    if not leads:
+        return BAND_A, BAND_B, 1.0
+    weights = {"quality": 0.35, "readiness": 0.35, "gap_fit": 0.30}
+    ceiling = sum(
+        max(lead[axis]["score"] for lead in leads) * weight
+        for axis, weight in weights.items()
+    )
+    if ceiling <= 0:
+        return BAND_A, BAND_B, 0.0
+    return (
+        round(ceiling * BAND_A_SHARE_OF_CEILING, 4),
+        round(ceiling * BAND_B_SHARE_OF_CEILING, 4),
+        round(ceiling, 4),
+    )
 
 BAND_MEANING = {
     "A": "Contact first. Strong on quality and readiness, and in a category "
@@ -169,20 +222,13 @@ def score_quality(rating: float | None, review_count: int | None) -> Axis:
             Component("rating", 0.35, 0.6, "No rating on the listing")
         )
     else:
-        # Shrink toward the prior in proportion to how thin the evidence is.
-        adjusted = (
-            reviews * rating + RATING_PRIOR_WEIGHT * RATING_PRIOR_MEAN
-        ) / (reviews + RATING_PRIOR_WEIGHT)
-        # 3.5 is roughly the floor for a functioning operator; 5.0 the ceiling.
-        value = max(0.0, min(1.0, (adjusted - 3.5) / 1.5))
+        # The rating as given. 3.5 is roughly the floor for a functioning
+        # operator and 5.0 the ceiling, so that is the range mapped onto 0-1.
+        # How much evidence sits behind the rating is the review-volume
+        # component's job, and only its job.
+        value = max(0.0, min(1.0, (rating - 3.5) / 1.5))
         axis.components.append(
-            Component(
-                "rating",
-                value,
-                0.6,
-                f"{rating} from {reviews} reviews "
-                f"(adjusted to {adjusted:.2f} for sample size)",
-            )
+            Component("rating", value, 0.6, f"{rating} from {reviews} reviews")
         )
 
     volume = math.log10(1 + reviews) / math.log10(1 + REVIEW_VOLUME_CAP)
@@ -191,8 +237,7 @@ def score_quality(rating: float | None, review_count: int | None) -> Axis:
             "review volume",
             max(0.0, min(1.0, volume)),
             0.4,
-            f"{reviews} reviews (capped at {REVIEW_VOLUME_CAP}; "
-            f"more buys no further credit)",
+            f"{reviews} reviews",
         )
     )
     return axis

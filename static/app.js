@@ -3,7 +3,7 @@
 
 const S = { snap: null, regions: null, terms: null, selectedTerms: [],
             view: 'overview', map: null, layer: null,
-            mode: 'circle', shape: null, estimate: null, decisions: {},
+            mode: 'circle', shape: null, estimate: null, decisions: {}, removed: {},
             permitted: true, permitMsg: '',
             adminCfg: null, adminCode: '' };
 
@@ -217,8 +217,6 @@ function viewDiscover() {
           <input type="number" id="radius" value="4" min="1" max="25" step="0.5">
         </label>
         <label class="field">
-          <span>Cell size (km half-side)</span>
-          <input type="number" id="cell" value="3" min="1" max="10" step="0.5">
         </label>
         <label class="field">
           <span>Search terms (pick up to ${S.terms?.max_selectable || 3})</span>
@@ -315,20 +313,27 @@ function initMap() {
 
   map.on('click', (e) => { if (S.mode === 'circle') setCircle(e.latlng); });
 
+  // Only the two draw buttons. Edit and removal toggles are deliberately gone:
+  // a shape's handles are always live (see watchEdits / enableEditing), so
+  // there is nothing for a user to switch on, and a toggle that must be found
+  // before the map responds is a trap rather than a control.
   map.pm.addControls({
     position: 'topright', drawCircle: false, drawMarker: false,
     drawCircleMarker: false, drawPolyline: false, drawText: false,
-    drawRectangle: true, drawPolygon: true, editMode: true,
-    dragMode: false, cutPolygon: false, rotateMode: false,
+    drawRectangle: true, drawPolygon: true, editMode: false,
+    removalMode: false, dragMode: false, cutPolygon: false, rotateMode: false,
   });
   map.on('pm:create', (e) => {
     S.layer.clearLayers();
-    S.shape = { kind: 'polygon', points: e.layer.getLatLngs()[0].map(p => [p.lat, p.lng]) };
     e.layer.setStyle({ color: '#4fd1c5', weight: 2, fillOpacity: 0.08 });
     S.layer.addLayer(e.layer);
+    watchEdits(e.layer);
+    syncShapeFrom(e.layer);
     map.pm.disableDraw();
-    clearEstimate();
   });
+  // removalMode is on by default in the toolbar, so a shape can be deleted.
+  // Without this the deleted shape stayed in S.shape and remained runnable.
+  map.on('pm:remove', () => { S.shape = null; clearEstimate(); });
 
   applyMode();
   setCircle(L.latLng(43.5081, 16.4402));
@@ -336,8 +341,13 @@ function initMap() {
 
 function applyMode() {
   $('#modehelp').textContent = MODE_HELP[S.mode];
-  const ctl = document.querySelector('.leaflet-pm-toolbar');
-  if (ctl) ctl.style.display = S.mode === 'polygon' ? '' : 'none';
+  // Driven by a class on the map container rather than by setting display on
+  // the toolbar directly. Geoman attaches its control after this first runs, so
+  // the direct version hit its own `if (ctl)` guard, did nothing, and left the
+  // draw buttons showing in circle mode until the user happened to switch modes
+  // and back. A CSS rule applies whenever the toolbar turns up.
+  const el = $('#map');
+  if (el) el.classList.toggle('hide-draw-tools', S.mode !== 'polygon');
   $('#radius').closest('label').style.display = S.mode === 'circle' ? '' : 'none';
 }
 
@@ -345,9 +355,68 @@ function setCircle(latlng) {
   const radius = parseFloat($('#radius').value) || 4;
   S.layer.clearLayers();
   S.shape = { kind: 'circle', lat: latlng.lat, lng: latlng.lng, radius_km: radius };
-  L.circle(latlng, {
+  const circle = L.circle(latlng, {
     radius: radius * 1000, color: '#4fd1c5', weight: 2, fillOpacity: 0.08,
   }).addTo(S.layer);
+  watchEdits(circle);
+  clearEstimate();
+}
+
+/* The drawn layer is the source of truth, not S.shape.
+ *
+ * Geoman's edit mode lets a user resize the circle or drag a polygon vertex
+ * directly on the map. Before this, nothing listened for that: S.shape kept
+ * whatever the radius field said at the moment the shape was placed, and
+ * requestBody() feeds S.shape to BOTH /api/estimate and /api/run. Enlarging the
+ * circle on the map therefore left the sweep searching the original area and
+ * quoting the original price, with the map showing something else entirely.
+ *
+ * That is the silent-truncation failure mode this pipeline exists to avoid,
+ * reintroduced in the browser: a search that quietly covers less than it claims
+ * and says nothing about it.
+ */
+// Event names verified against the vendored Leaflet-Geoman 2.17.0 rather than
+// taken from the docs: this version emits no 'pm:update', so listening for it
+// would have looked like a fix and done nothing. 'pm:change' is the general
+// geometry-changed event; the rest are belt and braces, and the handler is
+// idempotent so overlapping events are harmless.
+function watchEdits(layer) {
+  layer.on(
+    'pm:change pm:edit pm:markerdragend pm:dragend pm:centerplaced',
+    () => syncShapeFrom(layer),
+  );
+  enableEditing(layer);
+}
+
+// Handles on, always, from the moment a shape exists. Geoman defaults to
+// requiring a toolbar toggle first, which meant the circle looked draggable,
+// was not, and gave no clue why.
+function enableEditing(layer) {
+  try {
+    layer.pm.enable({ allowSelfIntersection: false, preventMarkerRemoval: true });
+  } catch { /* a layer type Geoman cannot edit is not worth failing over */ }
+}
+
+function syncShapeFrom(layer) {
+  if (layer instanceof L.Circle) {
+    const centre = layer.getLatLng();
+    // Two decimals: the field steps in 0.5 km and a radius of 4.0231 km reads
+    // as false precision on a quadtree that subdivides in kilometres.
+    const km = Math.round((layer.getRadius() / 1000) * 100) / 100;
+    S.shape = { kind: 'circle', lat: centre.lat, lng: centre.lng, radius_km: km };
+    const field = $('#radius');
+    // Deliberately NOT clamped to the field's max of 25. The server rejects a
+    // larger radius with an explicit message, and silently shrinking what
+    // someone just drew would be the same lie in the opposite direction.
+    if (field) field.value = km;
+  } else if (typeof layer.getLatLngs === 'function') {
+    S.shape = { kind: 'polygon', points: layer.getLatLngs()[0].map(p => [p.lat, p.lng]) };
+  } else {
+    return;
+  }
+  // Any edit invalidates a completed estimate, so Run is disabled until the
+  // new shape has been priced. Otherwise a sweep could be launched against a
+  // shape nobody ever costed.
   clearEstimate();
 }
 
@@ -364,9 +433,47 @@ function clearEstimate() {
     : (S.shape && check.msg ? `<div class="note">${esc(check.msg)} Estimate the cost to continue.</div>` : '');
 }
 
+/* The starting grid square, chosen by the system rather than typed by a user.
+ *
+ * This was a "Cell size (km half-side)" input, which is the Places API's
+ * internals wearing a label. Nobody outside this codebase could answer what to
+ * put in it, and the honest reason is that it barely matters: the quadtree
+ * already splits any square that comes back at the 60-result cap, so the
+ * starting size only decides how many rounds of splitting it takes to get
+ * there. Too coarse costs a little time; too fine costs a lot of calls.
+ *
+ * So it is derived from the area. Small areas get a fine grid because a coarse
+ * one would be a single query over the whole thing; large areas start coarse
+ * and let subdivision find the dense parts, which is the entire point of
+ * adaptive subdivision and a better story than a number in a box.
+ */
+function autoCellKm(shape) {
+  const km2 = shape
+    ? (shape.kind === 'circle'
+        ? Math.PI * shape.radius_km * shape.radius_km
+        : approxPolygonKm2(shape.points))
+    : 50;
+  if (km2 <= 25) return 1.5;
+  if (km2 <= 120) return 3;
+  if (km2 <= 400) return 4;
+  return 5;
+}
+
+function approxPolygonKm2(points) {
+  if (!points || points.length < 3) return 50;
+  const latMid = points.reduce((s, p) => s + p[0], 0) / points.length;
+  const kx = 111.32 * Math.cos(latMid * Math.PI / 180), ky = 110.57;
+  let area = 0;
+  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+    area += (points[j][1] * kx) * (points[i][0] * ky)
+          - (points[i][1] * kx) * (points[j][0] * ky);
+  }
+  return Math.abs(area / 2);
+}
+
 function requestBody() {
   const queries = S.selectedTerms.slice();
-  const cell = parseFloat($('#cell').value) || 3;
+  const cell = autoCellKm(S.shape);
   if (!S.shape) return null;
   if (S.shape.kind === 'circle') {
     return { shape: 'circle', center_lat: S.shape.lat, center_lng: S.shape.lng,
@@ -387,7 +494,8 @@ async function doEstimate() {
     S.estimate = e;
     $('#estimate').innerHTML = `
       <div class="row"><span>Area</span><span>${e.area_km2} km²</span></div>
-      <div class="row"><span>Cells</span><span>${e.cells}</span></div>
+      <div class="row"><span>Search grid</span><span>${e.cells} squares of
+        ${autoCellKm(S.shape)} km, chosen automatically</span></div>
       <div class="row"><span>Search terms</span><span>${e.queries_per_cell}</span></div>
       <div class="row"><span>API calls</span><span>${e.estimated_calls}</span></div>
       <div class="row"><span>Estimated cost</span><span>${gbp(e.estimated_gbp)}</span></div>
@@ -438,17 +546,81 @@ function renderRun(r) {
       ${d.unresolved_cells ? `<div class="note warn">${d.unresolved_cells} cells were still returning a
         full page at maximum depth. Coverage is incomplete there, and the tool says so rather
         than reporting a clean result.</div>` : ''}
+      ${r.scope ? `<div class="note warn" style="margin-top:14px">
+        <strong>${esc(r.scope.headline)}</strong><br>${esc(r.scope.detail)}</div>` : ''}
       ${r.caveats.map(c => `<div class="note">${esc(c)}</div>`).join('')}
-      <p class="section-title">Top leads from this sweep</p>
+      <div class="section-title" style="display:flex;align-items:center;gap:12px">
+        <span>Top discovered operators from this sweep</span>
+        <button class="btn ghost" id="btnExportRun" style="padding:4px 10px;font-size:13px">Export CSV</button>
+      </div>
       <div class="scroll"><table>
-        <thead><tr><th>Operator</th><th>Category</th><th class="num">Rating</th><th class="num">Score</th><th>Band</th></tr></thead>
+        <thead><tr><th>Operator</th><th>Category</th><th class="num">Rating</th><th class="num">Score</th><th>Band</th><th></th></tr></thead>
         <tbody>${r.leads.slice(0, 15).map(l => `
           <tr><td>${esc(l.name)}</td><td style="color:var(--muted)">${esc((l.category || '—').replace(/_/g, ' '))}</td>
           <td class="num">${l.rating ?? '—'}</td><td class="num">${n3(l.composite)}</td>
-          <td><span class="pill ${l.band}">${l.band}</span></td></tr>`).join('')}
+          <td><span class="pill ${l.band}">${l.band}</span></td>
+          <td><button class="btn ghost" disabled title="${esc(ADD_TO_LEADS_WHY)}"
+              style="padding:3px 9px;font-size:12px">Add to leads</button></td></tr>`).join('')}
         </tbody>
       </table></div>
+      <div class="note">Showing the top 15 of ${r.leads.length}. The CSV carries all of them.</div>
     </div>`;
+
+  $('#btnExportRun').onclick = () => downloadCsv(
+    `supply-radar-sweep-${stamp()}.csv`,
+    toCsv(r.leads.map(l => ({
+      name: l.name, category: l.category, viator_category: l.viator_top || '',
+      website: l.website, phone: l.phone, address: l.address,
+      rating: l.rating, review_count: l.review_count,
+      composite: l.composite, band: l.band,
+      quality: l.quality?.score, readiness: l.readiness?.score, gap_fit: l.gap_fit?.score,
+      net_new_determined: 'no - see scope note',
+    }))),
+  );
+}
+
+// Shown as a disabled control rather than omitted, because the absence of a
+// path from Discover to Leads is a fact about the data, not an oversight, and a
+// missing button says nothing while a disabled one with a reason says exactly
+// where the boundary is.
+const ADD_TO_LEADS_WHY =
+  'Disabled: nothing here has been checked against Viator\'s supplier list, so it ' +
+  'cannot be promoted to a lead yet. Net-new is a comparison, and we only hold one ' +
+  'side of it. Once the real supplier list is connected, operators move from here ' +
+  'straight into the leads list, or into the review queue where the match is ambiguous.';
+
+/* ------------------------------------------------------------------ csv */
+
+// Hand-rolled rather than pulled in as a dependency: it is twenty lines, and a
+// build step for one button would cost more than it saves.
+function toCsv(rows) {
+  if (!rows.length) return '';
+  const cols = Object.keys(rows[0]);
+  const cell = (v) => {
+    if (v === null || v === undefined) return '';
+    const s = String(v);
+    // Quote anything containing a delimiter, a quote or a newline. Croatian
+    // operator names carry commas often enough that skipping this would
+    // silently shift every column after the offending one.
+    return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  return [cols.join(','), ...rows.map(r => cols.map(c => cell(r[c])).join(','))].join('\r\n');
+}
+
+function stamp() {
+  return new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+}
+
+function downloadCsv(filename, csv) {
+  // A BOM, so Excel opens UTF-8 correctly. Without it "Poljička" arrives as
+  // mojibake on a default Windows install, which is exactly the audience.
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = Object.assign(document.createElement('a'), { href: url, download: filename });
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 
 /* ---------------------------------------------------------------- leads */
@@ -460,13 +632,17 @@ const BANDS = {
 };
 
 function viewLeads() {
-  const leads = S.snap.leads;
+  const removedIds = S.removed;
+  const leads = S.snap.leads.filter(l => !removedIds[l.place_source_id]);
+  const removed = Object.values(removedIds);
   const counts = { A: 0, B: 0, C: 0 };
   leads.forEach(l => counts[l.band]++);
 
   return `
   <div class="card">
-    <h2>Qualified leads <span class="pill grey">${leads.length}</span></h2>
+    <h2>Qualified leads <span class="pill grey">${leads.length}</span>
+      <button class="btn ghost" id="btnExportLeads"
+        style="float:right;padding:6px 12px;font-size:13px">Export CSV</button></h2>
     <p class="hint">Ranked by composite score. Click any lead for the full evidence trail
       behind all three axes. The composite is a sort order, not a decision.</p>
 
@@ -482,9 +658,11 @@ function viewLeads() {
     </div>
 
     <div class="note">Bands come from the composite of the three axes, weighted
-      35% quality / 35% readiness / 30% gap fit. The cut-offs are recalibrated per
+      35% quality / 35% readiness / 30% gap fit.${S.snap.bands ? `
+      <strong>A &ge; ${n3(S.snap.bands.band_a)}, B &ge; ${n3(S.snap.bands.band_b)}</strong>
+      here. ${esc(S.snap.bands.basis)}` : ` The cut-offs are recalibrated per
       destination, because a saturated category scores 0.00 on gap fit and that caps
-      what any operator there can reach.</div>
+      what any operator there can reach.`}</div>
 
     ${counts.A === 0 ? `<div class="note warn"><strong>No A-band leads here, and that is
       the model working rather than failing.</strong> Every operator found sits in a
@@ -494,6 +672,11 @@ function viewLeads() {
       fit, because the categories found in this destination are already well served. The
       A-band leads earned their place on quality and readiness alone — strong operators
       in a competitive market, rather than an unmet need.</div>`}
+    ${removed.length ? `<div class="note warn"><strong>${removed.length} lead${removed.length > 1 ? 's' : ''} removed this session.</strong>
+      ${removed.map(r => `<div style="margin-top:6px">${esc(r.name)} — <span style="color:var(--muted)">${esc(r.reason)}</span></div>`).join('')}
+      <div style="margin-top:8px">Session only. In production these write to the decisions
+        table and retrain the thresholds, which is the point of capturing a reason rather
+        than just a rejection.</div></div>` : ''}
   </div>
   <div style="margin-top:14px">${leads.map(leadRow).join('')}</div>`;
 }
@@ -532,8 +715,67 @@ function leadRow(l, i) {
         ${axisCard('Readiness', l.readiness)}
         ${axisCard('Gap fit', l.gap_fit)}
       </div>
+      <div class="decide" style="margin-top:4px">
+        <span style="color:var(--muted);font-size:13px">Not a fit? Removing it records
+          why, which is what turns a rejection into a scoring signal.</span>
+        <div class="spacer"></div>
+        <button class="btn ghost" data-remove="${esc(l.place_source_id)}">Remove lead</button>
+      </div>
     </div>
   </div>`;
+}
+
+/* Removals are the useful half of a review loop.
+ *
+ * An accepted lead teaches nothing — it was already ranked highly. A rejection
+ * with a reason is the only signal that says the ranking was wrong and in what
+ * way, and it is the input threshold tuning actually needs. So the reason is
+ * required rather than optional.
+ *
+ * Session-only, and said so in the UI rather than implied: there is no
+ * decisions store yet. The schema this would write to is in the day-2 list.
+ */
+// Keyed on place_source_id, never on list position: the list is filtered as
+// leads are removed, so an index captured at render time points somewhere else
+// by the second removal.
+function removeLead(placeId) {
+  const lead = S.snap.leads.find(l => l.place_source_id === placeId);
+  if (!lead) return;
+  showRemoveDialog(lead, (reason) => {
+    S.removed[lead.place_source_id] = {
+      name: lead.name, reason, at: new Date().toISOString(),
+    };
+    render();
+  });
+}
+
+function showRemoveDialog(lead, onConfirm) {
+  const wrap = document.createElement('div');
+  wrap.className = 'modal-overlay';
+  wrap.innerHTML = `
+    <div class="modal-card">
+      <h3 style="margin:0 0 4px">Remove this lead</h3>
+      <div style="color:var(--muted);font-size:13px;margin-bottom:12px">${esc(lead.name)}</div>
+      <label style="display:block">
+        <span>Why is this not a fit?</span>
+        <textarea id="removeReason" rows="3" placeholder="e.g. already a supplier under a different trading name; not an experience operator; ceased trading"></textarea>
+      </label>
+      <div class="note">Captured in this session only. In production this writes to the
+        decisions table and feeds threshold tuning.</div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+        <button class="btn ghost" id="removeCancel">Cancel</button>
+        <button class="btn" id="removeConfirm" disabled>Remove lead</button>
+      </div>
+    </div>`;
+  document.body.appendChild(wrap);
+  const ta = wrap.querySelector('#removeReason');
+  const ok = wrap.querySelector('#removeConfirm');
+  const close = () => wrap.remove();
+  ta.focus();
+  ta.oninput = () => { ok.disabled = ta.value.trim().length < 3; };
+  wrap.querySelector('#removeCancel').onclick = close;
+  wrap.onclick = (e) => { if (e.target === wrap) close(); };
+  ok.onclick = () => { const r = ta.value.trim(); close(); onConfirm(r); };
 }
 
 function axisCard(title, axis) {
@@ -621,11 +863,33 @@ function viewQuality() {
 
   return `
   <div class="grid g4">
-    ${stat('Precision', n3(mm.precision), 'Of those called existing, how many were', 'good')}
+    ${stat('Precision', n3(mm.precision), `${mm.correct_existing} of ${mm.correct_existing + mm.missed_opportunity + mm.wrong_supplier} already-on-file calls were right`, 'good')}
     ${stat('Missed opportunities', mm.missed_opportunity, 'Real operators wrongly written off', mm.missed_opportunity > 12 ? 'bad' : 'warn')}
     ${stat('Wasted calls', mm.wasted_call, 'Existing suppliers sent to Sales again')}
     ${stat('Decided automatically', pct(mm.automation_rate), `${pct(mm.review_rate)} went to a human`)}
   </div>
+
+  ${mm.precision >= 0.999 ? `<div class="card" style="margin-top:16px">
+    <div class="note warn"><strong>Read precision 1.000 carefully — it is a real
+      measurement and it is not a forecast.</strong>
+      <div style="margin-top:8px">It says that of the ${mm.correct_existing + mm.missed_opportunity + mm.wrong_supplier}
+        operators this pipeline declared already-on-file, all
+        ${mm.correct_existing} were, against a supplier list whose answer key we hold.
+        Three things about that are worth saying before anyone quotes it.</div>
+      <div style="margin-top:8px"><strong>The denominator is small.</strong>
+        ${mm.correct_existing} decisions, one destination. A single bad call would put it
+        at ${n3(mm.correct_existing / (mm.correct_existing + 1))}.</div>
+      <div style="margin-top:8px"><strong>It was 0.803 on the first real-data run.</strong>
+        The distance between those two numbers is 26 corrections, and that trajectory is
+        the actual evidence here. The endpoint on its own is not.</div>
+      <div style="margin-top:8px"><strong>Real CRM data would score lower, and should.</strong>
+        The supplier list is synthetic. Its corruptions are modelled on how records
+        genuinely rot, but a real Viator extract carries duplicate entries for the same
+        operator, franchise and parent-child relationships, records stale by years, and
+        legitimate near-identical businesses that no answer key can adjudicate. Expect
+        this to fall. What transfers is the method and the corrections, not the figure.</div>
+    </div>
+  </div>` : ''}
 
   <div class="card" style="margin-top:16px">
     <h2>Why these two errors are not equal</h2>
@@ -685,11 +949,13 @@ function viewEconomics() {
   const e = S.snap.economics, p = e.per_destination, v = e.versus_manual;
   return `
   <div class="grid g4">
-    ${stat('Cost per destination', gbp(p.total_gbp), 'measured, not modelled')}
+    ${stat('Cost per destination', gbp(p.total_gbp), 'list price, free tiers excluded')}
     ${stat('Manual equivalent', gbp(v.manual_cost_gbp), `${v.manual_hours}h of analyst time`, 'warn')}
     ${stat('Ratio', v.cost_ratio + '×', 'cheaper than manual research', 'good')}
     ${stat('Per operator surfaced', gbp(p.gbp_per_operator_surfaced), `${p.operators_surfaced} operators`)}
   </div>
+
+  ${e.basis ? `<div class="card"><div class="note warn">${esc(e.basis)}</div></div>` : ''}
 
   <p class="section-title">Where the money goes, per destination</p>
   <div class="card"><div class="scroll"><table>
@@ -885,6 +1151,7 @@ function render() {
   $('#main').innerHTML = VIEWS[S.view]();
   document.querySelectorAll('#tabs button').forEach(b =>
     b.classList.toggle('active', b.dataset.view === S.view));
+  renderTopMeta();
   if (S.view === 'discover') { initMap(); bindDiscover(); }
   if (S.view === 'leads') bindLeads();
   if (S.view === 'review') bindReview();
@@ -900,7 +1167,6 @@ function bindDiscover() {
     S.layer.clearLayers(); S.shape = null; clearEstimate(); applyMode();
   });
   $('#radius').oninput = () => { if (S.shape?.kind === 'circle') setCircle(L.latLng(S.shape.lat, S.shape.lng)); };
-  $('#cell').oninput = clearEstimate;
 
   const max = S.terms?.max_selectable || 3;
   $('#terms').onchange = (e) => {
@@ -926,7 +1192,50 @@ function bindDiscover() {
 function bindLeads() {
   document.querySelectorAll('.lead-head').forEach(h =>
     h.onclick = () => h.parentElement.classList.toggle('open'));
+
+  document.querySelectorAll('[data-remove]').forEach(b => b.onclick = (e) => {
+    e.stopPropagation();  // the card header toggles open/closed on click
+    removeLead(b.dataset.remove);
+  });
+
+  const btn = $('#btnExportLeads');
+  if (btn) btn.onclick = () => downloadCsv(
+    `supply-radar-leads-${S.snap.destination.split(',')[0].trim().toLowerCase()}-${stamp()}.csv`,
+    // Column order is the order a Destination Specialist reads in: who they
+    // are and how to reach them first, scores after, evidence last. A CSV that
+    // opens on three decimal places and makes you scroll for the phone number
+    // is a CSV nobody uses twice.
+    // Exports what is on screen. Exporting leads the user just removed would
+    // make the removal cosmetic.
+    toCsv(S.snap.leads.filter(l => !S.removed[l.place_source_id]).map(l => ({
+      band: l.band,
+      name: l.name,
+      category: l.viator_label || l.category || '',
+      viator_category_path: l.viator_path || '',
+      website: l.website || '',
+      phone: l.phone || '',
+      address: l.address || '',
+      email: (l.extract && l.extract.contact_email) || '',
+      booking: (l.extract && l.extract.booking) || 'not assessed',
+      languages: (l.extract && (l.extract.languages || []).join(' ')) || '',
+      rating: l.rating ?? '',
+      reviews: l.review_count ?? '',
+      composite: l.composite,
+      quality: l.quality.score,
+      readiness: l.readiness.score,
+      gap_fit: l.gap_fit.score,
+      why_this_band: BAND_MEANING[l.band] || '',
+      destination: S.snap.destination,
+      snapshot_generated: S.snap.generated_from || '',
+    }))),
+  );
 }
+
+const BAND_MEANING = {
+  A: 'Contact first. Strong on quality and readiness, in a category with room for more supply.',
+  B: 'Worth contacting. Solid on at least one axis, with a visible caveat on another.',
+  C: 'Park for now. Thin evidence, or the category is already well served.',
+};
 
 function bindReview() {
   document.querySelectorAll('[data-decide]').forEach(b => b.onclick = () => {
@@ -946,14 +1255,35 @@ async function boot() {
       Could not load the snapshot: ${esc(err.message)}</div></div>`;
     return;
   }
-  const c = S.snap.counts;
-  $('#topmeta').innerHTML = `
-    <div><div class="k">Destination</div><div class="v">${esc(S.snap.destination)}</div></div>
-    <div><div class="k">Operators</div><div class="v">${c.operators}</div></div>
-    <div><div class="k">Net-new</div><div class="v">${c.net_new} <span style="color:var(--dim);font-size:12px">of ${c.operators}</span></div></div>`;
   document.querySelectorAll('#tabs button').forEach(b =>
     b.onclick = () => { S.view = b.dataset.view; render(); });
   render();
+}
+
+/* The banner describes the published Split snapshot, and nothing else.
+ *
+ * It used to sit above every page including Discover, where a live sweep over
+ * Dubrovnik ran underneath a header reading "Split, Croatia — 167 operators —
+ * 105 net-new". Those numbers were never wrong; they were answering a question
+ * nobody had asked on that page, next to results they had nothing to do with,
+ * which is a more effective way to mislead than being wrong would be.
+ *
+ * Hidden on Discover, and named for what it is everywhere else.
+ */
+function renderTopMeta() {
+  const el = $('#topmeta');
+  if (!el) return;
+  if (S.view === 'discover') {
+    el.innerHTML = '';
+    el.style.display = 'none';
+    return;
+  }
+  el.style.display = '';
+  const c = S.snap.counts;
+  el.innerHTML = `
+    <div><div class="k">Published snapshot</div><div class="v">${esc(S.snap.destination)}</div></div>
+    <div><div class="k">Operators</div><div class="v">${c.operators}</div></div>
+    <div><div class="k">Net-new</div><div class="v">${c.net_new}</div></div>`;
 }
 
 boot();

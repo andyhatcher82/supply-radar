@@ -1,58 +1,409 @@
 {
   "destination": "Split, Croatia",
   "generated_from": "Real Google Places discovery, August 2026",
+  "bands": {
+    "ceiling": 0.7955,
+    "band_a": 0.6364,
+    "band_b": 0.4375,
+    "basis": "Best achievable composite in this destination is 0.795, from the best score observed on each axis. Band A is the top 80% of that, band B the top 55%. A fixed cut-off has been wrong in both directions here: unreachable at 0.65, then too generous at 0.55 once the quality axis was corrected."
+  },
   "counts": {
     "places_discovered": 301,
     "not_relevant": 134,
     "operators": 167,
-    "already_on_file": 66,
-    "net_new": 97,
+    "already_on_file": 58,
+    "net_new": 105,
     "needs_review": 4,
     "leads_scored": 40,
     "suppliers_on_file": 107
   },
   "leads": [
     {
-      "name": "Hello Blue Cave - Boat Tours Split Croatia",
-      "website": "http://www.hellobluecave.com/",
+      "name": "Art Bottega Split | Wine and Paint Studio",
+      "website": "https://www.artbottega.hr/",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJMc4Fyf9dNRMR0Ymg4gf5yjk",
-      "composite": 0.6338,
+      "experience_type": "food_drink",
+      "place_source_id": "ChIJy5XkucRdNRMRln0HD89fB98",
+      "composite": 0.7879,
       "band": "A",
       "quality": {
-        "score": 0.9107,
+        "score": 0.9784,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.8512,
+            "value": 1.0,
             "weight": 0.6,
-            "evidence": "4.8 from 411 reviews (adjusted to 4.78 for sample size)"
+            "evidence": "5.0 from 289 reviews"
           },
           {
             "name": "review volume",
-            "value": 1.0,
+            "value": 0.9459,
             "weight": 0.4,
-            "evidence": "411 reviews (capped at 400; more buys no further credit)"
+            "evidence": "289 reviews"
           }
         ]
       },
       "readiness": {
-        "score": 0.9,
+        "score": 0.95,
         "note": null,
         "components": [
           {
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "http://www.hellobluecave.com/"
+            "evidence": "https://www.artbottega.hr/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 98 702 250"
+            "evidence": "+385 97 644 8772"
+          },
+          {
+            "name": "booking capability",
+            "value": 1.0,
+            "weight": 0.35,
+            "evidence": "online booking"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.6667,
+            "weight": 0.15,
+            "evidence": "hr, en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@artbottega.hr"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "tripadvisor"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "hr",
+          "en"
+        ],
+        "booking": "online_booking",
+        "product_categories": [
+          "cultural",
+          "other"
+        ],
+        "contact_email": "info@artbottega.hr",
+        "seasonality": "year_round",
+        "group_type": "both",
+        "marketplace_presence": [
+          "tripadvisor"
+        ],
+        "confidence": 0.8
+      },
+      "phone": "+385 97 644 8772",
+      "address": "Biserova ul. 16, 21000, Split, Croatia",
+      "lat": 43.510797,
+      "lng": 16.435852699999998,
+      "rating": 5.0,
+      "review_count": 289,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "classifier"
+    },
+    {
+      "name": "Gray Line Croatia",
+      "website": "http://graylinecroatia.com/",
+      "destination": "split",
+      "experience_type": "other",
+      "place_source_id": "ChIJddwgzP9dNRMRyY9SsxbwvF0",
+      "composite": 0.715,
+      "band": "A",
+      "quality": {
+        "score": 0.92,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.8667,
+            "weight": 0.6,
+            "evidence": "4.8 from 8568 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 1.0,
+            "weight": 0.4,
+            "evidence": "8568 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.8,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "http://graylinecroatia.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 91 140 0800"
+          },
+          {
+            "name": "booking capability",
+            "value": 1.0,
+            "weight": 0.35,
+            "evidence": "online booking"
+          },
+          {
+            "name": "languages sold in",
+            "value": 1.0,
+            "weight": 0.15,
+            "evidence": "en, es, fr, it, de, pt, ru, zh, ja, ko, ar"
+          },
+          {
+            "name": "contactable by email",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No email published"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No marketplace presence found on their site"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en",
+          "es",
+          "fr",
+          "it",
+          "de",
+          "pt",
+          "ru",
+          "zh",
+          "ja",
+          "ko",
+          "ar"
+        ],
+        "booking": "online_booking",
+        "product_categories": [
+          "boat_tour",
+          "walking_tour",
+          "adventure",
+          "day_trip",
+          "private_guide",
+          "transfer",
+          "cultural"
+        ],
+        "contact_email": "",
+        "seasonality": "year_round",
+        "group_type": "both",
+        "marketplace_presence": [],
+        "confidence": 0.8
+      },
+      "phone": "+385 91 140 0800",
+      "address": "Obala Hrvatskog narodnog preporoda 21, 21000, Split, Croatia",
+      "lat": 43.507571299999995,
+      "lng": 16.4395802,
+      "rating": 4.8,
+      "review_count": 8568,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "search term"
+    },
+    {
+      "name": "Booker",
+      "website": "https://www.booker.hr/",
+      "destination": "split",
+      "experience_type": "other",
+      "place_source_id": "ChIJ130HqeFfNRMRjCm8qyrLrUE",
+      "composite": 0.7115,
+      "band": "A",
+      "quality": {
+        "score": 1.0,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 1.0,
+            "weight": 0.6,
+            "evidence": "5.0 from 16693 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 1.0,
+            "weight": 0.4,
+            "evidence": "16693 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.71,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "https://www.booker.hr/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 91 434 3000"
+          },
+          {
+            "name": "booking capability",
+            "value": 0.6,
+            "weight": 0.35,
+            "evidence": "enquiry form"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.6667,
+            "weight": 0.15,
+            "evidence": "en, hr"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@booker.hr"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No marketplace presence found on their site"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en",
+          "hr"
+        ],
+        "booking": "enquiry_form",
+        "product_categories": [
+          "boat_tour",
+          "day_trip",
+          "cultural",
+          "adventure",
+          "transfer",
+          "private_guide",
+          "water_sports"
+        ],
+        "contact_email": "info@booker.hr",
+        "seasonality": "year_round",
+        "group_type": "both",
+        "marketplace_presence": [],
+        "confidence": 0.6
+      },
+      "phone": "+385 91 434 3000",
+      "address": "Marulićeva ul. 4, 21000, Split, Croatia",
+      "lat": 43.5084205,
+      "lng": 16.4391203,
+      "rating": 5.0,
+      "review_count": 16693,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "search term"
+    },
+    {
+      "name": "Split Food Tour",
+      "website": "https://splitfoodtour.com/",
+      "destination": "split",
+      "experience_type": "food_drink",
+      "place_source_id": "ChIJz8X0Xw6u6UsRCeBproBR0YE",
+      "composite": 0.7215,
+      "band": "A",
+      "quality": {
+        "score": 0.9387,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 1.0,
+            "weight": 0.6,
+            "evidence": "5.0 from 159 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.8467,
+            "weight": 0.4,
+            "evidence": "159 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.8,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "https://splitfoodtour.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 97 633 1461"
           },
           {
             "name": "booking capability",
@@ -70,7 +421,338 @@
             "name": "contactable by email",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "info@hellobluecave.com"
+            "evidence": "splitfoodtour@gmail.com"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No marketplace presence found on their site"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en"
+        ],
+        "booking": "online_booking",
+        "product_categories": [
+          "food_drink",
+          "walking_tour",
+          "cultural"
+        ],
+        "contact_email": "splitfoodtour@gmail.com",
+        "seasonality": "unclear",
+        "group_type": "shared",
+        "marketplace_presence": [],
+        "confidence": 0.75
+      },
+      "phone": "+385 97 633 1461",
+      "address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "lat": 43.5077674,
+      "lng": 16.4385616,
+      "rating": 5.0,
+      "review_count": 159,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "classifier"
+    },
+    {
+      "name": "Putalj Winery Split",
+      "website": "http://www.putalj.com/",
+      "destination": "split",
+      "experience_type": "food_drink",
+      "place_source_id": "ChIJi8BOFTJcNRMRgJ0dgo_qErk",
+      "composite": 0.6994,
+      "band": "A",
+      "quality": {
+        "score": 0.8755,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.9333,
+            "weight": 0.6,
+            "evidence": "4.9 from 112 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.7887,
+            "weight": 0.4,
+            "evidence": "112 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.8,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "http://www.putalj.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 98 917 2600"
+          },
+          {
+            "name": "booking capability",
+            "value": 1.0,
+            "weight": 0.35,
+            "evidence": "online booking"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@putalj.hr"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No marketplace presence found on their site"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en"
+        ],
+        "booking": "online_booking",
+        "product_categories": [
+          "food_drink",
+          "cultural",
+          "day_trip"
+        ],
+        "contact_email": "info@putalj.hr",
+        "seasonality": "unclear",
+        "group_type": "shared",
+        "marketplace_presence": [],
+        "confidence": 0.75
+      },
+      "phone": "+385 98 917 2600",
+      "address": "Putaljski put 4, 21212, Kaštel Sućurac, Croatia",
+      "lat": 43.548288,
+      "lng": 16.4275482,
+      "rating": 4.9,
+      "review_count": 112,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "classifier"
+    },
+    {
+      "name": "Given2Fly Adventures - Adventure Tours & Bike Rental",
+      "website": "http://www.given2flyadventures.com/",
+      "destination": "split",
+      "experience_type": "adventure",
+      "place_source_id": "ChIJw_YUJv9dNRMRq6gcqR2nifI",
+      "composite": 0.6825,
+      "band": "A",
+      "quality": {
+        "score": 0.9443,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.9333,
+            "weight": 0.6,
+            "evidence": "4.9 from 316 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.9608,
+            "weight": 0.4,
+            "evidence": "316 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.9,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "http://www.given2flyadventures.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 98 408 123"
+          },
+          {
+            "name": "booking capability",
+            "value": 1.0,
+            "weight": 0.35,
+            "evidence": "online booking"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "given2flyadventures@gmail.com"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "getyourguide, tripadvisor"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.1233,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.1233,
+            "weight": 1.0,
+            "evidence": "split/adventure: demand index 44, 19 bookable operators against 26 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en"
+        ],
+        "booking": "online_booking",
+        "product_categories": [
+          "boat_tour",
+          "water_sports",
+          "adventure",
+          "walking_tour",
+          "food_drink",
+          "private_guide",
+          "other"
+        ],
+        "contact_email": "given2flyadventures@gmail.com",
+        "seasonality": "seasonal",
+        "group_type": "both",
+        "marketplace_presence": [
+          "getyourguide",
+          "tripadvisor"
+        ],
+        "confidence": 0.75
+      },
+      "phone": "+385 98 408 123",
+      "address": "Plinarska ul. 25, 21000, Split, Croatia",
+      "lat": 43.51111530000001,
+      "lng": 16.4350488,
+      "rating": 4.9,
+      "review_count": 316,
+      "category": "adventure",
+      "viator_label": "Extreme Sports",
+      "viator_path": "Outdoor Activities / Extreme Sports",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
+    },
+    {
+      "name": "MySplitTours",
+      "website": "http://www.mysplittours.hr/",
+      "destination": "split",
+      "experience_type": "other",
+      "place_source_id": "ChIJg_yDcH5fNRMRQrrpk5fl_9Y",
+      "composite": 0.687,
+      "band": "A",
+      "quality": {
+        "score": 0.7399,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.8667,
+            "weight": 0.6,
+            "evidence": "4.8 from 26 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.5499,
+            "weight": 0.4,
+            "evidence": "26 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.9,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "http://www.mysplittours.hr/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 95 828 5928"
+          },
+          {
+            "name": "booking capability",
+            "value": 1.0,
+            "weight": 0.35,
+            "evidence": "online booking"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@mysplittours.hr"
           },
           {
             "name": "sells on a marketplace already",
@@ -81,14 +763,14 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.3767,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.3767,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
           }
         ]
       },
@@ -100,21 +782,471 @@
         "product_categories": [
           "boat_tour",
           "day_trip",
-          "water_sports"
+          "transfer",
+          "private_guide",
+          "cultural",
+          "adventure",
+          "food_drink"
         ],
-        "contact_email": "info@hellobluecave.com",
+        "contact_email": "info@mysplittours.hr",
+        "seasonality": "year_round",
+        "group_type": "both",
+        "marketplace_presence": [
+          "tripadvisor"
+        ],
+        "confidence": 0.75
+      },
+      "phone": "+385 95 828 5928",
+      "address": "Stobrečka ul., 21000, Split, Croatia",
+      "lat": 43.5078751,
+      "lng": 16.503878999999998,
+      "rating": 4.8,
+      "review_count": 26,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "search term"
+    },
+    {
+      "name": "Rafting Experience Cetina - white water rafting in Split",
+      "website": "https://www.raftingexperiencecetina.hr/",
+      "destination": "split",
+      "experience_type": "adventure",
+      "place_source_id": "ChIJu2IKPsRdNRMR_eyGNU-wQRc",
+      "composite": 0.6603,
+      "band": "A",
+      "quality": {
+        "score": 0.9708,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 1.0,
+            "weight": 0.6,
+            "evidence": "5.0 from 258 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.9271,
+            "weight": 0.4,
+            "evidence": "258 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.81,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "https://www.raftingexperiencecetina.hr/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 95 515 9784"
+          },
+          {
+            "name": "booking capability",
+            "value": 0.6,
+            "weight": 0.35,
+            "evidence": "enquiry form"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.6667,
+            "weight": 0.15,
+            "evidence": "en, hr"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "experiencerafting@gmail.com"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "tripadvisor"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.1233,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.1233,
+            "weight": 1.0,
+            "evidence": "split/adventure: demand index 44, 19 bookable operators against 26 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en",
+          "hr"
+        ],
+        "booking": "enquiry_form",
+        "product_categories": [
+          "adventure",
+          "water_sports",
+          "day_trip"
+        ],
+        "contact_email": "experiencerafting@gmail.com",
         "seasonality": "seasonal",
         "group_type": "both",
         "marketplace_presence": [
           "tripadvisor"
         ],
-        "confidence": 0.85
+        "confidence": 0.8
       },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 95 515 9784",
+      "address": "Trg Franje Tuđmana, 21000, Split, Croatia",
+      "lat": 43.508116099999995,
+      "lng": 16.4360012,
+      "rating": 5.0,
+      "review_count": 258,
+      "category": "adventure",
+      "viator_label": "Extreme Sports",
+      "viator_path": "Outdoor Activities / Extreme Sports",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
+    },
+    {
+      "name": "Split & sip",
+      "website": "https://splitandsip.com/",
+      "destination": "split",
+      "experience_type": "food_drink",
+      "place_source_id": "ChIJUacfzv1dNRMRDx19kVt3Rc8",
+      "composite": 0.6542,
+      "band": "A",
+      "quality": {
+        "score": 0.7862,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.8667,
+            "weight": 0.6,
+            "evidence": "4.8 from 53 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.6655,
+            "weight": 0.4,
+            "evidence": "53 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.76,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "https://splitandsip.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 98 132 5550"
+          },
+          {
+            "name": "booking capability",
+            "value": 0.6,
+            "weight": 0.35,
+            "evidence": "enquiry form"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "splitandsip@gmail.com"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "getyourguide"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en"
+        ],
+        "booking": "enquiry_form",
+        "product_categories": [
+          "food_drink"
+        ],
+        "contact_email": "splitandsip@gmail.com",
+        "seasonality": "year_round",
+        "group_type": "both",
+        "marketplace_presence": [
+          "getyourguide"
+        ],
+        "confidence": 0.7
+      },
+      "phone": "+385 98 132 5550",
+      "address": "Trg Gaje Bulata 6, 21000, Split, Croatia",
+      "lat": 43.5109123,
+      "lng": 16.4380336,
+      "rating": 4.8,
+      "review_count": 53,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "classifier"
+    },
+    {
+      "name": "Split Rafting Adventure",
+      "website": "http://split-rafting.eu/",
+      "destination": "split",
+      "experience_type": "adventure",
+      "place_source_id": "ChIJXdhAlGNfNRMRJ1HdnKyFEz4",
+      "composite": 0.6355,
+      "band": "B",
+      "quality": {
+        "score": 1.0,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 1.0,
+            "weight": 0.6,
+            "evidence": "5.0 from 2047 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 1.0,
+            "weight": 0.4,
+            "evidence": "2047 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.71,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "http://split-rafting.eu/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 99 872 6415"
+          },
+          {
+            "name": "booking capability",
+            "value": 0.6,
+            "weight": 0.35,
+            "evidence": "enquiry form"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.6667,
+            "weight": 0.15,
+            "evidence": "en, hr"
+          },
+          {
+            "name": "contactable by email",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No email published"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "airbnb, tripadvisor"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.1233,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.1233,
+            "weight": 1.0,
+            "evidence": "split/adventure: demand index 44, 19 bookable operators against 26 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en",
+          "hr"
+        ],
+        "booking": "enquiry_form",
+        "product_categories": [
+          "adventure",
+          "water_sports",
+          "day_trip"
+        ],
+        "contact_email": "",
+        "seasonality": "seasonal",
+        "group_type": "both",
+        "marketplace_presence": [
+          "airbnb",
+          "tripadvisor"
+        ],
+        "confidence": 0.7
+      },
+      "phone": "+385 99 872 6415",
+      "address": "Riva, 21000, Split, Croatia",
+      "lat": 43.507745299999996,
+      "lng": 16.438295699999998,
+      "rating": 5.0,
+      "review_count": 2047,
+      "category": "adventure",
+      "viator_label": "Extreme Sports",
+      "viator_path": "Outdoor Activities / Extreme Sports",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
+    },
+    {
+      "name": "Split Outdoor Adventure - ATV Quad Tours",
+      "website": "https://splitoutdooradventure.com/en/",
+      "destination": "split",
+      "experience_type": "other",
+      "place_source_id": "ChIJJTQjvPhdNRMRfioBMSPrftM",
+      "composite": 0.6237,
+      "band": "B",
+      "quality": {
+        "score": 0.9413,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.9333,
+            "weight": 0.6,
+            "evidence": "4.9 from 302 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.9532,
+            "weight": 0.4,
+            "evidence": "302 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.755,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "https://splitoutdooradventure.com/en/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 91 151 5451"
+          },
+          {
+            "name": "booking capability",
+            "value": 0.3,
+            "weight": 0.35,
+            "evidence": "phone or email only"
+          },
+          {
+            "name": "languages sold in",
+            "value": 1.0,
+            "weight": 0.15,
+            "evidence": "en, hr, de"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "[email protected]"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "tripadvisor"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.1,
+        "note": "Destination or category unknown; scored at the country default.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.1,
+            "weight": 1.0,
+            "evidence": "country default: demand index 25, 9 bookable operators against 15 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en",
+          "hr",
+          "de"
+        ],
+        "booking": "phone_or_email_only",
+        "product_categories": [
+          "adventure",
+          "water_sports",
+          "other"
+        ],
+        "contact_email": "[email protected]",
+        "seasonality": "unclear",
+        "group_type": "both",
+        "marketplace_presence": [
+          "tripadvisor"
+        ],
+        "confidence": 0.6
+      },
+      "phone": "+385 91 151 5451",
+      "address": "Trumbićeva obala 13, 21000, Split, Croatia",
+      "lat": 43.5073301,
+      "lng": 16.4334995,
+      "rating": 4.9,
+      "review_count": 302,
+      "category": null,
+      "category_source": "unresolved"
     },
     {
       "name": "Out to Sea - Split Boat Party",
@@ -122,23 +1254,23 @@
       "destination": "split",
       "experience_type": "other",
       "place_source_id": "ChIJIaWyYh5dNRMRe30anjsEAOM",
-      "composite": 0.6157,
-      "band": "A",
+      "composite": 0.616,
+      "band": "B",
       "quality": {
-        "score": 0.9591,
+        "score": 0.96,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.9318,
+            "value": 0.9333,
             "weight": 0.6,
-            "evidence": "4.9 from 5156 reviews (adjusted to 4.90 for sample size)"
+            "evidence": "4.9 from 5156 reviews"
           },
           {
             "name": "review volume",
             "value": 1.0,
             "weight": 0.4,
-            "evidence": "5156 reviews (capped at 400; more buys no further credit)"
+            "evidence": "5156 reviews"
           }
         ]
       },
@@ -205,7 +1337,6 @@
           "boat_tour",
           "water_sports",
           "adventure",
-          "cultural",
           "other"
         ],
         "contact_email": "contact@outtoseasplit.com",
@@ -214,6 +1345,12 @@
         "marketplace_presence": [],
         "confidence": 0.75
       },
+      "phone": "+385 95 530 9867",
+      "address": "Obala Lazareta 3, 21000, Split, Croatia",
+      "lat": 43.506586299999995,
+      "lng": 16.4398589,
+      "rating": 4.9,
+      "review_count": 5156,
       "category": "boat_tour",
       "viator_label": "Cruises & Sailing",
       "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
@@ -221,46 +1358,46 @@
       "category_source": "search term"
     },
     {
-      "name": "Split Boats",
-      "website": "https://split-boats.com/",
+      "name": "Red Adventures Croatia",
+      "website": "https://red-adventures.com/",
       "destination": "split",
-      "experience_type": "boat_tour",
-      "place_source_id": "ChIJXeo6B9yfShMRPT_1ddeoHg4",
-      "composite": 0.5862,
-      "band": "A",
+      "experience_type": "adventure",
+      "place_source_id": "ChIJDXzFfKdgNRMRfSnxUKGy4i0",
+      "composite": 0.6108,
+      "band": "B",
       "quality": {
-        "score": 0.9148,
+        "score": 0.9293,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.905,
+            "value": 1.0,
             "weight": 0.6,
-            "evidence": "4.9 from 262 reviews (adjusted to 4.86 for sample size)"
+            "evidence": "5.0 from 138 reviews"
           },
           {
             "name": "review volume",
-            "value": 0.9296,
+            "value": 0.8232,
             "weight": 0.4,
-            "evidence": "262 reviews (capped at 400; more buys no further credit)"
+            "evidence": "138 reviews"
           }
         ]
       },
       "readiness": {
-        "score": 0.76,
+        "score": 0.71,
         "note": null,
         "components": [
           {
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://split-boats.com/"
+            "evidence": "https://red-adventures.com/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 95 197 9913"
+            "evidence": "+385 95 255 2255"
           },
           {
             "name": "booking capability",
@@ -270,15 +1407,15 @@
           },
           {
             "name": "languages sold in",
-            "value": 1.0,
+            "value": 0.6667,
             "weight": 0.15,
-            "evidence": "hr, en, it, es, fr"
+            "evidence": "en, hr"
           },
           {
             "name": "contactable by email",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "contact@split-boats.com"
+            "evidence": "info@red-adventures.com"
           },
           {
             "name": "sells on a marketplace already",
@@ -289,84 +1426,89 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.1233,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.1233,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/adventure: demand index 44, 19 bookable operators against 26 needed to serve it"
           }
         ]
       },
       "extract": {
         "languages": [
-          "hr",
           "en",
-          "it",
-          "es",
-          "fr"
+          "hr"
         ],
         "booking": "enquiry_form",
         "product_categories": [
+          "adventure",
+          "water_sports",
+          "walking_tour",
           "boat_tour",
-          "private_guide",
-          "day_trip"
+          "other"
         ],
-        "contact_email": "contact@split-boats.com",
-        "seasonality": "unclear",
+        "contact_email": "info@red-adventures.com",
+        "seasonality": "seasonal",
         "group_type": "both",
         "marketplace_presence": [],
-        "confidence": 0.55
+        "confidence": 0.65
       },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
+      "phone": "+385 95 255 2255",
+      "address": "Ul. kralja Zvonimira 8, 21000, Split, Croatia",
+      "lat": 43.5064551,
+      "lng": 16.4438694,
+      "rating": 5.0,
+      "review_count": 138,
+      "category": "adventure",
+      "viator_label": "Extreme Sports",
+      "viator_path": "Outdoor Activities / Extreme Sports",
+      "viator_top": "Outdoor Activities",
       "category_source": "classifier"
     },
     {
-      "name": "Sail Week Croatia",
-      "website": "https://sailweekcroatia.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=sailweek_croatia",
+      "name": "Jet Ski Split - Jetski Rental and Safari Tours Split Croatia",
+      "website": "http://www.jetskisafarisplit.hr/",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJVZrivVBnNRMR-NEAfBIRgic",
-      "composite": 0.5798,
-      "band": "A",
+      "experience_type": "water_sports",
+      "place_source_id": "ChIJg7v9-VFfNRMRBy9nla94uik",
+      "composite": 0.5869,
+      "band": "B",
       "quality": {
-        "score": 0.9567,
+        "score": 0.6854,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.9278,
+            "value": 0.6667,
             "weight": 0.6,
-            "evidence": "4.9 from 1419 reviews (adjusted to 4.89 for sample size)"
+            "evidence": "4.5 from 71 reviews"
           },
           {
             "name": "review volume",
-            "value": 1.0,
+            "value": 0.7135,
             "weight": 0.4,
-            "evidence": "1419 reviews (capped at 400; more buys no further credit)"
+            "evidence": "71 reviews"
           }
         ]
       },
       "readiness": {
-        "score": 0.7,
+        "score": 0.9,
         "note": null,
         "components": [
           {
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://sailweekcroatia.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=sailweek_croatia"
+            "evidence": "http://www.jetskisafarisplit.hr/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 91 517 7531"
+            "evidence": "+385 99 605 9879"
           },
           {
             "name": "booking capability",
@@ -382,27 +1524,27 @@
           },
           {
             "name": "contactable by email",
-            "value": 0.0,
+            "value": 1.0,
             "weight": 0.1,
-            "evidence": "No email published"
+            "evidence": "info@jetskisafarisplit.hr"
           },
           {
             "name": "sells on a marketplace already",
-            "value": 0.0,
+            "value": 1.0,
             "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
+            "evidence": "tripadvisor"
           }
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.1067,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.1067,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/water_sports: demand index 54, 26 bookable operators against 32 needed to serve it"
           }
         ]
       },
@@ -412,47 +1554,53 @@
         ],
         "booking": "online_booking",
         "product_categories": [
-          "boat_tour",
-          "adventure",
           "water_sports",
-          "cultural",
-          "day_trip"
+          "adventure",
+          "boat_tour"
         ],
-        "contact_email": "",
+        "contact_email": "info@jetskisafarisplit.hr",
         "seasonality": "seasonal",
-        "group_type": "shared",
-        "marketplace_presence": [],
-        "confidence": 0.75
+        "group_type": "both",
+        "marketplace_presence": [
+          "tripadvisor"
+        ],
+        "confidence": 0.8
       },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 99 605 9879",
+      "address": "Trumbićeva obala 13, 21000, Split, Croatia",
+      "lat": 43.50732,
+      "lng": 16.4335921,
+      "rating": 4.5,
+      "review_count": 71,
+      "category": "water_sports",
+      "viator_label": "On the Water",
+      "viator_path": "Outdoor Activities / On the Water",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
     },
     {
-      "name": "Island Hopping Split - Boat Tours & Private Trips",
-      "website": "https://www.islandhoppingsplit.com/",
+      "name": "Croatia Moto Adventure",
+      "website": "http://croatiamotoadventure.com/",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJMTqpnuddNRMRt4JHzhRd3FA",
-      "composite": 0.5524,
-      "band": "A",
+      "experience_type": "adventure",
+      "place_source_id": "ChIJvQA_Cz5fNRMRALFlQOpnL1o",
+      "composite": 0.5931,
+      "band": "B",
       "quality": {
-        "score": 0.9184,
+        "score": 0.9288,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.9531,
+            "value": 1.0,
             "weight": 0.6,
-            "evidence": "5.0 from 179 reviews (adjusted to 4.93 for sample size)"
+            "evidence": "5.0 from 137 reviews"
           },
           {
             "name": "review volume",
-            "value": 0.8664,
+            "value": 0.822,
             "weight": 0.4,
-            "evidence": "179 reviews (capped at 400; more buys no further credit)"
+            "evidence": "137 reviews"
           }
         ]
       },
@@ -464,13 +1612,13 @@
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://www.islandhoppingsplit.com/"
+            "evidence": "http://croatiamotoadventure.com/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 95 863 7551"
+            "evidence": "+385 91 592 4767"
           },
           {
             "name": "booking capability",
@@ -488,7 +1636,7 @@
             "name": "contactable by email",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "info@islandhoppingsplit.com"
+            "evidence": "info@croatiamotoadventure.com"
           },
           {
             "name": "sells on a marketplace already",
@@ -499,14 +1647,14 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.1233,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.1233,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/adventure: demand index 44, 19 bookable operators against 26 needed to serve it"
           }
         ]
       },
@@ -516,21 +1664,138 @@
         ],
         "booking": "enquiry_form",
         "product_categories": [
-          "boat_tour",
+          "adventure",
           "day_trip",
-          "private_guide"
+          "other"
         ],
-        "contact_email": "info@islandhoppingsplit.com",
-        "seasonality": "seasonal",
+        "contact_email": "info@croatiamotoadventure.com",
+        "seasonality": "unclear",
         "group_type": "both",
         "marketplace_presence": [],
         "confidence": 0.5
       },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 91 592 4767",
+      "address": "Šibenska ul. 7, 21000, Split, Croatia",
+      "lat": 43.5194384,
+      "lng": 16.452796499999998,
+      "rating": 5.0,
+      "review_count": 137,
+      "category": "adventure",
+      "viator_label": "Extreme Sports",
+      "viator_path": "Outdoor Activities / Extreme Sports",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
+    },
+    {
+      "name": "SPLIT WINE AND FOOD TASTING",
+      "website": "https://splitwinetasting.com/",
+      "destination": "split",
+      "experience_type": "food_drink",
+      "place_source_id": "ChIJa-GqmQBeNRMRiIGeA_OVKm0",
+      "composite": 0.5095,
+      "band": "B",
+      "quality": {
+        "score": 0.2329,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.0667,
+            "weight": 0.6,
+            "evidence": "3.6 from 17 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.4822,
+            "weight": 0.4,
+            "evidence": "17 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.9,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "https://splitwinetasting.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 99 821 5383"
+          },
+          {
+            "name": "booking capability",
+            "value": 1.0,
+            "weight": 0.35,
+            "evidence": "online booking"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@splitwinetasting.com"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "tripadvisor"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en"
+        ],
+        "booking": "online_booking",
+        "product_categories": [
+          "food_drink",
+          "walking_tour",
+          "cultural",
+          "private_guide"
+        ],
+        "contact_email": "info@splitwinetasting.com",
+        "seasonality": "year_round",
+        "group_type": "both",
+        "marketplace_presence": [
+          "tripadvisor"
+        ],
+        "confidence": 0.7
+      },
+      "phone": "+385 99 821 5383",
+      "address": "Dioklecijanova 3, 21000, Split, Croatia",
+      "lat": 43.508921799999996,
+      "lng": 16.4404516,
+      "rating": 3.6,
+      "review_count": 17,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "classifier"
     },
     {
       "name": "Blue Lagoon Croatia",
@@ -538,23 +1803,23 @@
       "destination": "split",
       "experience_type": "other",
       "place_source_id": "ChIJQ59kcPldNRMR8kmpi24_PXk",
-      "composite": 0.5515,
-      "band": "A",
+      "composite": 0.5652,
+      "band": "B",
       "quality": {
-        "score": 0.7757,
+        "score": 0.8149,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.8013,
+            "value": 0.8667,
             "weight": 0.6,
-            "evidence": "4.8 from 82 reviews (adjusted to 4.70 for sample size)"
+            "evidence": "4.8 from 82 reviews"
           },
           {
             "name": "review volume",
             "value": 0.7372,
             "weight": 0.4,
-            "evidence": "82 reviews (capped at 400; more buys no further credit)"
+            "evidence": "82 reviews"
           }
         ]
       },
@@ -621,7 +1886,7 @@
           "boat_tour",
           "water_sports",
           "food_drink",
-          "day_trip"
+          "private_guide"
         ],
         "contact_email": "info@blue-lagoon-croatia.com",
         "seasonality": "seasonal",
@@ -629,6 +1894,12 @@
         "marketplace_presence": [],
         "confidence": 0.85
       },
+      "phone": "+385 97 608 3184",
+      "address": "Obala Lazareta 1, 21000, Split, Croatia",
+      "lat": 43.5065074,
+      "lng": 16.4385714,
+      "rating": 4.8,
+      "review_count": 82,
       "category": "boat_tour",
       "viator_label": "Cruises & Sailing",
       "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
@@ -636,28 +1907,134 @@
       "category_source": "search term"
     },
     {
+      "name": "Split by Tuk Tuk - Private City Tour",
+      "website": "https://citytoursplit.com/",
+      "destination": "split",
+      "experience_type": "other",
+      "place_source_id": "ChIJT7qnRJpdNRMRnDEAmwuqZ4g",
+      "composite": 0.5521,
+      "band": "B",
+      "quality": {
+        "score": 0.9316,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.9333,
+            "weight": 0.6,
+            "evidence": "4.9 from 261 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.929,
+            "weight": 0.4,
+            "evidence": "261 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.56,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "https://citytoursplit.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 91 308 5227"
+          },
+          {
+            "name": "booking capability",
+            "value": 0.6,
+            "weight": 0.35,
+            "evidence": "enquiry form"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No email published"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No marketplace presence found on their site"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.1,
+        "note": "Destination or category unknown; scored at the country default.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.1,
+            "weight": 1.0,
+            "evidence": "country default: demand index 25, 9 bookable operators against 15 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en"
+        ],
+        "booking": "enquiry_form",
+        "product_categories": [
+          "walking_tour",
+          "private_guide",
+          "cultural",
+          "other"
+        ],
+        "contact_email": "",
+        "seasonality": "unclear",
+        "group_type": "private",
+        "marketplace_presence": [],
+        "confidence": 0.55
+      },
+      "phone": "+385 91 308 5227",
+      "address": "Trg Franje Tuđmana, 21000, Split, Croatia",
+      "lat": 43.5080692,
+      "lng": 16.4363116,
+      "rating": 4.9,
+      "review_count": 261,
+      "category": null,
+      "category_source": "unresolved"
+    },
+    {
       "name": "Split Boat Tours",
       "website": "http://www.split-boat-tours.com/",
       "destination": "split",
       "experience_type": "other",
       "place_source_id": "ChIJWeB-hItdNRMROq12f_LSb5U",
-      "composite": 0.5421,
+      "composite": 0.555,
       "band": "B",
       "quality": {
-        "score": 0.8888,
+        "score": 0.9258,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.9382,
+            "value": 1.0,
             "weight": 0.6,
-            "evidence": "5.0 from 131 reviews (adjusted to 4.91 for sample size)"
+            "evidence": "5.0 from 131 reviews"
           },
           {
             "name": "review volume",
             "value": 0.8146,
             "weight": 0.4,
-            "evidence": "131 reviews (capped at 400; more buys no further credit)"
+            "evidence": "131 reviews"
           }
         ]
       },
@@ -728,323 +2105,14 @@
         "seasonality": "unclear",
         "group_type": "private",
         "marketplace_presence": [],
-        "confidence": 0.7
+        "confidence": 0.75
       },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Split Daily Tours",
-      "website": "http://www.split-daily-tours.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJOdq8SQNdNRMRxIQSZ0Qwr3g",
-      "composite": 0.5267,
-      "band": "B",
-      "quality": {
-        "score": 0.6048,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.6865,
-            "weight": 0.6,
-            "evidence": "4.8 from 17 reviews (adjusted to 4.53 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.4822,
-            "weight": 0.4,
-            "evidence": "17 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.9,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "http://www.split-daily-tours.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 91 353 4533"
-          },
-          {
-            "name": "booking capability",
-            "value": 1.0,
-            "weight": 0.35,
-            "evidence": "online booking"
-          },
-          {
-            "name": "languages sold in",
-            "value": 1.0,
-            "weight": 0.15,
-            "evidence": "en, hr, de, it"
-          },
-          {
-            "name": "contactable by email",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "contact@adriaticrent.com"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en",
-          "hr",
-          "de",
-          "it"
-        ],
-        "booking": "online_booking",
-        "product_categories": [
-          "boat_tour",
-          "adventure",
-          "water_sports",
-          "day_trip",
-          "transfer",
-          "private_guide",
-          "other"
-        ],
-        "contact_email": "contact@adriaticrent.com",
-        "seasonality": "unclear",
-        "group_type": "both",
-        "marketplace_presence": [],
-        "confidence": 0.7
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Sunny Split Travel",
-      "website": "https://bluecavetransfers.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJN_Nu5tddNRMRRRJYjyRNGNY",
-      "composite": 0.5224,
-      "band": "B",
-      "quality": {
-        "score": 0.6927,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.7216,
-            "weight": 0.6,
-            "evidence": "4.7 from 48 reviews (adjusted to 4.58 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.6493,
-            "weight": 0.4,
-            "evidence": "48 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.8,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://bluecavetransfers.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 91 270 0770"
-          },
-          {
-            "name": "booking capability",
-            "value": 1.0,
-            "weight": 0.35,
-            "evidence": "online booking"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.3333,
-            "weight": 0.15,
-            "evidence": "en"
-          },
-          {
-            "name": "contactable by email",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "info@bluecavetransfers.com"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en"
-        ],
-        "booking": "online_booking",
-        "product_categories": [
-          "boat_tour",
-          "day_trip",
-          "transfer",
-          "other"
-        ],
-        "contact_email": "info@bluecavetransfers.com",
-        "seasonality": "unclear",
-        "group_type": "unclear",
-        "marketplace_presence": [],
-        "confidence": 0.5
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Blue Cave Express",
-      "website": "https://bluecaveexpress.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJH8x8YotdNRMR8nG76-ZN8mQ",
-      "composite": 0.5224,
-      "band": "B",
-      "quality": {
-        "score": 0.7927,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.8454,
-            "weight": 0.6,
-            "evidence": "4.9 from 71 reviews (adjusted to 4.77 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.7135,
-            "weight": 0.4,
-            "evidence": "71 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.7,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://bluecaveexpress.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 95 393 3125"
-          },
-          {
-            "name": "booking capability",
-            "value": 1.0,
-            "weight": 0.35,
-            "evidence": "online booking"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.3333,
-            "weight": 0.15,
-            "evidence": "en"
-          },
-          {
-            "name": "contactable by email",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No email published"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en"
-        ],
-        "booking": "online_booking",
-        "product_categories": [
-          "boat_tour",
-          "water_sports",
-          "day_trip",
-          "private_guide"
-        ],
-        "contact_email": "",
-        "seasonality": "seasonal",
-        "group_type": "both",
-        "marketplace_presence": [],
-        "confidence": 0.7
-      },
+      "phone": "+385 95 399 1928",
+      "address": "Obala Lazareta 1, 21000, Split, Croatia",
+      "lat": 43.5068208,
+      "lng": 16.4392608,
+      "rating": 5.0,
+      "review_count": 131,
       "category": "boat_tour",
       "viator_label": "Cruises & Sailing",
       "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
@@ -1057,23 +2125,23 @@
       "destination": "split",
       "experience_type": "other",
       "place_source_id": "ChIJnxdWti5eNRMRHhJWUV8B29o",
-      "composite": 0.5208,
+      "composite": 0.5399,
       "band": "B",
       "quality": {
-        "score": 0.788,
+        "score": 0.8426,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.8424,
+            "value": 0.9333,
             "weight": 0.6,
-            "evidence": "4.9 from 68 reviews (adjusted to 4.76 for sample size)"
+            "evidence": "4.9 from 68 reviews"
           },
           {
             "name": "review volume",
             "value": 0.7064,
             "weight": 0.4,
-            "evidence": "68 reviews (capped at 400; more buys no further credit)"
+            "evidence": "68 reviews"
           }
         ]
       },
@@ -1148,6 +2216,12 @@
         "marketplace_presence": [],
         "confidence": 0.6
       },
+      "phone": "+385 91 556 4612",
+      "address": "Obala kneza Branimira 1, 21000, Split, Croatia",
+      "lat": 43.5068252,
+      "lng": 16.433184999999998,
+      "rating": 4.9,
+      "review_count": 68,
       "category": "boat_tour",
       "viator_label": "Cruises & Sailing",
       "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
@@ -1155,131 +2229,28 @@
       "category_source": "search term"
     },
     {
-      "name": "Paradise Charter - boat tours",
-      "website": "https://paradise-charter.com/",
+      "name": "Tourist Guide Croatia",
+      "website": "https://touristguidecroatia.com/",
       "destination": "split",
       "experience_type": "other",
-      "place_source_id": "ChIJu-rNPPtnNRMR5eCy7WwKbj8",
-      "composite": 0.5168,
+      "place_source_id": "ChIJqZm2PY5fNRMR6_-xuZthLhE",
+      "composite": 0.5519,
       "band": "B",
       "quality": {
-        "score": 0.7665,
+        "score": 0.8313,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.8542,
+            "value": 1.0,
             "weight": 0.6,
-            "evidence": "5.0 from 44 reviews (adjusted to 4.78 for sample size)"
+            "evidence": "5.0 from 31 reviews"
           },
           {
             "name": "review volume",
-            "value": 0.6351,
+            "value": 0.5782,
             "weight": 0.4,
-            "evidence": "44 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.71,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://paradise-charter.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 99 869 0913"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.6,
-            "weight": 0.35,
-            "evidence": "enquiry form"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.6667,
-            "weight": 0.15,
-            "evidence": "en, de"
-          },
-          {
-            "name": "contactable by email",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "info.paradisecharter@gmail.com"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en",
-          "de"
-        ],
-        "booking": "enquiry_form",
-        "product_categories": [
-          "boat_tour",
-          "private_guide",
-          "transfer"
-        ],
-        "contact_email": "info.paradisecharter@gmail.com",
-        "seasonality": "seasonal",
-        "group_type": "private",
-        "marketplace_presence": [],
-        "confidence": 0.7
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Catamaran 4U",
-      "website": "http://www.catamaran4u.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJ5QWpVxNdNRMR2fJkJKfGZv0",
-      "composite": 0.5162,
-      "band": "B",
-      "quality": {
-        "score": 0.8148,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.7745,
-            "weight": 0.6,
-            "evidence": "4.7 from 189 reviews (adjusted to 4.66 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.8754,
-            "weight": 0.4,
-            "evidence": "189 reviews (capped at 400; more buys no further credit)"
+            "evidence": "31 reviews"
           }
         ]
       },
@@ -1291,13 +2262,13 @@
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "http://www.catamaran4u.com/"
+            "evidence": "https://touristguidecroatia.com/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 95 850 3179"
+            "evidence": "+385 97 728 1113"
           },
           {
             "name": "booking capability",
@@ -1315,7 +2286,7 @@
             "name": "contactable by email",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "info@catamaran4u.com"
+            "evidence": "lea@touristguidecroatia.com"
           },
           {
             "name": "sells on a marketplace already",
@@ -1326,14 +2297,14 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "score": 0.1,
+        "note": "Destination or category unknown; scored at the country default.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.1,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "country default: demand index 25, 9 bookable operators against 15 needed to serve it"
           }
         ]
       },
@@ -1343,560 +2314,713 @@
         ],
         "booking": "enquiry_form",
         "product_categories": [
+          "walking_tour",
+          "day_trip",
+          "food_drink",
+          "cultural",
+          "private_guide"
+        ],
+        "contact_email": "lea@touristguidecroatia.com",
+        "seasonality": "year_round",
+        "group_type": "private",
+        "marketplace_presence": [],
+        "confidence": 0.7
+      },
+      "phone": "+385 97 728 1113",
+      "address": "Obala Hrvatskog narodnog preporoda 23, 21000, Split, Croatia",
+      "lat": 43.5069641,
+      "lng": 16.4399175,
+      "rating": 5.0,
+      "review_count": 31,
+      "category": null,
+      "category_source": "unresolved"
+    },
+    {
+      "name": "Blu Diving Center",
+      "website": "http://divingsplit.com/",
+      "destination": "split",
+      "experience_type": "water_sports",
+      "place_source_id": "ChIJwwkYRCBeNRMRQYA3amAl_nU",
+      "composite": 0.4808,
+      "band": "B",
+      "quality": {
+        "score": 0.3824,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.2667,
+            "weight": 0.6,
+            "evidence": "3.9 from 27 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.5559,
+            "weight": 0.4,
+            "evidence": "27 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.9,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "http://divingsplit.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 95 845 5805"
+          },
+          {
+            "name": "booking capability",
+            "value": 1.0,
+            "weight": 0.35,
+            "evidence": "online booking"
+          },
+          {
+            "name": "languages sold in",
+            "value": 1.0,
+            "weight": 0.15,
+            "evidence": "en, de, fr"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@divingsplit.com"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No marketplace presence found on their site"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.1067,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.1067,
+            "weight": 1.0,
+            "evidence": "split/water_sports: demand index 54, 26 bookable operators against 32 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en",
+          "de",
+          "fr"
+        ],
+        "booking": "online_booking",
+        "product_categories": [
+          "water_sports",
           "boat_tour",
+          "adventure",
+          "private_guide"
+        ],
+        "contact_email": "info@divingsplit.com",
+        "seasonality": "unclear",
+        "group_type": "both",
+        "marketplace_presence": [],
+        "confidence": 0.8
+      },
+      "phone": "+385 95 845 5805",
+      "address": "Put Radoševca, 21000, Split, Croatia",
+      "lat": 43.502190899999995,
+      "lng": 16.4698399,
+      "rating": 3.9,
+      "review_count": 27,
+      "category": "water_sports",
+      "viator_label": "On the Water",
+      "viator_path": "Outdoor Activities / On the Water",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
+    },
+    {
+      "name": "Dalmatia Outdoors",
+      "website": "http://www.dalmatiaoutdoors.com/",
+      "destination": "split",
+      "experience_type": "other",
+      "place_source_id": "ChIJ-dxQkrVdNRMRamiCTiNEHIA",
+      "composite": 0.5015,
+      "band": "B",
+      "quality": {
+        "score": 0.21,
+        "note": "No rating available; quality cannot be assessed from discovery data.",
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.35,
+            "weight": 0.6,
+            "evidence": "No rating on the listing"
+          },
+          {
+            "name": "review volume",
+            "value": 0.0,
+            "weight": 0.4,
+            "evidence": "0 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.9,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "http://www.dalmatiaoutdoors.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 98 408 123"
+          },
+          {
+            "name": "booking capability",
+            "value": 1.0,
+            "weight": 0.35,
+            "evidence": "online booking"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@dalmatiaoutdoors.com"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "tripadvisor"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en"
+        ],
+        "booking": "online_booking",
+        "product_categories": [
+          "boat_tour",
+          "walking_tour",
+          "food_drink",
+          "adventure",
+          "cultural",
           "day_trip",
           "private_guide"
         ],
-        "contact_email": "info@catamaran4u.com",
+        "contact_email": "info@dalmatiaoutdoors.com",
+        "seasonality": "year_round",
+        "group_type": "both",
+        "marketplace_presence": [
+          "tripadvisor"
+        ],
+        "confidence": 0.8
+      },
+      "phone": "+385 98 408 123",
+      "address": "Plinarska ul. 25, 21000, Split, Croatia",
+      "lat": 43.511117500000005,
+      "lng": 16.4350381,
+      "rating": null,
+      "review_count": null,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "search term"
+    },
+    {
+      "name": "TASTE SPLIT - DESTINATION MANAGEMENT COMPANY",
+      "website": "https://tastesplit.com/",
+      "destination": "split",
+      "experience_type": "food_drink",
+      "place_source_id": "ChIJDT4dnvxfNRMRILoqYb8mLcQ",
+      "composite": 0.5245,
+      "band": "B",
+      "quality": {
+        "score": 0.4733,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.6667,
+            "weight": 0.6,
+            "evidence": "4.5 from 2 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.1833,
+            "weight": 0.4,
+            "evidence": "2 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.7025,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "https://tastesplit.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 99 821 5383"
+          },
+          {
+            "name": "booking capability",
+            "value": 0.15,
+            "weight": 0.35,
+            "evidence": "unclear"
+          },
+          {
+            "name": "languages sold in",
+            "value": 1.0,
+            "weight": 0.15,
+            "evidence": "en, es, de, fr"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@tastesplit.com"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "tripadvisor"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en",
+          "es",
+          "de",
+          "fr"
+        ],
+        "booking": "unclear",
+        "product_categories": [
+          "walking_tour",
+          "food_drink",
+          "cultural",
+          "day_trip",
+          "private_guide",
+          "water_sports",
+          "other"
+        ],
+        "contact_email": "info@tastesplit.com",
+        "seasonality": "year_round",
+        "group_type": "both",
+        "marketplace_presence": [
+          "tripadvisor"
+        ],
+        "confidence": 0.55
+      },
+      "phone": "+385 99 821 5383",
+      "address": "Ul. Julija Nepota 4, 21000, Split, Croatia",
+      "lat": 43.508334,
+      "lng": 16.4410544,
+      "rating": 4.5,
+      "review_count": 2,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "classifier"
+    },
+    {
+      "name": "Extreme Fishing",
+      "website": "http://www.extremefishing.hr/",
+      "destination": "split",
+      "experience_type": "water_sports",
+      "place_source_id": "ChIJrzoKrCZfNRMRVWn9BQ4_qGQ",
+      "composite": 0.4907,
+      "band": "B",
+      "quality": {
+        "score": 0.8081,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.8667,
+            "weight": 0.6,
+            "evidence": "4.8 from 74 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.7203,
+            "weight": 0.4,
+            "evidence": "74 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.5025,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "http://www.extremefishing.hr/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 21 260 346"
+          },
+          {
+            "name": "booking capability",
+            "value": 0.15,
+            "weight": 0.35,
+            "evidence": "unclear"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "hr"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@extremefishing.hr"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No marketplace presence found on their site"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.1067,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.1067,
+            "weight": 1.0,
+            "evidence": "split/water_sports: demand index 54, 26 bookable operators against 32 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "hr"
+        ],
+        "booking": "unclear",
+        "product_categories": [
+          "other"
+        ],
+        "contact_email": "info@extremefishing.hr",
+        "seasonality": "year_round",
+        "group_type": "unclear",
+        "marketplace_presence": [],
+        "confidence": 0.2
+      },
+      "phone": "+385 21 260 346",
+      "address": "141. Brigade 1, 21000, Split, Croatia",
+      "lat": 43.5176946,
+      "lng": 16.486237,
+      "rating": 4.8,
+      "review_count": 74,
+      "category": "water_sports",
+      "viator_label": "On the Water",
+      "viator_path": "Outdoor Activities / On the Water",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
+    },
+    {
+      "name": "WINE TOUR CROATIA",
+      "website": "https://www.winetourcroatia.com/",
+      "destination": "split",
+      "experience_type": "food_drink",
+      "place_source_id": "ChIJV1eH0C9eNRMRSq31GslGLZ4",
+      "composite": 0.4665,
+      "band": "B",
+      "quality": {
+        "score": 0.21,
+        "note": "No rating available; quality cannot be assessed from discovery data.",
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.35,
+            "weight": 0.6,
+            "evidence": "No rating on the listing"
+          },
+          {
+            "name": "review volume",
+            "value": 0.0,
+            "weight": 0.4,
+            "evidence": "0 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.8,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "https://www.winetourcroatia.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 98 894 930"
+          },
+          {
+            "name": "booking capability",
+            "value": 1.0,
+            "weight": 0.35,
+            "evidence": "online booking"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "management@opcijatours.hr"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No marketplace presence found on their site"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.3767,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.3767,
+            "weight": 1.0,
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en"
+        ],
+        "booking": "online_booking",
+        "product_categories": [
+          "food_drink",
+          "cultural",
+          "day_trip"
+        ],
+        "contact_email": "management@opcijatours.hr",
+        "seasonality": "year_round",
+        "group_type": "both",
+        "marketplace_presence": [],
+        "confidence": 0.85
+      },
+      "phone": "+385 98 894 930",
+      "address": "Doverska Ul. 5, 21000, Split, Croatia",
+      "lat": 43.5087006,
+      "lng": 16.4777065,
+      "rating": null,
+      "review_count": null,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "classifier"
+    },
+    {
+      "name": "Split Diving Experience",
+      "website": "http://www.splitdiving.com/",
+      "destination": "split",
+      "experience_type": "other",
+      "place_source_id": "ChIJa2aPH_5dNRMREEisLqD-ECA",
+      "composite": 0.4541,
+      "band": "B",
+      "quality": {
+        "score": 0.546,
+        "note": null,
+        "components": [
+          {
+            "name": "rating",
+            "value": 0.4,
+            "weight": 0.6,
+            "evidence": "4.1 from 97 reviews"
+          },
+          {
+            "name": "review volume",
+            "value": 0.7649,
+            "weight": 0.4,
+            "evidence": "97 reviews"
+          }
+        ]
+      },
+      "readiness": {
+        "score": 0.66,
+        "note": null,
+        "components": [
+          {
+            "name": "website",
+            "value": 1.0,
+            "weight": 0.2,
+            "evidence": "http://www.splitdiving.com/"
+          },
+          {
+            "name": "phone",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "+385 99 821 5383"
+          },
+          {
+            "name": "booking capability",
+            "value": 0.6,
+            "weight": 0.35,
+            "evidence": "enquiry form"
+          },
+          {
+            "name": "languages sold in",
+            "value": 0.3333,
+            "weight": 0.15,
+            "evidence": "en"
+          },
+          {
+            "name": "contactable by email",
+            "value": 1.0,
+            "weight": 0.1,
+            "evidence": "info@splitdiving.com"
+          },
+          {
+            "name": "sells on a marketplace already",
+            "value": 0.0,
+            "weight": 0.1,
+            "evidence": "No marketplace presence found on their site"
+          }
+        ]
+      },
+      "gap_fit": {
+        "score": 0.1067,
+        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "components": [
+          {
+            "name": "unmet demand",
+            "value": 0.1067,
+            "weight": 1.0,
+            "evidence": "split/water_sports: demand index 54, 26 bookable operators against 32 needed to serve it"
+          }
+        ]
+      },
+      "extract": {
+        "languages": [
+          "en"
+        ],
+        "booking": "enquiry_form",
+        "product_categories": [
+          "water_sports",
+          "adventure"
+        ],
+        "contact_email": "info@splitdiving.com",
         "seasonality": "unclear",
         "group_type": "both",
         "marketplace_presence": [],
         "confidence": 0.55
       },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
+      "phone": "+385 99 821 5383",
+      "address": "Dioklecijanova 3/4, 21000, Split, Croatia",
+      "lat": 43.508921799999996,
+      "lng": 16.4404516,
+      "rating": 4.1,
+      "review_count": 97,
+      "category": "water_sports",
+      "viator_label": "On the Water",
+      "viator_path": "Outdoor Activities / On the Water",
+      "viator_top": "Outdoor Activities",
       "category_source": "search term"
     },
     {
-      "name": "Condor Yachting",
-      "website": "https://condoryachting.com/",
+      "name": "Skywalk Poljud",
+      "website": "http://www.skywalk-poljud.com/",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJ5Zp4zv9dNRMR1_z756RhIv4",
-      "composite": 0.5145,
+      "experience_type": "adventure",
+      "place_source_id": "ChIJ_WqtJLZdNRMRAQOvHiBzdOU",
+      "composite": 0.4706,
       "band": "B",
       "quality": {
-        "score": 0.76,
+        "score": 0.8863,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.7926,
+            "value": 1.0,
             "weight": 0.6,
-            "evidence": "4.8 from 70 reviews (adjusted to 4.69 for sample size)"
+            "evidence": "5.0 from 72 reviews"
           },
           {
             "name": "review volume",
-            "value": 0.7112,
+            "value": 0.7158,
             "weight": 0.4,
-            "evidence": "70 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.71,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://condoryachting.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 99 577 5770"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.6,
-            "weight": 0.35,
-            "evidence": "enquiry form"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.6667,
-            "weight": 0.15,
-            "evidence": "en, hr"
-          },
-          {
-            "name": "contactable by email",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "info@condoryachting.com"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en",
-          "hr"
-        ],
-        "booking": "enquiry_form",
-        "product_categories": [
-          "boat_tour",
-          "day_trip",
-          "transfer",
-          "private_guide"
-        ],
-        "contact_email": "info@condoryachting.com",
-        "seasonality": "unclear",
-        "group_type": "both",
-        "marketplace_presence": [],
-        "confidence": 0.6
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Bokun Charter in Croatia",
-      "website": "https://www.bokunagency.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJr_Q9XeOZShMRN4Y0SOPOdvc",
-      "composite": 0.5103,
-      "band": "B",
-      "quality": {
-        "score": 0.7479,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.8391,
-            "weight": 0.6,
-            "evidence": "5.0 from 38 reviews (adjusted to 4.76 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.6112,
-            "weight": 0.4,
-            "evidence": "38 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.71,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://www.bokunagency.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 99 444 1344"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.6,
-            "weight": 0.35,
-            "evidence": "enquiry form"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.6667,
-            "weight": 0.15,
-            "evidence": "en, de"
-          },
-          {
-            "name": "contactable by email",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "info@thebokun.com"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en",
-          "de"
-        ],
-        "booking": "enquiry_form",
-        "product_categories": [
-          "boat_tour",
-          "private_guide",
-          "day_trip"
-        ],
-        "contact_email": "info@thebokun.com",
-        "seasonality": "unclear",
-        "group_type": "private",
-        "marketplace_presence": [],
-        "confidence": 0.5
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Boky Tours Split | Boat Tours & Blue Lagoon",
-      "website": "http://www.bokytourssplit.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJFUKn7Ghib0kRaawj_zXwRvo",
-      "composite": 0.5003,
-      "band": "B",
-      "quality": {
-        "score": 0.7693,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.8564,
-            "weight": 0.6,
-            "evidence": "5.0 from 45 reviews (adjusted to 4.78 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.6387,
-            "weight": 0.4,
-            "evidence": "45 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.66,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "http://www.bokytourssplit.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 91 477 7647"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.6,
-            "weight": 0.35,
-            "evidence": "enquiry form"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.3333,
-            "weight": 0.15,
-            "evidence": "en"
-          },
-          {
-            "name": "contactable by email",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "bokitourssplit@gmail.com"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en"
-        ],
-        "booking": "enquiry_form",
-        "product_categories": [
-          "boat_tour",
-          "water_sports",
-          "private_guide"
-        ],
-        "contact_email": "bokitourssplit@gmail.com",
-        "seasonality": "unclear",
-        "group_type": "private",
-        "marketplace_presence": [],
-        "confidence": 0.6
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "KARLA luxury rib - meeting point",
-      "website": "http://www.karla-luxury-rib.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJMTlAdABdNRMRwgON60NReyY",
-      "composite": 0.4906,
-      "band": "B",
-      "quality": {
-        "score": 0.7417,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.8103,
-            "weight": 0.6,
-            "evidence": "4.9 from 45 reviews (adjusted to 4.72 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.6387,
-            "weight": 0.4,
-            "evidence": "45 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.66,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "http://www.karla-luxury-rib.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 97 665 8174"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.6,
-            "weight": 0.35,
-            "evidence": "enquiry form"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.3333,
-            "weight": 0.15,
-            "evidence": "en"
-          },
-          {
-            "name": "contactable by email",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "luxuryribkarla@gmail.com"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en"
-        ],
-        "booking": "enquiry_form",
-        "product_categories": [
-          "boat_tour",
-          "water_sports",
-          "transfer",
-          "private_guide"
-        ],
-        "contact_email": "luxuryribkarla@gmail.com",
-        "seasonality": "seasonal",
-        "group_type": "private",
-        "marketplace_presence": [],
-        "confidence": 0.6
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Sea King Split",
-      "website": "http://seakingsplit.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJ24lpGrVnNRMRtfkG7wIGb7E",
-      "composite": 0.4527,
-      "band": "B",
-      "quality": {
-        "score": 0.7336,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.8272,
-            "weight": 0.6,
-            "evidence": "5.0 from 34 reviews (adjusted to 4.74 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.5932,
-            "weight": 0.4,
-            "evidence": "34 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.56,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "http://seakingsplit.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 91 520 4167"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.6,
-            "weight": 0.35,
-            "evidence": "enquiry form"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.3333,
-            "weight": 0.15,
-            "evidence": "en"
-          },
-          {
-            "name": "contactable by email",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No email published"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en"
-        ],
-        "booking": "enquiry_form",
-        "product_categories": [
-          "boat_tour",
-          "day_trip",
-          "transfer",
-          "private_guide"
-        ],
-        "contact_email": "",
-        "seasonality": "seasonal",
-        "group_type": "both",
-        "marketplace_presence": [],
-        "confidence": 0.6
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Out to Sea Experiences",
-      "website": "https://tantulika28.wixsite.com/tour/blank",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJ94S250ZdNRMRQ8DYdgq5Lfg",
-      "composite": 0.4403,
-      "band": "B",
-      "quality": {
-        "score": 0.9056,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.947,
-            "weight": 0.6,
-            "evidence": "5.0 from 156 reviews (adjusted to 4.92 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.8436,
-            "weight": 0.4,
-            "evidence": "156 reviews (capped at 400; more buys no further credit)"
+            "evidence": "72 reviews"
           }
         ]
       },
@@ -1908,13 +3032,13 @@
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://tantulika28.wixsite.com/tour/blank"
+            "evidence": "http://www.skywalk-poljud.com/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 99 384 1434"
+            "evidence": "+385 95 564 2078"
           },
           {
             "name": "booking capability",
@@ -1943,14 +3067,14 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.1233,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.1233,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/adventure: demand index 44, 19 bookable operators against 26 needed to serve it"
           }
         ]
       },
@@ -1962,37 +3086,43 @@
         "seasonality": "unclear",
         "group_type": "unclear",
         "marketplace_presence": [],
-        "confidence": 0.05
+        "confidence": 0.02
       },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 95 564 2078",
+      "address": "Poljud stadium, Osmih mediteranskih igara 2, 21000, Split, Croatia",
+      "lat": 43.5199395,
+      "lng": 16.43116,
+      "rating": 5.0,
+      "review_count": 72,
+      "category": "adventure",
+      "viator_label": "Extreme Sports",
+      "viator_path": "Outdoor Activities / Extreme Sports",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
     },
     {
-      "name": "Split After Dark",
-      "website": "https://splitafterdark.com/",
+      "name": "Tower Pub Crawl",
+      "website": "https://www.towerpubcrawls.com/",
       "destination": "split",
-      "experience_type": "walking_tour",
-      "place_source_id": "ChIJdyhqnR1dNRMRWkV6SY4iTd4",
-      "composite": 0.4401,
+      "experience_type": "food_drink",
+      "place_source_id": "ChIJO4umL59fNRMRUbUf4bROt_8",
+      "composite": 0.4428,
       "band": "B",
       "quality": {
-        "score": 0.9574,
+        "score": 0.6422,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.9291,
+            "value": 0.5333,
             "weight": 0.6,
-            "evidence": "4.9 from 1857 reviews (adjusted to 4.89 for sample size)"
+            "evidence": "4.3 from 124 reviews"
           },
           {
             "name": "review volume",
-            "value": 1.0,
+            "value": 0.8055,
             "weight": 0.4,
-            "evidence": "1857 reviews (capped at 400; more buys no further credit)"
+            "evidence": "124 reviews"
           }
         ]
       },
@@ -2004,13 +3134,13 @@
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://splitafterdark.com/"
+            "evidence": "https://www.towerpubcrawls.com/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 99 384 1434"
+            "evidence": "+385 95 875 3161"
           },
           {
             "name": "booking capability",
@@ -2039,22 +3169,28 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.3767,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.3767,
             "weight": 1.0,
-            "evidence": "split/walking_tour: demand index 48, 33 bookable operators against 29 needed to serve it"
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
           }
         ]
       },
       "extract": null,
-      "category": "walking_tour",
-      "viator_label": "Walking Tours",
-      "viator_path": "Tours, Sightseeing & Cruises / How to Get Around / Walking Tours",
-      "viator_top": "Tours, Sightseeing & Cruises",
+      "phone": "+385 95 875 3161",
+      "address": "Poljana Stare gimnazije 1, 21000, Split, Croatia",
+      "lat": 43.5095965,
+      "lng": 16.4388304,
+      "rating": 4.3,
+      "review_count": 124,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
       "category_source": "classifier"
     },
     {
@@ -2063,23 +3199,23 @@
       "destination": "split",
       "experience_type": "other",
       "place_source_id": "ChIJh8CEwf9dNRMRlyoDa63btaw",
-      "composite": 0.4383,
+      "composite": 0.441,
       "band": "B",
       "quality": {
-        "score": 0.9523,
+        "score": 0.96,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.9205,
+            "value": 0.9333,
             "weight": 0.6,
-            "evidence": "4.9 from 604 reviews (adjusted to 4.88 for sample size)"
+            "evidence": "4.9 from 604 reviews"
           },
           {
             "name": "review volume",
             "value": 1.0,
             "weight": 0.4,
-            "evidence": "604 reviews (capped at 400; more buys no further credit)"
+            "evidence": "604 reviews"
           }
         ]
       },
@@ -2138,93 +3274,12 @@
         ]
       },
       "extract": null,
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Sunset Boat Party in Split - Sundown Sessions",
-      "website": "https://www.sundowncroatia.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJPzXveD1dNRMRdSvrhbNSbGk",
-      "composite": 0.438,
-      "band": "B",
-      "quality": {
-        "score": 0.9513,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.9667,
-            "weight": 0.6,
-            "evidence": "5.0 from 260 reviews (adjusted to 4.95 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.9284,
-            "weight": 0.4,
-            "evidence": "260 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://www.sundowncroatia.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 91 920 1539"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.0,
-            "weight": 0.35,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.0,
-            "weight": 0.15,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "contactable by email",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "Not assessed: website not read"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": null,
+      "phone": "+385 95 381 9895",
+      "address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "lat": 43.5073368,
+      "lng": 16.438384799999998,
+      "rating": 4.9,
+      "review_count": 604,
       "category": "boat_tour",
       "viator_label": "Cruises & Sailing",
       "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
@@ -2238,7 +3293,7 @@
       "experience_type": "other",
       "place_source_id": "ChIJU1DDNVFdNRMR8Z9Pz1-6SBM",
       "composite": 0.4373,
-      "band": "B",
+      "band": "C",
       "quality": {
         "score": 0.6469,
         "note": null,
@@ -2247,13 +3302,13 @@
             "name": "rating",
             "value": 0.5333,
             "weight": 0.6,
-            "evidence": "4.3 from 133 reviews (adjusted to 4.30 for sample size)"
+            "evidence": "4.3 from 133 reviews"
           },
           {
             "name": "review volume",
             "value": 0.8171,
             "weight": 0.4,
-            "evidence": "133 reviews (capped at 400; more buys no further credit)"
+            "evidence": "133 reviews"
           }
         ]
       },
@@ -2318,9 +3373,9 @@
         "booking": "unclear",
         "product_categories": [
           "boat_tour",
+          "water_sports",
           "day_trip",
-          "private_guide",
-          "water_sports"
+          "private_guide"
         ],
         "contact_email": "info@splitboattrips.com",
         "seasonality": "seasonal",
@@ -2330,6 +3385,12 @@
         ],
         "confidence": 0.55
       },
+      "phone": "+385 99 350 0905",
+      "address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "lat": 43.5073953,
+      "lng": 16.4381046,
+      "rating": 4.3,
+      "review_count": 133,
       "category": "boat_tour",
       "viator_label": "Cruises & Sailing",
       "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
@@ -2337,28 +3398,28 @@
       "category_source": "search term"
     },
     {
-      "name": "Toto Travel",
-      "website": "https://www.toto.hr/",
+      "name": "Split Adventure",
+      "website": "https://splitadventure.com/",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJQQTG8R5dNRMRe4Q74ZthYOw",
-      "composite": 0.4259,
+      "experience_type": "adventure",
+      "place_source_id": "ChIJf0dRzv9dNRMR7oG6N7w4WV0",
+      "composite": 0.4435,
       "band": "B",
       "quality": {
-        "score": 0.9168,
+        "score": 0.8615,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.8614,
+            "value": 0.8667,
             "weight": 0.6,
-            "evidence": "4.8 from 1247 reviews (adjusted to 4.79 for sample size)"
+            "evidence": "4.8 from 166 reviews"
           },
           {
             "name": "review volume",
-            "value": 1.0,
+            "value": 0.8539,
             "weight": 0.4,
-            "evidence": "1247 reviews (capped at 400; more buys no further credit)"
+            "evidence": "166 reviews"
           }
         ]
       },
@@ -2370,13 +3431,13 @@
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://www.toto.hr/"
+            "evidence": "https://splitadventure.com/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 99 757 4222"
+            "evidence": "+385 91 182 8995"
           },
           {
             "name": "booking capability",
@@ -2405,110 +3466,29 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.1233,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.1233,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/adventure: demand index 44, 19 bookable operators against 26 needed to serve it"
           }
         ]
       },
       "extract": null,
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Summer Blues",
-      "website": "http://www.summer-blues.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJi08QHP5dNRMRqgtq_EHcFSg",
-      "composite": 0.4248,
-      "band": "B",
-      "quality": {
-        "score": 0.9137,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.8562,
-            "weight": 0.6,
-            "evidence": "4.8 from 615 reviews (adjusted to 4.78 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 1.0,
-            "weight": 0.4,
-            "evidence": "615 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "http://www.summer-blues.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 21 332 500"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.0,
-            "weight": 0.35,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.0,
-            "weight": 0.15,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "contactable by email",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "Not assessed: website not read"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": null,
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 91 182 8995",
+      "address": "Obala Hrvatskog narodnog preporoda 22, 21000, Split, Croatia",
+      "lat": 43.5075426,
+      "lng": 16.439698099999998,
+      "rating": 4.8,
+      "review_count": 166,
+      "category": "adventure",
+      "viator_label": "Extreme Sports",
+      "viator_path": "Outdoor Activities / Extreme Sports",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
     },
     {
       "name": "Blue Shark",
@@ -2516,23 +3496,23 @@
       "destination": "split",
       "experience_type": "other",
       "place_source_id": "ChIJ_U08scdfNRMR4j-0MNxvszM",
-      "composite": 0.4166,
+      "composite": 0.4244,
       "band": "C",
       "quality": {
-        "score": 0.8903,
+        "score": 0.9126,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.8963,
+            "value": 0.9333,
             "weight": 0.6,
-            "evidence": "4.9 from 196 reviews (adjusted to 4.84 for sample size)"
+            "evidence": "4.9 from 196 reviews"
           },
           {
             "name": "review volume",
             "value": 0.8814,
             "weight": 0.4,
-            "evidence": "196 reviews (capped at 400; more buys no further credit)"
+            "evidence": "196 reviews"
           }
         ]
       },
@@ -2591,6 +3571,12 @@
         ]
       },
       "extract": null,
+      "phone": "+385 91 234 5995",
+      "address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "lat": 43.5074738,
+      "lng": 16.4380283,
+      "rating": 4.9,
+      "review_count": 196,
       "category": "boat_tour",
       "viator_label": "Cruises & Sailing",
       "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
@@ -2598,28 +3584,28 @@
       "category_source": "search term"
     },
     {
-      "name": "Max Nautica",
-      "website": "https://gyg.me/kaGUxDyn",
+      "name": "Diocletians Dream (VR Experience)",
+      "website": "http://www.diocletiansdream.com/",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJHX7oGzxdNRMRJgSWYn13eV0",
-      "composite": 0.4116,
+      "experience_type": "cultural",
+      "place_source_id": "ChIJ737W855fNRMRmWe9oEkyMI8",
+      "composite": 0.413,
       "band": "C",
       "quality": {
-        "score": 0.8759,
+        "score": 0.88,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.7932,
+            "value": 0.8,
             "weight": 0.6,
-            "evidence": "4.7 from 761 reviews (adjusted to 4.69 for sample size)"
+            "evidence": "4.7 from 921 reviews"
           },
           {
             "name": "review volume",
             "value": 1.0,
             "weight": 0.4,
-            "evidence": "761 reviews (capped at 400; more buys no further credit)"
+            "evidence": "921 reviews"
           }
         ]
       },
@@ -2631,13 +3617,13 @@
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://gyg.me/kaGUxDyn"
+            "evidence": "http://www.diocletiansdream.com/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 91 111 1154"
+            "evidence": "+385 21 886 015"
           },
           {
             "name": "booking capability",
@@ -2673,126 +3659,22 @@
             "name": "unmet demand",
             "value": 0.0,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/cultural: demand index 39, 27 bookable operators against 23 needed to serve it"
           }
         ]
       },
       "extract": null,
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "All inclusive blue cave tour from Split | lunch & drinks",
-      "website": "https://bluecavetour.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJq4IfvS5dNRMRLN6rDoIyMCo",
-      "composite": 0.4062,
-      "band": "C",
-      "quality": {
-        "score": 0.3605,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.5238,
-            "weight": 0.6,
-            "evidence": "4.0 from 1 reviews (adjusted to 4.29 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.1156,
-            "weight": 0.4,
-            "evidence": "1 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.8,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://bluecavetour.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 97 613 2503"
-          },
-          {
-            "name": "booking capability",
-            "value": 1.0,
-            "weight": 0.35,
-            "evidence": "online booking"
-          },
-          {
-            "name": "languages sold in",
-            "value": 1.0,
-            "weight": 0.15,
-            "evidence": "en, es, fr, de, it, zh, hi"
-          },
-          {
-            "name": "contactable by email",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No email published"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en",
-          "es",
-          "fr",
-          "de",
-          "it",
-          "zh",
-          "hi"
-        ],
-        "booking": "online_booking",
-        "product_categories": [
-          "boat_tour",
-          "day_trip",
-          "private_guide",
-          "food_drink",
-          "water_sports"
-        ],
-        "contact_email": "",
-        "seasonality": "seasonal",
-        "group_type": "private",
-        "marketplace_presence": [],
-        "confidence": 0.9
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 21 886 015",
+      "address": "Zagrebačka ul. 1, 21000, Split, Croatia",
+      "lat": 43.510215699999996,
+      "lng": 16.4413534,
+      "rating": 4.7,
+      "review_count": 921,
+      "category": "cultural",
+      "viator_label": "Culture",
+      "viator_path": "Art & Culture / Culture",
+      "viator_top": "Art & Culture",
+      "category_source": "classifier"
     },
     {
       "name": "Golden Line Split",
@@ -2800,23 +3682,23 @@
       "destination": "split",
       "experience_type": "other",
       "place_source_id": "ChIJC-F-MGwd_2ARkLoeapWwsbo",
-      "composite": 0.3981,
+      "composite": 0.411,
       "band": "C",
       "quality": {
-        "score": 0.8374,
+        "score": 0.8743,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.8718,
+            "value": 0.9333,
             "weight": 0.6,
-            "evidence": "4.9 from 110 reviews (adjusted to 4.81 for sample size)"
+            "evidence": "4.9 from 110 reviews"
           },
           {
             "name": "review volume",
             "value": 0.7857,
             "weight": 0.4,
-            "evidence": "110 reviews (capped at 400; more buys no further credit)"
+            "evidence": "110 reviews"
           }
         ]
       },
@@ -2875,6 +3757,12 @@
         ]
       },
       "extract": null,
+      "phone": "+385 91 114 4462",
+      "address": "Obala Lazareta 1, 21000, Split, Croatia",
+      "lat": 43.5065162,
+      "lng": 16.4387428,
+      "rating": 4.9,
+      "review_count": 110,
       "category": "boat_tour",
       "viator_label": "Cruises & Sailing",
       "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
@@ -2882,52 +3770,52 @@
       "category_source": "search term"
     },
     {
-      "name": "Waterworld Holidays",
-      "website": "https://waterworldcroatia.com/",
+      "name": "Food and drink walking tours Split",
+      "website": "https://goo.gl/QrFAij",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJUX-ovLNdNRMRF7EcE2T5IWw",
-      "composite": 0.3968,
+      "experience_type": "food_drink",
+      "place_source_id": "ChIJU496nv5dNRMRnrAdiXoewcQ",
+      "composite": 0.3825,
       "band": "C",
       "quality": {
-        "score": 0.3337,
-        "note": null,
+        "score": 0.21,
+        "note": "No rating available; quality cannot be assessed from discovery data.",
         "components": [
           {
             "name": "rating",
-            "value": 0.0123,
+            "value": 0.35,
             "weight": 0.6,
-            "evidence": "3.4 from 132 reviews (adjusted to 3.52 for sample size)"
+            "evidence": "No rating on the listing"
           },
           {
             "name": "review volume",
-            "value": 0.8159,
+            "value": 0.0,
             "weight": 0.4,
-            "evidence": "132 reviews (capped at 400; more buys no further credit)"
+            "evidence": "0 reviews"
           }
         ]
       },
       "readiness": {
-        "score": 0.8,
+        "score": 0.56,
         "note": null,
         "components": [
           {
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://waterworldcroatia.com/"
+            "evidence": "https://goo.gl/QrFAij"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 99 524 4360"
+            "evidence": "+385 98 667 806"
           },
           {
             "name": "booking capability",
-            "value": 1.0,
+            "value": 0.6,
             "weight": 0.35,
-            "evidence": "online booking"
+            "evidence": "enquiry form"
           },
           {
             "name": "languages sold in",
@@ -2937,9 +3825,9 @@
           },
           {
             "name": "contactable by email",
-            "value": 1.0,
+            "value": 0.0,
             "weight": 0.1,
-            "evidence": "info@waterworldcroatia.com"
+            "evidence": "No email published"
           },
           {
             "name": "sells on a marketplace already",
@@ -2950,14 +3838,14 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.3767,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.3767,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/food_drink: demand index 61, 14 bookable operators against 37 needed to serve it"
           }
         ]
       },
@@ -2965,27 +3853,29 @@
         "languages": [
           "en"
         ],
-        "booking": "online_booking",
+        "booking": "enquiry_form",
         "product_categories": [
-          "boat_tour",
-          "adventure",
-          "water_sports",
-          "cultural",
-          "day_trip",
-          "transfer",
-          "private_guide"
+          "walking_tour",
+          "food_drink",
+          "cultural"
         ],
-        "contact_email": "info@waterworldcroatia.com",
-        "seasonality": "seasonal",
-        "group_type": "both",
+        "contact_email": "",
+        "seasonality": "year_round",
+        "group_type": "shared",
         "marketplace_presence": [],
-        "confidence": 0.65
+        "confidence": 0.6
       },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 98 667 806",
+      "address": "Matošića ul. 10, 21000, Split, Croatia",
+      "lat": 43.5105382,
+      "lng": 16.4365533,
+      "rating": null,
+      "review_count": null,
+      "category": "food_drink",
+      "viator_label": "Food & Drink",
+      "viator_path": "Food & Drink",
+      "viator_top": "Food & Drink",
+      "category_source": "classifier"
     },
     {
       "name": "St. Damian Boat Tours",
@@ -2993,23 +3883,23 @@
       "destination": "split",
       "experience_type": "other",
       "place_source_id": "ChIJi08QHP5dNRMRgoM9liM3uwY",
-      "composite": 0.3772,
+      "composite": 0.378,
       "band": "C",
       "quality": {
-        "score": 0.8776,
+        "score": 0.88,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.796,
+            "value": 0.8,
             "weight": 0.6,
-            "evidence": "4.7 from 1302 reviews (adjusted to 4.69 for sample size)"
+            "evidence": "4.7 from 1302 reviews"
           },
           {
             "name": "review volume",
             "value": 1.0,
             "weight": 0.4,
-            "evidence": "1302 reviews (capped at 400; more buys no further credit)"
+            "evidence": "1302 reviews"
           }
         ]
       },
@@ -3068,6 +3958,12 @@
         ]
       },
       "extract": null,
+      "phone": null,
+      "address": "Obala Hrvatskog narodnog preporoda bb, 21000, Split, Croatia",
+      "lat": 43.507357999999996,
+      "lng": 16.4383171,
+      "rating": 4.7,
+      "review_count": 1302,
       "category": "boat_tour",
       "viator_label": "Cruises & Sailing",
       "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
@@ -3075,124 +3971,28 @@
       "category_source": "search term"
     },
     {
-      "name": "Korsaro Boat Tour from Split",
-      "website": "https://tantulika28.wixsite.com/tour/blank",
+      "name": "BG Nautica",
+      "website": "https://www.bgnautica.eu/",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJ8RjfSVddNRMRFh0U7kFPhyk",
-      "composite": 0.3658,
+      "experience_type": "water_sports",
+      "place_source_id": "ChIJ-_eIEQJdNRMRAXUyO45rKAw",
+      "composite": 0.4069,
       "band": "C",
       "quality": {
-        "score": 0.7926,
+        "score": 0.7712,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.7675,
-            "weight": 0.6,
-            "evidence": "4.7 from 144 reviews (adjusted to 4.65 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.8303,
-            "weight": 0.4,
-            "evidence": "144 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.2525,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
             "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://tantulika28.wixsite.com/tour/blank"
-          },
-          {
-            "name": "phone",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No phone number listed"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.15,
-            "weight": 0.35,
-            "evidence": "unclear"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.0,
-            "weight": 0.15,
-            "evidence": "None detected"
-          },
-          {
-            "name": "contactable by email",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No email published"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [],
-        "booking": "unclear",
-        "product_categories": [],
-        "contact_email": "",
-        "seasonality": "unclear",
-        "group_type": "unclear",
-        "marketplace_presence": [],
-        "confidence": 0.05
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Island Hoppers Croatia",
-      "website": "https://split-boat.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJt8o5QABdNRMRtoReDoN747Y",
-      "composite": 0.359,
-      "band": "C",
-      "quality": {
-        "score": 0.7256,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.8205,
             "weight": 0.6,
-            "evidence": "5.0 from 32 reviews (adjusted to 4.73 for sample size)"
+            "evidence": "5.0 from 12 reviews"
           },
           {
             "name": "review volume",
-            "value": 0.5833,
+            "value": 0.4279,
             "weight": 0.4,
-            "evidence": "32 reviews (capped at 400; more buys no further credit)"
+            "evidence": "12 reviews"
           }
         ]
       },
@@ -3204,13 +4004,13 @@
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://split-boat.com/"
+            "evidence": "https://www.bgnautica.eu/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 98 947 3304"
+            "evidence": "+385 91 557 6326"
           },
           {
             "name": "booking capability",
@@ -3239,350 +4039,53 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.1067,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.1067,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/water_sports: demand index 54, 26 bookable operators against 32 needed to serve it"
           }
         ]
       },
       "extract": null,
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 91 557 6326",
+      "address": "Marmontova ul. 6, 21000, Split, Croatia",
+      "lat": 43.5094059,
+      "lng": 16.4371659,
+      "rating": 5.0,
+      "review_count": 12,
+      "category": "water_sports",
+      "viator_label": "On the Water",
+      "viator_path": "Outdoor Activities / On the Water",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
     },
     {
-      "name": "Adriatica Transfer - Boat Tour Agency",
-      "website": "https://www.adriaticatransfer.com/",
+      "name": "Diving Club Spinut",
+      "website": "https://www.facebook.com/RonilackiKlubSpinut/",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJb3Vmr1BdNRMRCKtnia1Gq1M",
-      "composite": 0.3224,
+      "experience_type": "water_sports",
+      "place_source_id": "ChIJDcLixfNdNRMR9CwFAForPeM",
+      "composite": 0.2872,
       "band": "C",
       "quality": {
-        "score": 0.4188,
+        "score": 0.4291,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.5758,
+            "value": 0.4,
             "weight": 0.6,
-            "evidence": "5.0 from 2 reviews (adjusted to 4.36 for sample size)"
+            "evidence": "4.1 from 16 reviews"
           },
           {
             "name": "review volume",
-            "value": 0.1833,
+            "value": 0.4727,
             "weight": 0.4,
-            "evidence": "2 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.5025,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://www.adriaticatransfer.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 95 912 9500"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.15,
-            "weight": 0.35,
-            "evidence": "unclear"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.3333,
-            "weight": 0.15,
-            "evidence": "en"
-          },
-          {
-            "name": "contactable by email",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "info@adriaticatransfer.com"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en"
-        ],
-        "booking": "unclear",
-        "product_categories": [
-          "boat_tour",
-          "transfer",
-          "private_guide",
-          "day_trip"
-        ],
-        "contact_email": "info@adriaticatransfer.com",
-        "seasonality": "unclear",
-        "group_type": "both",
-        "marketplace_presence": [],
-        "confidence": 0.35
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "ISLAND DISCOVERY",
-      "website": "http://www.islanddiscovery.life/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJ8SO2RgBdNRMRmwjOi2h7X-M",
-      "composite": 0.3045,
-      "band": "C",
-      "quality": {
-        "score": 0.21,
-        "note": "No rating available; quality cannot be assessed from discovery data.",
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.35,
-            "weight": 0.6,
-            "evidence": "No rating on the listing"
-          },
-          {
-            "name": "review volume",
-            "value": 0.0,
-            "weight": 0.4,
-            "evidence": "0 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.66,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "http://www.islanddiscovery.life/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 95 363 5839"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.6,
-            "weight": 0.35,
-            "evidence": "enquiry form"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.3333,
-            "weight": 0.15,
-            "evidence": "en"
-          },
-          {
-            "name": "contactable by email",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "info@islanddiscovery.life"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [
-          "en"
-        ],
-        "booking": "enquiry_form",
-        "product_categories": [
-          "boat_tour",
-          "private_guide",
-          "transfer"
-        ],
-        "contact_email": "info@islanddiscovery.life",
-        "seasonality": "unclear",
-        "group_type": "private",
-        "marketplace_presence": [],
-        "confidence": 0.6
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "NERA Boat Tour from Split",
-      "website": "https://splitboatrent.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJ94CunHhdNRMRGgMyb3jFNAY",
-      "composite": 0.3034,
-      "band": "C",
-      "quality": {
-        "score": 0.5145,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.641,
-            "weight": 0.6,
-            "evidence": "5.0 from 6 reviews (adjusted to 4.46 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.3246,
-            "weight": 0.4,
-            "evidence": "6 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.3525,
-        "note": null,
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://splitboatrent.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 99 855 9993"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.15,
-            "weight": 0.35,
-            "evidence": "unclear"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.0,
-            "weight": 0.15,
-            "evidence": "None detected"
-          },
-          {
-            "name": "contactable by email",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No email published"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "No marketplace presence found on their site"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": {
-        "languages": [],
-        "booking": "unclear",
-        "product_categories": [
-          "boat_tour"
-        ],
-        "contact_email": "",
-        "seasonality": "unclear",
-        "group_type": "unclear",
-        "marketplace_presence": [],
-        "confidence": 0.15
-      },
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Marinero Sailing",
-      "website": "https://marinero-sailing.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJCzGZUGdnNRMRvl9yoyLhXwM",
-      "composite": 0.2998,
-      "band": "C",
-      "quality": {
-        "score": 0.5565,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.619,
-            "weight": 0.6,
-            "evidence": "4.6 from 15 reviews (adjusted to 4.43 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.4626,
-            "weight": 0.4,
-            "evidence": "15 reviews (capped at 400; more buys no further credit)"
+            "evidence": "16 reviews"
           }
         ]
       },
@@ -3594,13 +4097,13 @@
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "https://marinero-sailing.com/"
+            "evidence": "https://www.facebook.com/RonilackiKlubSpinut/"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+385 99 400 8056"
+            "evidence": "+385 91 121 0020"
           },
           {
             "name": "booking capability",
@@ -3629,47 +4132,53 @@
         ]
       },
       "gap_fit": {
-        "score": 0.0,
+        "score": 0.1067,
         "note": "Demand figures are synthetic; in production these come from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
-            "value": 0.0,
+            "value": 0.1067,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/water_sports: demand index 54, 26 bookable operators against 32 needed to serve it"
           }
         ]
       },
       "extract": null,
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 91 121 0020",
+      "address": "Lučica 7, 21000, Split, Croatia",
+      "lat": 43.515659,
+      "lng": 16.4152384,
+      "rating": 4.1,
+      "review_count": 16,
+      "category": "water_sports",
+      "viator_label": "On the Water",
+      "viator_path": "Outdoor Activities / On the Water",
+      "viator_top": "Outdoor Activities",
+      "category_source": "classifier"
     },
     {
-      "name": "SPLIT PRESENTS BOAT PARTY",
-      "website": "http://www.splitpresents.co.uk/",
+      "name": "Riva Ride",
+      "website": "https://www.viator.com/tours/Split/City-tour-by-electric-rickshaw/d4185-478484P1",
       "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJ97QH3SddNRMRlGcHHTaEC6c",
-      "composite": 0.2851,
+      "experience_type": "cultural",
+      "place_source_id": "ChIJh9tHq0qBMkMRE1YR9bInJTY",
+      "composite": 0.3688,
       "band": "C",
       "quality": {
-        "score": 0.5145,
+        "score": 0.7537,
         "note": null,
         "components": [
           {
             "name": "rating",
-            "value": 0.641,
+            "value": 1.0,
             "weight": 0.6,
-            "evidence": "5.0 from 6 reviews (adjusted to 4.46 for sample size)"
+            "evidence": "5.0 from 9 reviews"
           },
           {
             "name": "review volume",
-            "value": 0.3246,
+            "value": 0.3842,
             "weight": 0.4,
-            "evidence": "6 reviews (capped at 400; more buys no further credit)"
+            "evidence": "9 reviews"
           }
         ]
       },
@@ -3681,13 +4190,13 @@
             "name": "website",
             "value": 1.0,
             "weight": 0.2,
-            "evidence": "http://www.splitpresents.co.uk/"
+            "evidence": "https://www.viator.com/tours/Split/City-tour-by-electric-rickshaw/d4185-478484P1"
           },
           {
             "name": "phone",
             "value": 1.0,
             "weight": 0.1,
-            "evidence": "+44 7810 314793"
+            "evidence": "+385 95 387 7109"
           },
           {
             "name": "booking capability",
@@ -3723,214 +4232,46 @@
             "name": "unmet demand",
             "value": 0.0,
             "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
+            "evidence": "split/cultural: demand index 39, 27 bookable operators against 23 needed to serve it"
           }
         ]
       },
       "extract": null,
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Split Boat Excursion - UNDERWATER MUSEUM",
-      "website": "https://underwatermuseumcroatia.com/",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJO_W3sEtdNRMRbvUfgjy51Ac",
-      "composite": 0.2692,
-      "band": "C",
-      "quality": {
-        "score": 0.4691,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.5506,
-            "weight": 0.6,
-            "evidence": "4.4 from 7 reviews (adjusted to 4.33 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.3469,
-            "weight": 0.4,
-            "evidence": "7 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://underwatermuseumcroatia.com/"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 95 560 4456"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.0,
-            "weight": 0.35,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.0,
-            "weight": 0.15,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "contactable by email",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "Not assessed: website not read"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": null,
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
-    },
-    {
-      "name": "Taxi Boat Split Port - Žnjan beach",
-      "website": "https://watersportssplit.com/split-port-znjan-beach-boat-taxi.html",
-      "destination": "split",
-      "experience_type": "other",
-      "place_source_id": "ChIJfZISX6thNRMRjXJPp5yrlsI",
-      "composite": 0.2388,
-      "band": "C",
-      "quality": {
-        "score": 0.3824,
-        "note": null,
-        "components": [
-          {
-            "name": "rating",
-            "value": 0.5152,
-            "weight": 0.6,
-            "evidence": "4.0 from 2 reviews (adjusted to 4.27 for sample size)"
-          },
-          {
-            "name": "review volume",
-            "value": 0.1833,
-            "weight": 0.4,
-            "evidence": "2 reviews (capped at 400; more buys no further credit)"
-          }
-        ]
-      },
-      "readiness": {
-        "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
-        "components": [
-          {
-            "name": "website",
-            "value": 1.0,
-            "weight": 0.2,
-            "evidence": "https://watersportssplit.com/split-port-znjan-beach-boat-taxi.html"
-          },
-          {
-            "name": "phone",
-            "value": 1.0,
-            "weight": 0.1,
-            "evidence": "+385 95 518 1818"
-          },
-          {
-            "name": "booking capability",
-            "value": 0.0,
-            "weight": 0.35,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "languages sold in",
-            "value": 0.0,
-            "weight": 0.15,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "contactable by email",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "Not assessed: website not read"
-          },
-          {
-            "name": "sells on a marketplace already",
-            "value": 0.0,
-            "weight": 0.1,
-            "evidence": "Not assessed: website not read"
-          }
-        ]
-      },
-      "gap_fit": {
-        "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
-        "components": [
-          {
-            "name": "unmet demand",
-            "value": 0.0,
-            "weight": 1.0,
-            "evidence": "split/boat_tour: demand index 100, 74 bookable operators against 60 needed to serve it"
-          }
-        ]
-      },
-      "extract": null,
-      "category": "boat_tour",
-      "viator_label": "Cruises & Sailing",
-      "viator_path": "Tours, Sightseeing & Cruises / Cruises & Sailing",
-      "viator_top": "Tours, Sightseeing & Cruises",
-      "category_source": "search term"
+      "phone": "+385 95 387 7109",
+      "address": "Riva, 21000, Split, Croatia",
+      "lat": 43.5077061,
+      "lng": 16.4382102,
+      "rating": 5.0,
+      "review_count": 9,
+      "category": "cultural",
+      "viator_label": "Culture",
+      "viator_path": "Art & Culture / Culture",
+      "viator_top": "Art & Culture",
+      "category_source": "classifier"
     }
   ],
   "metrics": {
     "matching": {
       "total": 167,
-      "precision": 0.8788,
+      "precision": 1.0,
       "recall": 0.9206,
-      "f1": 0.8992,
+      "f1": 0.9587,
       "review_rate": 0.024,
       "automation_rate": 0.976,
-      "missed_opportunity": 7,
-      "wasted_call": 4,
-      "wrong_supplier": 1,
+      "missed_opportunity": 0,
+      "wasted_call": 5,
+      "wrong_supplier": 0,
       "correct_existing": 58,
-      "correct_net_new": 93
+      "correct_net_new": 100
     },
     "thresholds": {
       "high": 0.8,
       "low": 0.65
     },
     "decisions_by_stage": {
-      "net_new/fuzzy_score": 97,
-      "existing/hard_key": 62,
-      "existing/fuzzy_score": 4,
+      "net_new/fuzzy_score": 105,
+      "existing/hard_key": 53,
+      "existing/fuzzy_score": 5,
       "needs_review/fuzzy_score": 4
     },
     "review_share": 0.024,
@@ -3955,121 +4296,121 @@
     "sweep_upper": [
       {
         "total": 167,
-        "precision": 0.8696,
+        "precision": 0.9836,
         "recall": 0.9231,
-        "f1": 0.8955,
+        "f1": 0.9524,
         "review_rate": 0.0299,
         "automation_rate": 0.9701,
-        "missed_opportunity": 8,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 1,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 60,
-        "correct_net_new": 89,
+        "correct_net_new": 96,
         "high": 0.66,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8676,
+        "precision": 0.9833,
         "recall": 0.9219,
-        "f1": 0.8939,
+        "f1": 0.9516,
         "review_rate": 0.0359,
         "automation_rate": 0.9641,
-        "missed_opportunity": 8,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 1,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 59,
-        "correct_net_new": 89,
+        "correct_net_new": 96,
         "high": 0.72,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8676,
+        "precision": 0.9833,
         "recall": 0.9219,
-        "f1": 0.8939,
+        "f1": 0.9516,
         "review_rate": 0.0359,
         "automation_rate": 0.9641,
-        "missed_opportunity": 8,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 1,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 59,
-        "correct_net_new": 89,
+        "correct_net_new": 96,
         "high": 0.76,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8788,
+        "precision": 1.0,
         "recall": 0.9206,
-        "f1": 0.8992,
+        "f1": 0.9587,
         "review_rate": 0.0479,
         "automation_rate": 0.9521,
-        "missed_opportunity": 7,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 58,
-        "correct_net_new": 89,
+        "correct_net_new": 96,
         "high": 0.8,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8788,
+        "precision": 1.0,
         "recall": 0.9206,
-        "f1": 0.8992,
+        "f1": 0.9587,
         "review_rate": 0.0479,
         "automation_rate": 0.9521,
-        "missed_opportunity": 7,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 58,
-        "correct_net_new": 89,
+        "correct_net_new": 96,
         "high": 0.82,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8769,
+        "precision": 1.0,
         "recall": 0.9194,
-        "f1": 0.8976,
+        "f1": 0.958,
         "review_rate": 0.0539,
         "automation_rate": 0.9461,
-        "missed_opportunity": 7,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 57,
-        "correct_net_new": 89,
+        "correct_net_new": 96,
         "high": 0.86,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8769,
+        "precision": 1.0,
         "recall": 0.9194,
-        "f1": 0.8976,
+        "f1": 0.958,
         "review_rate": 0.0539,
         "automation_rate": 0.9461,
-        "missed_opportunity": 7,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 57,
-        "correct_net_new": 89,
+        "correct_net_new": 96,
         "high": 0.9,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8769,
+        "precision": 1.0,
         "recall": 0.9194,
-        "f1": 0.8976,
+        "f1": 0.958,
         "review_rate": 0.0539,
         "automation_rate": 0.9461,
-        "missed_opportunity": 7,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 57,
-        "correct_net_new": 89,
+        "correct_net_new": 96,
         "high": 0.94,
         "low": 0.55
       }
@@ -4077,106 +4418,106 @@
     "sweep_lower": [
       {
         "total": 167,
-        "precision": 0.8788,
+        "precision": 1.0,
         "recall": 0.9355,
-        "f1": 0.9062,
-        "review_rate": 0.0659,
-        "automation_rate": 0.9341,
-        "missed_opportunity": 7,
-        "wasted_call": 3,
-        "wrong_supplier": 1,
+        "f1": 0.9667,
+        "review_rate": 0.0719,
+        "automation_rate": 0.9281,
+        "missed_opportunity": 0,
+        "wasted_call": 4,
+        "wrong_supplier": 0,
         "correct_existing": 58,
-        "correct_net_new": 87,
+        "correct_net_new": 93,
         "high": 0.82,
         "low": 0.4
       },
       {
         "total": 167,
-        "precision": 0.8788,
+        "precision": 1.0,
         "recall": 0.9206,
-        "f1": 0.8992,
+        "f1": 0.9587,
         "review_rate": 0.0539,
         "automation_rate": 0.9461,
-        "missed_opportunity": 7,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 58,
-        "correct_net_new": 88,
+        "correct_net_new": 95,
         "high": 0.82,
         "low": 0.5
       },
       {
         "total": 167,
-        "precision": 0.8788,
+        "precision": 1.0,
         "recall": 0.9206,
-        "f1": 0.8992,
+        "f1": 0.9587,
         "review_rate": 0.0479,
         "automation_rate": 0.9521,
-        "missed_opportunity": 7,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 58,
-        "correct_net_new": 89,
+        "correct_net_new": 96,
         "high": 0.82,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8788,
+        "precision": 1.0,
         "recall": 0.9206,
-        "f1": 0.8992,
+        "f1": 0.9587,
         "review_rate": 0.0419,
         "automation_rate": 0.9581,
-        "missed_opportunity": 7,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 58,
-        "correct_net_new": 90,
+        "correct_net_new": 97,
         "high": 0.82,
         "low": 0.6
       },
       {
         "total": 167,
-        "precision": 0.8788,
+        "precision": 1.0,
         "recall": 0.9206,
-        "f1": 0.8992,
+        "f1": 0.9587,
         "review_rate": 0.024,
         "automation_rate": 0.976,
-        "missed_opportunity": 7,
-        "wasted_call": 4,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 5,
+        "wrong_supplier": 0,
         "correct_existing": 58,
-        "correct_net_new": 93,
+        "correct_net_new": 100,
         "high": 0.82,
         "low": 0.65
       },
       {
         "total": 167,
-        "precision": 0.8788,
+        "precision": 1.0,
         "recall": 0.8923,
-        "f1": 0.8855,
+        "f1": 0.9431,
         "review_rate": 0.012,
         "automation_rate": 0.988,
-        "missed_opportunity": 7,
-        "wasted_call": 6,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 7,
+        "wrong_supplier": 0,
         "correct_existing": 58,
-        "correct_net_new": 93,
+        "correct_net_new": 100,
         "high": 0.82,
         "low": 0.7
       },
       {
         "total": 167,
-        "precision": 0.8788,
+        "precision": 1.0,
         "recall": 0.8923,
-        "f1": 0.8855,
+        "f1": 0.9431,
         "review_rate": 0.012,
         "automation_rate": 0.988,
-        "missed_opportunity": 7,
-        "wasted_call": 6,
-        "wrong_supplier": 1,
+        "missed_opportunity": 0,
+        "wasted_call": 7,
+        "wrong_supplier": 0,
         "correct_existing": 58,
-        "correct_net_new": 93,
+        "correct_net_new": 100,
         "high": 0.82,
         "low": 0.75
       }
@@ -4456,6 +4797,7 @@
     ]
   },
   "economics": {
+    "basis": "This is what one destination costs to RUN at list price, not what was spent building the prototype. Actual out-of-pocket for the entire build was about GBP 0.82, because Google's free monthly allowance absorbed the Places calls and Anthropic introductory pricing was in force. Neither subsidy survives contact with 200 destinations, so neither is used below.",
     "assumptions": [
       {
         "name": "Manual research time per destination",
@@ -4470,7 +4812,22 @@
       {
         "name": "Model pricing",
         "value": "Claude Sonnet 5 at standard rates, not the introductory rate expiring 31 August 2026",
-        "source": "Deliberately conservative."
+        "source": "Deliberately conservative. Actual spend was lower."
+      },
+      {
+        "name": "Free tiers",
+        "value": "Excluded",
+        "source": "Google's first 1,000 Enterprise search calls each month are free, so the real Google bill for this build was GBP 0.00. Amortising an allowance that one destination exhausts would not scale."
+      },
+      {
+        "name": "Enrichment cost",
+        "value": "Extrapolated: USD 0.01176 per operator x 167 operators",
+        "source": "Measured over a 40-operator sample and scaled. A production run enriches every operator; the 40 was a budget decision, not a design one."
+      },
+      {
+        "name": "Places call count",
+        "value": "28 billable search calls",
+        "source": "Recorded from the 14 august sweep, before metrics were persisted."
       },
       {
         "name": "Demand figures",

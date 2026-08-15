@@ -1,4 +1,12 @@
-"""Print the matching metrics from the built snapshot."""
+"""Print the matching metrics from the built snapshot.
+
+Reads the PUBLISHED snapshot, which is the one the console serves and the only
+one build_snapshot.py writes. It previously read data/snapshot.json, an orphan
+left behind by an earlier iteration, and so reported the pre-recalibration
+thresholds of 0.9/0.65 and a 16% review rate long after the real ones had moved
+to 0.80/0.65 and 2.4%. A metrics script quoting numbers the product no longer
+produces is worse than no metrics script.
+"""
 
 from __future__ import annotations
 
@@ -7,6 +15,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from supply_radar.config import SNAPSHOT_DIR  # noqa: E402
 
 
 def table(rows: list[dict]) -> None:
@@ -19,7 +29,8 @@ def table(rows: list[dict]) -> None:
 
 
 def main() -> None:
-    d = json.loads(Path("data/snapshot.json").read_text(encoding="utf-8"))
+    sys.stdout.reconfigure(encoding="utf-8")
+    d = json.loads((SNAPSHOT_DIR / "snapshot.json").read_text(encoding="utf-8"))
     m = d["metrics"]
 
     print("counts")

@@ -96,6 +96,28 @@ def main() -> None:
         )
         print(f"\nwrote {len(result.places)} places to {path}")
 
+        # The billable call count is written alongside the places, because the
+        # economics page needs it and it is unrecoverable afterwards: the places
+        # file cannot tell you how many API calls produced it, since pagination
+        # and quadtree subdivision both break any ratio you might infer. It was
+        # previously carried as a hardcoded constant in build_snapshot.py for
+        # exactly that reason.
+        meta_path = path.with_name(f"{path.stem}_sweep.json")
+        meta_path.write_text(
+            json.dumps(
+                {
+                    "destination_id": args.destination,
+                    "queries": queries,
+                    **result.summary(),
+                    "cost": ledger.summary(),
+                },
+                indent=2,
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        print(f"wrote sweep metrics to {meta_path}")
+
 
 if __name__ == "__main__":
     main()

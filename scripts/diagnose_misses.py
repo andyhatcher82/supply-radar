@@ -8,6 +8,13 @@ The threshold sweep on real data showed these barely respond to the high
 threshold, which means they are not coming from the fuzzy path at all. This
 script attributes each one to the signal that actually decided it.
 
+Runs over the classified OPERATORS only, exactly as build_snapshot.py does.
+It previously matched over all 301 discovered places and generated the
+synthetic supplier list from them, which is the bug Correction 10 describes:
+fixed in the pipeline at the time, missed in this script, so its numbers were
+computed over a population the product no longer uses and quietly disagreed
+with the published ones.
+
     python scripts/diagnose_misses.py
 """
 
@@ -27,12 +34,29 @@ from supply_radar.synth import expected_verdicts, generate_supplier_list  # noqa
 
 
 def main() -> None:
-    places = [
+    # Croatian operator names are full of diacritics and the Windows console
+    # defaults to cp1252, which kills the script partway through its own output.
+    sys.stdout.reconfigure(encoding="utf-8")
+
+    data = Path("data")
+    all_places = [
         DiscoveredPlace(**p)
-        for p in json.loads(
-            Path("data/split_places.json").read_text(encoding="utf-8")
-        )
+        for p in json.loads((data / "split_places.json").read_text(encoding="utf-8"))
     ]
+    classified = {
+        c["place_source_id"]: c
+        for c in json.loads(
+            (data / "split_classified.json").read_text(encoding="utf-8")
+        )
+    }
+    places = [
+        p
+        for p in all_places
+        if classified.get(p.source_id, {}).get("verdict") == "experience_operator"
+    ]
+    print(f"{len(places)} operators matched "
+          f"({len(all_places) - len(places)} filtered out by classification)\n")
+
     locale = load_locale("hr")
     suppliers, truth = generate_supplier_list(places, seed=42)
     answer = expected_verdicts(truth)

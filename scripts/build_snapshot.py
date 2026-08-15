@@ -25,7 +25,14 @@ from supply_radar.evaluate import evaluate, threshold_sweep  # noqa: E402
 from supply_radar.locales import load_locale  # noqa: E402
 from supply_radar.matching import MatchThresholds, match_all  # noqa: E402
 from supply_radar.models import DiscoveredPlace, MatchVerdict  # noqa: E402
-from supply_radar.scoring import BAND_A, BAND_B, score_gap_fit  # noqa: E402
+from supply_radar.enrich import SiteExtract  # noqa: E402
+from supply_radar.scoring import (  # noqa: E402
+    BAND_A_SHARE_OF_CEILING,
+    BAND_B_SHARE_OF_CEILING,
+    band_cutoffs,
+    score_gap_fit,
+    score_lead,
+)
 from supply_radar.taxonomy import breadcrumb, coverage, label, top_level  # noqa: E402
 from supply_radar.synth import expected_verdicts, generate_supplier_list  # noqa: E402
 
@@ -63,6 +70,17 @@ def main() -> None:
         place = _places_by_id.get(lead.get("place_source_id"))
         if place is None:
             continue
+        # Contact and identity fields come from the discovered place and were
+        # never copied onto the lead. Everything downstream that has to REACH an
+        # operator rather than rank one — the CSV export, the warehouse table,
+        # a CRM push — needs them, and a lead list Sales cannot phone is not a
+        # lead list. The site extract carries an email but no phone at all.
+        lead["phone"] = place.phone
+        lead["address"] = place.address
+        lead["lat"] = place.lat
+        lead["lng"] = place.lng
+        lead["rating"] = place.rating
+        lead["review_count"] = place.review_count
         lead["category"] = resolve_category(place, lead.get("experience_type"))
         # Express the category in Viator's own words. A lead described as
         # "boat_tour" is described in my vocabulary; one described as
@@ -80,18 +98,40 @@ def main() -> None:
     resolved = sum(1 for l in leads if l.get("category"))
     print(f"  categories resolved for {resolved}/{len(leads)} leads")
 
-    # Bands are recomputed here rather than trusted from the leads file. That
-    # file was written when the cut-offs were still 0.65/0.45, which measurement
-    # later showed made band A unreachable. Deriving them from the composite at
-    # build time means a threshold change takes effect without re-running the
-    # expensive enrichment.
+    # The SCORE is recomputed here, not trusted from the leads file, for the
+    # same reason the bands are. Scoring is deterministic and free; enrichment
+    # is neither. Freezing the score at enrichment time meant a change to a
+    # weight, a counterweight, or even the wording of an evidence line could
+    # not reach the console without paying to re-fetch and re-read 40 websites
+    # — which is how a scoring fix silently failed to appear in a rebuild.
+    #
+    # The website extract is reused from the leads file. Nothing is fetched and
+    # no model is called.
+    for lead in leads:
+        place = _places_by_id.get(lead.get("place_source_id"))
+        if place is None:
+            continue
+        extract = lead.get("extract")
+        rescored = score_lead(
+            place,
+            lead.get("category"),
+            SiteExtract(**extract) if extract else None,
+        )
+        lead.update(rescored.to_dict())
+
+    # Bands are recomputed here rather than trusted from the leads file, and the
+    # cut-offs are derived from what is achievable in THIS destination rather
+    # than fixed. See band_cutoffs: a constant has now been wrong in both
+    # directions, unreachable at 0.65 and then far too generous at 0.55 once the
+    # quality axis was corrected.
+    band_a, band_b, ceiling = band_cutoffs(leads)
     for lead in leads:
         c = lead["composite"]
-        lead["band"] = "A" if c >= BAND_A else "B" if c >= BAND_B else "C"
+        lead["band"] = "A" if c >= band_a else "B" if c >= band_b else "C"
     band_counts: dict[str, int] = {}
     for lead in leads:
         band_counts[lead["band"]] = band_counts.get(lead["band"], 0) + 1
-    print(f"  bands (A>={BAND_A} B>={BAND_B}): {band_counts}")
+    print(f"  ceiling {ceiling} -> bands (A>={band_a} B>={band_b}): {band_counts}")
 
     # ---- matching, against real discovered operators -----------------------
     #
@@ -209,8 +249,36 @@ def main() -> None:
         )
 
     # ---- economics ---------------------------------------------------------
-    # Measured from the real runs recorded during the build.
-    places_calls = 28
+    #
+    # THIS IS A MODEL OF WHAT A DESTINATION COSTS TO RUN, NOT A RECORD OF WHAT
+    # WAS SPENT BUILDING IT. The two differ by more than an order of magnitude
+    # and conflating them is the easiest way to lose an economics argument:
+    #
+    #   * List price, free tiers deliberately EXCLUDED. Google's first 1,000
+    #     Enterprise search calls each month are free, so the real Google bill
+    #     for this build was zero. At 200 destinations Viator exhausts that
+    #     allowance immediately, so quoting zero would be worse than useless.
+    #   * Standard Sonnet 5 rates, not the introductory rates expiring
+    #     31 August 2026. Actual Anthropic spend was therefore about a third
+    #     lower than modelled here.
+    #   * Enrichment is EXTRAPOLATED. It was measured over a 40-operator sample
+    #     and scaled to all operators, because a production run enriches every
+    #     operator and a 40-lead sample is a budget decision, not a design one.
+    #
+    # Actual out-of-pocket across the whole build was roughly GBP 0.82. The
+    # figure below is what one destination costs at list price with nothing
+    # subsidised, which is the only version that survives multiplication.
+    sweep_meta_path = DATA / "split_places_sweep.json"
+    if sweep_meta_path.exists():
+        places_calls = json.loads(sweep_meta_path.read_text(encoding="utf-8"))["api_calls"]
+        places_calls_source = "recorded by the sweep"
+    else:
+        # Recorded from the 14 August Split sweep before sweep.py persisted its
+        # own metrics. Kept as a fallback so the economics page still builds
+        # from a places file produced by that run; re-running sweep.py replaces
+        # it with a live figure.
+        places_calls = 28
+        places_calls_source = "recorded from the 14 August sweep, before metrics were persisted"
     places_usd = places_calls * 35.00 / 1000
     classify_usd = 0.3657
     enrich_usd_per_operator = 0.01176
@@ -224,6 +292,14 @@ def main() -> None:
     manual_cost = MANUAL_HOURS_PER_DESTINATION * ANALYST_COST_PER_HOUR_GBP
 
     economics = {
+        "basis": (
+            "This is what one destination costs to RUN at list price, not what "
+            "was spent building the prototype. Actual out-of-pocket for the "
+            "entire build was about GBP 0.82, because Google's free monthly "
+            "allowance absorbed the Places calls and Anthropic introductory "
+            "pricing was in force. Neither subsidy survives contact with 200 "
+            "destinations, so neither is used below."
+        ),
         "assumptions": [
             {
                 "name": "Manual research time per destination",
@@ -240,7 +316,28 @@ def main() -> None:
                 "name": "Model pricing",
                 "value": "Claude Sonnet 5 at standard rates, not the "
                          "introductory rate expiring 31 August 2026",
-                "source": "Deliberately conservative.",
+                "source": "Deliberately conservative. Actual spend was lower.",
+            },
+            {
+                "name": "Free tiers",
+                "value": "Excluded",
+                "source": "Google's first 1,000 Enterprise search calls each "
+                          "month are free, so the real Google bill for this "
+                          "build was GBP 0.00. Amortising an allowance that "
+                          "one destination exhausts would not scale.",
+            },
+            {
+                "name": "Enrichment cost",
+                "value": f"Extrapolated: USD {enrich_usd_per_operator} per "
+                         f"operator x {operators} operators",
+                "source": f"Measured over a 40-operator sample and scaled. A "
+                          f"production run enriches every operator; the 40 was "
+                          f"a budget decision, not a design one.",
+            },
+            {
+                "name": "Places call count",
+                "value": f"{places_calls} billable search calls",
+                "source": places_calls_source.capitalize() + ".",
             },
             {
                 "name": "Demand figures",
@@ -281,6 +378,21 @@ def main() -> None:
     snapshot = {
         "destination": "Split, Croatia",
         "generated_from": "Real Google Places discovery, August 2026",
+        # Published so the "cut-offs are recalibrated per destination" claim can
+        # be checked rather than taken on trust.
+        "bands": {
+            "ceiling": ceiling,
+            "band_a": band_a,
+            "band_b": band_b,
+            "basis": (
+                f"Best achievable composite in this destination is {ceiling:.3f}, "
+                f"from the best score observed on each axis. Band A is the top "
+                f"{int(BAND_A_SHARE_OF_CEILING * 100)}% of that, band B the top "
+                f"{int(BAND_B_SHARE_OF_CEILING * 100)}%. A fixed cut-off has been "
+                f"wrong in both directions here: unreachable at 0.65, then too "
+                f"generous at 0.55 once the quality axis was corrected."
+            ),
+        },
         # One funnel, one denominator, and it adds up. Every figure after
         # "operators" is a subset of it.
         "counts": {

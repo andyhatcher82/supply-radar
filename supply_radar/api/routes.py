@@ -320,6 +320,26 @@ def run(req: AreaRequest, x_access_code: str | None = Header(default=None)) -> d
         "classification": classification.summary() if classification else None,
         "leads": leads,
         "cost": ledger.summary(),
+        # Carried in the payload rather than written as UI copy, because it is a
+        # statement about what this endpoint did and did not compute. Anyone
+        # reading the API gets it too.
+        "scope": {
+            "net_new_determined": False,
+            "headline": (
+                "These are discovered operators, not net-new leads. "
+                "No net-new determination has been made."
+            ),
+            "detail": (
+                "Net-new is not a property of an operator, it is a relation "
+                "between an operator and Viator's supply list, so it cannot be "
+                "computed with one side missing. This sweep discovers, "
+                "classifies and scores anywhere, live. The net-new "
+                "determination is demonstrated on the Split benchmark, where an "
+                "answer key exists. In production it runs everywhere, because "
+                "the supplier list is a lookup that exists for every "
+                "destination."
+            ),
+        },
         "caveats": [
             "Websites were not fetched, so readiness scores on contactability "
             "alone and will read low. The Croatia snapshot shows the enriched "

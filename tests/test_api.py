@@ -12,7 +12,9 @@ def test_healthz_reports_ok_and_capabilities():
     assert body["status"] == "ok"
     # Capability flags must always be present so the front end can render an
     # honest status pill rather than guessing.
-    assert set(body["capabilities"]) == {"places", "llm", "bigquery"}
+    # "bigquery" is deliberately absent: nothing imports the client, so
+    # advertising it would be a claim the code does not support.
+    assert set(body["capabilities"]) == {"places", "llm"}
 
 
 def test_healthz_never_leaks_secret_values():

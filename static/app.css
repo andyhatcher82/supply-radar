@@ -164,7 +164,32 @@ label.field span { display: block; font-size: 11px; color: var(--dim);
 
 .discover-wrap { display: grid; grid-template-columns: 340px 1fr; gap: 16px; }
 @media (max-width: 900px) { .discover-wrap { grid-template-columns: 1fr; } }
+/* Custom modal rather than the browser's confirm()/prompt(), which cannot be
+   styled, looks like a security warning, and gives nowhere to type a reason. */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(4, 6, 9, 0.72);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.modal-card {
+  background: var(--panel, #12161c); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 20px; width: min(520px, 100%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .55);
+}
+.modal-card textarea {
+  width: 100%; margin-top: 6px; padding: 9px 11px; resize: vertical;
+  background: var(--bg, #0b0e12); color: inherit; font: inherit;
+  border: 1px solid var(--line); border-radius: 8px;
+}
+.modal-card textarea:focus { outline: none; border-color: var(--accent, #4fd1c5); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+
 #map { height: 560px; border-radius: var(--radius); border: 1px solid var(--line); }
+
+/* The draw tools belong to polygon mode only. Hidden by class rather than by
+   JS setting display, because Geoman attaches the toolbar after the view
+   renders and a timing-dependent hide loses that race on first load. */
+#map.hide-draw-tools .leaflet-pm-toolbar { display: none; }
 .leaflet-container { background: #0c1014; }
 
 .modes { display: flex; gap: 6px; margin-bottom: 14px; }

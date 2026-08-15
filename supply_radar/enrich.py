@@ -51,6 +51,20 @@ CANDIDATE_PATHS = [
     "/booking", "/book", "/contact", "/about", "/tours", "/en",
 ]
 
+# Most "fetch failures" are not failures. Measured across the 40-operator Split
+# sample: four of the unreadable sites answer HTTP 202, which is the signature
+# of a bot-protection interstitial ("checking your browser") rather than a
+# server problem, and one answers 403 to our user agent while serving a browser
+# normally. Reporting all of that as fetch_failures reads as flaky code when it
+# is in fact working code being deliberately turned away.
+#
+# The obvious workaround is to send a browser user agent. That is declined, for
+# the same reason competitor marketplaces are not scraped: the whole position
+# here is that the tool identifies itself honestly and respects what a site
+# says. Being blocked and saying so is the correct outcome, and the honest
+# production answer is a licensed rendering service, not a disguise.
+BOT_PROTECTION_CODES = {202, 429}
+
 MAX_PAGES_PER_SITE = 3
 MAX_CHARS_PER_SITE = 12_000
 REQUEST_TIMEOUT = 12.0
@@ -160,6 +174,7 @@ class EnrichmentRun:
     results: dict[str, EnrichmentResult] = field(default_factory=dict)
     skipped_no_site: int = 0
     blocked_by_robots: int = 0
+    blocked_by_site: int = 0
     fetch_failures: int = 0
     cache_hits: int = 0
     pages_fetched: int = 0
@@ -174,6 +189,7 @@ class EnrichmentRun:
             "extracted": len(extracted),
             "skipped_no_site": self.skipped_no_site,
             "blocked_by_robots": self.blocked_by_robots,
+            "blocked_by_site": self.blocked_by_site,
             "fetch_failures": self.fetch_failures,
             "pages_fetched": self.pages_fetched,
             "cache_hits": self.cache_hits,
@@ -272,7 +288,7 @@ class SiteFetcher:
                 "content-type", ""
             ):
                 if url == base_url:
-                    return "", 0, f"HTTP {res.status_code}"
+                    return "", 0, _why_unreadable(res)
                 continue
 
             chunks.append(f"--- {url} ---\n{html_to_text(res.text)}")
@@ -283,6 +299,21 @@ class SiteFetcher:
             return "", 0, "no readable pages"
 
         return "\n\n".join(chunks)[:MAX_CHARS_PER_SITE], pages, None
+
+
+def _why_unreadable(res) -> str:
+    """Name the reason a page could not be read, in a reviewer's words."""
+    if res.status_code in BOT_PROTECTION_CODES:
+        return f"blocked by bot protection (HTTP {res.status_code})"
+    if res.status_code == 403:
+        return "blocked: the site refuses our user agent"
+    if res.status_code == 404:
+        return "page not found"
+    if 500 <= res.status_code < 600:
+        return f"the operator's site is erroring (HTTP {res.status_code})"
+    if res.status_code == 200:
+        return "the page is not HTML"
+    return f"HTTP {res.status_code}"
 
 
 def html_to_text(html: str) -> str:
@@ -324,8 +355,13 @@ def enrich(
             run.pages_fetched += pages
 
             if error or not text:
+                # "Blocked" and "broken" are different findings and only one of
+                # them is ours to fix. Lumping them together hid that most
+                # unreadable sites are working perfectly and turning us away.
                 if error == "blocked by robots.txt":
                     run.blocked_by_robots += 1
+                elif error and error.startswith("blocked"):
+                    run.blocked_by_site += 1
                 else:
                     run.fetch_failures += 1
                 run.results[source_id] = EnrichmentResult(

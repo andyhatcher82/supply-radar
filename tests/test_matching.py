@@ -108,6 +108,49 @@ class TestHardKeys:
             == "tinel-tours.hr"
         )
 
+    def test_a_host_shared_by_several_businesses_does_not_decide_alone(self):
+        """Keeping the full builder host was necessary and not sufficient.
+
+        Eight different real Split operators list the SAME full host,
+        tantulika28.wixsite.com, so the subdomain separates nobody. Every one of
+        the 7 missed opportunities remaining after Correction 8 came from this
+        one host. Domain now needs the same name corroboration phone got.
+        """
+        shared = "https://tantulika28.wixsite.com/tour/blank"
+        s = supplier(legal_name="Croatia Private Tours", phone=None, website=shared)
+        others = [
+            place(source_id=f"other_{i}", name=f"Unrelated Boat {i}", website=shared)
+            for i in range(2)
+        ]
+        index = MatchIndex(
+            [s], HR, extra_domain_corpus=[shared] + [p.website for p in others]
+        )
+        res = match_place(place(website=shared), index, HR)
+        assert res.decided_by is not DecidedBy.HARD_KEY
+
+    def test_a_shared_host_still_decides_when_the_name_agrees(self):
+        """Demoting the shared host must not throw away the genuine tenant.
+        Sharing a booking agent's site is not evidence against identity when the
+        names also agree."""
+        shared = "https://tantulika28.wixsite.com/tour/blank"
+        s = supplier(
+            legal_name="Adriatic Kayak Adventures d.o.o.", phone=None, website=shared
+        )
+        index = MatchIndex([s], HR, extra_domain_corpus=[shared, shared])
+        res = match_place(place(website=shared), index, HR)
+        assert res.verdict is MatchVerdict.EXISTING
+        assert res.decided_by is DecidedBy.HARD_KEY
+        assert res.evidence[0].signal == "exact domain and name"
+
+    def test_an_unshared_domain_still_decides_on_its_own(self):
+        """The demotion is targeted at shared hosts. A domain only one business
+        uses remains the strongest identity signal available."""
+        s = supplier(legal_name="Marić d.o.o.", phone=None)
+        index = MatchIndex([s], HR, extra_domain_corpus=["https://www.adriatickayak.hr"])
+        res = match_place(place(), index, HR)
+        assert res.verdict is MatchVerdict.EXISTING
+        assert res.evidence[0].signal == "exact domain"
+
     def test_a_social_or_marketplace_page_carries_no_identity(self):
         """Small operators often list a Facebook page as their website. Matching
         two of them on facebook.com would be worse than having no signal."""
