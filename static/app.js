@@ -914,8 +914,16 @@ function viewLeads() {
           had the hard conversation.</p>
         <p>The objection is not "why a marketplace". It is only "why this one too". That is a
           much easier call.</p>
+        <p><strong>Spot-checked by hand against viator.com on 15 August 2026.</strong> The
+          three highest-scoring operators in this group were all absent from Viator:
+          <em>Art Bottega Split</em> (composite 0.788), <em>MySplitTours</em> (0.687) and
+          <em>Apodos Travel Agency</em>, trading as Sightseeing Split (0.669). Three of
+          ${ta} checked, not all of them, so treat this as evidence the signal works rather
+          than as a verified list.</p>
         <p>We read this from each operator's own website. Anyone who sells on a marketplace
-          without saying so is missed, so the real number is higher.</p>`);
+          without saying so is missed, so the real number is higher. A production version
+          would query Tripadvisor's own data instead, which Viator has and this build
+          does not.</p>`);
     })()}
 
     <div class="grid g3" style="margin-top:6px">
