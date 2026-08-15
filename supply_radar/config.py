@@ -42,6 +42,12 @@ class Settings(BaseSettings):
     # Gate on live runs and any billable call triggered from the browser.
     access_code: str = ""
 
+    # Separate key for the admin surface. Deliberately not the same as the
+    # spend code: authorising a sweep and changing what everyone else is
+    # allowed to sweep are different privileges. Proper role-based access is a
+    # day-2 item; this is the v1 stand-in for it.
+    admin_code: str = ""
+
     # BigQuery — published snapshot store
     bq_project: str = ""
     bq_dataset: str = "supply_radar"

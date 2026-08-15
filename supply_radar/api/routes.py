@@ -21,6 +21,7 @@ from typing import Literal
 from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel, Field
 
+from supply_radar import admin
 from supply_radar.classify import classify, resolve_category
 from supply_radar.config import SNAPSHOT_DIR, get_settings
 from supply_radar.costs import CostLedger, estimate_sweep
@@ -69,8 +70,16 @@ class AreaRequest(BaseModel):
         return SearchArea.from_polygon([(p[0], p[1]) for p in self.points])
 
     def clean_queries(self) -> list[str]:
-        queries = [q.strip() for q in self.queries if q.strip()][:MAX_LIVE_QUERIES]
-        return queries or list(DEFAULT_QUERIES[:1])
+        """Only curated terms are accepted. Anything else is refused rather
+        than quietly passed through to a paid API with no category mapping."""
+        accepted, rejected = admin.validate_terms(self.queries)
+        if rejected and not accepted:
+            raise HTTPException(
+                400,
+                f"Not on the approved search-term list: {', '.join(rejected)}. "
+                "Pick from the list, or ask an admin to add them.",
+            )
+        return accepted or [t["term"] for t in admin.search_terms() if t["default"]][:1]
 
 
 def _load(name: str) -> dict | list:
@@ -122,7 +131,52 @@ def economics() -> dict:
 @router.get("/regions")
 def regions() -> dict:
     """Markets the business has opened, so the browser can grey out the rest."""
-    return as_geojson()
+    data = as_geojson()
+    # Honour any market an admin has closed on this instance.
+    data["enabled"] = [
+        r for r in data["enabled"] if r["id"] not in admin.STATE.disabled_regions
+    ]
+    return data
+
+
+@router.get("/search-terms")
+def search_terms() -> dict:
+    """The curated list users pick from.
+
+    Free text was the wrong control here. A user's own wording can spend money
+    on a query that returns nothing, and the term a result was found by is what
+    feeds gap-fit scoring — an unmapped term produces operators with no
+    category and silently zeroes an entire axis.
+    """
+    return {
+        "terms": admin.search_terms(),
+        "max_selectable": admin.max_selectable(),
+    }
+
+
+def _require_admin(supplied: str | None) -> None:
+    if not settings.admin_code:
+        raise HTTPException(503, "No admin code is configured on this deployment")
+    if supplied != settings.admin_code:
+        raise HTTPException(401, "A valid admin code is required")
+
+
+@router.get("/admin/config")
+def admin_config(x_admin_code: str | None = Header(default=None)) -> dict:
+    _require_admin(x_admin_code)
+    return admin.snapshot(settings)
+
+
+@router.post("/admin/config")
+def admin_update(
+    changes: dict, x_admin_code: str | None = Header(default=None)
+) -> dict:
+    _require_admin(x_admin_code)
+    try:
+        applied = admin.apply(changes)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+    return {"applied": applied, "config": admin.snapshot(settings)}
 
 
 # ---------------------------------------------------------------- estimate
@@ -219,7 +273,9 @@ def run(req: AreaRequest, x_access_code: str | None = Header(default=None)) -> d
     classification = None
     results_by_id: dict = {}
     if settings.llm_enabled and sweep.places:
-        llm = LLMClient(settings.anthropic_api_key, ledger=ledger)
+        llm = LLMClient(
+            settings.anthropic_api_key, ledger=ledger, model=admin.active_model()
+        )
         classification = classify(sweep.places, llm)
         results_by_id = {r.place_source_id: r for r in classification.results}
 

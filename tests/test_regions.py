@@ -37,6 +37,29 @@ class TestPoints:
             assert ok, f"{name} should be inside Croatia"
             assert region.id == "croatia"
 
+    def test_the_northern_and_eastern_edges_are_covered(self):
+        """A first pass cut the corners off Međimurje in the north and Baranja
+        in the far east, quietly removing whole counties from every sweep."""
+        for name, lat, lng in [
+            ("Varaždin", 46.3057, 16.3366),
+            ("Čakovec", 46.3892, 16.4340),
+            ("Koprivnica", 46.1628, 16.8277),
+            ("Beli Manastir", 45.7714, 18.6089),
+            ("Vukovar", 45.3417, 19.0011),
+            ("Ilok", 45.2231, 19.3739),
+            ("Slavonski Brod", 45.1603, 18.0156),
+            ("Karlovac", 45.4870, 15.5478),
+        ]:
+            ok, _ = check_point(lat, lng)
+            assert ok, f"{name} should be inside Croatia"
+
+    def test_the_tolerance_catches_experiences_just_over_the_border(self):
+        """Experiences do not stop at a border. Losing a rafting operator on
+        the Una to a simplified outline is worse than occasionally catching one
+        a few kilometres the wrong side, and that trade is deliberate."""
+        ok, _ = check_point(42.9200, 17.6000)  # Neum corridor, a Bosnian sliver
+        assert ok, "a coastal day trip through Neum should not be refused"
+
     def test_neighbouring_capitals_are_outside(self):
         """The boundary has to be tight enough on land that a user cannot
         quietly sweep a market nobody has opened."""

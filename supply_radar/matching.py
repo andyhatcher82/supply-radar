@@ -70,6 +70,35 @@ SAME_PREMISES_KM = 0.2
 NAME_GATE = 0.45
 NAME_GATE_CAP = 0.35
 
+# Token weighting.
+#
+# The original name score used token_set_ratio over equally-weighted tokens,
+# which is wrong twice over in a market like this. It returns a PERFECT score
+# when one name's tokens are a subset of the other's, so "boat split" scored
+# 1.00 against "hemingway boat split". And it treats every word as equally
+# informative, when "boat", "split" and "tours" appear in most operator names
+# in this corpus and carry no identity at all.
+#
+# Tokens are now weighted by inverse document frequency, computed over the
+# actual corpus. A word appearing in many records tells you almost nothing; a
+# rare one like "hemingway" tells you almost everything. The same applies to
+# addresses, where half the boat operators in Split share the Riva.
+#
+# A token appearing in more than this share of records is treated as generic
+# for this market. The absolute floor stops a tiny corpus declaring everything
+# generic.
+GENERIC_TOKEN_SHARE = 0.10
+GENERIC_TOKEN_MIN_DOCS = 3
+
+# Two tokens count as the same word above this character similarity, so
+# "adriatik" still matches "adriatic".
+TOKEN_FUZZ_FLOOR = 85
+
+# When BOTH names reduce to nothing but market-generic words, the name cannot
+# establish identity however similar it looks. Capped below the review band so
+# corroborating signals have to carry it.
+GENERIC_ONLY_CAP = 0.40
+
 # How much the names must agree before a shared phone number is allowed to
 # decide a match on its own. Set from the real Split data: the colliding pairs
 # there ("Split Boat Trips" vs "semiSUBMARINE Split", "Condor Yachting" vs
@@ -98,22 +127,27 @@ class MatchThresholds:
     167 mutually-confusable Split tour operators, and the old settings cost
     52 human reviews to deliver MORE missed operators, not fewer.
 
-    high=0.94 minimises the expensive error. Anything an operator scores below
-    this against a supplier record is not certain enough to write them off.
+    Re-read again after names and addresses moved to IDF weighting. That change
+    shifted the whole score distribution: genuine matches still score high,
+    while pairs sharing only market-generic words ("boat", "split") collapsed
+    from near-perfect to near-zero. A more discriminating score needs tighter
+    bands, not the same ones, so 0.94/0.75 became 0.80/0.65.
 
-    low=0.75 keeps review affordable, at 8.4% of decisions.
+    Result on the real operator population: 7 missed, 4 reviews (2.4%), 4
+    wasted calls. Robust: it stays cheapest even when a missed operator is
+    valued no higher than a wasted call, the softest and most dominant number
+    in the cost model.
 
-    Result on the real operator population: 7 missed, 14 reviews, 5 wasted
-    calls. The choice is robust: it stays the cheapest option even when a
-    missed operator is valued no higher than a wasted call, which is the
-    softest and most dominant number in the cost model.
+    The review queue is small because the deterministic layer got better, not
+    because humans were designed out. Worth saying plainly rather than quietly
+    enjoying the number.
 
     Calibrated on Split. Per-locale recalibration is a stated day-2 item, and
     these are config rather than constants for exactly that reason.
     """
 
-    high: float = 0.94
-    low: float = 0.75
+    high: float = 0.80
+    low: float = 0.65
 
     def band(self, score: float) -> MatchVerdict:
         if score >= self.high:
@@ -121,6 +155,132 @@ class MatchThresholds:
         if score <= self.low:
             return MatchVerdict.NET_NEW
         return MatchVerdict.NEEDS_REVIEW
+
+
+@dataclass
+class TokenIdf:
+    """How much identity each token actually carries, learned from the corpus.
+
+    Built once per index. `generic_*` are the tokens so common in this market
+    that sharing one is not evidence of anything.
+    """
+
+    name: dict[str, float]
+    address: dict[str, float]
+    n_docs: int
+    generic_names: frozenset[str]
+    generic_address: frozenset[str]
+
+    @property
+    def unseen_idf(self) -> float:
+        """A token absent from the corpus is maximally distinctive."""
+        return math.log((self.n_docs + 1) / 1)
+
+    def name_weight(self, token: str) -> float:
+        return self.name.get(token, self.unseen_idf)
+
+    def address_weight(self, token: str) -> float:
+        return self.address.get(token, self.unseen_idf)
+
+    def explain_generic(self, tokens: set[str]) -> str:
+        hits = sorted(tokens & self.generic_names)
+        return ", ".join(hits)
+
+
+def build_idf(name_docs: list[set[str]], address_docs: list[set[str]]) -> TokenIdf:
+    n = max(1, len(name_docs))
+
+    def table(docs: list[set[str]]) -> tuple[dict[str, float], frozenset[str]]:
+        df: dict[str, int] = defaultdict(int)
+        for doc in docs:
+            for token in doc:
+                df[token] += 1
+        idf = {t: math.log((n + 1) / (1 + c)) for t, c in df.items()}
+        generic = frozenset(
+            t
+            for t, c in df.items()
+            if c >= GENERIC_TOKEN_MIN_DOCS and c / n > GENERIC_TOKEN_SHARE
+        )
+        return idf, generic
+
+    name_idf, generic_names = table(name_docs)
+    addr_idf, generic_addr = table(address_docs)
+    return TokenIdf(
+        name=name_idf,
+        address=addr_idf,
+        n_docs=n,
+        generic_names=generic_names,
+        generic_address=generic_addr,
+    )
+
+
+def _weighted_dice(a: set[str], b: set[str], weight) -> float:
+    """Dice coefficient over IDF-weighted tokens, tolerant of typos.
+
+    Symmetric, so a truncated name is not silently rewarded the way a subset
+    match is under token_set_ratio.
+    """
+    total_a = sum(weight(t) for t in a)
+    total_b = sum(weight(t) for t in b)
+    if not total_a or not total_b:
+        return 0.0
+
+    matched = 0.0
+    remaining = set(b)
+    # Most distinctive first, so the rare token claims its partner before a
+    # common one can consume it.
+    for ta in sorted(a, key=lambda t: -weight(t)):
+        best, best_ratio = None, 0
+        for tb in remaining:
+            r = fuzz.ratio(ta, tb)
+            if r > best_ratio:
+                best, best_ratio = tb, r
+        if best is not None and best_ratio >= TOKEN_FUZZ_FLOOR:
+            matched += min(weight(ta), weight(best)) * (best_ratio / 100)
+            remaining.discard(best)
+
+    return max(0.0, min(1.0, 2 * matched / (total_a + total_b)))
+
+
+def name_similarity(
+    place_norm: str, supplier_norm: str, idf: TokenIdf | None
+) -> tuple[float, str]:
+    """Name agreement, weighted by how distinctive the shared words are."""
+    a, b = set(place_norm.split()), set(supplier_norm.split())
+    if not a or not b:
+        return 0.0, "no usable name on one side"
+
+    if idf is None:
+        return fuzz.token_set_ratio(place_norm, supplier_norm) / 100.0, (
+            f"'{place_norm}' vs '{supplier_norm}'"
+        )
+
+    a_dist, b_dist = a - idf.generic_names, b - idf.generic_names
+
+    if a_dist and b_dist:
+        sim = _weighted_dice(a_dist, b_dist, idf.name_weight)
+        shared = sorted(a_dist & b_dist)
+        detail = (
+            f"distinctive words {sorted(a_dist)} vs {sorted(b_dist)}"
+            + (f", shared: {shared}" if shared else ", none in common")
+        )
+        generic = idf.explain_generic(a & b)
+        if generic:
+            detail += f" (ignoring '{generic}', common to this market)"
+        return sim, detail
+
+    if not a_dist and not b_dist:
+        raw = fuzz.token_set_ratio(place_norm, supplier_norm) / 100.0
+        return min(GENERIC_ONLY_CAP, raw), (
+            f"both names are only market-generic words "
+            f"('{idf.explain_generic(a | b)}'), so the name cannot establish identity"
+        )
+
+    lone = sorted(a_dist or b_dist)
+    return GENERIC_ONLY_CAP * 0.5, (
+        f"only one side carries a distinguishing word ({lone}); the rest is "
+        f"generic to this market"
+    )
 
 
 @dataclass
@@ -169,7 +329,12 @@ class MatchIndex:
     force pass.
     """
 
-    def __init__(self, suppliers: list[SupplierRecord], locale: LocalePack):
+    def __init__(
+        self,
+        suppliers: list[SupplierRecord],
+        locale: LocalePack,
+        extra_name_corpus: list[str] | None = None,
+    ):
         self.locale = locale
         self.keys: dict[str, SupplierKeys] = {}
         self._by_domain: dict[str, list[str]] = defaultdict(list)
@@ -199,6 +364,15 @@ class MatchIndex:
             if s.lat is not None and s.lng is not None:
                 self._by_cell[_geo_cell(s.lat, s.lng)].append(s.supplier_id)
 
+        # Learn which words actually carry identity in THIS market. Extra
+        # corpus (the discovered places) makes the estimate better, because a
+        # supplier list alone under-counts how common "boat" really is.
+        name_docs = [set(k.norm_name.split()) for k in self.keys.values()]
+        addr_docs = [set(k.address_tokens) for k in self.keys.values()]
+        for text in extra_name_corpus or ():
+            name_docs.append(set(normalise_name(text, locale).split()))
+        self.idf = build_idf(name_docs, addr_docs)
+
     def candidates(self, place: DiscoveredPlace) -> list[SupplierKeys]:
         ids: set[str] = set()
 
@@ -222,7 +396,10 @@ class MatchIndex:
 
 
 def score_pair(
-    place: DiscoveredPlace, keys: SupplierKeys, locale: LocalePack
+    place: DiscoveredPlace,
+    keys: SupplierKeys,
+    locale: LocalePack,
+    idf: TokenIdf | None = None,
 ) -> tuple[float, list[MatchEvidence]]:
     """Score one place against one supplier, returning the evidence as well.
 
@@ -236,12 +413,12 @@ def score_pair(
     place_norm = normalise_name(place.name, locale)
     name_sim: float | None = None
     if place_norm and keys.norm_name:
-        name_sim = fuzz.token_set_ratio(place_norm, keys.norm_name) / 100.0
+        name_sim, name_detail = name_similarity(place_norm, keys.norm_name, idf)
         parts.append((W_NAME, name_sim))
         evidence.append(
             MatchEvidence(
                 signal="name",
-                detail=f"'{place_norm}' vs '{keys.norm_name}'",
+                detail=name_detail,
                 contribution=round(name_sim, 3),
             )
         )
@@ -260,14 +437,33 @@ def score_pair(
 
     place_addr = _address_tokens(place.address, locale)
     if place_addr and keys.address_tokens:
-        overlap = len(place_addr & keys.address_tokens)
-        union = len(place_addr | keys.address_tokens)
-        sim = overlap / union if union else 0.0
+        if idf is None:
+            overlap = len(place_addr & keys.address_tokens)
+            union = len(place_addr | keys.address_tokens)
+            sim = overlap / union if union else 0.0
+            detail = f"{overlap} of {union} tokens shared"
+        else:
+            # Same problem as names, and worse: most boat operators in Split
+            # list the Riva, so plain token overlap scores them all as
+            # neighbours on the same premises.
+            sim = _weighted_dice(
+                place_addr, keys.address_tokens, idf.address_weight
+            )
+            shared = sorted(place_addr & keys.address_tokens)
+            common = sorted(
+                (place_addr & keys.address_tokens) & idf.generic_address
+            )
+            detail = f"shared: {shared}" if shared else "no address words in common"
+            if common:
+                detail += (
+                    f" — but {common} appear on many operators here, so they "
+                    f"count for little"
+                )
         parts.append((W_ADDRESS, sim))
         evidence.append(
             MatchEvidence(
                 signal="address",
-                detail=f"{overlap} of {union} tokens shared",
+                detail=detail,
                 contribution=round(sim, 3),
             )
         )
@@ -407,7 +603,7 @@ def match_place(
                 ],
             )
 
-    scored = [(score_pair(place, k, locale), k) for k in candidates]
+    scored = [(score_pair(place, k, locale, index.idf), k) for k in candidates]
     scored.sort(key=lambda item: item[0][0], reverse=True)
     (best_score, best_evidence), best = scored[0]
 
@@ -458,7 +654,9 @@ def match_all(
     locale: LocalePack,
     thresholds: MatchThresholds | None = None,
 ) -> list[MatchResult]:
-    index = MatchIndex(suppliers, locale)
+    # The discovered names go into the corpus too. A supplier list alone
+    # under-counts how ordinary a word like "boat" really is in this market.
+    index = MatchIndex(suppliers, locale, extra_name_corpus=[p.name for p in places])
     return [match_place(p, index, locale, thresholds) for p in places]
 
 

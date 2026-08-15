@@ -1,0 +1,132 @@
+# Search terms offered to users, and what each one is looking for.
+#
+# Free text was the wrong control. A user typing their own query can spend real
+# money on a term that returns nothing useful, and worse, the CATEGORY a result
+# was found by is what feeds gap-fit scoring. An unmapped term produces
+# operators with no category, which silently zeroes an entire scoring axis —
+# a bug this build already hit once.
+#
+# So the list is curated, every term declares the category it targets, and the
+# admin decides which are offered. Users pick from the list.
+
+max_selectable: 3
+
+terms:
+  - term: boat tour
+    category: boat_tour
+    enabled: true
+    default: true
+  - term: island hopping
+    category: boat_tour
+    enabled: true
+  - term: sailing charter
+    category: boat_tour
+    enabled: true
+  - term: sunset cruise
+    category: boat_tour
+    enabled: true
+
+  - term: walking tour
+    category: walking_tour
+    enabled: true
+    default: true
+  - term: free walking tour
+    category: walking_tour
+    enabled: true
+  - term: guided city tour
+    category: walking_tour
+    enabled: true
+
+  - term: wine tasting
+    category: food_drink
+    enabled: true
+    default: true
+  - term: food tour
+    category: food_drink
+    enabled: true
+  - term: cooking class
+    category: food_drink
+    enabled: true
+  - term: olive oil tasting
+    category: food_drink
+    enabled: true
+  - term: truffle hunting
+    category: food_drink
+    enabled: true
+
+  - term: kayak tour
+    category: water_sports
+    enabled: true
+  - term: sea kayaking
+    category: water_sports
+    enabled: true
+  - term: diving centre
+    category: water_sports
+    enabled: true
+  - term: snorkelling tour
+    category: water_sports
+    enabled: true
+  - term: jet ski hire
+    category: water_sports
+    enabled: false
+    note: Hire rather than a guided experience. Disabled by default.
+
+  - term: rafting
+    category: adventure
+    enabled: true
+  - term: canyoning
+    category: adventure
+    enabled: true
+  - term: quad safari
+    category: adventure
+    enabled: true
+  - term: zipline
+    category: adventure
+    enabled: true
+  - term: rock climbing
+    category: adventure
+    enabled: true
+
+  - term: day trip
+    category: day_trip
+    enabled: true
+  - term: excursion
+    category: day_trip
+    enabled: true
+  - term: national park tour
+    category: day_trip
+    enabled: true
+
+  - term: museum tour
+    category: cultural
+    enabled: true
+    note: >
+      Deliberately "museum tour" and not "museum". A museum running guided
+      tours or workshops is an experience operator; one selling admission at
+      the door is an attraction. The search term encodes that distinction
+      before the classifier ever sees the result.
+  - term: guided gallery tour
+    category: cultural
+    enabled: true
+  - term: heritage tour
+    category: cultural
+    enabled: true
+
+  - term: private guide
+    category: private_guide
+    enabled: true
+  - term: private tour
+    category: private_guide
+    enabled: true
+
+  - term: workshop experience
+    category: classes_workshops
+    enabled: true
+  - term: pottery class
+    category: classes_workshops
+    enabled: false
+
+  - term: airport transfer
+    category: transfer
+    enabled: false
+    note: Transport, not an experience, unless sold as sightseeing. Off by default.

@@ -5,9 +5,9 @@
     "places_discovered": 301,
     "not_relevant": 134,
     "operators": 167,
-    "already_on_file": 65,
-    "net_new": 88,
-    "needs_review": 14,
+    "already_on_file": 66,
+    "net_new": 97,
+    "needs_review": 4,
     "leads_scored": 40,
     "suppliers_on_file": 107
   },
@@ -3792,28 +3792,28 @@
   "metrics": {
     "matching": {
       "total": 167,
-      "precision": 0.8769,
-      "recall": 0.9048,
-      "f1": 0.8906,
-      "review_rate": 0.0838,
-      "automation_rate": 0.9162,
+      "precision": 0.8788,
+      "recall": 0.9206,
+      "f1": 0.8992,
+      "review_rate": 0.024,
+      "automation_rate": 0.976,
       "missed_opportunity": 7,
-      "wasted_call": 5,
+      "wasted_call": 4,
       "wrong_supplier": 1,
-      "correct_existing": 57,
-      "correct_net_new": 83
+      "correct_existing": 58,
+      "correct_net_new": 93
     },
     "thresholds": {
-      "high": 0.94,
-      "low": 0.75
+      "high": 0.8,
+      "low": 0.65
     },
     "decisions_by_stage": {
-      "needs_review/fuzzy_score": 14,
+      "net_new/fuzzy_score": 97,
       "existing/hard_key": 62,
-      "net_new/fuzzy_score": 88,
-      "existing/fuzzy_score": 3
+      "existing/fuzzy_score": 4,
+      "needs_review/fuzzy_score": 4
     },
-    "review_share": 0.0838,
+    "review_share": 0.024,
     "corruptions_applied": {
       "case_flattened": 3,
       "phone_missing": 13,
@@ -3835,121 +3835,121 @@
     "sweep_upper": [
       {
         "total": 167,
-        "precision": 0.5085,
-        "recall": 0.9375,
-        "f1": 0.6593,
-        "review_rate": 0.0599,
-        "automation_rate": 0.9401,
-        "missed_opportunity": 55,
-        "wasted_call": 1,
-        "wrong_supplier": 3,
+        "precision": 0.8696,
+        "recall": 0.9231,
+        "f1": 0.8955,
+        "review_rate": 0.0299,
+        "automation_rate": 0.9701,
+        "missed_opportunity": 8,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
         "correct_existing": 60,
-        "correct_net_new": 38,
+        "correct_net_new": 89,
         "high": 0.66,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.6082,
-        "recall": 0.9365,
-        "f1": 0.7375,
-        "review_rate": 0.1856,
-        "automation_rate": 0.8144,
-        "missed_opportunity": 35,
-        "wasted_call": 1,
-        "wrong_supplier": 3,
+        "precision": 0.8676,
+        "recall": 0.9219,
+        "f1": 0.8939,
+        "review_rate": 0.0359,
+        "automation_rate": 0.9641,
+        "missed_opportunity": 8,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
         "correct_existing": 59,
-        "correct_net_new": 38,
+        "correct_net_new": 89,
         "high": 0.72,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.7564,
-        "recall": 0.9516,
-        "f1": 0.8429,
-        "review_rate": 0.2994,
-        "automation_rate": 0.7006,
-        "missed_opportunity": 17,
-        "wasted_call": 1,
-        "wrong_supplier": 2,
+        "precision": 0.8676,
+        "recall": 0.9219,
+        "f1": 0.8939,
+        "review_rate": 0.0359,
+        "automation_rate": 0.9641,
+        "missed_opportunity": 8,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
         "correct_existing": 59,
-        "correct_net_new": 38,
+        "correct_net_new": 89,
         "high": 0.76,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8082,
-        "recall": 0.9516,
-        "f1": 0.8741,
-        "review_rate": 0.3293,
-        "automation_rate": 0.6707,
-        "missed_opportunity": 12,
-        "wasted_call": 1,
-        "wrong_supplier": 2,
-        "correct_existing": 59,
-        "correct_net_new": 38,
+        "precision": 0.8788,
+        "recall": 0.9206,
+        "f1": 0.8992,
+        "review_rate": 0.0479,
+        "automation_rate": 0.9521,
+        "missed_opportunity": 7,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
+        "correct_existing": 58,
+        "correct_net_new": 89,
         "high": 0.8,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8082,
-        "recall": 0.9516,
-        "f1": 0.8741,
-        "review_rate": 0.3293,
-        "automation_rate": 0.6707,
-        "missed_opportunity": 12,
-        "wasted_call": 1,
-        "wrong_supplier": 2,
-        "correct_existing": 59,
-        "correct_net_new": 38,
+        "precision": 0.8788,
+        "recall": 0.9206,
+        "f1": 0.8992,
+        "review_rate": 0.0479,
+        "automation_rate": 0.9521,
+        "missed_opportunity": 7,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
+        "correct_existing": 58,
+        "correct_net_new": 89,
         "high": 0.82,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8169,
-        "recall": 0.9508,
-        "f1": 0.8788,
-        "review_rate": 0.3413,
-        "automation_rate": 0.6587,
-        "missed_opportunity": 11,
-        "wasted_call": 1,
-        "wrong_supplier": 2,
-        "correct_existing": 58,
-        "correct_net_new": 38,
+        "precision": 0.8769,
+        "recall": 0.9194,
+        "f1": 0.8976,
+        "review_rate": 0.0539,
+        "automation_rate": 0.9461,
+        "missed_opportunity": 7,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
+        "correct_existing": 57,
+        "correct_net_new": 89,
         "high": 0.86,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8507,
-        "recall": 0.9661,
-        "f1": 0.9048,
-        "review_rate": 0.3653,
-        "automation_rate": 0.6347,
-        "missed_opportunity": 9,
-        "wasted_call": 1,
+        "precision": 0.8769,
+        "recall": 0.9194,
+        "f1": 0.8976,
+        "review_rate": 0.0539,
+        "automation_rate": 0.9461,
+        "missed_opportunity": 7,
+        "wasted_call": 4,
         "wrong_supplier": 1,
         "correct_existing": 57,
-        "correct_net_new": 38,
+        "correct_net_new": 89,
         "high": 0.9,
         "low": 0.55
       },
       {
         "total": 167,
         "precision": 0.8769,
-        "recall": 0.9661,
-        "f1": 0.9194,
-        "review_rate": 0.3772,
-        "automation_rate": 0.6228,
+        "recall": 0.9194,
+        "f1": 0.8976,
+        "review_rate": 0.0539,
+        "automation_rate": 0.9461,
         "missed_opportunity": 7,
-        "wasted_call": 1,
+        "wasted_call": 4,
         "wrong_supplier": 1,
         "correct_existing": 57,
-        "correct_net_new": 38,
+        "correct_net_new": 89,
         "high": 0.94,
         "low": 0.55
       }
@@ -3957,106 +3957,106 @@
     "sweep_lower": [
       {
         "total": 167,
-        "precision": 0.8082,
-        "recall": 0.9672,
-        "f1": 0.8806,
-        "review_rate": 0.4431,
-        "automation_rate": 0.5569,
-        "missed_opportunity": 12,
-        "wasted_call": 0,
-        "wrong_supplier": 2,
-        "correct_existing": 59,
-        "correct_net_new": 20,
+        "precision": 0.8788,
+        "recall": 0.9355,
+        "f1": 0.9062,
+        "review_rate": 0.0659,
+        "automation_rate": 0.9341,
+        "missed_opportunity": 7,
+        "wasted_call": 3,
+        "wrong_supplier": 1,
+        "correct_existing": 58,
+        "correct_net_new": 87,
         "high": 0.82,
         "low": 0.4
       },
       {
         "total": 167,
-        "precision": 0.8082,
-        "recall": 0.9672,
-        "f1": 0.8806,
-        "review_rate": 0.3713,
-        "automation_rate": 0.6287,
-        "missed_opportunity": 12,
-        "wasted_call": 0,
-        "wrong_supplier": 2,
-        "correct_existing": 59,
-        "correct_net_new": 32,
+        "precision": 0.8788,
+        "recall": 0.9206,
+        "f1": 0.8992,
+        "review_rate": 0.0539,
+        "automation_rate": 0.9461,
+        "missed_opportunity": 7,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
+        "correct_existing": 58,
+        "correct_net_new": 88,
         "high": 0.82,
         "low": 0.5
       },
       {
         "total": 167,
-        "precision": 0.8082,
-        "recall": 0.9516,
-        "f1": 0.8741,
-        "review_rate": 0.3293,
-        "automation_rate": 0.6707,
-        "missed_opportunity": 12,
-        "wasted_call": 1,
-        "wrong_supplier": 2,
-        "correct_existing": 59,
-        "correct_net_new": 38,
+        "precision": 0.8788,
+        "recall": 0.9206,
+        "f1": 0.8992,
+        "review_rate": 0.0479,
+        "automation_rate": 0.9521,
+        "missed_opportunity": 7,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
+        "correct_existing": 58,
+        "correct_net_new": 89,
         "high": 0.82,
         "low": 0.55
       },
       {
         "total": 167,
-        "precision": 0.8082,
-        "recall": 0.9516,
-        "f1": 0.8741,
-        "review_rate": 0.2994,
-        "automation_rate": 0.7006,
-        "missed_opportunity": 12,
-        "wasted_call": 1,
-        "wrong_supplier": 2,
-        "correct_existing": 59,
-        "correct_net_new": 43,
+        "precision": 0.8788,
+        "recall": 0.9206,
+        "f1": 0.8992,
+        "review_rate": 0.0419,
+        "automation_rate": 0.9581,
+        "missed_opportunity": 7,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
+        "correct_existing": 58,
+        "correct_net_new": 90,
         "high": 0.82,
         "low": 0.6
       },
       {
         "total": 167,
-        "precision": 0.8082,
-        "recall": 0.9365,
-        "f1": 0.8676,
-        "review_rate": 0.2754,
-        "automation_rate": 0.7246,
-        "missed_opportunity": 12,
-        "wasted_call": 2,
-        "wrong_supplier": 2,
-        "correct_existing": 59,
-        "correct_net_new": 46,
+        "precision": 0.8788,
+        "recall": 0.9206,
+        "f1": 0.8992,
+        "review_rate": 0.024,
+        "automation_rate": 0.976,
+        "missed_opportunity": 7,
+        "wasted_call": 4,
+        "wrong_supplier": 1,
+        "correct_existing": 58,
+        "correct_net_new": 93,
         "high": 0.82,
         "low": 0.65
       },
       {
         "total": 167,
-        "precision": 0.8082,
-        "recall": 0.9077,
-        "f1": 0.8551,
-        "review_rate": 0.1976,
-        "automation_rate": 0.8024,
-        "missed_opportunity": 12,
-        "wasted_call": 4,
-        "wrong_supplier": 2,
-        "correct_existing": 59,
-        "correct_net_new": 57,
+        "precision": 0.8788,
+        "recall": 0.8923,
+        "f1": 0.8855,
+        "review_rate": 0.012,
+        "automation_rate": 0.988,
+        "missed_opportunity": 7,
+        "wasted_call": 6,
+        "wrong_supplier": 1,
+        "correct_existing": 58,
+        "correct_net_new": 93,
         "high": 0.82,
         "low": 0.7
       },
       {
         "total": 167,
-        "precision": 0.8082,
-        "recall": 0.8939,
-        "f1": 0.8489,
-        "review_rate": 0.0359,
-        "automation_rate": 0.9641,
-        "missed_opportunity": 12,
-        "wasted_call": 5,
-        "wrong_supplier": 2,
-        "correct_existing": 59,
-        "correct_net_new": 83,
+        "precision": 0.8788,
+        "recall": 0.8923,
+        "f1": 0.8855,
+        "review_rate": 0.012,
+        "automation_rate": 0.988,
+        "missed_opportunity": 7,
+        "wasted_call": 6,
+        "wrong_supplier": 1,
+        "correct_existing": 58,
+        "correct_net_new": 93,
         "high": 0.82,
         "low": 0.75
       }
@@ -4064,434 +4064,96 @@
   },
   "review_queue": [
     {
-      "place_source_id": "ChIJU6NdJzhdNRMR-cWGMOGJoaE",
-      "discovered_name": "BOAT TOURS SPLIT",
+      "place_source_id": "ChIJH8x8YotdNRMR8nG76-ZN8mQ",
+      "discovered_name": "Blue Cave Express",
       "discovered_address": "Obala Hrvatskog narodnog preporoda 55, 21000, Split, Croatia",
-      "discovered_website": null,
-      "discovered_phone": "+385 97 600 9464",
-      "supplier_name": "Hemingway Boat Split",
+      "discovered_website": "https://bluecaveexpress.com/",
+      "discovered_phone": "+385 95 393 3125",
+      "supplier_name": "Blue Cave Express",
       "supplier_trading_name": null,
-      "supplier_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
-      "supplier_website": "http://hemingwaysplit.com/",
-      "supplier_phone": "+385 99 577 5770",
-      "score": 0.8697,
-      "confidence": 0.37,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda 55, 21000, Split, Croatia",
+      "supplier_website": "https://www.old43.eu",
+      "supplier_phone": "+38522125990",
+      "score": 0.6524,
+      "confidence": 0.016,
       "decided_by": "fuzzy_score",
       "evidence": [
         {
           "signal": "name",
-          "detail": "'boat split' vs 'hemingway boat split'",
-          "contribution": 1.0
-        },
-        {
-          "signal": "location",
-          "detail": "0.20 km apart",
-          "contribution": 0.949
-        },
-        {
-          "signal": "address",
-          "detail": "6 of 6 tokens shared",
-          "contribution": 1.0
-        },
-        {
-          "signal": "phone conflict",
-          "detail": "+385976009464 vs +385995775770",
-          "contribution": -0.12
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best Hello Blue Cave - Boat Tours Split Croatia at 0.86",
-          "contribution": 0.859
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJ_U08scdfNRMR4j-0MNxvszM",
-      "discovered_name": "Blue Shark",
-      "discovered_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
-      "discovered_website": "https://www.blueshark.tours/",
-      "discovered_phone": "+385 91 234 5995",
-      "supplier_name": "Blue Shark",
-      "supplier_trading_name": null,
-      "supplier_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
-      "supplier_website": null,
-      "supplier_phone": "+38521446479",
-      "score": 0.8528,
-      "confidence": 0.459,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'blue shark' vs 'blue shark'",
+          "detail": "distinctive words ['blue', 'cave', 'express'] vs ['blue', 'cave', 'express'], shared: ['blue', 'cave', 'express']",
           "contribution": 1.0
         },
         {
           "signal": "location",
           "detail": "0.36 km apart",
-          "contribution": 0.864
+          "contribution": 0.862
         },
         {
           "signal": "address",
-          "detail": "6 of 6 tokens shared",
-          "contribution": 1.0
-        },
-        {
-          "signal": "phone conflict",
-          "detail": "+385912345995 vs +38521446479",
-          "contribution": -0.12
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best Split Blue Cave at 0.49",
-          "contribution": 0.49
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJIaWyYh5dNRMRe30anjsEAOM",
-      "discovered_name": "Out to Sea - Split Boat Party",
-      "discovered_address": "Obala Lazareta 3, 21000, Split, Croatia",
-      "discovered_website": "https://www.outtoseasplit.com/",
-      "discovered_phone": "+385 95 530 9867",
-      "supplier_name": "Split Sea Tours",
-      "supplier_trading_name": null,
-      "supplier_address": "Trumbićeva obala 14a, 21000, Split, Croatia",
-      "supplier_website": null,
-      "supplier_phone": null,
-      "score": 0.9203,
-      "confidence": 0.104,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'out to sea split boat party' vs 'split sea'",
-          "contribution": 1.0
-        },
-        {
-          "signal": "location",
-          "detail": "0.14 km apart",
-          "contribution": 0.977
-        },
-        {
-          "signal": "address",
-          "detail": "3 of 6 tokens shared",
-          "contribution": 0.5
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best X Party Boat Split obrt at 0.73",
-          "contribution": 0.731
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJZy45t5ZdNRMR_pZPHeUdaAw",
-      "discovered_name": "Captain's Boat Party Split",
-      "discovered_address": "Obala Lazareta 1, 21000, Split, Croatia",
-      "discovered_website": null,
-      "discovered_phone": "+385 95 560 4456",
-      "supplier_name": "Split Boat Tours",
-      "supplier_trading_name": null,
-      "supplier_address": "Obala Lazareta 1, 21000, Split, Croatia",
-      "supplier_website": "http://booking.split-boat-tours.com/",
-      "supplier_phone": "+385 95 399 1928",
-      "score": 0.8668,
-      "confidence": 0.385,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'captains boat party split' vs 'split boat'",
-          "contribution": 1.0
-        },
-        {
-          "signal": "location",
-          "detail": "0.23 km apart",
-          "contribution": 0.934
-        },
-        {
-          "signal": "address",
-          "detail": "4 of 4 tokens shared",
-          "contribution": 1.0
-        },
-        {
-          "signal": "phone conflict",
-          "detail": "+385955604456 vs +385953991928",
-          "contribution": -0.12
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best Split Sea Tours at 0.74",
-          "contribution": 0.739
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJ94CunHhdNRMRGgMyb3jFNAY",
-      "discovered_name": "NERA Boat Tour from Split",
-      "discovered_address": "Matejuška, 21000, Split, Croatia",
-      "discovered_website": "https://splitboatrent.com/",
-      "discovered_phone": "+385 99 855 9993",
-      "supplier_name": "Korsaro Boat Tour from Split obrt",
-      "supplier_trading_name": null,
-      "supplier_address": "Mletački mul, Riva, 21000, Split, Croatia",
-      "supplier_website": null,
-      "supplier_phone": null,
-      "score": 0.7866,
-      "confidence": 0.192,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'nera boat from split' vs 'korsaro boat from split'",
-          "contribution": 0.857
-        },
-        {
-          "signal": "location",
-          "detail": "0.30 km apart",
-          "contribution": 0.897
-        },
-        {
-          "signal": "address",
-          "detail": "2 of 6 tokens shared",
-          "contribution": 0.333
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best Split Sea Tours at 0.69",
-          "contribution": 0.694
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJFUKn7Ghib0kRaawj_zXwRvo",
-      "discovered_name": "Boky Tours Split | Boat Tours & Blue Lagoon",
-      "discovered_address": "Trumbićeva obala 14a, 21000, Split, Croatia",
-      "discovered_website": "http://www.bokytourssplit.com/",
-      "discovered_phone": "+385 91 477 7647",
-      "supplier_name": "Split Sea Tours",
-      "supplier_trading_name": null,
-      "supplier_address": "Trumbićeva obala 14a, 21000, Split, Croatia",
-      "supplier_website": null,
-      "supplier_phone": null,
-      "score": 0.7832,
-      "confidence": 0.175,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'boky split boat blue lagoon' vs 'split sea'",
-          "contribution": 0.714
-        },
-        {
-          "signal": "location",
-          "detail": "0.40 km apart",
-          "contribution": 0.845
-        },
-        {
-          "signal": "address",
-          "detail": "5 of 5 tokens shared",
-          "contribution": 1.0
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best Blue Lagoon Croatia d.o.o. at 0.69",
-          "contribution": 0.687
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJXzP7p1NdNRMRi0AAU0Pca5g",
-      "discovered_name": "Rent a Boat Split",
-      "discovered_address": "Obala Hrvatskog narodnog preporoda 55, 21000, Split, Croatia",
-      "discovered_website": null,
-      "discovered_phone": "+385 97 617 7280",
-      "supplier_name": "Split Boat Tours",
-      "supplier_trading_name": null,
-      "supplier_address": "Obala Lazareta 1, 21000, Split, Croatia",
-      "supplier_website": "http://booking.split-boat-tours.com/",
-      "supplier_phone": "+385 95 399 1928",
-      "score": 0.7853,
-      "confidence": 0.186,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'rent a boat split' vs 'split boat'",
-          "contribution": 1.0
-        },
-        {
-          "signal": "location",
-          "detail": "0.18 km apart",
-          "contribution": 0.955
-        },
-        {
-          "signal": "address",
-          "detail": "3 of 7 tokens shared",
-          "contribution": 0.429
-        },
-        {
-          "signal": "phone conflict",
-          "detail": "+385976177280 vs +385953991928",
-          "contribution": -0.12
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best SeaYou Croatia Boat Tours - Estrales Split Meeting Rent d.o.o. at 0.74",
-          "contribution": 0.736
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJ24lpGrVnNRMRtfkG7wIGb7E",
-      "discovered_name": "Sea King Split",
-      "discovered_address": "Ul. Frana Supila 22, 21000, Split, Croatia",
-      "discovered_website": "http://seakingsplit.com/",
-      "discovered_phone": "+385 91 520 4167",
-      "supplier_name": "Split Sea Tours",
-      "supplier_trading_name": null,
-      "supplier_address": "Trumbićeva obala 14a, 21000, Split, Croatia",
-      "supplier_website": null,
-      "supplier_phone": null,
-      "score": 0.8786,
-      "confidence": 0.323,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'sea king split' vs 'split sea'",
-          "contribution": 1.0
-        },
-        {
-          "signal": "location",
-          "detail": "0.24 km apart",
-          "contribution": 0.928
-        },
-        {
-          "signal": "address",
-          "detail": "2 of 7 tokens shared",
-          "contribution": 0.286
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best Korsaro Boat Tour from Split obrt at 0.57",
-          "contribution": 0.572
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJ1VB9PZdrNRMR--hgKqEwnvc",
-      "discovered_name": "Blue Cave Tour From Split - bluecavefromsplit.com",
-      "discovered_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
-      "discovered_website": "https://bluecavefromsplit.com/",
-      "discovered_phone": "+385 95 518 1818",
-      "supplier_name": "Split Blue Cave",
-      "supplier_trading_name": null,
-      "supplier_address": "Obala Hrvatskog narodnog preporoda 12, 21000, Split, Croatia",
-      "supplier_website": "http://splitbluecave.com/",
-      "supplier_phone": null,
-      "score": 0.7674,
-      "confidence": 0.092,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'blue cave from split bluecavefromsplitcom' vs 'split blue cave'",
-          "contribution": 1.0
-        },
-        {
-          "signal": "location",
-          "detail": "0.41 km apart",
-          "contribution": 0.837
-        },
-        {
-          "signal": "address",
-          "detail": "6 of 6 tokens shared",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
           "contribution": 1.0
         },
         {
           "signal": "domain conflict",
-          "detail": "bluecavefromsplit.com vs splitbluecave.com",
+          "detail": "bluecaveexpress.com vs old43.eu",
           "contribution": -0.2
         },
         {
+          "signal": "phone conflict",
+          "detail": "+385953933125 vs +38522125990",
+          "contribution": -0.12
+        },
+        {
           "signal": "runner-up",
-          "detail": "next best Split Sea Tours at 0.72",
-          "contribution": 0.721
+          "detail": "next best Split Blue Cave at 0.58",
+          "contribution": 0.579
         }
       ]
     },
     {
-      "place_source_id": "ChIJf0dRzv9dNRMR7oG6N7w4WV0",
-      "discovered_name": "Split Adventure",
-      "discovered_address": "Obala Hrvatskog narodnog preporoda 22, 21000, Split, Croatia",
-      "discovered_website": "https://splitadventure.com/",
-      "discovered_phone": "+385 91 182 8995",
-      "supplier_name": "Split Sea Tours",
+      "place_source_id": "ChIJr_Q9XeOZShMRN4Y0SOPOdvc",
+      "discovered_name": "Bokun Charter in Croatia",
+      "discovered_address": "Obala kneza Branimira, 21000, Split, Croatia",
+      "discovered_website": "https://www.bokunagency.com/",
+      "discovered_phone": "+385 99 444 1344",
+      "supplier_name": "Bokun Charter in Croatia",
       "supplier_trading_name": null,
-      "supplier_address": "Trumbićeva obala 14a, 21000, Split, Croatia",
-      "supplier_website": null,
-      "supplier_phone": null,
-      "score": 0.9062,
-      "confidence": 0.178,
+      "supplier_address": "Obala kneza Branimira, 21000, Split, Croatia",
+      "supplier_website": "https://www.old43.hr",
+      "supplier_phone": "+38521792094",
+      "score": 0.6606,
+      "confidence": 0.07,
       "decided_by": "fuzzy_score",
       "evidence": [
         {
           "signal": "name",
-          "detail": "'split' vs 'split sea'",
+          "detail": "distinctive words ['bokun', 'charter', 'in'] vs ['bokun', 'charter', 'in'], shared: ['bokun', 'charter', 'in']",
           "contribution": 1.0
         },
         {
           "signal": "location",
-          "detail": "0.07 km apart",
-          "contribution": 1.0
+          "detail": "0.28 km apart",
+          "contribution": 0.903
         },
         {
           "signal": "address",
-          "detail": "3 of 8 tokens shared",
-          "contribution": 0.375
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best Korsaro Boat Tour from Split obrt at 0.85",
-          "contribution": 0.848
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJvbjn_83RvYARx5w3t5qVkcs",
-      "discovered_name": "Split Boat Travel",
-      "discovered_address": "Lučica 7, 21000, Split, Croatia",
-      "discovered_website": "https://www.splitboattravel.com/",
-      "discovered_phone": "+385 99 407 0749",
-      "supplier_name": "Korsaro Boat Tour from Split obrt",
-      "supplier_trading_name": null,
-      "supplier_address": "Mletački mul, Riva, 21000, Split, Croatia",
-      "supplier_website": null,
-      "supplier_phone": null,
-      "score": 0.7534,
-      "confidence": 0.018,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'split boat' vs 'korsaro boat from split'",
+          "detail": "shared: ['branimira', 'croatia', 'kneza', 'obala', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
           "contribution": 1.0
         },
         {
-          "signal": "location",
-          "detail": "1.49 km apart",
-          "contribution": 0.267
+          "signal": "domain conflict",
+          "detail": "bokunagency.com vs old43.hr",
+          "contribution": -0.2
         },
         {
-          "signal": "address",
-          "detail": "2 of 6 tokens shared",
-          "contribution": 0.333
+          "signal": "phone conflict",
+          "detail": "+385994441344 vs +38521792094",
+          "contribution": -0.12
         },
         {
           "signal": "runner-up",
-          "detail": "next best Freediving and Spearfishing from Split | Freediving Croatia at 0.63",
-          "contribution": 0.626
+          "detail": "next best Split Sea Tours at 0.19",
+          "contribution": 0.187
         }
       ]
     },
@@ -4506,14 +4168,14 @@
       "supplier_address": "Lučica 7, 21000, Split, Croatia",
       "supplier_website": null,
       "supplier_phone": "+38521943718",
-      "score": 0.8694,
-      "confidence": 0.372,
+      "score": 0.7974,
+      "confidence": 0.017,
       "decided_by": "fuzzy_score",
       "evidence": [
         {
           "signal": "name",
-          "detail": "'freediving spearfishing from split freediving' vs 'freediving and spearfishing from split freediving'",
-          "contribution": 1.0
+          "detail": "distinctive words ['freediving', 'from', 'spearfishing'] vs ['and', 'freediving', 'from', 'spearfishing'], shared: ['freediving', 'from', 'spearfishing'] (ignoring 'split', common to this market)",
+          "contribution": 0.889
         },
         {
           "signal": "location",
@@ -4522,7 +4184,7 @@
         },
         {
           "signal": "address",
-          "detail": "3 of 3 tokens shared",
+          "detail": "shared: ['croatia', 'lucica', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
           "contribution": 1.0
         },
         {
@@ -4532,8 +4194,8 @@
         },
         {
           "signal": "runner-up",
-          "detail": "next best Split Sea Tours at 0.51",
-          "contribution": 0.514
+          "detail": "next best Korsaro Boat Tour from Split obrt at 0.26",
+          "contribution": 0.265
         }
       ]
     },
@@ -4549,12 +4211,12 @@
       "supplier_website": "http://splitbluecave.com/",
       "supplier_phone": null,
       "score": 0.7639,
-      "confidence": 0.073,
+      "confidence": 0.241,
       "decided_by": "fuzzy_score",
       "evidence": [
         {
           "signal": "name",
-          "detail": "'blue cave' vs 'split blue cave'",
+          "detail": "distinctive words ['blue', 'cave'] vs ['blue', 'cave'], shared: ['blue', 'cave']",
           "contribution": 1.0
         },
         {
@@ -4564,7 +4226,7 @@
         },
         {
           "signal": "address",
-          "detail": "6 of 6 tokens shared",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
           "contribution": 1.0
         },
         {
@@ -4574,45 +4236,8 @@
         },
         {
           "signal": "runner-up",
-          "detail": "next best All inclusive blue cave tour from Split | lunch & drinks at 0.67",
-          "contribution": 0.672
-        }
-      ]
-    },
-    {
-      "place_source_id": "ChIJ3euyijheNRMRe1dfIdrZLAM",
-      "discovered_name": "Split Sea Kayaking Tours & Rental",
-      "discovered_address": "Plinarska ul. 25, 21000, Split, Croatia",
-      "discovered_website": "http://www.splitseakayak.com/",
-      "discovered_phone": "+385 98 408 123",
-      "supplier_name": "Split Sea Tours",
-      "supplier_trading_name": null,
-      "supplier_address": "Trumbićeva obala 14a, 21000, Split, Croatia",
-      "supplier_website": null,
-      "supplier_phone": null,
-      "score": 0.8587,
-      "confidence": 0.428,
-      "decided_by": "fuzzy_score",
-      "evidence": [
-        {
-          "signal": "name",
-          "detail": "'split sea kayaking rental' vs 'split sea'",
-          "contribution": 1.0
-        },
-        {
-          "signal": "location",
-          "detail": "0.49 km apart",
-          "contribution": 0.794
-        },
-        {
-          "signal": "address",
-          "detail": "2 of 6 tokens shared",
-          "contribution": 0.333
-        },
-        {
-          "signal": "runner-up",
-          "detail": "next best Hole in the Wall Cellar: Gin and Wine Tastings in Split at 0.65",
-          "contribution": 0.646
+          "detail": "next best Hello Blue Cave - Boat Tours Split Croatia at 0.45",
+          "contribution": 0.446
         }
       ]
     }

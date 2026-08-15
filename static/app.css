@@ -174,6 +174,19 @@ label.field span { display: block; font-size: 11px; color: var(--dim);
 }
 .modes button.active { border-color: var(--accent); color: var(--accent); }
 
+.termlist { max-height: 260px; overflow-y: auto; border: 1px solid var(--line);
+  border-radius: 7px; padding: 8px 10px; background: var(--panel-2); }
+.termgroup { margin-bottom: 10px; }
+.termcat { font-size: 10px; color: var(--dim); text-transform: uppercase;
+  letter-spacing: 0.07em; margin-bottom: 4px; }
+.term { display: inline-flex; align-items: center; gap: 6px; font-size: 13px;
+  padding: 3px 8px; margin: 0 4px 4px 0; border-radius: 999px;
+  border: 1px solid var(--line); cursor: pointer; color: var(--muted); }
+.term:hover { border-color: var(--muted); }
+.term.on { border-color: var(--accent); color: var(--accent); }
+.term.off { opacity: .35; cursor: not-allowed; }
+.term input { accent-color: var(--accent); margin: 0; }
+
 .estimate { margin-top: 14px; font-size: 13px; }
 .estimate .row { display: flex; justify-content: space-between; padding: 5px 0;
   border-bottom: 1px solid var(--line); }

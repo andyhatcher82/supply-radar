@@ -1,9 +1,11 @@
 /* Supply Radar front end.
    Vanilla JS, no build step, no framework. One file, six views. */
 
-const S = { snap: null, regions: null, view: 'overview', map: null, layer: null,
+const S = { snap: null, regions: null, terms: null, selectedTerms: [],
+            view: 'overview', map: null, layer: null,
             mode: 'circle', shape: null, estimate: null, decisions: {},
-            permitted: true, permitMsg: '' };
+            permitted: true, permitMsg: '',
+            adminCfg: null, adminCode: '' };
 
 /* Ray casting. Used only to keep the UI honest before a request is sent —
    the API re-checks every sweep, because a browser gate is a courtesy. */
@@ -99,7 +101,7 @@ function viewOverview() {
         <tr><td>Discovered</td><td class="num">${c.places_discovered}</td>
           <td style="color:var(--muted)">Everything Google Places returned for the search terms</td></tr>
         <tr><td>Not an experience operator</td><td class="num">−${c.not_relevant}</td>
-          <td style="color:var(--muted)">Museums, car parks, hotels, restaurants. Removed before any matching</td></tr>
+          <td style="color:var(--muted)">Judged on what they <em>sell</em>, not what they are</td></tr>
         <tr style="border-top:2px solid var(--line)"><td><strong>Experience operators</strong></td>
           <td class="num"><strong>${c.operators}</strong></td>
           <td style="color:var(--muted)">Everything below is a subset of this</td></tr>
@@ -114,6 +116,16 @@ function viewOverview() {
     <div class="note">Classification runs <em>before</em> matching, so the matcher never
       compares a car park against the supplier list and every figure here shares one
       denominator: ${c.already_on_file} + ${c.needs_review} + ${c.net_new} = ${c.operators}.</div>
+
+    <div class="note"><strong>The filter is about what a business sells, not what type
+      Google says it is.</strong> A museum running guided tours or workshops is an
+      experience operator; one that only sells admission at the door is an attraction. A
+      restaurant selling a cooking class or a scheduled tasting is an operator; one where
+      you turn up and eat is not. Real decisions from this run:
+      <em>"Meštrović Gallery — selling admission to view exhibits, with no scheduled
+      guided activity"</em> and <em>"Restaurant Krug — no evidence of scheduled tastings
+      or classes, just dining"</em>. Every one of those reasons is shown to the reviewer
+      so they can overrule it.</div>
   </div>
 
   <p class="section-title">What the pipeline does</p>
@@ -186,8 +198,8 @@ function viewDiscover() {
           <input type="number" id="cell" value="3" min="1" max="10" step="0.5">
         </label>
         <label class="field">
-          <span>Search terms (max 3)</span>
-          <input type="text" id="queries" value="boat tour, wine tasting, walking tour">
+          <span>Search terms (pick up to ${S.terms?.max_selectable || 3})</span>
+          <div id="terms" class="termlist">${termOptions()}</div>
         </label>
         <label class="field">
           <span>Access code</span>
@@ -227,6 +239,23 @@ function viewDiscover() {
       <div id="runout"></div>
     </div>
   </div>`;
+}
+
+function termOptions() {
+  const terms = S.terms?.terms || [];
+  const byCat = {};
+  terms.forEach(t => (byCat[t.category] = byCat[t.category] || []).push(t));
+  return Object.entries(byCat).map(([cat, ts]) => `
+    <div class="termgroup">
+      <div class="termcat">${esc(cat.replace(/_/g, ' '))}</div>
+      ${ts.map(t => `
+        <label class="term ${S.selectedTerms.includes(t.term) ? 'on' : ''}"
+               title="${esc(t.note || '')}">
+          <input type="checkbox" value="${esc(t.term)}"
+            ${S.selectedTerms.includes(t.term) ? 'checked' : ''}>
+          ${esc(t.term)}
+        </label>`).join('')}
+    </div>`).join('');
 }
 
 const MODE_HELP = {
@@ -313,7 +342,7 @@ function clearEstimate() {
 }
 
 function requestBody() {
-  const queries = $('#queries').value.split(',').map(q => q.trim()).filter(Boolean);
+  const queries = S.selectedTerms.slice();
   const cell = parseFloat($('#cell').value) || 3;
   if (!S.shape) return null;
   if (S.shape.kind === 'circle') {
@@ -682,11 +711,150 @@ function costRow(label, usd, total) {
     <td class="num">${pct(usd / total)}</td></tr>`;
 }
 
+/* ---------------------------------------------------------------- admin */
+
+function viewAdmin() {
+  if (!S.adminCfg) {
+    return `
+    <div class="card" style="max-width:460px">
+      <h2>Administrator</h2>
+      <p class="hint">Controls what everyone else is allowed to search, which model
+        runs, and how much can be spent.</p>
+      <label class="field"><span>Admin code</span>
+        <input type="password" id="adminCode" placeholder="5-digit code"></label>
+      <button class="btn" id="btnAdmin">Unlock</button>
+      <div id="adminErr"></div>
+      <div class="note">A separate key from the one that authorises a sweep.
+        Authorising spend and changing what others may spend it on are different
+        privileges. Role-based access replaces both on day 2.</div>
+    </div>`;
+  }
+
+  const c = S.adminCfg;
+  return `
+  <div class="note warn" style="margin-bottom:16px"><strong>Changes apply to this
+    running instance only.</strong> ${esc(c.persistence.note)}</div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h2>Markets</h2>
+      <p class="hint">Where users may run a sweep. Closing one takes effect immediately.</p>
+      ${c.regions.map(r => `
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)">
+          <span class="pill ${r.enabled ? 'good' : 'grey'}">${r.enabled ? 'open' : 'closed'}</span>
+          <div style="flex:1">
+            <strong>${esc(r.name)}</strong>
+            ${!r.configured_enabled ? '<span style="color:var(--dim);font-size:12px"> — not configured in this build</span>' : ''}
+          </div>
+          ${r.configured_enabled ? `<button class="btn ghost" data-region="${esc(r.id)}"
+            data-on="${r.enabled ? '0' : '1'}">${r.enabled ? 'Close' : 'Open'}</button>` : ''}
+        </div>`).join('')}
+    </div>
+
+    <div class="card">
+      <h2>Model</h2>
+      <p class="hint">Runs classification, match adjudication and website extraction.</p>
+      ${c.models.map(m => `
+        <label class="term ${m.id === c.active_model ? 'on' : ''}" style="display:block;margin-bottom:6px">
+          <input type="radio" name="model" value="${esc(m.id)}" ${m.id === c.active_model ? 'checked' : ''}>
+          <strong>${esc(m.label)}</strong>
+          <div style="color:var(--dim);font-size:12.5px;margin-left:22px">${esc(m.note)}</div>
+        </label>`).join('')}
+
+      <h2 style="margin-top:18px">Spend</h2>
+      <label class="field"><span>Daily cap (GBP)</span>
+        <input type="number" id="cap" value="${c.spend.daily_cap_gbp}" min="0" max="500" step="5"></label>
+      <div class="note">${esc(c.spend.note)}</div>
+      <button class="btn" id="btnSaveAdmin" style="margin-top:12px">Save model and cap</button>
+      <div id="adminMsg"></div>
+    </div>
+  </div>
+
+  <p class="section-title">Search terms offered to users</p>
+  <div class="card">
+    <p class="hint">Users pick up to ${c.max_selectable} from the enabled list. Free text
+      is deliberately not offered: a term nobody has mapped to a category produces
+      operators with no category, which silently zeroes the gap-fit axis.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Term</th><th>Category</th><th>Offered</th><th></th></tr></thead>
+      <tbody>${c.search_terms.map(t => `
+        <tr>
+          <td>${esc(t.term)}${t.default ? ' <span class="pill grey">default</span>' : ''}
+            ${t.note ? `<div style="color:var(--dim);font-size:12px">${esc(t.note)}</div>` : ''}</td>
+          <td style="color:var(--muted)">${esc(t.category.replace(/_/g, ' '))}</td>
+          <td><span class="pill ${t.enabled ? 'good' : 'grey'}">${t.enabled ? 'yes' : 'no'}</span></td>
+          <td style="text-align:right"><button class="btn ghost" data-term="${esc(t.term)}"
+            data-on="${t.enabled ? '0' : '1'}">${t.enabled ? 'Disable' : 'Enable'}</button></td>
+        </tr>`).join('')}
+      </tbody>
+    </table></div>
+  </div>
+
+  <p class="section-title">Not yet built</p>
+  <div class="card">
+    <div class="note">Day 2, and named rather than implied: persisting these settings to
+      a config store with an audit trail of who changed what; role-based access replacing
+      both shared codes; per-locale threshold calibration when a second market opens; and
+      alerting when a run trips the daily cap.</div>
+  </div>`;
+}
+
+async function adminUnlock() {
+  const code = $('#adminCode').value.trim();
+  try {
+    S.adminCfg = await api('/api/admin/config', { headers: { 'X-Admin-Code': code } });
+    S.adminCode = code;
+    render();
+  } catch (err) {
+    $('#adminErr').innerHTML = `<div class="note warn">${esc(err.message)}</div>`;
+  }
+}
+
+async function adminPost(changes) {
+  try {
+    const res = await api('/api/admin/config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Code': S.adminCode },
+      body: JSON.stringify(changes),
+    });
+    S.adminCfg = res.config;
+    S.terms = await api('/api/search-terms');
+    S.regions = await api('/api/regions');
+    S.selectedTerms = S.selectedTerms.filter(
+      t => (S.terms.terms || []).some(x => x.term === t));
+    render();
+    if (res.applied.length) {
+      const el = $('#adminMsg');
+      if (el) el.innerHTML = `<div class="note">${res.applied.map(esc).join('<br>')}</div>`;
+    }
+  } catch (err) {
+    const el = $('#adminMsg');
+    if (el) el.innerHTML = `<div class="note warn">${esc(err.message)}</div>`;
+  }
+}
+
+function bindAdmin() {
+  const unlock = $('#btnAdmin');
+  if (unlock) { unlock.onclick = adminUnlock;
+    $('#adminCode').onkeydown = e => { if (e.key === 'Enter') adminUnlock(); }; return; }
+
+  document.querySelectorAll('[data-term]').forEach(b => b.onclick = () => adminPost(
+    b.dataset.on === '1' ? { enable_terms: [b.dataset.term] } : { disable_terms: [b.dataset.term] }));
+  document.querySelectorAll('[data-region]').forEach(b => b.onclick = () => adminPost(
+    b.dataset.on === '1' ? { enable_regions: [b.dataset.region] } : { disable_regions: [b.dataset.region] }));
+  const save = $('#btnSaveAdmin');
+  if (save) save.onclick = () => adminPost({
+    model: document.querySelector('input[name=model]:checked')?.value,
+    daily_cap_gbp: parseFloat($('#cap').value),
+  });
+}
+
 /* ----------------------------------------------------------------- shell */
 
 const VIEWS = {
   overview: viewOverview, discover: viewDiscover, leads: viewLeads,
   review: viewReview, quality: viewQuality, economics: viewEconomics,
+  admin: viewAdmin,
 };
 
 function render() {
@@ -696,6 +864,7 @@ function render() {
   if (S.view === 'discover') { initMap(); bindDiscover(); }
   if (S.view === 'leads') bindLeads();
   if (S.view === 'review') bindReview();
+  if (S.view === 'admin') bindAdmin();
   window.scrollTo(0, 0);
 }
 
@@ -708,7 +877,24 @@ function bindDiscover() {
   });
   $('#radius').oninput = () => { if (S.shape?.kind === 'circle') setCircle(L.latLng(S.shape.lat, S.shape.lng)); };
   $('#cell').oninput = clearEstimate;
-  $('#queries').oninput = clearEstimate;
+
+  const max = S.terms?.max_selectable || 3;
+  $('#terms').onchange = (e) => {
+    const cb = e.target;
+    if (!cb.matches('input[type=checkbox]')) return;
+    if (cb.checked) {
+      if (S.selectedTerms.length >= max) { cb.checked = false; return; }
+      S.selectedTerms.push(cb.value);
+    } else {
+      S.selectedTerms = S.selectedTerms.filter(t => t !== cb.value);
+    }
+    cb.closest('.term').classList.toggle('on', cb.checked);
+    $('#terms').querySelectorAll('input[type=checkbox]').forEach(x => {
+      x.disabled = !x.checked && S.selectedTerms.length >= max;
+      x.closest('.term').classList.toggle('off', x.disabled);
+    });
+    clearEstimate();
+  };
   $('#btnEstimate').onclick = doEstimate;
   $('#btnRun').onclick = doRun;
 }
@@ -727,9 +913,10 @@ function bindReview() {
 
 async function boot() {
   try {
-    [S.snap, S.regions] = await Promise.all([
-      api('/api/snapshot'), api('/api/regions'),
+    [S.snap, S.regions, S.terms] = await Promise.all([
+      api('/api/snapshot'), api('/api/regions'), api('/api/search-terms'),
     ]);
+    S.selectedTerms = (S.terms.terms || []).filter(t => t.default).map(t => t.term);
   } catch (err) {
     $('#main').innerHTML = `<div class="card"><div class="note warn">
       Could not load the snapshot: ${esc(err.message)}</div></div>`;

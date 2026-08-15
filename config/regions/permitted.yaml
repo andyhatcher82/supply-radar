@@ -19,6 +19,15 @@
 # seaward side so no offshore island is excluded, and reasonably tight on land
 # borders so neighbouring capitals are not sweepable. They are fit for
 # permissioning and are not survey data.
+#
+# A tolerance is applied outwards before the containment test. Experiences do
+# not stop at a border: a rafting operator on the Una, a wine tour in the hills
+# behind Umag, or a day trip that crosses into the Neum corridor are all
+# legitimately Croatian supply. Losing them to a simplified outline would be a
+# worse error than occasionally catching an operator a few kilometres the wrong
+# side of the line, so the tolerance is deliberately generous and the trade is
+# stated rather than hidden.
+tolerance_km: 8
 
 regions:
   - id: croatia
@@ -31,20 +40,28 @@ regions:
     # [lat, lng], traced clockwise from the north-west.
     polygon:
       - [45.60, 13.55]   # Gulf of Trieste, Slovenian border
-      - [45.55, 13.90]
-      - [45.62, 14.35]
+      - [45.52, 13.95]
+      - [45.60, 14.25]   # Ćićarija, inland Istria
       - [45.48, 14.60]
-      - [45.42, 15.00]
-      - [45.60, 15.35]
-      - [45.78, 15.65]
-      - [46.05, 16.05]
-      - [46.38, 16.30]   # Međimurje, northern tip
-      - [46.52, 16.60]
-      - [46.38, 17.00]
-      - [45.95, 17.35]   # Drava
-      - [45.85, 17.90]
-      - [45.92, 18.55]
-      - [45.78, 19.00]   # Danube, Serbian border
+      - [45.45, 14.90]
+      - [45.50, 15.15]   # Gorski kotar, Slovenian border
+      - [45.62, 15.35]
+      - [45.72, 15.55]   # Žumberak
+      - [45.88, 15.70]
+      - [46.05, 16.00]   # Hrvatsko zagorje
+      - [46.22, 16.15]   # Varaždin county, northern border
+      - [46.38, 16.30]
+      - [46.54, 16.60]   # Međimurje, northernmost point
+      - [46.48, 16.90]
+      - [46.32, 17.20]   # Drava, Hungarian border
+      - [46.10, 17.55]
+      - [45.98, 17.95]   # Podravina
+      - [45.92, 18.35]
+      - [46.02, 18.60]   # Baranja, north of the Drava
+      - [46.18, 18.80]   # Batina, north-eastern extremity
+      - [45.92, 19.00]
+      - [45.78, 19.05]   # Danube, Serbian border
+      - [45.48, 19.15]
       - [45.20, 19.45]   # Ilok, eastern extremity
       - [45.10, 19.10]
       - [45.15, 18.75]
