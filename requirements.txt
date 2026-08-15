@@ -21,12 +21,12 @@ shapely>=2.0
 
 # Storage
 #
-# NOT CURRENTLY USED. Both are here for the intended BigQuery snapshot store,
-# which is designed (section 1 of the decision log) and not built: nothing
-# imports either library and the published snapshot is a JSON file. Left in
-# place because the intent is real, flagged because a requirements line is not
-# evidence of an implementation.
+# duckdb is NOT USED. It was intended as the local pipeline working set and
+# nothing imports it. Flagged rather than removed because a requirements line
+# is not evidence of an implementation, and this file said exactly that about
+# BigQuery too until warehouse.py made it true.
 duckdb>=1.1
+# Used: supply_radar/warehouse.py publishes the lead table.
 google-cloud-bigquery>=3.25
 google-cloud-secret-manager>=2.20
 

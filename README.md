@@ -71,17 +71,42 @@ because it is the evidence behind that claim, and because it makes the
 multi-source architecture a demonstrated thing rather than a Protocol with one
 implementation.
 
+## Output: the lead table in BigQuery
+
+`supply_radar/warehouse.py` appends each run's leads to
+`supply-radar-croatia.supply_radar.leads`, partitioned by run date and clustered
+on destination and band, with the per-axis evidence carried alongside so a lead
+in the warehouse can still be traced back to why it ranked where it did.
+
+```bash
+python scripts/build_snapshot.py
+python scripts/publish_to_bigquery.py --dry-run   # inspect rows, write nothing
+python scripts/publish_to_bigquery.py
+```
+
+Append rather than replace, because the question a supply team asks three months
+in is not "what are the leads" but "what changed, and did the ones we contacted
+convert". A replaced table cannot answer that afterwards.
+
+It is deliberately **not** the console's read path. The console serves the
+committed JSON snapshot, which needs no credentials and cold-starts instantly.
+
 ## What is not built
 
 Stated here rather than discovered by a reader:
 
-- `web_search` and `dmo_registry` are declared in the destination pack and the
-  `Source` enum. Only Google Places has an implementation.
-- **BigQuery and DuckDB are not used.** Both are in `requirements.txt`, and
-  `config.py` carries `bq_project` / `bq_dataset`, but nothing imports either.
-  The published snapshot is a JSON file. `/api/healthz` reports a `bigquery`
-  capability that reflects only whether an environment variable is set.
+- **`web_search` and `dmo_registry` are `Source` enum values with no
+  implementation.** Google Places is the only discovery source that runs. The
+  licensing register does exist as a module and was measured, but deliberately
+  is not wired as a discovery source — see "The licensing register" above.
+- **`DecidedBy.LLM` is referenced nowhere.** LLM adjudication of the ambiguous
+  match band was designed and never built; that band goes to a human.
+- **DuckDB is not used.** `duckdb>=1.1` is in `requirements.txt` and nothing
+  imports it. It was intended as the local pipeline working set.
 - No supplier contact is automated. The pipeline ends at a qualified lead.
+- Nothing a user does is persisted. Review decisions and lead removals are
+  captured in the browser session only, and a live sweep's results are lost on
+  navigation.
 
 ## Running locally
 
