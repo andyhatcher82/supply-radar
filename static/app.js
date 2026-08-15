@@ -1365,10 +1365,15 @@ function viewAdmin() {
       <button class="btn" id="btnAdmin">Unlock</button>
       <div id="adminErr"></div>
       ${note(
-        'A different code from the one that opens the site.',
-        `<p>Spending money on a sweep and changing what everyone else is allowed to sweep are
-          two different powers, so they get two different keys.</p>
-        <p>Proper user accounts and roles replace both of these on day 2.</p>`)}
+        'Same code as the one that opened the site, for this demonstration only.',
+        `<p>Two shared codes would mean two things to remember for a 20-minute demo, so for
+          now they are the same. It does mean anyone who can open the site can change these
+          settings.</p>
+        <p>That is not how it would ship. Opening the console, spending money on a sweep and
+          changing what everyone else may spend it on are three different permissions, and
+          they belong to roles rather than to shared codes.</p>
+        <p>Properly, this signs in through your existing SSO and reads the permission from
+          the person, not from a code they were told.</p>`)}
     </div>`;
   }
 
@@ -1438,7 +1443,7 @@ function viewAdmin() {
     ${note(
       'Four things we know are missing here.',
       `<p>Settings that survive a deploy, with a record of who changed what.</p>
-      <p>Real user accounts instead of two shared codes.</p>
+      <p>SSO sign-in with permissions per role, instead of one shared code.</p>
       <p>Separate matching thresholds per country, once a second market opens.</p>
       <p>An alert when a run hits the daily spend cap.</p>`)}
   </div>`;

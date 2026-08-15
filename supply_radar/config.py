@@ -51,10 +51,15 @@ class Settings(BaseSettings):
     # cookie cannot be turned back into possessing the code.
     gate_secret: str = "supply-radar-gate"
 
-    # Separate key for the admin surface. Deliberately not the same as the
-    # spend code: authorising a sweep and changing what everyone else is
-    # allowed to sweep are different privileges. Proper role-based access is a
-    # day-2 item; this is the v1 stand-in for it.
+    # Key for the admin surface. It CAN differ from access_code and originally
+    # did, on the reasoning that authorising a sweep and changing what everyone
+    # else may sweep are different privileges. For the demo both are set to the
+    # same value, so anyone who can open the console can also change these
+    # settings, and the Admin page says so rather than implying a separation
+    # that is not there.
+    #
+    # The real answer is neither one code nor two: it is SSO, with the
+    # permission read from the person rather than from a code they were told.
     admin_code: str = ""
 
     # BigQuery — published snapshot store
