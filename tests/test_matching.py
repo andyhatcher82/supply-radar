@@ -18,6 +18,7 @@ from supply_radar.matching import (
     score_pair,
 )
 from supply_radar.models import DecidedBy, DiscoveredPlace, MatchVerdict, Source, SupplierRecord
+from supply_radar.normalise import identity_domain
 from supply_radar.synth import expected_verdicts, generate_supplier_list
 
 HR = load_locale("hr")
@@ -65,16 +66,58 @@ class TestHardKeys:
         assert res.decided_by is DecidedBy.HARD_KEY
         assert "domain" in res.evidence[0].signal
 
-    def test_matching_phone_decides_when_domains_are_absent(self):
-        s = supplier(legal_name="Kovačević obrt", website=None)
+    def test_phone_with_an_agreeing_name_decides(self):
+        s = supplier(legal_name="Adriatic Kayak Adventures d.o.o.", website=None)
         res = match_place(place(website=None), _index([s]), HR)
         assert res.verdict is MatchVerdict.EXISTING
         assert res.decided_by is DecidedBy.HARD_KEY
 
-    def test_phone_matches_across_formatting_differences(self):
-        s = supplier(legal_name="Something Else", website=None, phone="021/345-678")
+    def test_a_shared_phone_with_a_different_name_does_not_decide(self):
+        """Measured on real Split data: 13% of operators share a phone number
+        with a DIFFERENT business, because agencies front several brands and a
+        kiosk on the Riva sells for several boats off one line.
+
+        Treating phone as decisive on its own caused 14 of 22 missed
+        opportunities: real operators declared already-on-file, never contacted,
+        with nothing left behind to notice."""
+        s = supplier(legal_name="Kovačević obrt", website=None)
+        res = match_place(place(website=None), _index([s]), HR)
+        assert res.decided_by is not DecidedBy.HARD_KEY
+
+    def test_phone_normalisation_still_tolerates_formatting(self):
+        """Demoting phone from a lone hard key must not break the underlying
+        E.164 normalisation, which is what lets a match survive at all."""
+        s = supplier(
+            legal_name="Adriatic Kayak Adventures", website=None, phone="021/345-678"
+        )
         res = match_place(place(website=None), _index([s]), HR)
         assert res.verdict is MatchVerdict.EXISTING
+
+    def test_website_builder_subdomains_are_different_businesses(self):
+        """Eight different real Split operators sat on wixsite.com. Reducing to
+        the registrable domain collapsed them into one business and hard-matched
+        them to each other. Identity is in the subdomain here."""
+        a = identity_domain("https://tantulika28.wixsite.com/tour/blank")
+        b = identity_domain("https://splitboats.wixsite.com/home")
+        assert a and b and a != b
+
+    def test_an_operator_owned_domain_still_reduces_normally(self):
+        assert (
+            identity_domain("https://booking.tinel-tours.hr/en")
+            == identity_domain("http://www.tinel-tours.hr")
+            == "tinel-tours.hr"
+        )
+
+    def test_a_social_or_marketplace_page_carries_no_identity(self):
+        """Small operators often list a Facebook page as their website. Matching
+        two of them on facebook.com would be worse than having no signal."""
+        for url in (
+            "https://www.facebook.com/splitboattours",
+            "https://www.instagram.com/bluecavesplit",
+            "https://www.tripadvisor.com/Attraction_Review-g295370",
+            "https://www.getyourguide.com/split-l553/",
+        ):
+            assert identity_domain(url) is None
 
     def test_identical_name_at_same_premises_decides(self):
         s = supplier(website=None, phone=None, legal_name="Adriatic Kayak Adventures")

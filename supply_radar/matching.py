@@ -37,9 +37,9 @@ from supply_radar.models import (
 )
 from supply_radar.normalise import (
     fold_diacritics,
+    identity_domain,
     normalise_name,
     normalise_phone,
-    registrable_domain,
 )
 
 # Signal weights. Held here rather than buried in the scoring function so they
@@ -69,6 +69,13 @@ SAME_PREMISES_KM = 0.2
 # the evidence trail with a reason.
 NAME_GATE = 0.45
 NAME_GATE_CAP = 0.35
+
+# How much the names must agree before a shared phone number is allowed to
+# decide a match on its own. Set from the real Split data: the colliding pairs
+# there ("Split Boat Trips" vs "semiSUBMARINE Split", "Condor Yachting" vs
+# "Hemingway Boat Split") agree well below this, while genuine same-business
+# pairs sit well above it.
+PHONE_CORROBORATION_NAME_FLOOR = 0.70
 
 # Blocking grid, roughly 5 km of latitude. Coarse on purpose: neighbours are
 # searched too, so the cost of a slightly loose grid is a few extra comparisons,
@@ -163,7 +170,7 @@ class MatchIndex:
 
         for s in suppliers:
             norm = normalise_name(s.display_name, locale)
-            domain = registrable_domain(s.website) if s.website else None
+            domain = identity_domain(s.website) if s.website else None
             phone = normalise_phone(s.phone, locale.phone_region) if s.phone else None
 
             self.keys[s.supplier_id] = SupplierKeys(
@@ -186,7 +193,7 @@ class MatchIndex:
     def candidates(self, place: DiscoveredPlace) -> list[SupplierKeys]:
         ids: set[str] = set()
 
-        domain = registrable_domain(place.website) if place.website else None
+        domain = identity_domain(place.website) if place.website else None
         if domain:
             ids.update(self._by_domain.get(domain, ()))
 
@@ -262,7 +269,7 @@ def score_pair(
     total_weight = sum(w for w, _ in parts)
     score = sum(w * s for w, s in parts) / total_weight
 
-    place_domain = registrable_domain(place.website) if place.website else None
+    place_domain = identity_domain(place.website) if place.website else None
     if place_domain and keys.domain and place_domain != keys.domain:
         score -= PENALTY_DOMAIN_CONFLICT
         evidence.append(
@@ -305,15 +312,34 @@ def _hard_key_match(
     place: DiscoveredPlace, keys: SupplierKeys, locale: LocalePack
 ) -> tuple[str, str] | None:
     """Return (signal, detail) when a single key is decisive on its own."""
-    place_domain = registrable_domain(place.website) if place.website else None
+    place_domain = identity_domain(place.website) if place.website else None
     if place_domain and keys.domain and place_domain == keys.domain:
         return "domain", place_domain
 
+    place_norm = normalise_name(place.name, locale)
+
+    # Phone alone is NOT identity in this market, and that is measured rather
+    # than assumed: 13% of real Split operators share a number with a different
+    # business. Small operators are fronted by shared agencies, and a booking
+    # kiosk on the Riva sells for several boats off one line.
+    #
+    # So a phone match must be corroborated by the name before it can decide on
+    # its own. Uncorroborated, it falls through to fuzzy scoring, where it is
+    # still a strong positive signal but cannot single-handedly declare an
+    # operator already-on-file.
     place_phone = normalise_phone(place.phone, locale.phone_region) if place.phone else None
     if place_phone and keys.phone and place_phone == keys.phone:
-        return "phone", place_phone
+        name_agreement = (
+            fuzz.token_set_ratio(place_norm, keys.norm_name) / 100
+            if place_norm and keys.norm_name
+            else 0.0
+        )
+        if name_agreement >= PHONE_CORROBORATION_NAME_FLOOR:
+            return (
+                "phone and name",
+                f"{place_phone} with {name_agreement:.0%} name agreement",
+            )
 
-    place_norm = normalise_name(place.name, locale)
     if (
         place_norm
         and keys.norm_name
@@ -436,7 +462,7 @@ def brute_force_best(
         keys = SupplierKeys(
             supplier=s,
             norm_name=normalise_name(s.display_name, locale),
-            domain=registrable_domain(s.website) if s.website else None,
+            domain=identity_domain(s.website) if s.website else None,
             phone=normalise_phone(s.phone, locale.phone_region) if s.phone else None,
             address_tokens=_address_tokens(s.address, locale),
         )
