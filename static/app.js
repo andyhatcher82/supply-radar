@@ -1205,7 +1205,7 @@ function viewQuality() {
       marked answers, so on day one there is nothing to score.</p>
     <p>In use these numbers are earned, not calculated. Someone calls a lead and finds it is
       already a supplier. A reviewer overturns a match. Each of those is one data point, and
-      the register of matched operators is where they come from.</p>`);
+      the match log is where they come from.</p>`);
   const sweepRows = (rows) => `
     <div class="scroll"><table>
       <thead><tr><th class="num">high</th><th class="num">low</th><th class="num">precision</th>
