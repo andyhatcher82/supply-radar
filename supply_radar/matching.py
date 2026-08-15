@@ -88,23 +88,32 @@ class MatchThresholds:
     """Band boundaries. Deliberately configurable, because the right values are
     an empirical question answered by the threshold sweep, not a constant.
 
-    The defaults are read straight off that sweep, and the two boundaries are
-    chosen on different grounds because they control different costs.
+    The defaults are read straight off that sweep, run as a two-dimensional
+    grid and scored against a stated cost model in analyst-minutes.
 
-    high=0.90 is where the expensive error disappears. Below it, operators that
-    are genuinely absent from the marketplace start being written off as
-    existing suppliers, which is silent and permanent. Raising it further buys
-    nothing.
+    They were originally 0.90 and 0.65, chosen from one-dimensional sweeps that
+    held the other boundary fixed. That hid the real interaction, and it was
+    calibrated on a population that still included car parks and museums. Once
+    classification was moved ahead of matching, the remaining population was
+    167 mutually-confusable Split tour operators, and the old settings cost
+    52 human reviews to deliver MORE missed operators, not fewer.
 
-    low=0.65 is where the review queue becomes affordable. Dropping from 0.55
-    to 0.65 cuts human review from roughly a third of all decisions to about a
-    tenth, and costs one additional wasted Sales call. That is exactly the
-    trade the asymmetry argument says to take: spend cheap, self-correcting
-    errors to buy back human attention.
+    high=0.94 minimises the expensive error. Anything an operator scores below
+    this against a supplier record is not certain enough to write them off.
+
+    low=0.75 keeps review affordable, at 8.4% of decisions.
+
+    Result on the real operator population: 7 missed, 14 reviews, 5 wasted
+    calls. The choice is robust: it stays the cheapest option even when a
+    missed operator is valued no higher than a wasted call, which is the
+    softest and most dominant number in the cost model.
+
+    Calibrated on Split. Per-locale recalibration is a stated day-2 item, and
+    these are config rather than constants for exactly that reason.
     """
 
-    high: float = 0.90
-    low: float = 0.65
+    high: float = 0.94
+    low: float = 0.75
 
     def band(self, score: float) -> MatchVerdict:
         if score >= self.high:

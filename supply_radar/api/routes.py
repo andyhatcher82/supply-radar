@@ -27,6 +27,7 @@ from supply_radar.costs import CostLedger, estimate_sweep
 from supply_radar.discovery.google_places import GooglePlacesSource
 from supply_radar.geometry import AreaTooLargeError, SearchArea, cover
 from supply_radar.llm import LLMClient
+from supply_radar.regions import as_geojson, check_area
 from supply_radar.scoring import score_lead
 
 log = logging.getLogger(__name__)
@@ -118,6 +119,12 @@ def economics() -> dict:
     return data.get("economics", {})
 
 
+@router.get("/regions")
+def regions() -> dict:
+    """Markets the business has opened, so the browser can grey out the rest."""
+    return as_geojson()
+
+
 # ---------------------------------------------------------------- estimate
 
 
@@ -126,6 +133,10 @@ def estimate(req: AreaRequest) -> dict:
     """What a sweep over this area would cost, before spending anything."""
     area = req.to_area()
     queries = req.clean_queries()
+
+    permitted, region, why = check_area(area)
+    if not permitted:
+        raise HTTPException(403, why)
 
     try:
         cells = cover(area, req.cell_km, max_cells=settings.max_cells_per_run)
@@ -138,6 +149,7 @@ def estimate(req: AreaRequest) -> dict:
     return {
         **est,
         "area_km2": round(area.area_km2, 1),
+        "region": region.name if region else None,
         "queries": queries,
         "within_live_run_limit": not too_big,
         "live_run_cell_limit": MAX_LIVE_CELLS,
@@ -172,6 +184,12 @@ def run(req: AreaRequest, x_access_code: str | None = Header(default=None)) -> d
 
     area = req.to_area()
     queries = req.clean_queries()
+
+    # Re-checked here and not only in /estimate. The browser gate is a
+    # courtesy; this is the boundary.
+    permitted, _region, why = check_area(area)
+    if not permitted:
+        raise HTTPException(403, why)
 
     try:
         cells = cover(area, req.cell_km, max_cells=settings.max_cells_per_run)

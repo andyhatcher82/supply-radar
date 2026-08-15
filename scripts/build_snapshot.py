@@ -25,7 +25,7 @@ from supply_radar.evaluate import evaluate, threshold_sweep  # noqa: E402
 from supply_radar.locales import load_locale  # noqa: E402
 from supply_radar.matching import MatchThresholds, match_all  # noqa: E402
 from supply_radar.models import DiscoveredPlace, MatchVerdict  # noqa: E402
-from supply_radar.scoring import score_gap_fit  # noqa: E402
+from supply_radar.scoring import BAND_A, BAND_B, score_gap_fit  # noqa: E402
 from supply_radar.synth import expected_verdicts, generate_supplier_list  # noqa: E402
 
 DATA = Path("data")
@@ -52,12 +52,66 @@ def main() -> None:
 
     print(f"{len(places)} real places, {len(leads)} scored leads")
 
+    # The leads file carries the RAW classifier answer, which is "other" for
+    # every operator the deterministic shortcut accepted, because those never
+    # reach the classifier at all. Resolve it the same way scoring already
+    # does, from the search term that found them, so the console shows what an
+    # operator actually sells instead of a wall of "other".
+    _places_by_id = {p.source_id: p for p in places}
+    for lead in leads:
+        place = _places_by_id.get(lead.get("place_source_id"))
+        if place is None:
+            continue
+        lead["category"] = resolve_category(place, lead.get("experience_type"))
+        lead["category_source"] = (
+            "classifier"
+            if (lead.get("experience_type") or "").lower()
+            not in ("", "other", "none", "unclear")
+            else ("search term" if lead["category"] else "unresolved")
+        )
+    resolved = sum(1 for l in leads if l.get("category"))
+    print(f"  categories resolved for {resolved}/{len(leads)} leads")
+
+    # Bands are recomputed here rather than trusted from the leads file. That
+    # file was written when the cut-offs were still 0.65/0.45, which measurement
+    # later showed made band A unreachable. Deriving them from the composite at
+    # build time means a threshold change takes effect without re-running the
+    # expensive enrichment.
+    for lead in leads:
+        c = lead["composite"]
+        lead["band"] = "A" if c >= BAND_A else "B" if c >= BAND_B else "C"
+    band_counts: dict[str, int] = {}
+    for lead in leads:
+        band_counts[lead["band"]] = band_counts.get(lead["band"], 0) + 1
+    print(f"  bands (A>={BAND_A} B>={BAND_B}): {band_counts}")
+
     # ---- matching, against real discovered operators -----------------------
+    #
+    # Matching runs over the OPERATORS ONLY, not everything discovered.
+    #
+    # Originally it ran over all 301 discovered places, which produced two
+    # problems. It compared car parks and museums against Viator's supplier
+    # list, which is wasted work. And it reported "167 operators" alongside
+    # "181 genuinely net-new", two numbers computed over different
+    # denominators, which is simply confusing: net-new cannot exceed the
+    # population it is drawn from.
+    #
+    # Classification now gates matching, so every figure below shares one
+    # denominator and the funnel adds up: discovered -> operators -> already on
+    # file + net-new + needs review.
+    operator_places = [
+        p
+        for p in places
+        if classified.get(p.source_id, {}).get("verdict") == "experience_operator"
+    ]
+    print(f"{len(operator_places)} operators go forward to matching "
+          f"({len(places) - len(operator_places)} filtered out first)")
+
     locale = load_locale("hr")
-    suppliers, truth = generate_supplier_list(places, seed=42)
+    suppliers, truth = generate_supplier_list(operator_places, seed=42)
     answer = expected_verdicts(truth)
     thresholds = MatchThresholds()
-    results = match_all(places, suppliers, locale, thresholds)
+    results = match_all(operator_places, suppliers, locale, thresholds)
     ev = evaluate(results, answer)
 
     print("matching on real data:", ev.summary())
@@ -78,11 +132,11 @@ def main() -> None:
             corruptions[c] = corruptions.get(c, 0) + 1
 
     upper = threshold_sweep(
-        places, suppliers, answer, locale,
+        operator_places, suppliers, answer, locale,
         highs=[0.66, 0.72, 0.76, 0.80, 0.82, 0.86, 0.90, 0.94], lows=[0.55],
     )
     lower = threshold_sweep(
-        places, suppliers, answer, locale,
+        operator_places, suppliers, answer, locale,
         highs=[0.82], lows=[0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75],
     )
 
@@ -217,13 +271,19 @@ def main() -> None:
     snapshot = {
         "destination": "Split, Croatia",
         "generated_from": "Real Google Places discovery, August 2026",
+        # One funnel, one denominator, and it adds up. Every figure after
+        # "operators" is a subset of it.
         "counts": {
             "places_discovered": len(places),
-            "operators": operators,
+            "not_relevant": len(places) - len(operator_places),
+            "operators": len(operator_places),
+            "already_on_file": sum(
+                1 for r in results if r.verdict is MatchVerdict.EXISTING
+            ),
+            "net_new": sum(1 for r in results if r.verdict is MatchVerdict.NET_NEW),
+            "needs_review": len(review_queue),
             "leads_scored": len(leads),
             "suppliers_on_file": len(suppliers),
-            "genuinely_on_file": len(answer),
-            "genuinely_net_new": len(places) - len(answer),
         },
         "leads": leads,
         "metrics": {

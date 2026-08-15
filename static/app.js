@@ -1,8 +1,59 @@
 /* Supply Radar front end.
    Vanilla JS, no build step, no framework. One file, six views. */
 
-const S = { snap: null, view: 'overview', map: null, layer: null,
-            mode: 'circle', shape: null, estimate: null, decisions: {} };
+const S = { snap: null, regions: null, view: 'overview', map: null, layer: null,
+            mode: 'circle', shape: null, estimate: null, decisions: {},
+            permitted: true, permitMsg: '' };
+
+/* Ray casting. Used only to keep the UI honest before a request is sent —
+   the API re-checks every sweep, because a browser gate is a courtesy. */
+function pointInRing(lat, lng, ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [yi, xi] = ring[i], [yj, xj] = ring[j];
+    if ((xi > lng) !== (xj > lng) &&
+        lat < (yj - yi) * (lng - xi) / (xj - xi) + yi) inside = !inside;
+  }
+  return inside;
+}
+
+function regionFor(lat, lng) {
+  for (const r of (S.regions?.enabled || [])) {
+    if (pointInRing(lat, lng, r.polygon)) return r;
+  }
+  return null;
+}
+
+/* A shape is permitted only if it sits ENTIRELY inside one enabled market.
+   Partial overlap would spend budget on a market nobody has opened, and the
+   operators found could not be actioned by anyone. */
+function checkShape(shape) {
+  if (!shape) return { ok: false, msg: '' };
+  let points;
+  if (shape.kind === 'circle') {
+    points = [];
+    const dLat = shape.radius_km / 111.32;
+    const dLng = shape.radius_km / (111.32 * Math.cos(shape.lat * Math.PI / 180));
+    for (let a = 0; a < 360; a += 15) {
+      const r = a * Math.PI / 180;
+      points.push([shape.lat + dLat * Math.sin(r), shape.lng + dLng * Math.cos(r)]);
+    }
+    points.push([shape.lat, shape.lng]);
+  } else {
+    points = shape.points;
+  }
+  const regions = (S.regions?.enabled || []);
+  for (const r of regions) {
+    if (points.every(p => pointInRing(p[0], p[1], r.polygon))) {
+      return { ok: true, msg: `Inside ${r.name}.`, region: r };
+    }
+  }
+  const touching = regions.find(r => points.some(p => pointInRing(p[0], p[1], r.polygon)));
+  if (touching) {
+    return { ok: false, msg: `This area extends beyond ${touching.name}. Searches must sit entirely inside an enabled market.` };
+  }
+  return { ok: false, msg: `Outside every enabled market. Currently enabled: ${regions.map(r => r.name).join(', ') || 'none'}.` };
+}
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g,
@@ -35,9 +86,34 @@ function viewOverview() {
   return `
   <div class="grid g4">
     ${stat('Places discovered', c.places_discovered, 'Real Google Places results')}
-    ${stat('Experience operators', c.operators, `${Math.round(100 - c.operators / c.places_discovered * 100)}% filtered out as not relevant`)}
-    ${stat('Genuinely net-new', c.genuinely_net_new, 'Not on the supplier list')}
-    ${stat('Sent to a human', m.review_rate ? pct(m.review_rate) : '—', `${pct(m.automation_rate)} decided automatically`)}
+    ${stat('Experience operators', c.operators, `${c.not_relevant} filtered out as not relevant`)}
+    ${stat('Genuinely net-new', c.net_new, `of the ${c.operators} operators`, 'good')}
+    ${stat('Sent to a human', pct(m.review_rate), `${pct(m.automation_rate)} decided automatically`)}
+  </div>
+
+  <p class="section-title">The funnel, one denominator throughout</p>
+  <div class="card">
+    <div class="scroll"><table>
+      <thead><tr><th>Step</th><th class="num">Records</th><th>What happened</th></tr></thead>
+      <tbody>
+        <tr><td>Discovered</td><td class="num">${c.places_discovered}</td>
+          <td style="color:var(--muted)">Everything Google Places returned for the search terms</td></tr>
+        <tr><td>Not an experience operator</td><td class="num">−${c.not_relevant}</td>
+          <td style="color:var(--muted)">Museums, car parks, hotels, restaurants. Removed before any matching</td></tr>
+        <tr style="border-top:2px solid var(--line)"><td><strong>Experience operators</strong></td>
+          <td class="num"><strong>${c.operators}</strong></td>
+          <td style="color:var(--muted)">Everything below is a subset of this</td></tr>
+        <tr><td>Already a Viator supplier</td><td class="num">${c.already_on_file}</td>
+          <td style="color:var(--muted)">Matched to the supplier list</td></tr>
+        <tr><td>Needs a human decision</td><td class="num">${c.needs_review}</td>
+          <td style="color:var(--muted)">Too close to call automatically</td></tr>
+        <tr><td><strong>Net-new leads</strong></td><td class="num"><strong>${c.net_new}</strong></td>
+          <td style="color:var(--muted)">Operators Viator does not have</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note">Classification runs <em>before</em> matching, so the matcher never
+      compares a car park against the supplier list and every figure here shares one
+      denominator: ${c.already_on_file} + ${c.needs_review} + ${c.net_new} = ${c.operators}.</div>
   </div>
 
   <p class="section-title">What the pipeline does</p>
@@ -125,6 +201,26 @@ function viewDiscover() {
 
         <div class="estimate" id="estimate"></div>
       </div>
+
+      <div class="card" style="margin-top:14px">
+        <h2>Permitted markets</h2>
+        <p class="hint">Searching is restricted to markets the business has opened.
+          Everywhere else is greyed out on the map.</p>
+        ${(S.regions?.enabled || []).map(r => `
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+            <span class="pill good">open</span><strong>${esc(r.name)}</strong>
+          </div>
+          ${r.note ? `<p style="color:var(--dim);font-size:12.5px;margin:0 0 10px">${esc(r.note)}</p>` : ''}`).join('')}
+        ${(S.regions?.disabled || []).map(r => `
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+            <span class="pill grey">closed</span><span style="color:var(--muted)">${esc(r.name)}</span>
+          </div>
+          ${r.note ? `<p style="color:var(--dim);font-size:12.5px;margin:0 0 10px">${esc(r.note)}</p>` : ''}`).join('')}
+        <div class="note">Opening a market is a change to one config file, not a code
+          change. That is what "scales to hundreds of destinations" has to mean in
+          practice. The API re-checks every request, so the map is a courtesy rather
+          than the boundary.</div>
+      </div>
     </div>
     <div>
       <div id="map"></div>
@@ -145,6 +241,24 @@ function initMap() {
     attribution: '&copy; OpenStreetMap contributors',
   }).addTo(map);
   S.map = map;
+
+  /* Grey out everywhere the business has not opened. One outer ring covering
+     the world, with each enabled market punched out as a hole. */
+  const enabled = S.regions?.enabled || [];
+  if (enabled.length) {
+    const world = [[-89, -179], [89, -179], [89, 179], [-89, 179]];
+    L.polygon([world, ...enabled.map(r => r.polygon)], {
+      color: '#2a3038', weight: 0, fillColor: '#080a0d', fillOpacity: 0.72,
+      interactive: false,
+    }).addTo(map);
+    enabled.forEach(r => {
+      L.polygon(r.polygon, {
+        color: '#4fd1c5', weight: 1.5, fill: false, dashArray: '4 4',
+        interactive: false,
+      }).addTo(map).bindTooltip(`${r.name} — open for search`, { sticky: true });
+    });
+  }
+
   S.layer = L.layerGroup().addTo(map);
 
   map.on('click', (e) => { if (S.mode === 'circle') setCircle(e.latlng); });
@@ -187,8 +301,15 @@ function setCircle(latlng) {
 
 function clearEstimate() {
   S.estimate = null;
-  $('#estimate').innerHTML = '';
   $('#btnRun').disabled = true;
+  const check = checkShape(S.shape);
+  S.permitted = check.ok;
+  S.permitMsg = check.msg;
+  const btn = $('#btnEstimate');
+  if (btn) btn.disabled = !!S.shape && !check.ok;
+  $('#estimate').innerHTML = (S.shape && !check.ok)
+    ? `<div class="note warn"><strong>Outside a permitted market.</strong><br>${esc(check.msg)}</div>`
+    : (S.shape && check.msg ? `<div class="note">${esc(check.msg)} Estimate the cost to continue.</div>` : '');
 }
 
 function requestBody() {
@@ -280,13 +401,47 @@ function renderRun(r) {
 
 /* ---------------------------------------------------------------- leads */
 
+const BANDS = {
+  A: ['Contact first', 'Highest on the weighted composite. Open the lead to see which axes carried it — an operator can reach A on quality and readiness alone, even where the category has no supply gap.'],
+  B: ['Worth contacting', 'Solid on at least one axis with a visible caveat on another. Read the evidence before calling.'],
+  C: ['Park for now', 'Thin evidence, or the category is already well served and adding supply mostly cannibalises it.'],
+};
+
 function viewLeads() {
   const leads = S.snap.leads;
+  const counts = { A: 0, B: 0, C: 0 };
+  leads.forEach(l => counts[l.band]++);
+
   return `
   <div class="card">
     <h2>Qualified leads <span class="pill grey">${leads.length}</span></h2>
-    <p class="hint">Ranked by composite score. Click any lead to see every piece of evidence
-      behind its three axis scores. The composite is a sort order, not a decision.</p>
+    <p class="hint">Ranked by composite score. Click any lead for the full evidence trail
+      behind all three axes. The composite is a sort order, not a decision.</p>
+
+    <div class="grid g3" style="margin-top:6px">
+      ${['A', 'B', 'C'].map(b => `
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <span class="pill ${b}" style="margin-top:2px">${b}</span>
+          <div>
+            <div style="font-weight:600">${BANDS[b][0]} <span style="color:var(--dim);font-weight:400">— ${counts[b]} leads</span></div>
+            <div style="color:var(--muted);font-size:12.5px">${BANDS[b][1]}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+
+    <div class="note">Bands come from the composite of the three axes, weighted
+      35% quality / 35% readiness / 30% gap fit. The cut-offs are recalibrated per
+      destination, because a saturated category scores 0.00 on gap fit and that caps
+      what any operator there can reach.</div>
+
+    ${counts.A === 0 ? `<div class="note warn"><strong>No A-band leads here, and that is
+      the model working rather than failing.</strong> Every operator found sits in a
+      category the demand model says is already well served. Good businesses in a
+      saturated market: worth knowing about, not worth prioritising over an under-served
+      category elsewhere.</div>` : `<div class="note">Every lead here scores 0.00 on gap
+      fit, because the categories found in this destination are already well served. The
+      A-band leads earned their place on quality and readiness alone — strong operators
+      in a competitive market, rather than an unmet need.</div>`}
   </div>
   <div style="margin-top:14px">${leads.map(leadRow).join('')}</div>`;
 }
@@ -299,8 +454,14 @@ function leadRow(l, i) {
   <div class="lead" data-lead="${i}">
     <div class="lead-head">
       <div>
-        <div class="lead-name">${esc(l.name)} <span class="pill ${l.band}">${l.band}</span></div>
-        <div class="lead-meta">${esc((l.experience_type || '—').replace(/_/g, ' '))}
+        <div class="lead-name">${esc(l.name)}
+          <span class="pill ${l.band}" title="${esc(BANDS[l.band][0])}: ${esc(BANDS[l.band][1])}">${l.band}</span></div>
+        <div class="lead-meta">${l.category
+            ? esc(l.category.replace(/_/g, ' ')) +
+              (l.category_source === 'search term'
+                ? '<span title="No classifier call was needed for this operator, so the category comes from the search term that found them" style="color:var(--dim)"> (from search term)</span>'
+                : '')
+            : '<span style="color:var(--dim)">category not determined</span>'}
           ${l.website ? ` &middot; ${esc(l.website.replace(/^https?:\/\//, '').slice(0, 44))}` : ' &middot; no website'}
           ${l.extract ? ` &middot; ${esc(l.extract.booking.replace(/_/g, ' '))}` : ''}</div>
       </div>
@@ -566,7 +727,9 @@ function bindReview() {
 
 async function boot() {
   try {
-    S.snap = await api('/api/snapshot');
+    [S.snap, S.regions] = await Promise.all([
+      api('/api/snapshot'), api('/api/regions'),
+    ]);
   } catch (err) {
     $('#main').innerHTML = `<div class="card"><div class="note warn">
       Could not load the snapshot: ${esc(err.message)}</div></div>`;
@@ -576,7 +739,7 @@ async function boot() {
   $('#topmeta').innerHTML = `
     <div><div class="k">Destination</div><div class="v">${esc(S.snap.destination)}</div></div>
     <div><div class="k">Operators</div><div class="v">${c.operators}</div></div>
-    <div><div class="k">Net-new</div><div class="v">${c.genuinely_net_new}</div></div>`;
+    <div><div class="k">Net-new</div><div class="v">${c.net_new} <span style="color:var(--dim);font-size:12px">of ${c.operators}</span></div></div>`;
   document.querySelectorAll('#tabs button').forEach(b =>
     b.onclick = () => { S.view = b.dataset.view; render(); });
   render();

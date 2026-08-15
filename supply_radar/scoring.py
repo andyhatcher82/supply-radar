@@ -38,6 +38,33 @@ REVIEW_VOLUME_CAP = 400
 RATING_PRIOR_MEAN = 4.3
 RATING_PRIOR_WEIGHT = 20
 
+# Lead bands, expressed as what Sales should DO rather than as score ranges.
+#
+# Originally A>=0.65 / B>=0.45, set by judgement. Measured against the real
+# Split leads, band A turned out to be UNREACHABLE: the best achievable
+# composite in that destination is 0.651, and only for an operator that is
+# simultaneously the strongest on quality and on readiness. No lead can be A,
+# so the band carried no information.
+#
+# That is the same error the match thresholds were deliberately protected from,
+# made in a different component: a cut-off chosen by intuition rather than read
+# off the distribution.
+#
+# Recalibrated so the top band means something. Note the ceiling moves with the
+# destination, because gap fit is legitimately 0.00 in a saturated category, so
+# these are config and get recalibrated per destination pack.
+BAND_A = 0.55
+BAND_B = 0.42
+
+BAND_MEANING = {
+    "A": "Contact first. Strong on quality and readiness, and in a category "
+         "with room for more supply.",
+    "B": "Worth contacting. Solid on at least one axis, with a visible caveat "
+         "on another. Check the evidence before calling.",
+    "C": "Park for now. Either the evidence is thin, or the category is "
+         "already well served and adding supply mostly cannibalises it.",
+}
+
 BOOKING_SCORES = {
     "online_booking": 1.0,
     "enquiry_form": 0.6,
@@ -106,9 +133,9 @@ class LeadScore:
     @property
     def band(self) -> str:
         c = self.composite
-        if c >= 0.65:
+        if c >= BAND_A:
             return "A"
-        if c >= 0.45:
+        if c >= BAND_B:
             return "B"
         return "C"
 
