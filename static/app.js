@@ -145,6 +145,28 @@ function viewOverview() {
       against an assumed <strong>${gbp(s.economics.versus_manual.manual_cost_gbp)}</strong> of manual research.</div>
   </div>
 
+  ${s.taxonomy ? `
+  <p class="section-title">Coverage of Viator's own catalogue</p>
+  <div class="card">
+    <p class="hint">Categories below use Viator's published taxonomy, not my own labels.
+      ${s.taxonomy.total_nodes} nodes across ${s.taxonomy.tier1} top-level categories,
+      ${s.taxonomy.tier2} second-level and ${s.taxonomy.tier3} third-level.</p>
+    <div class="grid g2">
+      <div>
+        <div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Searched for today</div>
+        ${s.taxonomy.tier1_covered.map(t => `<span class="pill good" style="margin:0 4px 4px 0;display:inline-block">${esc(t)}</span>`).join('')}
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Not yet searched for</div>
+        ${s.taxonomy.tier1_not_covered.map(t => `<span class="pill grey" style="margin:0 4px 4px 0;display:inline-block">${esc(t)}</span>`).join('')}
+      </div>
+    </div>
+    <div class="note">Stated rather than glossed over: this build targets a slice of the
+      catalogue, and the slice is measurable. Widening it is search terms and demand-table
+      rows, not new code — the taxonomy file is Viator's own, loaded verbatim, so
+      replacing it when their categories change is a paste rather than a rewrite.</div>
+  </div>` : ''}
+
   <p class="section-title">Where the opportunity actually is <span class="synthetic">demand data synthetic</span></p>
   <div class="card">
     <p class="hint">Discovery found the most boat-tour operators. Gap fit says they are the
@@ -154,7 +176,8 @@ function viewOverview() {
       <thead><tr><th>Category</th><th class="num">Operators found</th><th class="num">Gap fit</th><th style="width:34%">Unmet demand</th><th>Evidence</th></tr></thead>
       <tbody>${gaps.map(g => `
         <tr>
-          <td>${esc(g.category.replace(/_/g, ' '))}</td>
+          <td>${esc(g.viator_label || g.category.replace(/_/g, ' '))}
+            ${g.viator_path ? `<div style="color:var(--dim);font-size:11.5px">${esc(g.viator_path)}</div>` : ''}</td>
           <td class="num">${g.operators_found}</td>
           <td class="num">${n3(g.gap_fit)}</td>
           <td>${bar(g.gap_fit, 'g')}</td>
@@ -486,7 +509,8 @@ function leadRow(l, i) {
         <div class="lead-name">${esc(l.name)}
           <span class="pill ${l.band}" title="${esc(BANDS[l.band][0])}: ${esc(BANDS[l.band][1])}">${l.band}</span></div>
         <div class="lead-meta">${l.category
-            ? esc(l.category.replace(/_/g, ' ')) +
+            ? esc(l.viator_label || l.category.replace(/_/g, ' ')) +
+              (l.viator_path ? `<span style="color:var(--dim)"> · ${esc(l.viator_path)}</span>` : '') +
               (l.category_source === 'search term'
                 ? '<span title="No classifier call was needed for this operator, so the category comes from the search term that found them" style="color:var(--dim)"> (from search term)</span>'
                 : '')

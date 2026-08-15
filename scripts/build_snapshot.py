@@ -26,6 +26,7 @@ from supply_radar.locales import load_locale  # noqa: E402
 from supply_radar.matching import MatchThresholds, match_all  # noqa: E402
 from supply_radar.models import DiscoveredPlace, MatchVerdict  # noqa: E402
 from supply_radar.scoring import BAND_A, BAND_B, score_gap_fit  # noqa: E402
+from supply_radar.taxonomy import breadcrumb, coverage, label, top_level  # noqa: E402
 from supply_radar.synth import expected_verdicts, generate_supplier_list  # noqa: E402
 
 DATA = Path("data")
@@ -63,6 +64,13 @@ def main() -> None:
         if place is None:
             continue
         lead["category"] = resolve_category(place, lead.get("experience_type"))
+        # Express the category in Viator's own words. A lead described as
+        # "boat_tour" is described in my vocabulary; one described as
+        # "Cruises & Sailing" is described in theirs.
+        if lead.get("category"):
+            lead["viator_label"] = label(lead["category"])
+            lead["viator_path"] = breadcrumb(lead["category"])
+            lead["viator_top"] = top_level(lead["category"])
         lead["category_source"] = (
             "classifier"
             if (lead.get("experience_type") or "").lower()
@@ -192,6 +200,8 @@ def main() -> None:
         gaps.append(
             {
                 "category": cat,
+                "viator_label": label(cat) if cat != "unresolved" else None,
+                "viator_path": breadcrumb(cat) if cat != "unresolved" else None,
                 "operators_found": count,
                 "gap_fit": round(axis.score, 3),
                 "evidence": axis.components[0].evidence,
@@ -297,6 +307,7 @@ def main() -> None:
         },
         "review_queue": review_queue,
         "category_gaps": gaps,
+        "taxonomy": coverage(),
         "economics": economics,
     }
 

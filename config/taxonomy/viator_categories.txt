@@ -1,0 +1,234 @@
+# Viator's own category filters, as displayed on their destination pages.
+# Three tiers, delimited by "/". Supplied by the hiring team.
+#
+# Held verbatim rather than re-modelled into nested YAML, for two reasons: the
+# file is provably their data rather than my paraphrase of it, and replacing it
+# when the taxonomy changes is a paste rather than an edit.
+#
+# "Likely To Sell Out" is deliberately absent. It appears alongside these in the
+# filter UI but it is a merchandising badge, not a category: it describes how a
+# product is selling, not what it is. Treating it as a category would put it in
+# the gap analysis, where it would be meaningless.
+Art & Culture
+Art & Culture/Art & Culture Classes
+Art & Culture/Art & Culture Classes/Art Classes
+Art & Culture/Art & Culture Classes/Painting Classes
+Art & Culture/Arts & Design
+Art & Culture/Arts & Design/Architecture Tours
+Art & Culture/Arts & Design/Art Tours
+Art & Culture/Arts & Design/Museums
+Art & Culture/Culture
+Art & Culture/Culture/Ancient Ruins
+Art & Culture/Culture/Archaeology Tours
+Art & Culture/Culture/Cultural Tours
+Art & Culture/Culture/Historical Tours
+Art & Culture/Culture/Museums
+Art & Culture/Culture/Photography Tours
+Art & Culture/Culture/Religious Tours
+Art & Culture/Culture/Underground Tours
+Art & Culture/Pop Culture
+Art & Culture/Pop Culture/Crime Tours
+Art & Culture/Pop Culture/Game Of Thrones Tours
+Art & Culture/Pop Culture/Ghost Tours
+Art & Culture/Pop Culture/Movie Tours
+Art & Culture/Pop Culture/Street Art Tour
+Art & Culture/Pop Culture/TV Tours
+Art & Culture/Shows & Performances
+Art & Culture/Shows & Performances/Family-friendly Shows
+Art & Culture/Shows & Performances/Nightlife
+Art & Culture/Shows & Performances/Shows
+Art & Culture/Shows & Performances/Theater Shows
+Classes & Workshops
+Classes & Workshops/Active & Outdoor Classes
+Classes & Workshops/Active & Outdoor Classes/Sports Lessons
+Classes & Workshops/Art & Culture Classes
+Classes & Workshops/Art & Culture Classes/Art Classes
+Classes & Workshops/Art & Culture Classes/Painting Classes
+Classes & Workshops/Food & Drink Classes
+Classes & Workshops/Food & Drink Classes/Candy Making Classes
+Classes & Workshops/Food & Drink Classes/Cooking Classes
+Classes & Workshops/Food & Drink Classes/Olive Oil Tasting
+Classes & Workshops/Food & Drink Classes/Wine Making Workshops
+Food & Drink
+Food & Drink/Coffee & Tea
+Food & Drink/Coffee & Tea/Coffee & Tea Tours
+Food & Drink/Coffee & Tea/Coffee Cruises
+Food & Drink/Desserts & Sweets
+Food & Drink/Desserts & Sweets/Chocolate Tours
+Food & Drink/Dining Experiences
+Food & Drink/Dining Experiences/Breakfast Cruises
+Food & Drink/Dining Experiences/Brunch Cruises
+Food & Drink/Dining Experiences/Dinner
+Food & Drink/Dining Experiences/Dinner Cruises
+Food & Drink/Dining Experiences/Lunch
+Food & Drink/Dining Experiences/Lunch Cruises
+Food & Drink/Dining Experiences/Restaurants
+Food & Drink/Food & Drink Classes
+Food & Drink/Food & Drink Classes/Candy Making Classes
+Food & Drink/Food & Drink Classes/Cooking Classes
+Food & Drink/Food & Drink Classes/Olive Oil Tasting
+Food & Drink/Food & Drink Classes/Wine Making Workshops
+Food & Drink/Food Tours
+Food & Drink/Food Tours/Culinary Tours
+Food & Drink/Food Tours/Street Food Tours
+Food & Drink/Food Tours/Wine Tastings
+Food & Drink/Wine, Beer & Spirits
+Food & Drink/Wine, Beer & Spirits/Beer & Brewery Tours
+Food & Drink/Wine, Beer & Spirits/Wine Making Workshops
+Food & Drink/Wine, Beer & Spirits/Wine Tastings
+Food & Drink/Wine, Beer & Spirits/Wine Tours
+Outdoor Activities
+Outdoor Activities/Active & Outdoor Classes
+Outdoor Activities/Active & Outdoor Classes/Sports Lessons
+Outdoor Activities/Extreme Sports
+Outdoor Activities/Extreme Sports/4WD Tours
+Outdoor Activities/Extreme Sports/ATV Tours
+Outdoor Activities/Extreme Sports/White Water Rafting
+Outdoor Activities/Extreme Sports/Ziplining
+Outdoor Activities/Fun & Games
+Outdoor Activities/Fun & Games/Escape Rooms
+Outdoor Activities/Fun & Games/VR Experiences
+Outdoor Activities/In the Air
+Outdoor Activities/In the Air/Air Tours
+Outdoor Activities/Motor Sports
+Outdoor Activities/Motor Sports/4WD Tours
+Outdoor Activities/Motor Sports/ATV Tours
+Outdoor Activities/Nature and Wildlife Tours
+Outdoor Activities/Nature and Wildlife Tours/Dolphin Watching
+Outdoor Activities/Nature and Wildlife Tours/Eco Tours
+Outdoor Activities/Nature and Wildlife Tours/Nature Walks
+Outdoor Activities/Nature and Wildlife Tours/Safaris
+Outdoor Activities/Nature and Wildlife Tours/Whale Watching
+Outdoor Activities/Nature and Wildlife Tours/Wildlife Encounters
+Outdoor Activities/On the Ground
+Outdoor Activities/On the Ground/Bike Rentals
+Outdoor Activities/On the Ground/Climbing
+Outdoor Activities/On the Ground/Golf Tours & Tee Times
+Outdoor Activities/On the Ground/Hiking Tours
+Outdoor Activities/On the Ground/Motorcycle Tours
+Outdoor Activities/On the Ground/Mountain Bike Tours
+Outdoor Activities/On the Ground/Pedicab Tours
+Outdoor Activities/On the Ground/Running Tours
+Outdoor Activities/On the Ground/Scavenger Hunts
+Outdoor Activities/On the Ground/Ziplining
+Outdoor Activities/On the Water
+Outdoor Activities/On the Water/Boat Rentals
+Outdoor Activities/On the Water/Breakfast Cruises
+Outdoor Activities/On the Water/Brunch Cruises
+Outdoor Activities/On the Water/Catamaran Cruises
+Outdoor Activities/On the Water/Coffee Cruises
+Outdoor Activities/On the Water/Dinner Cruises
+Outdoor Activities/On the Water/Float Trips
+Outdoor Activities/On the Water/Freediving
+Outdoor Activities/On the Water/Glass Bottom Boat Tours
+Outdoor Activities/On the Water/Jet Boat Rentals
+Outdoor Activities/On the Water/Jet Ski Rentals
+Outdoor Activities/On the Water/Kayaking Tours
+Outdoor Activities/On the Water/Lunch Cruises
+Outdoor Activities/On the Water/Multi-day Cruises
+Outdoor Activities/On the Water/Night Cruises
+Outdoor Activities/On the Water/Rafting
+Outdoor Activities/On the Water/Sailing
+Outdoor Activities/On the Water/Scuba Diving
+Outdoor Activities/On the Water/Sea Caving
+Outdoor Activities/On the Water/Sightseeing Cruises
+Outdoor Activities/On the Water/Snorkeling
+Outdoor Activities/On the Water/Speed Boat Rentals
+Outdoor Activities/On the Water/Stand Up Paddleboarding
+Outdoor Activities/On the Water/Swimming
+Outdoor Activities/On the Water/Tubing
+Outdoor Activities/On the Water/Water Equipment Rentals
+Outdoor Activities/On the Water/White Water Rafting
+Seasonal & Special Occasions
+Seasonal & Special Occasions/Holidays
+Seasonal & Special Occasions/Holidays/Carnival
+Seasonal & Special Occasions/Holidays/Christmas
+Seasonal & Special Occasions/Holidays/Lantern Festival
+Seasonal & Special Occasions/Holidays/New Years
+Seasonal & Special Occasions/Holidays/Spring Break
+Seasonal & Special Occasions/Seasonal
+Seasonal & Special Occasions/Weddings & Celebrations
+Seasonal & Special Occasions/Weddings & Celebrations/Honeymoon Packages
+Seasonal & Special Occasions/Weddings & Celebrations/Romantic Tours
+Tickets & Passes
+Tickets & Passes/Attractions & Museums
+Tickets & Passes/Attractions & Museums/Ancient Ruins
+Tickets & Passes/Attractions & Museums/Monuments and Memorials
+Tickets & Passes/Attractions & Museums/Museum Tickets & Passes
+Tickets & Passes/Attractions & Museums/Religious Sites
+Tickets & Passes/Shows & Performances
+Tickets & Passes/Shows & Performances/Family-friendly Shows
+Tickets & Passes/Shows & Performances/Nightlife
+Tickets & Passes/Shows & Performances/Shows
+Tickets & Passes/Shows & Performances/Theater Shows
+Tickets & Passes/Sporting Events
+Tickets & Passes/Motor Sports
+Tours, Sightseeing & Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing
+Tours, Sightseeing & Cruises/Cruises & Sailing/Breakfast Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Brunch Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Catamaran Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Coffee Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Day Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Dinner Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Lunch Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Multi-day Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Night Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Port Pickup
+Tours, Sightseeing & Cruises/Cruises & Sailing/Ports of Call Tours
+Tours, Sightseeing & Cruises/Cruises & Sailing/Sailing
+Tours, Sightseeing & Cruises/Cruises & Sailing/Shore Excursions
+Tours, Sightseeing & Cruises/Cruises & Sailing/Sightseeing Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Sunset Cruises
+Tours, Sightseeing & Cruises/Cruises & Sailing/Whale Watching
+Tours, Sightseeing & Cruises/How to Get Around
+Tours, Sightseeing & Cruises/How to Get Around/Air Tours
+Tours, Sightseeing & Cruises/How to Get Around/Bike Rentals
+Tours, Sightseeing & Cruises/How to Get Around/Bike Tours
+Tours, Sightseeing & Cruises/How to Get Around/Bus Tours
+Tours, Sightseeing & Cruises/How to Get Around/Car Tours
+Tours, Sightseeing & Cruises/How to Get Around/Classic Car Tours
+Tours, Sightseeing & Cruises/How to Get Around/E-Bike Tours
+Tours, Sightseeing & Cruises/How to Get Around/Glass Bottom Boat Tours
+Tours, Sightseeing & Cruises/How to Get Around/Limousine Tours
+Tours, Sightseeing & Cruises/How to Get Around/Luxury Car Tours
+Tours, Sightseeing & Cruises/How to Get Around/Motorcycle Tours
+Tours, Sightseeing & Cruises/How to Get Around/Mountain Bike Tours
+Tours, Sightseeing & Cruises/How to Get Around/Pedicab Tours
+Tours, Sightseeing & Cruises/How to Get Around/Rail Tours
+Tours, Sightseeing & Cruises/How to Get Around/Rentals
+Tours, Sightseeing & Cruises/How to Get Around/Segway Tours
+Tours, Sightseeing & Cruises/How to Get Around/Self-guided Tours
+Tours, Sightseeing & Cruises/How to Get Around/Speed Boat Rentals
+Tours, Sightseeing & Cruises/How to Get Around/Tuk Tuk Tours
+Tours, Sightseeing & Cruises/How to Get Around/Walking Tours
+Tours, Sightseeing & Cruises/How to Get Around/Water Tours
+Tours, Sightseeing & Cruises/Private and Luxury
+Tours, Sightseeing & Cruises/Sightseeing Tours
+Tours, Sightseeing & Cruises/Sightseeing Tours/Adventure Tours
+Tours, Sightseeing & Cruises/Sightseeing Tours/City Tours
+Tours, Sightseeing & Cruises/Sightseeing Tours/Hop on Hop Off Buses
+Tours, Sightseeing & Cruises/Sightseeing Tours/Night Tours
+Tours, Sightseeing & Cruises/Sightseeing Tours/Private Sightseeing Tours
+Tours, Sightseeing & Cruises/Sightseeing Tours/Sightseeing Cruises
+Tours, Sightseeing & Cruises/Sightseeing Tours/Skip the line Tickets
+Tours, Sightseeing & Cruises/Sightseeing Tours/Whale Watching
+Tours, Sightseeing & Cruises/Tours by Duration
+Tours, Sightseeing & Cruises/Tours by Duration/Day Trips
+Tours, Sightseeing & Cruises/Tours by Duration/Full-day Tours
+Tours, Sightseeing & Cruises/Tours by Duration/Half-day Tours
+Tours, Sightseeing & Cruises/Tours by Duration/Multi-day Tours
+Tours, Sightseeing & Cruises/Tours by Duration/Overnight Tours
+Travel & Transportation Services
+Travel & Transportation Services/Services
+Travel & Transportation Services/Services/Photo Shoots
+Travel & Transportation Services/Services/Shopping Tours
+Travel & Transportation Services/Transfers
+Travel & Transportation Services/Transfers/Airport & Hotel Transfers
+Travel & Transportation Services/Transfers/Port Transfers
+Travel & Transportation Services/Transfers/Water Transfers
+Travel & Transportation Services/Transportation
+Travel & Transportation Services/Transportation/Bus Services
+Travel & Transportation Services/Transportation/Ferry Services
+Travel & Transportation Services/Transportation/Private Drivers
+Travel & Transportation Services/Transportation/Transportation Rentals
