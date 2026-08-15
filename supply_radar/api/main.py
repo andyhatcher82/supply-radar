@@ -13,6 +13,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from supply_radar import __version__
+from supply_radar.api.routes import router
 from supply_radar.config import STATIC_DIR, get_settings
 
 logging.basicConfig(level=logging.INFO)
@@ -62,6 +63,8 @@ def meta() -> dict:
         },
     }
 
+
+app.include_router(router)
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 

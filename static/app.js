@@ -1,48 +1,585 @@
-const $ = (sel) => document.querySelector(sel);
+/* Supply Radar front end.
+   Vanilla JS, no build step, no framework. One file, six views. */
 
-async function loadHealth() {
-  const pill = $("#status-pill");
+const S = { snap: null, view: 'overview', map: null, layer: null,
+            mode: 'circle', shape: null, estimate: null, decisions: {} };
+
+const $ = (sel, root = document) => root.querySelector(sel);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g,
+  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const pct = (n) => (n * 100).toFixed(1) + '%';
+const n3 = (n) => Number(n).toFixed(3);
+const gbp = (n) => '£' + Number(n).toFixed(2);
+
+async function api(path, opts) {
+  const res = await fetch(path, opts);
+  if (!res.ok) {
+    let detail = res.statusText;
+    try { detail = (await res.json()).detail || detail; } catch (e) { /* noop */ }
+    throw new Error(detail);
+  }
+  return res.json();
+}
+
+function bar(value, cls) {
+  const w = Math.max(0, Math.min(100, value * 100));
+  return `<div class="bar ${cls || ''}"><i style="width:${w}%"></i></div>`;
+}
+
+/* ------------------------------------------------------------- overview */
+
+function viewOverview() {
+  const s = S.snap, c = s.counts, m = s.metrics.matching;
+  const gaps = s.category_gaps.slice(0, 7);
+
+  return `
+  <div class="grid g4">
+    ${stat('Places discovered', c.places_discovered, 'Real Google Places results')}
+    ${stat('Experience operators', c.operators, `${Math.round(100 - c.operators / c.places_discovered * 100)}% filtered out as not relevant`)}
+    ${stat('Genuinely net-new', c.genuinely_net_new, 'Not on the supplier list')}
+    ${stat('Sent to a human', m.review_rate ? pct(m.review_rate) : '—', `${pct(m.automation_rate)} decided automatically`)}
+  </div>
+
+  <p class="section-title">What the pipeline does</p>
+  <div class="card">
+    <div class="scroll"><table>
+      <thead><tr><th>Stage</th><th>What it decides</th><th class="num">Cost</th><th>Who decides</th></tr></thead>
+      <tbody>
+        <tr><td>Discover</td><td>Which operators exist in the area</td><td class="num">£0.76</td><td>Google Places, adaptive cell subdivision</td></tr>
+        <tr><td>Classify</td><td>Is this an experience operator at all</td><td class="num">£0.29</td><td>Rules first, model only for the ambiguous 64%</td></tr>
+        <tr><td>Match</td><td>Are they already a Viator supplier</td><td class="num">£0.00</td><td>Deterministic keys, then fuzzy, then a human</td></tr>
+        <tr><td>Enrich</td><td>Can they actually transact</td><td class="num">£1.53</td><td>Their own website, read by the model</td></tr>
+        <tr><td>Score</td><td>Which leads are worth Sales time</td><td class="num">£0.00</td><td>Three separate axes, evidence shown</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note">Costs are measured from the real Split run, not modelled.
+      Total <strong>${gbp(s.economics.per_destination.total_gbp)}</strong> per destination
+      against an assumed <strong>${gbp(s.economics.versus_manual.manual_cost_gbp)}</strong> of manual research.</div>
+  </div>
+
+  <p class="section-title">Where the opportunity actually is <span class="synthetic">demand data synthetic</span></p>
+  <div class="card">
+    <p class="hint">Discovery found the most boat-tour operators. Gap fit says they are the
+      least valuable, because that category is already saturated. This is the judgement a
+      generic lead-generation tool cannot make.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Category</th><th class="num">Operators found</th><th class="num">Gap fit</th><th style="width:34%">Unmet demand</th><th>Evidence</th></tr></thead>
+      <tbody>${gaps.map(g => `
+        <tr>
+          <td>${esc(g.category.replace(/_/g, ' '))}</td>
+          <td class="num">${g.operators_found}</td>
+          <td class="num">${n3(g.gap_fit)}</td>
+          <td>${bar(g.gap_fit, 'g')}</td>
+          <td style="color:var(--dim);font-size:12.5px">${esc(g.evidence.split(': ')[1] || g.evidence)}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table></div>
+  </div>`;
+}
+
+function stat(k, v, note, cls) {
+  return `<div class="card stat"><div class="k">${esc(k)}</div>
+    <div class="v ${cls || ''}">${esc(v)}</div>
+    ${note ? `<div class="n">${esc(note)}</div>` : ''}</div>`;
+}
+
+/* ------------------------------------------------------------- discover */
+
+function viewDiscover() {
+  return `
+  <div class="discover-wrap">
+    <div>
+      <div class="card">
+        <h2>Draw a search area</h2>
+        <p class="hint">This runs a genuinely live sweep against Google Places. It costs
+          real money, so it tells you what it will cost first.</p>
+
+        <div class="modes">
+          <button data-mode="circle" class="${S.mode === 'circle' ? 'active' : ''}">Point &amp; radius</button>
+          <button data-mode="polygon" class="${S.mode === 'polygon' ? 'active' : ''}">Draw a shape</button>
+        </div>
+
+        <div id="modehelp" class="note" style="margin-top:0"></div>
+
+        <label class="field" style="margin-top:14px">
+          <span>Radius (km)</span>
+          <input type="number" id="radius" value="4" min="1" max="25" step="0.5">
+        </label>
+        <label class="field">
+          <span>Cell size (km half-side)</span>
+          <input type="number" id="cell" value="3" min="1" max="10" step="0.5">
+        </label>
+        <label class="field">
+          <span>Search terms (max 3)</span>
+          <input type="text" id="queries" value="boat tour, wine tasting, walking tour">
+        </label>
+        <label class="field">
+          <span>Access code</span>
+          <input type="password" id="code" placeholder="required to spend money">
+        </label>
+
+        <div style="display:flex;gap:8px">
+          <button class="btn ghost" id="btnEstimate" style="flex:1">Estimate cost</button>
+          <button class="btn" id="btnRun" style="flex:1" disabled>Run sweep</button>
+        </div>
+
+        <div class="estimate" id="estimate"></div>
+      </div>
+    </div>
+    <div>
+      <div id="map"></div>
+      <div id="runout"></div>
+    </div>
+  </div>`;
+}
+
+const MODE_HELP = {
+  circle: 'Click the map to place a centre, then set a radius. Simple, and it matches how the Places API actually works.',
+  polygon: 'Use the toolbar on the map to trace a shape. Slower, but on a coastline it avoids spending API calls on open sea.',
+};
+
+function initMap() {
+  const map = L.map('map', { zoomControl: true }).setView([43.5081, 16.4402], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors',
+  }).addTo(map);
+  S.map = map;
+  S.layer = L.layerGroup().addTo(map);
+
+  map.on('click', (e) => { if (S.mode === 'circle') setCircle(e.latlng); });
+
+  map.pm.addControls({
+    position: 'topright', drawCircle: false, drawMarker: false,
+    drawCircleMarker: false, drawPolyline: false, drawText: false,
+    drawRectangle: true, drawPolygon: true, editMode: true,
+    dragMode: false, cutPolygon: false, rotateMode: false,
+  });
+  map.on('pm:create', (e) => {
+    S.layer.clearLayers();
+    S.shape = { kind: 'polygon', points: e.layer.getLatLngs()[0].map(p => [p.lat, p.lng]) };
+    e.layer.setStyle({ color: '#4fd1c5', weight: 2, fillOpacity: 0.08 });
+    S.layer.addLayer(e.layer);
+    map.pm.disableDraw();
+    clearEstimate();
+  });
+
+  applyMode();
+  setCircle(L.latLng(43.5081, 16.4402));
+}
+
+function applyMode() {
+  $('#modehelp').textContent = MODE_HELP[S.mode];
+  const ctl = document.querySelector('.leaflet-pm-toolbar');
+  if (ctl) ctl.style.display = S.mode === 'polygon' ? '' : 'none';
+  $('#radius').closest('label').style.display = S.mode === 'circle' ? '' : 'none';
+}
+
+function setCircle(latlng) {
+  const radius = parseFloat($('#radius').value) || 4;
+  S.layer.clearLayers();
+  S.shape = { kind: 'circle', lat: latlng.lat, lng: latlng.lng, radius_km: radius };
+  L.circle(latlng, {
+    radius: radius * 1000, color: '#4fd1c5', weight: 2, fillOpacity: 0.08,
+  }).addTo(S.layer);
+  clearEstimate();
+}
+
+function clearEstimate() {
+  S.estimate = null;
+  $('#estimate').innerHTML = '';
+  $('#btnRun').disabled = true;
+}
+
+function requestBody() {
+  const queries = $('#queries').value.split(',').map(q => q.trim()).filter(Boolean);
+  const cell = parseFloat($('#cell').value) || 3;
+  if (!S.shape) return null;
+  if (S.shape.kind === 'circle') {
+    return { shape: 'circle', center_lat: S.shape.lat, center_lng: S.shape.lng,
+             radius_km: S.shape.radius_km, cell_km: cell, queries };
+  }
+  return { shape: 'polygon', points: S.shape.points, cell_km: cell, queries };
+}
+
+async function doEstimate() {
+  const body = requestBody();
+  if (!body) { $('#estimate').innerHTML = '<div class="note warn">Place a point or draw a shape first.</div>'; return; }
+  $('#estimate').innerHTML = '<div class="note">Estimating…</div>';
   try {
-    const res = await fetch("/api/healthz");
-    const data = await res.json();
-
-    const caps = data.capabilities || {};
-    const missing = Object.entries(caps)
-      .filter(([, on]) => !on)
-      .map(([name]) => name);
-
-    if (missing.length === 0) {
-      pill.textContent = "all systems configured";
-      pill.className = "pill pill-ok";
-    } else {
-      pill.textContent = `not configured: ${missing.join(", ")}`;
-      pill.className = "pill pill-muted";
-    }
-    $("#version").textContent = `v${data.version} · ${data.environment}`;
+    const e = await api('/api/estimate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    S.estimate = e;
+    $('#estimate').innerHTML = `
+      <div class="row"><span>Area</span><span>${e.area_km2} km²</span></div>
+      <div class="row"><span>Cells</span><span>${e.cells}</span></div>
+      <div class="row"><span>Search terms</span><span>${e.queries_per_cell}</span></div>
+      <div class="row"><span>API calls</span><span>${e.estimated_calls}</span></div>
+      <div class="row"><span>Estimated cost</span><span>${gbp(e.estimated_gbp)}</span></div>
+      <div class="row"><span>Estimated time</span><span>${e.estimated_seconds}s</span></div>
+      <div class="note ${e.within_live_run_limit ? '' : 'warn'}">${esc(e.message)}</div>`;
+    $('#btnRun').disabled = !e.within_live_run_limit;
   } catch (err) {
-    pill.textContent = "unreachable";
-    pill.className = "pill pill-bad";
+    $('#estimate').innerHTML = `<div class="note warn">${esc(err.message)}</div>`;
   }
 }
 
-function wireNav() {
-  document.querySelectorAll(".nav-item").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document
-        .querySelectorAll(".nav-item")
-        .forEach((b) => b.classList.remove("is-active"));
-      btn.classList.add("is-active");
-      const name = btn.dataset.view;
-      $("#main").innerHTML = `
-        <section class="view">
-          <div class="placeholder">
-            <h2>${btn.textContent}</h2>
-            <p>Not built yet (<code>${name}</code>).</p>
-          </div>
-        </section>`;
+async function doRun() {
+  const body = requestBody();
+  const code = $('#code').value.trim();
+  $('#btnRun').disabled = true;
+  $('#runout').innerHTML = '<div class="card" style="margin-top:16px">Running a live sweep… discovery, then classification, then scoring.</div>';
+  try {
+    const r = await api('/api/run', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Access-Code': code },
+      body: JSON.stringify(body),
     });
+    renderRun(r);
+  } catch (err) {
+    $('#runout').innerHTML = `<div class="card" style="margin-top:16px"><div class="note warn">${esc(err.message)}</div></div>`;
+  }
+  $('#btnRun').disabled = false;
+}
+
+function renderRun(r) {
+  const d = r.discovery, c = r.classification;
+  r.leads.forEach(lead => {
+    L.circleMarker([lead.lat, lead.lng], {
+      radius: 5, color: '#4fd1c5', fillColor: '#4fd1c5', fillOpacity: 0.85, weight: 1,
+    }).bindPopup(`<strong>${esc(lead.name)}</strong><br>${esc(lead.category || '')}<br>score ${n3(lead.composite)}`)
+      .addTo(S.layer);
+  });
+
+  $('#runout').innerHTML = `
+    <div class="card" style="margin-top:16px">
+      <h2>Live run complete <span class="pill good">${r.elapsed_seconds}s</span></h2>
+      <div class="grid g4" style="margin-top:14px">
+        ${stat('Places found', d.places, `${d.cells_queried} cells, ${d.api_calls} API calls`)}
+        ${stat('Cells subdivided', d.cells_subdivided, `${d.truncated_cells} hit the result cap`)}
+        ${stat('Operators', r.leads.length, c ? `${pct(c.model_share)} needed the model` : '')}
+        ${stat('Cost', gbp(r.cost.gbp), 'this run, measured')}
+      </div>
+      ${d.unresolved_cells ? `<div class="note warn">${d.unresolved_cells} cells were still returning a
+        full page at maximum depth. Coverage is incomplete there, and the tool says so rather
+        than reporting a clean result.</div>` : ''}
+      ${r.caveats.map(c => `<div class="note">${esc(c)}</div>`).join('')}
+      <p class="section-title">Top leads from this sweep</p>
+      <div class="scroll"><table>
+        <thead><tr><th>Operator</th><th>Category</th><th class="num">Rating</th><th class="num">Score</th><th>Band</th></tr></thead>
+        <tbody>${r.leads.slice(0, 15).map(l => `
+          <tr><td>${esc(l.name)}</td><td style="color:var(--muted)">${esc((l.category || '—').replace(/_/g, ' '))}</td>
+          <td class="num">${l.rating ?? '—'}</td><td class="num">${n3(l.composite)}</td>
+          <td><span class="pill ${l.band}">${l.band}</span></td></tr>`).join('')}
+        </tbody>
+      </table></div>
+    </div>`;
+}
+
+/* ---------------------------------------------------------------- leads */
+
+function viewLeads() {
+  const leads = S.snap.leads;
+  return `
+  <div class="card">
+    <h2>Qualified leads <span class="pill grey">${leads.length}</span></h2>
+    <p class="hint">Ranked by composite score. Click any lead to see every piece of evidence
+      behind its three axis scores. The composite is a sort order, not a decision.</p>
+  </div>
+  <div style="margin-top:14px">${leads.map(leadRow).join('')}</div>`;
+}
+
+function leadRow(l, i) {
+  const ax = (name, axis, cls) => `
+    <div class="axis"><div class="k">${name}</div>
+      <div class="v">${n3(axis.score)}</div>${bar(axis.score, cls)}</div>`;
+  return `
+  <div class="lead" data-lead="${i}">
+    <div class="lead-head">
+      <div>
+        <div class="lead-name">${esc(l.name)} <span class="pill ${l.band}">${l.band}</span></div>
+        <div class="lead-meta">${esc((l.experience_type || '—').replace(/_/g, ' '))}
+          ${l.website ? ` &middot; ${esc(l.website.replace(/^https?:\/\//, '').slice(0, 44))}` : ' &middot; no website'}
+          ${l.extract ? ` &middot; ${esc(l.extract.booking.replace(/_/g, ' '))}` : ''}</div>
+      </div>
+      <div class="axes">
+        ${ax('Quality', l.quality, 'q')}
+        ${ax('Readiness', l.readiness, 'r')}
+        ${ax('Gap fit', l.gap_fit, 'g')}
+        <div class="axis"><div class="k">Composite</div>
+          <div class="v" style="font-size:16px">${n3(l.composite)}</div></div>
+      </div>
+    </div>
+    <div class="lead-body">
+      <div class="grid g3" style="margin-top:14px">
+        ${axisCard('Quality', l.quality)}
+        ${axisCard('Readiness', l.readiness)}
+        ${axisCard('Gap fit', l.gap_fit)}
+      </div>
+    </div>
+  </div>`;
+}
+
+function axisCard(title, axis) {
+  return `<div>
+    <p class="section-title" style="margin:0 0 8px">${title} — ${n3(axis.score)}</p>
+    <div class="evidence">${axis.components.map(c => `
+      <div class="ev">
+        <div class="n">${esc(c.name)}</div>
+        <div class="v">${n3(c.value)}</div>
+        <div class="d">${esc(c.evidence)}</div>
+      </div>`).join('')}</div>
+    ${axis.note ? `<div class="note">${esc(axis.note)}</div>` : ''}
+  </div>`;
+}
+
+/* --------------------------------------------------------------- review */
+
+function viewReview() {
+  const q = S.snap.review_queue;
+  const done = Object.keys(S.decisions).length;
+  return `
+  <div class="card">
+    <h2>Match review queue <span class="pill grey">${q.length}</span></h2>
+    <p class="hint">These are the pairs the deterministic stages could not settle. Everything
+      above and below this band was decided without a human. ${done ? `<strong>${done} decided this session.</strong>` : ''}</p>
+    <div class="note">A decision here would, in production, write back to the CRM and feed
+      threshold tuning. In this prototype it is captured client-side only, which is stated
+      rather than implied.</div>
+  </div>
+  <div style="margin-top:14px">${q.slice(0, 40).map(reviewCard).join('')}</div>`;
+}
+
+function reviewCard(r, i) {
+  const decided = S.decisions[i];
+  const f = (label, a) => `<div class="l">${label}</div><div class="val">${esc(a || '—')}</div>`;
+  return `
+  <div class="lead" style="margin-bottom:12px">
+    <div class="pair">
+      <div>
+        <h4>Discovered operator</h4>
+        ${f('Name', r.discovered_name)}${f('Address', r.discovered_address)}
+        ${f('Website', r.discovered_website)}${f('Phone', r.discovered_phone)}
+      </div>
+      <div>
+        <h4>Possible existing supplier</h4>
+        ${f('Name', r.supplier_name)}${f('Address', r.supplier_address)}
+        ${f('Website', r.supplier_website)}${f('Phone', r.supplier_phone)}
+      </div>
+    </div>
+    <div style="padding:12px 16px;border-top:1px solid var(--line)">
+      <div class="evidence">${(r.evidence || []).map(e => `
+        <div class="ev"><div class="n">${esc(e.signal)}</div>
+        <div class="v">${e.contribution == null ? '' : (e.contribution > 0 ? '+' : '') + Number(e.contribution).toFixed(2)}</div>
+        <div class="d">${esc(e.detail)}</div></div>`).join('')}</div>
+    </div>
+    <div class="decide">
+      <span style="color:var(--muted);font-size:13px">Similarity ${n3(r.score)}</span>
+      <div class="spacer"></div>
+      ${decided
+        ? `<span class="pill ${decided === 'same' ? 'bad' : 'good'}">${decided === 'same' ? 'Marked as already on file' : 'Marked as net-new'}</span>`
+        : `<button class="btn ghost" data-decide="${i}" data-v="same">Same business</button>
+           <button class="btn" data-decide="${i}" data-v="new">Genuinely net-new</button>`}
+    </div>
+  </div>`;
+}
+
+/* -------------------------------------------------------------- quality */
+
+function viewQuality() {
+  const m = S.snap.metrics, mm = m.matching;
+  const sweepRows = (rows) => `
+    <div class="scroll"><table>
+      <thead><tr><th class="num">high</th><th class="num">low</th><th class="num">precision</th>
+      <th class="num">recall</th><th class="num">review</th><th class="num">missed</th><th class="num">wasted</th></tr></thead>
+      <tbody>${rows.map(r => {
+        const chosen = r.high === m.thresholds.high && r.low === m.thresholds.low;
+        return `<tr style="${chosen ? 'background:rgba(79,209,197,.09)' : ''}">
+          <td class="num">${r.high}${chosen ? ' ←' : ''}</td><td class="num">${r.low}</td>
+          <td class="num">${n3(r.precision)}</td><td class="num">${n3(r.recall)}</td>
+          <td class="num">${pct(r.review_rate)}</td>
+          <td class="num" style="color:var(--bad)">${r.missed_opportunity}</td>
+          <td class="num" style="color:var(--muted)">${r.wasted_call}</td></tr>`;
+      }).join('')}</tbody>
+    </table></div>`;
+
+  return `
+  <div class="grid g4">
+    ${stat('Precision', n3(mm.precision), 'Of those called existing, how many were', 'good')}
+    ${stat('Missed opportunities', mm.missed_opportunity, 'Real operators wrongly written off', mm.missed_opportunity > 12 ? 'bad' : 'warn')}
+    ${stat('Wasted calls', mm.wasted_call, 'Existing suppliers sent to Sales again')}
+    ${stat('Decided automatically', pct(mm.automation_rate), `${pct(mm.review_rate)} went to a human`)}
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Why these two errors are not equal</h2>
+    <p class="hint">The metrics are named after their business consequence rather than the
+      confusion matrix, because the people who read them run Sales teams.</p>
+    <div class="grid g2">
+      <div>
+        <p><strong style="color:var(--bad)">Missed opportunity</strong> — an operator we
+        already have is wrongly recorded as already being a supplier. Nobody ever contacts
+        them. Invisible, permanent, expensive.</p>
+      </div>
+      <div>
+        <p><strong>Wasted call</strong> — an existing supplier is handed to Sales as a fresh
+        lead. One awkward call, self-corrects immediately.</p>
+      </div>
+    </div>
+    <div class="note">Every threshold in the system is set to spend the cheap error to buy
+      down the expensive one. The classification audit samples deterministic <em>rejects</em>
+      four times more heavily than accepts for the same reason.</div>
+  </div>
+
+  <p class="section-title">Upper threshold — governs the expensive error</p>
+  <div class="card">${sweepRows(m.sweep_upper)}</div>
+
+  <p class="section-title">Lower threshold — governs human review load</p>
+  <div class="card">${sweepRows(m.sweep_lower)}
+    <div class="note">Thresholds are read off these curves, not chosen. The highlighted row
+      is what ships.</div>
+  </div>
+
+  <p class="section-title">How each decision was reached</p>
+  <div class="card"><div class="scroll"><table>
+    <thead><tr><th>Verdict and stage</th><th class="num">Count</th></tr></thead>
+    <tbody>${Object.entries(m.decisions_by_stage).sort().map(([k, v]) =>
+      `<tr><td>${esc(k.replace(/_/g, ' '))}</td><td class="num">${v}</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="note">Most already-on-file decisions come from deterministic keys. That is
+      why tuning the thresholds could not fix the two identity bugs found on real data —
+      they were never in the fuzzy path.</div>
+  </div>
+
+  <p class="section-title">Corruptions applied to the synthetic supplier list <span class="synthetic">synthetic</span></p>
+  <div class="card"><div class="scroll"><table>
+    <thead><tr><th>Corruption</th><th class="num">Records</th></tr></thead>
+    <tbody>${Object.entries(m.corruptions_applied).sort((a, b) => b[1] - a[1]).map(([k, v]) =>
+      `<tr><td>${esc(k.replace(/_/g, ' '))}</td><td class="num">${v}</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="note">The supplier list is seeded from real discovered operators and then
+      degraded the way a real CRM degrades. Because we know what was seeded, precision and
+      recall are measurable rather than asserted.</div>
+  </div>`;
+}
+
+/* ------------------------------------------------------------ economics */
+
+function viewEconomics() {
+  const e = S.snap.economics, p = e.per_destination, v = e.versus_manual;
+  return `
+  <div class="grid g4">
+    ${stat('Cost per destination', gbp(p.total_gbp), 'measured, not modelled')}
+    ${stat('Manual equivalent', gbp(v.manual_cost_gbp), `${v.manual_hours}h of analyst time`, 'warn')}
+    ${stat('Ratio', v.cost_ratio + '×', 'cheaper than manual research', 'good')}
+    ${stat('Per operator surfaced', gbp(p.gbp_per_operator_surfaced), `${p.operators_surfaced} operators`)}
+  </div>
+
+  <p class="section-title">Where the money goes, per destination</p>
+  <div class="card"><div class="scroll"><table>
+    <thead><tr><th>Stage</th><th class="num">USD</th><th class="num">Share</th></tr></thead>
+    <tbody>
+      ${costRow('Google Places discovery', p.places_usd, p.total_usd)}
+      ${costRow('Classification (Sonnet)', p.classification_usd, p.total_usd)}
+      ${costRow('Website enrichment (Sonnet)', p.enrichment_usd, p.total_usd)}
+    </tbody>
+  </table></div>
+    <div class="note">Enrichment dominates because operator websites are large. Running it
+      through the Batch API halves model cost, which is free money for an overnight job:
+      <strong>${gbp(p.total_gbp_batched)}</strong> per destination.</div>
+  </div>
+
+  <p class="section-title">At scale</p>
+  <div class="card"><div class="scroll"><table>
+    <thead><tr><th class="num">Destinations</th><th class="num">Cost</th><th class="num">Batched</th>
+    <th class="num">Manual equivalent</th><th class="num">Analyst days saved</th></tr></thead>
+    <tbody>${e.at_scale.map(r => `
+      <tr><td class="num">${r.destinations}</td><td class="num">${gbp(r.cost_gbp)}</td>
+      <td class="num">${gbp(r.cost_gbp_batched)}</td>
+      <td class="num" style="color:var(--warn)">${gbp(r.manual_equivalent_gbp)}</td>
+      <td class="num">${r.manual_analyst_days}</td></tr>`).join('')}
+    </tbody></table></div>
+  </div>
+
+  <p class="section-title">Assumptions behind these numbers</p>
+  <div class="card"><div class="scroll"><table>
+    <thead><tr><th>Assumption</th><th>Value</th><th>Basis</th></tr></thead>
+    <tbody>${e.assumptions.map(a => `
+      <tr><td>${esc(a.name)}</td><td>${esc(a.value)}</td>
+      <td style="color:var(--muted);font-size:13px">${esc(a.source)}</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="note warn">The manual baseline is the number that moves this comparison most,
+      and it is an assumption rather than a measurement. Correct it and every figure above
+      moves with it.</div>
+  </div>`;
+}
+
+function costRow(label, usd, total) {
+  return `<tr><td>${label}</td><td class="num">$${Number(usd).toFixed(3)}</td>
+    <td class="num">${pct(usd / total)}</td></tr>`;
+}
+
+/* ----------------------------------------------------------------- shell */
+
+const VIEWS = {
+  overview: viewOverview, discover: viewDiscover, leads: viewLeads,
+  review: viewReview, quality: viewQuality, economics: viewEconomics,
+};
+
+function render() {
+  $('#main').innerHTML = VIEWS[S.view]();
+  document.querySelectorAll('#tabs button').forEach(b =>
+    b.classList.toggle('active', b.dataset.view === S.view));
+  if (S.view === 'discover') { initMap(); bindDiscover(); }
+  if (S.view === 'leads') bindLeads();
+  if (S.view === 'review') bindReview();
+  window.scrollTo(0, 0);
+}
+
+function bindDiscover() {
+  document.querySelectorAll('.modes button').forEach(b => b.onclick = () => {
+    S.mode = b.dataset.mode;
+    document.querySelectorAll('.modes button').forEach(x =>
+      x.classList.toggle('active', x === b));
+    S.layer.clearLayers(); S.shape = null; clearEstimate(); applyMode();
+  });
+  $('#radius').oninput = () => { if (S.shape?.kind === 'circle') setCircle(L.latLng(S.shape.lat, S.shape.lng)); };
+  $('#cell').oninput = clearEstimate;
+  $('#queries').oninput = clearEstimate;
+  $('#btnEstimate').onclick = doEstimate;
+  $('#btnRun').onclick = doRun;
+}
+
+function bindLeads() {
+  document.querySelectorAll('.lead-head').forEach(h =>
+    h.onclick = () => h.parentElement.classList.toggle('open'));
+}
+
+function bindReview() {
+  document.querySelectorAll('[data-decide]').forEach(b => b.onclick = () => {
+    S.decisions[b.dataset.decide] = b.dataset.v;
+    render();
   });
 }
 
-wireNav();
-loadHealth();
+async function boot() {
+  try {
+    S.snap = await api('/api/snapshot');
+  } catch (err) {
+    $('#main').innerHTML = `<div class="card"><div class="note warn">
+      Could not load the snapshot: ${esc(err.message)}</div></div>`;
+    return;
+  }
+  const c = S.snap.counts;
+  $('#topmeta').innerHTML = `
+    <div><div class="k">Destination</div><div class="v">${esc(S.snap.destination)}</div></div>
+    <div><div class="k">Operators</div><div class="v">${c.operators}</div></div>
+    <div><div class="k">Net-new</div><div class="v">${c.genuinely_net_new}</div></div>`;
+  document.querySelectorAll('#tabs button').forEach(b =>
+    b.onclick = () => { S.view = b.dataset.view; render(); });
+  render();
+}
+
+boot();

@@ -19,6 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from supply_radar.classify import resolve_category  # noqa: E402
+from supply_radar.config import SNAPSHOT_DIR  # noqa: E402
 from supply_radar.costs import USD_TO_GBP  # noqa: E402
 from supply_radar.evaluate import evaluate, threshold_sweep  # noqa: E402
 from supply_radar.locales import load_locale  # noqa: E402
@@ -239,7 +240,10 @@ def main() -> None:
         "economics": economics,
     }
 
-    out = DATA / "snapshot.json"
+    # Published, not working: SNAPSHOT_DIR is committed and copied into the
+    # image, unlike data/ which both git and Docker ignore.
+    SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
+    out = SNAPSHOT_DIR / "snapshot.json"
     out.write_text(json.dumps(snapshot, indent=2, ensure_ascii=False), encoding="utf-8")
     size = out.stat().st_size / 1024
     print(f"wrote {out} ({size:.0f} KB)")

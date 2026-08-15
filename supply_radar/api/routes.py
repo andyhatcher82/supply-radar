@@ -22,7 +22,7 @@ from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel, Field
 
 from supply_radar.classify import classify, resolve_category
-from supply_radar.config import DATA_DIR, get_settings
+from supply_radar.config import SNAPSHOT_DIR, get_settings
 from supply_radar.costs import CostLedger, estimate_sweep
 from supply_radar.discovery.google_places import GooglePlacesSource
 from supply_radar.geometry import AreaTooLargeError, SearchArea, cover
@@ -73,7 +73,7 @@ class AreaRequest(BaseModel):
 
 
 def _load(name: str) -> dict | list:
-    path = DATA_DIR / name
+    path = SNAPSHOT_DIR / name
     if not path.exists():
         raise HTTPException(404, f"{name} has not been generated yet")
     return json.loads(path.read_text(encoding="utf-8"))

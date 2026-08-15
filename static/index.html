@@ -1,46 +1,42 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Supply Radar</title>
-  <link rel="stylesheet" href="/static/styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Supply Radar — net-new experience operator discovery</title>
+  <link rel="stylesheet" href="/static/vendor/leaflet.css">
+  <link rel="stylesheet" href="/static/vendor/leaflet-geoman.css">
+  <link rel="stylesheet" href="/static/app.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>📡</text></svg>">
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <span class="dot" aria-hidden="true"></span>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="dot"></span>
+    <div>
       <h1>Supply Radar</h1>
-      <span class="tag">Croatia</span>
+      <p class="sub">Net-new experience operator discovery &middot; Croatia</p>
     </div>
-    <nav class="nav" id="nav">
-      <button class="nav-item is-active" data-view="discover">Discover</button>
-      <button class="nav-item" data-view="funnel">Pipeline</button>
-      <button class="nav-item" data-view="leads">Leads</button>
-      <button class="nav-item" data-view="review">Review</button>
-      <button class="nav-item" data-view="metrics">Metrics</button>
-      <button class="nav-item" data-view="economics">Economics</button>
-    </nav>
-    <div class="status" id="status" title="Service status">
-      <span class="pill pill-muted" id="status-pill">checking…</span>
-    </div>
-  </header>
+  </div>
+  <div class="topmeta" id="topmeta"></div>
+</header>
 
-  <main id="main">
-    <section class="view" id="view-discover">
-      <div class="placeholder">
-        <h2>Discover</h2>
-        <p>Map, run modes and cost preview land here.</p>
-      </div>
-    </section>
-  </main>
+<nav class="tabs" id="tabs">
+  <button data-view="overview" class="active">Overview</button>
+  <button data-view="discover">Discover</button>
+  <button data-view="leads">Leads</button>
+  <button data-view="review">Review queue</button>
+  <button data-view="quality">Accuracy &amp; QA</button>
+  <button data-view="economics">Economics</button>
+</nav>
 
-  <footer class="footer">
-    <span id="version">—</span>
-    <span class="sep">·</span>
-    <span>Prototype built for the Viator supply automation case study</span>
-  </footer>
+<main id="main">
+  <div class="loading">Loading snapshot…</div>
+</main>
 
-  <script src="/static/app.js"></script>
+<script src="/static/vendor/leaflet.js"></script>
+<script src="/static/vendor/leaflet-geoman.js"></script>
+<script src="/static/app.js"></script>
 </body>
 </html>

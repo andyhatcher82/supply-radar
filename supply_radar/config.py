@@ -14,7 +14,16 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CONFIG_DIR = REPO_ROOT / "config"
 STATIC_DIR = REPO_ROOT / "static"
+
+# Working artefacts: raw sweeps, the site cache, intermediate JSON. Large,
+# regenerable, and deliberately ignored by both git and Docker.
 DATA_DIR = REPO_ROOT / "data"
+
+# The PUBLISHED artefact the deployed app serves. Small, committed, and copied
+# into the image. Kept separate from DATA_DIR because `data/` is ignored by
+# both .gitignore and .dockerignore, so a snapshot living there would be
+# missing from the container and the demo would show an empty console.
+SNAPSHOT_DIR = REPO_ROOT / "snapshot"
 
 
 class Settings(BaseSettings):
