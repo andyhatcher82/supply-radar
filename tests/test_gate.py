@@ -69,6 +69,16 @@ def test_the_cookie_never_contains_the_code(client):
     assert CODE not in res.headers.get("set-cookie", "")
 
 
+def test_a_malformed_body_is_a_400_not_a_crash(client):
+    """/api/enter is the only endpoint reachable without a cookie, so it is the
+    entire unauthenticated attack surface. It must not raise."""
+    res = client.post(
+        "/api/enter", content=b"not json",
+        headers={"Content-Type": "application/json"},
+    )
+    assert res.status_code == 400
+
+
 def test_guessing_is_rate_limited(client):
     for _ in range(gate.MAX_ATTEMPTS):
         client.post("/api/enter", json={"code": "00000"})

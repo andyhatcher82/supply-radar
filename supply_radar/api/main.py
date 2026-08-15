@@ -67,8 +67,17 @@ async def enter(request: Request):
             {"detail": "Too many attempts. Wait a few minutes and try again."},
             status_code=429,
         )
-    body = await request.json()
-    if str(body.get("code", "")).strip() != settings.access_code:
+    # This is the only endpoint reachable without a cookie, so it is the whole
+    # unauthenticated attack surface. An unparseable body used to raise and
+    # return 500 with a stack trace in the logs; a bad request deserves a 400
+    # and nothing else.
+    try:
+        body = await request.json()
+        code = str(body.get("code", "")).strip()
+    except Exception:
+        gate.record_failure(request)
+        return JSONResponse({"detail": "That code was not recognised."}, status_code=400)
+    if code != settings.access_code:
         gate.record_failure(request)
         return JSONResponse({"detail": "That code was not recognised."}, status_code=401)
     response = JSONResponse({"ok": True})
