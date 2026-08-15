@@ -69,6 +69,34 @@ button { font: inherit; }
   padding: 13px 16px; cursor: pointer; white-space: nowrap;
   border-bottom: 2px solid transparent; font-size: 14px;
 }
+/* Where a live sweep stops. Ran stages and stopped stages are distinguished by
+   colour and by the mark, not colour alone. */
+.stages { display: flex; flex-wrap: wrap; gap: 8px; }
+.stage {
+  flex: 1 1 160px; padding: 10px 12px; border-radius: 6px;
+  border: 1px solid var(--line); background: var(--panel2, rgba(255,255,255,.02));
+}
+.stage .s-head { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.stage .s-why { font-size: 12px; color: var(--muted); line-height: 1.35; }
+.stage.ran .s-head { color: var(--good, #4fd1c5); }
+.stage.partial { border-style: dashed; }
+.stage.partial .s-head { color: var(--warn, #e0b341); }
+.stage.stopped { border-style: dashed; }
+.stage.stopped .s-head { color: var(--dim); }
+
+/* Funnel rows that lead somewhere. Underlined on hover rather than styled as
+   links, so the table still reads as a table. */
+tr.nav { cursor: pointer; }
+tr.nav:hover { background: var(--panel2, rgba(255,255,255,.04)); }
+tr.nav:hover td:first-child { text-decoration: underline; }
+tr.nav td:first-child::after { content: ' \203A'; color: var(--dim); }
+
+/* Marks the boundary between "look at completed work" and "run something live".
+   Without it the row reads as six sequential steps. */
+.tabsep {
+  width: 1px; align-self: center; height: 18px;
+  background: var(--line); margin: 0 14px; flex: none;
+}
 .tabs button:hover { color: var(--text); }
 .tabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
 
@@ -236,12 +264,25 @@ label.field span { display: block; font-size: 11px; color: var(--dim);
 .axis .v { font-family: var(--mono); font-size: 13px; }
 .lead-body { padding: 0 16px 16px; border-top: 1px solid var(--line); display: none; }
 .lead.open .lead-body { display: block; }
-.evidence { font-size: 13px; }
+/* Evidence rows adapt to the column they land in, not to the viewport.
+   Three axis cards across a 1280px screen leaves each evidence block at 381px,
+   and 190px + 52px of that is fixed, so the evidence text had 119px: a
+   four-word-per-line ribbon. It looked like a Discover-page problem because
+   that is where it was noticed, but Leads measured identically. Below the
+   threshold the label and score share a line and the evidence gets the full
+   width underneath. */
+.evidence { font-size: 13px; container-type: inline-size; }
 .evidence .ev { display: grid; grid-template-columns: 190px 52px 1fr;
   gap: 10px; padding: 5px 0; align-items: center; }
 .evidence .ev .n { color: var(--muted); }
 .evidence .ev .v { font-family: var(--mono); text-align: right; }
 .evidence .ev .d { color: var(--dim); font-size: 12.5px; }
+/* Must follow the rules above: a container query adds no specificity, so an
+   equally-specific selector later in the file wins regardless of the query. */
+@container (max-width: 460px) {
+  .evidence .ev { grid-template-columns: 1fr auto; row-gap: 2px; }
+  .evidence .ev .d { grid-column: 1 / -1; text-align: left; }
+}
 
 /* ---------------------------------------------------------------- review */
 

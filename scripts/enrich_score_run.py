@@ -21,8 +21,11 @@ from supply_radar.config import get_settings  # noqa: E402
 from supply_radar.costs import CostLedger  # noqa: E402
 from supply_radar.enrich import SiteFetcher, enrich  # noqa: E402
 from supply_radar.llm import LLMClient  # noqa: E402
-from supply_radar.models import DiscoveredPlace  # noqa: E402
+from supply_radar.locales import load_locale  # noqa: E402
+from supply_radar.matching import MatchThresholds, match_all  # noqa: E402
+from supply_radar.models import DiscoveredPlace, MatchVerdict  # noqa: E402
 from supply_radar.scoring import score_lead  # noqa: E402
+from supply_radar.synth import generate_supplier_list  # noqa: E402
 from supply_radar.taxonomy import top_level  # noqa: E402
 
 
@@ -99,6 +102,29 @@ def _stratified_sample(operators, places, limit):
     return chosen[:limit]
 
 
+def _net_new_ids(operator_places, locale_code: str = "hr") -> set[str]:
+    """Which operators the matcher says Viator does not already have.
+
+    Enrichment used to run over every operator, so the published lead list
+    contained 14 businesses that were already Viator suppliers. A lead is by
+    definition net-new, so the gate belongs here: enriching an existing
+    supplier spends money to score something nobody will ever call.
+
+    Deliberately the same construction as build_snapshot: same seed, same
+    thresholds, same locale. If these two ever disagree the lead list stops
+    matching the funnel that describes it.
+    """
+    suppliers, _truth = generate_supplier_list(operator_places, seed=42)
+    results = match_all(
+        operator_places, suppliers, load_locale(locale_code), MatchThresholds()
+    )
+    return {
+        r.place_source_id
+        for r in results
+        if r.verdict is MatchVerdict.NET_NEW
+    }
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--places", default="data/split_places.json")
@@ -111,6 +137,12 @@ def main() -> None:
         help="Sample across Viator tier-1 categories instead of taking the "
              "first N with a website. See _stratified_sample.",
     )
+    ap.add_argument(
+        "--net-new-only",
+        action="store_true",
+        help="Enrich only operators the matcher says are not already Viator "
+             "suppliers. See _net_new_ids.",
+    )
     args = ap.parse_args()
 
     places = {
@@ -120,6 +152,14 @@ def main() -> None:
     classified = json.loads(Path(args.classified).read_text(encoding="utf-8"))
 
     operators = [c for c in classified if c["verdict"] == "experience_operator"]
+
+    if args.net_new_only:
+        before = len(operators)
+        keep = _net_new_ids([places[c["place_source_id"]] for c in operators])
+        operators = [c for c in operators if c["place_source_id"] in keep]
+        print(f"net-new gate: {len(operators)} of {before} operators "
+              f"({before - len(operators)} already Viator suppliers, skipped)")
+
     # Sites first: an operator with no website cannot be enriched, and putting
     # them last keeps the sample informative.
     operators.sort(key=lambda c: places[c["place_source_id"]].website is None)

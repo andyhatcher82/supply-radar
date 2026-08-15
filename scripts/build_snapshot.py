@@ -19,6 +19,24 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from supply_radar.classify import resolve_category  # noqa: E402
+
+
+def locality_of(address: str | None) -> str | None:
+    """Which town an operator is in, from its own postal address.
+
+    Location is a property of the operator, not of the area that was swept. A
+    sweep is a box drawn on a map and a box has no name, especially over open
+    country. Every discovered operator carries a full address, so the town comes
+    from the operator and the naming problem never arises.
+
+    String-splitting is honest only for the Croatian format Places returns here.
+    Production reads the structured addressComponents locality field instead;
+    this is a prototype standing in for that.
+    """
+    if not address:
+        return None
+    parts = [p.strip() for p in address.split(",") if p.strip()]
+    return parts[-2] if len(parts) >= 2 else None
 from supply_radar.config import SNAPSHOT_DIR  # noqa: E402
 from supply_radar.costs import USD_TO_GBP  # noqa: E402
 from supply_radar.evaluate import evaluate, threshold_sweep  # noqa: E402
@@ -112,12 +130,23 @@ def main() -> None:
         if place is None:
             continue
         extract = lead.get("extract")
-        rescored = score_lead(
-            place,
-            lead.get("category"),
-            SiteExtract(**extract) if extract else None,
-        )
+        site = SiteExtract(**extract) if extract else None
+        rescored = score_lead(place, lead.get("category"), site)
         lead.update(rescored.to_dict())
+
+        # Operators with no single category are not classification failures.
+        # They are agencies and charters that sell across the board, which is
+        # why no single search term found them. Their own website says what
+        # they sell, so the console shows that rather than "not determined".
+        if not lead.get("category") and site:
+            sells = [
+                c for c in (site.product_categories or [])
+                if c and c not in ("none", "other")
+            ]
+            if sells:
+                lead["sells_categories"] = sells
+                lead["viator_labels"] = [label(c) for c in sells]
+                lead["category_source"] = "website"
 
     # Bands are recomputed here rather than trusted from the leads file, and the
     # cut-offs are derived from what is achievable in THIS destination rather
@@ -204,6 +233,13 @@ def main() -> None:
                 "discovered_address": place.address if place else None,
                 "discovered_website": place.website if place else None,
                 "discovered_phone": place.phone if place else None,
+                # Carried so this page filters on the same two fields as Leads.
+                # Both are properties of the operator, so both survive the move
+                # from one destination to many.
+                "locality": locality_of(place.address if place else None),
+                "experience_type": resolve_category(
+                    place, classified.get(r.place_source_id, {}).get("experience_type")
+                ) if place else None,
                 "supplier_name": getattr(supplier, "legal_name", None),
                 "supplier_trading_name": getattr(supplier, "trading_name", None),
                 "supplier_address": getattr(supplier, "address", None),
@@ -374,6 +410,53 @@ def main() -> None:
             for n in (1, 10, 50, 200, 500)
         ],
     }
+
+    # ---- lead gate ---------------------------------------------------------
+    # A lead is by definition an operator Viator does not already have. The
+    # enrichment sample used to be drawn from all 167 operators with no net-new
+    # filter, so 14 of the 40 published "leads" were existing suppliers. Nothing
+    # caught it because nothing checked. Every lead now carries the verdict that
+    # justifies its presence, and a non-net-new lead stops the build rather than
+    # reaching the console.
+    verdict_by_id = {r.place_source_id: r.verdict for r in results}
+
+    intruders = [
+        lead["name"]
+        for lead in leads
+        if verdict_by_id.get(lead["place_source_id"]) is not MatchVerdict.NET_NEW
+    ]
+    if intruders:
+        raise SystemExit(
+            f"{len(intruders)} published leads are not net-new: "
+            f"{', '.join(intruders[:5])}. Re-run enrich_score_run.py with "
+            "--net-new-only."
+        )
+    for lead in leads:
+        lead["match_verdict"] = MatchVerdict.NET_NEW.value
+        lead["locality"] = locality_of(lead.get("address"))
+
+        # Surfaced because the audience for this build is Viator, and three of
+        # these leads say on their own websites that they already sell on
+        # Viator. That is not a matching fault: the supplier list is synthetic,
+        # so whether an operator is "on Viator" here was decided by seed=42
+        # rather than by reality. But the contradiction is visible on the card
+        # and anyone in the room can look a lead up, so the console says it
+        # first. Using the claim as a matching signal is deliberately NOT done:
+        # the synthetic answer key calls these net-new, so acting on the
+        # website would score as three missed opportunities and drop recall.
+        marketplaces = [
+            str(m).lower()
+            for m in ((lead.get("extract") or {}).get("marketplace_presence") or [])
+        ]
+        lead["marketplaces"] = marketplaces
+        lead["claims_viator"] = any("viator" in m for m in marketplaces)
+        lead["claims_tripadvisor"] = any("tripadvisor" in m for m in marketplaces)
+        # Readiness scores low for these on evidence that does not exist rather
+        # than evidence that is bad, and a reader is owed that distinction.
+        lead["no_website"] = not lead.get("website")
+
+    print(f"  lead gate         {len(leads)} leads, all net-new, "
+          f"{sum(1 for l in leads if l['no_website'])} without a website")
 
     snapshot = {
         "destination": "Split, Croatia",

@@ -331,50 +331,76 @@ def score_readiness(
     return axis
 
 
+def _gap_cell(table: dict, destination_id: str | None, category: str) -> tuple[dict, str]:
+    """The demand-table cell for one destination and category, and its label."""
+    dest = table["destinations"].get((destination_id or "").lower(), {})
+    cell = dest.get(category)
+    if cell is None:
+        return table["default"], f"{destination_id}/{category} not in the demand table, using default"
+    return cell, f"{destination_id}/{category}"
+
+
+def _gap_value(table: dict, cell: dict) -> tuple[float, str]:
+    demand = cell["demand"]
+    supply = cell["supply"]
+    equilibrium = table["equilibrium_supply_ratio"] * demand
+    unmet = max(0.0, 1 - (supply / equilibrium)) if equilibrium else 0.0
+    demand_weight = demand / table["demand_scale_max"]
+    value = max(0.0, min(1.0, unmet * demand_weight))
+    detail = (
+        f"demand index {demand}, {supply} bookable operators "
+        f"against {equilibrium:.0f} needed to serve it"
+    )
+    return value, detail
+
+
 def score_gap_fit(
     destination_id: str | None,
     category: str | None,
     country: str = "croatia",
+    categories: list[str] | None = None,
 ) -> Axis:
     """How much unmet traveller demand this operator's destination and category
     represents, weighted by how much demand there is at all.
 
     A category with huge demand that is already well served scores low; a
     smaller category with almost no bookable supply scores high.
+
+    Some operators have no single category. Agencies and charter companies sell
+    across the board, which is exactly why no single search term finds them and
+    why the catch-all query does. Both category signals fail for them: the
+    classifier answers "other" and the search term carries no category. They
+    used to fall to the country default, which discards evidence already paid
+    for, because enrichment read their websites and recorded what they sell.
+
+    Passing `categories` scores every category the operator actually sells and
+    takes the mean. The mean rather than the best cell: picking their most
+    underserved category would let any operator improve its own score by
+    listing more things, which is a number that flatters rather than informs.
     """
     axis = Axis(name="gap_fit")
     table = load_demand(country)
 
-    if not destination_id or not category or category in ("none", "other"):
+    real = [c for c in (categories or []) if c and c not in ("none", "other")]
+    if not category or category in ("none", "other"):
+        if destination_id and real:
+            for cat in real:
+                cell, label = _gap_cell(table, destination_id, cat)
+                value, detail = _gap_value(table, cell)
+                axis.components.append(Component(cat, value, 1.0, f"{label}: {detail}"))
+            axis.note = (
+                f"No single category applies: this operator sells across {len(real)} of them, "
+                "read from its own website. Scored as the mean of all of them. "
+                "Demand figures are synthetic; in production these come from Viator search logs."
+            )
+            return axis
         axis.note = "Destination or category unknown; scored at the country default."
-        cell = table["default"]
-        label = "country default"
+        cell, label = table["default"], "country default"
     else:
-        dest = table["destinations"].get(destination_id.lower(), {})
-        cell = dest.get(category)
-        if cell is None:
-            cell = table["default"]
-            label = f"{destination_id}/{category} not in the demand table, using default"
-        else:
-            label = f"{destination_id}/{category}"
+        cell, label = _gap_cell(table, destination_id, category)
 
-    demand = cell["demand"]
-    supply = cell["supply"]
-    equilibrium = table["equilibrium_supply_ratio"] * demand
-
-    unmet = max(0.0, 1 - (supply / equilibrium)) if equilibrium else 0.0
-    demand_weight = demand / table["demand_scale_max"]
-    value = max(0.0, min(1.0, unmet * demand_weight))
-
-    axis.components.append(
-        Component(
-            "unmet demand",
-            value,
-            1.0,
-            f"{label}: demand index {demand}, {supply} bookable operators "
-            f"against {equilibrium:.0f} needed to serve it",
-        )
-    )
+    value, detail = _gap_value(table, cell)
+    axis.components.append(Component("unmet demand", value, 1.0, f"{label}: {detail}"))
     if axis.note is None:
         axis.note = "Demand figures are synthetic; in production these come from Viator search logs."
     return axis
@@ -388,10 +414,13 @@ def score_lead(
     country: str = "croatia",
 ) -> LeadScore:
     weights = weights or {"quality": 0.35, "readiness": 0.35, "gap_fit": 0.30}
+    # Only consulted when neither category signal produced an answer. The
+    # website is the weakest of the three sources, so it is the last one asked.
+    from_site = getattr(extract, "product_categories", None) if extract else None
     return LeadScore(
         place_source_id=place.source_id,
         quality=score_quality(place.rating, place.review_count),
         readiness=score_readiness(place.website, place.phone, extract),
-        gap_fit=score_gap_fit(place.destination_id, category, country),
+        gap_fit=score_gap_fit(place.destination_id, category, country, from_site),
         weights=weights,
     )

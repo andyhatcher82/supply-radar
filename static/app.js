@@ -105,14 +105,22 @@ function viewOverview() {
         <tr style="border-top:2px solid var(--line)"><td><strong>Experience operators</strong></td>
           <td class="num"><strong>${c.operators}</strong></td>
           <td style="color:var(--muted)">Everything below is a subset of this</td></tr>
-        <tr><td>Already a Viator supplier</td><td class="num">${c.already_on_file}</td>
+        <tr class="nav" onclick="go('quality')" title="See how matching was measured"><td>Already a Viator supplier</td><td class="num">${c.already_on_file}</td>
           <td style="color:var(--muted)">Matched to the supplier list</td></tr>
-        <tr><td>Needs a human decision</td><td class="num">${c.needs_review}</td>
+        <tr class="nav" onclick="go('review')" title="Open the review queue"><td>Needs a human decision</td><td class="num">${c.needs_review}</td>
           <td style="color:var(--muted)">Too close to call automatically</td></tr>
-        <tr><td><strong>Net-new leads</strong></td><td class="num"><strong>${c.net_new}</strong></td>
+        <tr class="nav" onclick="go('leads')" title="Open the lead list"><td><strong>Net-new leads</strong></td><td class="num"><strong>${c.net_new}</strong></td>
           <td style="color:var(--muted)">Operators Viator does not have</td></tr>
       </tbody>
     </table></div>
+    <div class="note"><strong>All ${c.net_new} net-new operators are enriched, scored and
+      published as leads.</strong> ${S.snap.leads.filter(l => l.no_website).length} of them
+      have no website, so nothing could be read about how they sell: they score low on
+      missing evidence rather than bad evidence, and each one says so. Enrichment used to
+      run over a sample drawn from all ${c.operators} operators with no net-new filter,
+      which put businesses Viator already had into the lead list. The build now refuses to
+      publish a lead that is not net-new.</div>
+
     <div class="note">Classification runs <em>before</em> matching, so the matcher never
       compares a car park against the supplier list and every figure here shares one
       denominator: ${c.already_on_file} + ${c.needs_review} + ${c.net_new} = ${c.operators}.</div>
@@ -217,22 +225,25 @@ function viewDiscover() {
           <input type="number" id="radius" value="4" min="1" max="25" step="0.5">
         </label>
         <label class="field">
-        </label>
-        <label class="field">
           <span>Search terms (pick up to ${S.terms?.max_selectable || 3})</span>
           <div id="terms" class="termlist">${termOptions()}</div>
         </label>
-        <label class="field">
-          <span>Access code</span>
-          <input type="password" id="code" placeholder="required to spend money">
-        </label>
-
-        <div style="display:flex;gap:8px">
-          <button class="btn ghost" id="btnEstimate" style="flex:1">Estimate cost</button>
-          <button class="btn" id="btnRun" style="flex:1" disabled>Run sweep</button>
-        </div>
+        <button class="btn ghost" id="btnEstimate" style="width:100%">Estimate cost</button>
 
         <div class="estimate" id="estimate"></div>
+
+        <!-- Hidden until a price exists. The Run button was previously disabled
+             rather than absent, which enforced the same rule invisibly: nothing
+             on screen said why it could not be pressed. Spending money is the
+             one action in this app that cannot be undone, so the sequence is
+             made structural rather than implied. -->
+        <div id="rungate" style="display:none">
+          <label class="field" style="margin-top:14px">
+            <span>Access code</span>
+            <input type="password" id="code" placeholder="required to spend money">
+          </label>
+          <button class="btn" id="btnRun" style="width:100%">Run sweep</button>
+        </div>
       </div>
 
       <div class="card" style="margin-top:14px">
@@ -423,6 +434,10 @@ function syncShapeFrom(layer) {
 function clearEstimate() {
   S.estimate = null;
   $('#btnRun').disabled = true;
+  // Editing the shape invalidates the price, so the authorisation gate closes
+  // with it. Otherwise a sweep could be launched against a shape nobody costed.
+  const gate = $('#rungate');
+  if (gate) gate.style.display = 'none';
   const check = checkShape(S.shape);
   S.permitted = check.ok;
   S.permitMsg = check.msg;
@@ -502,8 +517,12 @@ async function doEstimate() {
       <div class="row"><span>Estimated time</span><span>${e.estimated_seconds}s</span></div>
       <div class="note ${e.within_live_run_limit ? '' : 'warn'}">${esc(e.message)}</div>`;
     $('#btnRun').disabled = !e.within_live_run_limit;
+    // Over the cell limit there is nothing to authorise, so the gate stays shut
+    // and the estimate message is the only thing on screen to act on.
+    $('#rungate').style.display = e.within_live_run_limit ? '' : 'none';
   } catch (err) {
     $('#estimate').innerHTML = `<div class="note warn">${esc(err.message)}</div>`;
+    $('#rungate').style.display = 'none';
   }
 }
 
@@ -525,7 +544,156 @@ async function doRun() {
   $('#btnRun').disabled = false;
 }
 
+/* A sweep costs real money, so its result is treated as something the user owns
+ * rather than as transient DOM. It was previously written straight into #runout
+ * and held nowhere else, so changing tab or pressing F5 destroyed results that
+ * had just been paid for. sessionStorage rather than localStorage: the results
+ * should outlive a refresh, not the browser session. */
+const RUN_KEY = 'supply-radar.lastRun';
+
+/* Where a live sweep stops, and why.
+ *
+ * The reason was already in the API payload and in a prose banner, but neither
+ * shows WHERE in the chain the stop happens. Net-new is a relation between an
+ * operator and Viator's supply list, so it cannot be computed with one side
+ * missing. Shipping a synthetic supplier list into the container would not fix
+ * that: the synthetic list is generated FROM the operators being matched, so
+ * the match rate could be made to say anything. The gap is honest and stating
+ * it plainly is worth more than papering over it. */
+const SWEEP_STAGES = [
+  ['Discover', 'ran', 'Google Places, adaptive cell subdivision'],
+  ['Classify', 'ran', 'Rules first, model only for the ambiguous'],
+  ['Score', 'partial', 'Quality is final. Readiness and gap fit are provisional until enrichment'],
+  ['Enrich', 'stopped', 'Reading a website takes about 3 seconds and the request ceiling is 900. Belongs in a batch'],
+  ['Match against supplier list', 'stopped', 'This deployment holds no supplier records'],
+  ['Net-new determination', 'stopped', 'Needs both the enrichment above and the supplier list'],
+];
+
+const STAGE_MARK = { ran: '&#10003;', partial: '&#189;', stopped: '&#9679;' };
+
+function pipelineStrip() {
+  return `
+    <div class="section-title" style="margin-top:18px">What this sweep did, and where it stopped</div>
+    <div class="stages">${SWEEP_STAGES.map(([name, state, why]) => `
+      <div class="stage ${state}">
+        <div class="s-head">${STAGE_MARK[state]} ${esc(name)}</div>
+        <div class="s-why">${esc(why)}</div>
+      </div>`).join('')}</div>
+    <div class="note warn"><strong>There is no queue yet, and that is the honest gap in
+      this build.</strong> The three stopped stages are not blocked only by the missing
+      supplier list. Enrichment is too slow to run inside a web request at all, so in
+      production it runs as an asynchronous job and the results append to the lead table.
+      That job does not exist here: today's published lead list was produced by running
+      the pipeline scripts by hand. Wiring it is one button, a job and a topic, and it
+      changes nothing in the discovery, matching or scoring code.</div>`;
+}
+
+function sweepCard(l, i) {
+  const c = l.classification;
+  return `
+  <div class="lead" data-sweep="${i}">
+    <div class="lead-head">
+      <div>
+        <div class="lead-name">${esc(l.name)}
+          <span class="pill ${l.band}" title="${esc(BANDS[l.band][0])}: ${esc(BANDS[l.band][1])}">${l.band}</span></div>
+        <div class="lead-meta">${l.category
+            ? esc(l.category.replace(/_/g, ' '))
+            : '<span style="color:var(--dim)">category not determined: found by the catch-all search term, and a live sweep does not read websites</span>'}
+          ${l.rating ? ` &middot; ${l.rating} from ${l.review_count || 0} reviews` : ''}
+          ${l.website ? ` &middot; ${esc(l.website.replace(/^https?:\/\//, '').slice(0, 44))}` : ' &middot; no website'}</div>
+      </div>
+      <div class="axes">
+        ${ax('Quality', l.quality, 'q')}
+        ${ax('Readiness', l.readiness, 'r')}
+        ${ax('Gap fit', l.gap_fit, 'g')}
+        <div class="axis"><div class="k">Composite</div>
+          <div class="v" style="font-size:16px">${n3(l.composite)}</div></div>
+      </div>
+    </div>
+    <div class="lead-body">
+      <div class="grid g3" style="margin-top:14px">
+        ${axisCard('Quality', l.quality)}
+        ${axisCard('Readiness', l.readiness)}
+        ${axisCard('Gap fit', l.gap_fit)}
+      </div>
+      <div class="note warn"><strong>Two axes here are provisional, because a live sweep
+        reads no websites.</strong> Fetching them takes several seconds each and would make
+        this unusable interactively. Readiness scores on contactability alone.
+        ${l.category ? '' : `Gap fit falls to the country default, because with no website
+        read there is no way to know which categories this operator sells. Once enriched,
+        an operator like this is scored on the mean of its real categories, which in the
+        published list moves the axis by up to 0.07 in either direction.`}
+        The published lead list is enriched; these figures are not.</div>
+      ${c && c.reason ? `<div class="note"><strong>Classified ${esc(c.verdict.replace(/_/g, ' '))}</strong>
+        by ${esc(c.decided_by || 'rules')}${c.confidence ? `, confidence ${n3(c.confidence)}` : ''}:
+        ${esc(c.reason)}</div>` : ''}
+      <div class="decide" style="margin-top:4px">
+        <span style="color:var(--muted);font-size:13px">Promoting a discovery to a lead
+          needs enrichment and the net-new comparison, neither of which can run inside a
+          web request.</span>
+        <div class="spacer"></div>
+        <button class="btn ghost" data-addlead="${esc(l.name)}">Add to leads</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* Enabled rather than disabled, and it opens an explanation.
+ *
+ * It was a disabled button carrying its reason in a title tooltip. Nobody
+ * hovers a disabled button and no tooltip exists on touch, so the reason was
+ * effectively invisible. A button that responds by explaining itself is read;
+ * one that does nothing is not. */
+function explainAddToLeads(name) {
+  const wrap = document.createElement('div');
+  wrap.className = 'modal-overlay';
+  wrap.innerHTML = `
+    <div class="modal-card">
+      <h3 style="margin:0 0 4px">Not yet a lead</h3>
+      <div style="color:var(--muted);font-size:13px;margin-bottom:12px">${esc(name)}</div>
+      <div class="note">${esc(ADD_TO_LEADS_WHY)}</div>
+      <div class="note"><strong>There is a second reason, and it is the more interesting
+        one.</strong> Even with the supplier list connected, this button would have nothing
+        to call. Promoting an operator means enriching it and matching it, and enrichment
+        reads websites at roughly 3 seconds each against a 900-second request ceiling. It
+        cannot run inside a web request. In production the button queues the operator, an
+        asynchronous job does the work, and the lead appears in the list when it is ready.
+        That job is the one part of the architecture this build does not have.</div>
+      <div class="note">The matching itself is demonstrated on the published benchmark,
+        where an answer key exists.</div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+        <button class="btn" id="addLeadOk">Understood</button>
+      </div>
+    </div>`;
+  document.body.appendChild(wrap);
+  const close = () => wrap.remove();
+  wrap.querySelector('#addLeadOk').onclick = close;
+  wrap.onclick = (e) => { if (e.target === wrap) close(); };
+}
+
+function rememberRun(r) {
+  S.lastRun = r;
+  try {
+    sessionStorage.setItem(RUN_KEY, JSON.stringify(r));
+  } catch {
+    // Quota or private mode. In-memory recall still works, and losing the
+    // refresh-survival is not worth breaking the run over.
+  }
+}
+
+function recallRun() {
+  if (S.lastRun) return S.lastRun;
+  try {
+    const raw = sessionStorage.getItem(RUN_KEY);
+    if (raw) S.lastRun = JSON.parse(raw);
+  } catch {
+    S.lastRun = null;
+  }
+  return S.lastRun;
+}
+
 function renderRun(r) {
+  rememberRun(r);
   const d = r.discovery, c = r.classification;
   r.leads.forEach(lead => {
     L.circleMarker([lead.lat, lead.lng], {
@@ -549,21 +717,14 @@ function renderRun(r) {
       ${r.scope ? `<div class="note warn" style="margin-top:14px">
         <strong>${esc(r.scope.headline)}</strong><br>${esc(r.scope.detail)}</div>` : ''}
       ${r.caveats.map(c => `<div class="note">${esc(c)}</div>`).join('')}
+      ${pipelineStrip()}
       <div class="section-title" style="display:flex;align-items:center;gap:12px">
         <span>Top discovered operators from this sweep</span>
         <button class="btn ghost" id="btnExportRun" style="padding:4px 10px;font-size:13px">Export CSV</button>
       </div>
-      <div class="scroll"><table>
-        <thead><tr><th>Operator</th><th>Category</th><th class="num">Rating</th><th class="num">Score</th><th>Band</th><th></th></tr></thead>
-        <tbody>${r.leads.slice(0, 15).map(l => `
-          <tr><td>${esc(l.name)}</td><td style="color:var(--muted)">${esc((l.category || '—').replace(/_/g, ' '))}</td>
-          <td class="num">${l.rating ?? '—'}</td><td class="num">${n3(l.composite)}</td>
-          <td><span class="pill ${l.band}">${l.band}</span></td>
-          <td><button class="btn ghost" disabled title="${esc(ADD_TO_LEADS_WHY)}"
-              style="padding:3px 9px;font-size:12px">Add to leads</button></td></tr>`).join('')}
-        </tbody>
-      </table></div>
-      <div class="note">Showing the top 15 of ${r.leads.length}. The CSV carries all of them.</div>
+      <div>${r.leads.slice(0, 15).map(sweepCard).join('')}</div>
+      ${r.leads.length > 15 ? `<div class="note">Showing the top 15 of ${r.leads.length}.
+        The CSV carries all of them.</div>` : ''}
     </div>`;
 
   $('#btnExportRun').onclick = () => downloadCsv(
@@ -577,14 +738,23 @@ function renderRun(r) {
       net_new_determined: 'no - see scope note',
     }))),
   );
+
+  // Same interaction as the Leads page, because it is the same component. A
+  // sweep result that behaved differently from a published lead would teach the
+  // reader that the two are different kinds of thing, which they are not.
+  document.querySelectorAll('#runout .lead-head').forEach(h =>
+    h.onclick = () => h.parentElement.classList.toggle('open'));
+  document.querySelectorAll('[data-addlead]').forEach(b => b.onclick = (e) => {
+    e.stopPropagation();  // the card header toggles open/closed on click
+    explainAddToLeads(b.dataset.addlead);
+  });
 }
 
-// Shown as a disabled control rather than omitted, because the absence of a
-// path from Discover to Leads is a fact about the data, not an oversight, and a
-// missing button says nothing while a disabled one with a reason says exactly
-// where the boundary is.
+// The reason the path from Discover to Leads is closed. It is a fact about the
+// data rather than an oversight, so it is stated on demand instead of the
+// button being hidden.
 const ADD_TO_LEADS_WHY =
-  'Disabled: nothing here has been checked against Viator\'s supplier list, so it ' +
+  'Nothing here has been checked against Viator\'s supplier list, so it ' +
   'cannot be promoted to a lead yet. Net-new is a comparison, and we only hold one ' +
   'side of it. Once the real supplier list is connected, operators move from here ' +
   'straight into the leads list, or into the review queue where the match is ambiguous.';
@@ -631,9 +801,63 @@ const BANDS = {
   C: ['Park for now', 'Thin evidence, or the category is already well served and adding supply mostly cannibalises it.'],
 };
 
+/* Filters live on the lists, not on the Overview.
+ *
+ * The Overview funnel's whole argument is that one denominator runs through it:
+ * already_on_file + needs_review + net_new = operators. Filtering that breaks
+ * the identity it exists to demonstrate. Leads and Review queue are lists, and
+ * a list is the thing a filter belongs to.
+ *
+ * Both fields are properties of the operator rather than of the run, so neither
+ * needs rewriting when a second destination is added. */
+const FILTERS = { leads: { locality: '', type: '' }, review: { locality: '', type: '' } };
+
+function filterValues(rows, key) {
+  return [...new Set(rows.map(r => r[key]).filter(Boolean))].sort();
+}
+
+function applyFilters(rows, scope, typeKey) {
+  const f = FILTERS[scope];
+  return rows.filter(r =>
+    (!f.locality || r.locality === f.locality) &&
+    (!f.type || r[typeKey] === f.type));
+}
+
+function filterBar(rows, scope, typeKey, total) {
+  const label = v => String(v).replace(/_/g, ' ');
+  const sel = (key, values, name, all) => `
+    <label class="field" style="margin:0;flex:1;min-width:170px">
+      <span>${name}</span>
+      <select data-filter="${scope}:${key}">
+        <option value="">${all}</option>
+        ${values.map(v => `<option value="${esc(v)}"${FILTERS[scope][key] === v ? ' selected' : ''}>${esc(label(v))}</option>`).join('')}
+      </select>
+    </label>`;
+  const shown = applyFilters(rows, scope, typeKey).length;
+  return `
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin:10px 0 4px">
+      ${sel('locality', filterValues(rows, 'locality'), 'Location', 'All locations')}
+      ${sel('type', filterValues(rows, typeKey), 'Operator type', 'All operator types')}
+      <div style="color:var(--muted);font-size:12.5px;padding-bottom:10px">
+        ${shown === total ? `${total} shown` : `${shown} of ${total} shown`}
+      </div>
+    </div>`;
+}
+
+function bindFilters() {
+  document.querySelectorAll('[data-filter]').forEach(el => {
+    el.onchange = () => {
+      const [scope, key] = el.dataset.filter.split(':');
+      FILTERS[scope][key] = el.value;
+      render();
+    };
+  });
+}
+
 function viewLeads() {
   const removedIds = S.removed;
-  const leads = S.snap.leads.filter(l => !removedIds[l.place_source_id]);
+  const all = S.snap.leads.filter(l => !removedIds[l.place_source_id]);
+  const leads = applyFilters(all, 'leads', 'category');
   const removed = Object.values(removedIds);
   const counts = { A: 0, B: 0, C: 0 };
   leads.forEach(l => counts[l.band]++);
@@ -645,6 +869,23 @@ function viewLeads() {
         style="float:right;padding:6px 12px;font-size:13px">Export CSV</button></h2>
     <p class="hint">Ranked by composite score. Click any lead for the full evidence trail
       behind all three axes. The composite is a sort order, not a decision.</p>
+    ${filterBar(all, 'leads', 'category', all.length)}
+    ${(() => {
+      // Tripadvisor owns Viator. An operator already selling through the parent
+      // but not the subsidiary is the warmest lead in the list: they have
+      // already accepted third-party distribution, agreed commission and
+      // handed over their inventory once. The objection is not "why would I
+      // list with a marketplace", it is only "why this one too".
+      const ta = all.filter(l => l.claims_tripadvisor && !l.claims_viator).length;
+      if (!ta) return '';
+      return `<div class="note"><strong>${ta} of these ${all.length} operators already
+        sell on Tripadvisor but not on Viator</strong>, according to their own websites.
+        Tripadvisor owns Viator, so these are the warmest leads here: the hard conversation
+        about selling through a third party has already happened, and someone else had it.
+        Read from the operator's site during enrichment, not from any marketplace's
+        catalogue, so it undercounts anyone who sells through a marketplace without
+        advertising it.</div>`;
+    })()}
 
     <div class="grid g3" style="margin-top:6px">
       ${['A', 'B', 'C'].map(b => `
@@ -658,7 +899,15 @@ function viewLeads() {
     </div>
 
     <div class="note">Bands come from the composite of the three axes, weighted
-      35% quality / 35% readiness / 30% gap fit.${S.snap.bands ? `
+      35% quality / 35% readiness / 30% gap fit. <strong>Gap fit is deliberately
+      compressed and 30% is its weight, not its reach.</strong> It multiplies how short a
+      category is of equilibrium by how large that category is, so scoring near 1.0 would
+      need enormous demand and almost no supply, which no real market has. The best
+      achievable cell anywhere in this demand table is 0.42, and in this destination 0.38,
+      so gap fit contributes at most about 0.11 to any composite. That is the intended
+      behaviour: a small unserved category should not outrank a large one. The cut-offs
+      below are derived from what is actually achievable rather than from a
+      theoretical 1.0, which is how the compression is accounted for.${S.snap.bands ? `
       <strong>A &ge; ${n3(S.snap.bands.band_a)}, B &ge; ${n3(S.snap.bands.band_b)}</strong>
       here. ${esc(S.snap.bands.basis)}` : ` The cut-offs are recalibrated per
       destination, because a saturated category scores 0.00 on gap fit and that caps
@@ -668,10 +917,19 @@ function viewLeads() {
       the model working rather than failing.</strong> Every operator found sits in a
       category the demand model says is already well served. Good businesses in a
       saturated market: worth knowing about, not worth prioritising over an under-served
-      category elsewhere.</div>` : `<div class="note">Every lead here scores 0.00 on gap
-      fit, because the categories found in this destination are already well served. The
-      A-band leads earned their place on quality and readiness alone — strong operators
-      in a competitive market, rather than an unmet need.</div>`}
+      category elsewhere.</div>` : (() => {
+      // Counted from the leads on screen rather than asserted. The line this
+      // replaced claimed every lead scored 0.00 on gap fit, which was true of
+      // the boat-tour-skewed sample it was written against and false the moment
+      // the sample was fixed. Nobody re-read it for two weeks.
+      const scored = S.snap.leads.filter(l => l.gap_fit.score > 0).length;
+      const flat = S.snap.leads.length - scored;
+      return `<div class="note"><strong>${scored} of ${S.snap.leads.length} leads score
+        above zero on gap fit.</strong> The other ${flat} sit in categories the demand
+        model says are already well served, so gap fit contributes nothing and they earned
+        their band on quality and readiness alone: strong operators in a competitive
+        market, rather than an unmet need.</div>`;
+    })()}
     ${removed.length ? `<div class="note warn"><strong>${removed.length} lead${removed.length > 1 ? 's' : ''} removed this session.</strong>
       ${removed.map(r => `<div style="margin-top:6px">${esc(r.name)} — <span style="color:var(--muted)">${esc(r.reason)}</span></div>`).join('')}
       <div style="margin-top:8px">Session only. In production these write to the decisions
@@ -681,10 +939,15 @@ function viewLeads() {
   <div style="margin-top:14px">${leads.map(leadRow).join('')}</div>`;
 }
 
-function leadRow(l, i) {
-  const ax = (name, axis, cls) => `
+// Shared by leadRow and sweepCard. A published lead and a swept operator are
+// scored on the same three axes, so they are shown on the same three dials.
+function ax(name, axis, cls) {
+  return `
     <div class="axis"><div class="k">${name}</div>
       <div class="v">${n3(axis.score)}</div>${bar(axis.score, cls)}</div>`;
+}
+
+function leadRow(l, i) {
   return `
   <div class="lead" data-lead="${i}">
     <div class="lead-head">
@@ -697,7 +960,9 @@ function leadRow(l, i) {
               (l.category_source === 'search term'
                 ? '<span title="No classifier call was needed for this operator, so the category comes from the search term that found them" style="color:var(--dim)"> (from search term)</span>'
                 : '')
-            : '<span style="color:var(--dim)">category not determined</span>'}
+            : l.sells_categories
+              ? `<span title="Read from the operator's own website during enrichment. No single search term finds a business like this, which is why the catch-all query did.">sells across ${l.sells_categories.length} categories<span style="color:var(--dim)"> &middot; ${esc((l.viator_labels || l.sells_categories).join(', '))}</span></span>`
+              : '<span style="color:var(--dim)">category not determined: no single category applies and no website was read</span>'}
           ${l.website ? ` &middot; ${esc(l.website.replace(/^https?:\/\//, '').slice(0, 44))}` : ' &middot; no website'}
           ${l.extract ? ` &middot; ${esc(l.extract.booking.replace(/_/g, ' '))}` : ''}</div>
       </div>
@@ -715,6 +980,21 @@ function leadRow(l, i) {
         ${axisCard('Readiness', l.readiness)}
         ${axisCard('Gap fit', l.gap_fit)}
       </div>
+      ${l.claims_viator ? `<div class="note warn"><strong>This operator's own website says
+        it already sells on Viator, yet it appears here as net-new.</strong> Both
+        statements are true of the data in front of you, and the contradiction is worth
+        understanding rather than hiding. The supplier list in this build is synthetic:
+        40% of discovered operators were seeded into it and the rest are net-new by
+        construction, so whether this business is "on Viator" here was decided by a random
+        seed, not by reality. Against Viator's real supplier list this operator would
+        almost certainly match and never reach a lead list. It is left unchanged
+        deliberately: acting on the website claim would contradict the benchmark's own
+        answer key and report three missed opportunities that are artefacts of the
+        synthetic data rather than failures of the matcher.</div>` : ''}
+      ${l.no_website ? `<div class="note warn">This operator has no website, so nothing
+        could be read about how they sell. Readiness scores on contactability alone and
+        gap fit has no product evidence behind it. The low score reflects missing
+        evidence, not bad evidence, and a caller should treat it that way.</div>` : ''}
       <div class="decide" style="margin-top:4px">
         <span style="color:var(--muted);font-size:13px">Not a fit? Removing it records
           why, which is what turns a rejection into a scoring signal.</span>
@@ -794,7 +1074,8 @@ function axisCard(title, axis) {
 /* --------------------------------------------------------------- review */
 
 function viewReview() {
-  const q = S.snap.review_queue;
+  const all = S.snap.review_queue;
+  const q = applyFilters(all, 'review', 'experience_type');
   const done = Object.keys(S.decisions).length;
   return `
   <div class="card">
@@ -804,6 +1085,7 @@ function viewReview() {
     <div class="note">A decision here would, in production, write back to the CRM and feed
       threshold tuning. In this prototype it is captured client-side only, which is stated
       rather than implied.</div>
+    ${filterBar(all, 'review', 'experience_type', all.length)}
   </div>
   <div style="margin-top:14px">${q.slice(0, 40).map(reviewCard).join('')}</div>`;
 }
@@ -846,6 +1128,18 @@ function reviewCard(r, i) {
 
 function viewQuality() {
   const m = S.snap.metrics, mm = m.matching;
+  /* The caveat that matters most is not that the supplier list is synthetic,
+   * which this page already says in three places. It is that precision and
+   * recall cannot be computed at all without an answer key, and production has
+   * none. The honest production answer is a feedback loop, not a number. */
+  const scopeNote = `<div class="note"><strong>Scope of this page.</strong> Every figure
+    here is measured over the ${esc(S.snap.destination)} run against a synthetic supplier
+    list seeded from it, which is the only reason an answer key exists.
+    <strong>None of these metrics could be computed on Viator's real data on day one.</strong>
+    Precision, recall, missed opportunities and wasted calls all require knowing the right
+    answer in advance. In production the numbers are not calculated, they are earned: a
+    lead called and found to be an existing supplier, or a match a reviewer overturns.
+    The register of matched operators is the surface that produces them.</div>`;
   const sweepRows = (rows) => `
     <div class="scroll"><table>
       <thead><tr><th class="num">high</th><th class="num">low</th><th class="num">precision</th>
@@ -862,6 +1156,7 @@ function viewQuality() {
     </table></div>`;
 
   return `
+  ${scopeNote}
   <div class="grid g4">
     ${stat('Precision', n3(mm.precision), `${mm.correct_existing} of ${mm.correct_existing + mm.missed_opportunity + mm.wrong_supplier} already-on-file calls were right`, 'good')}
     ${stat('Missed opportunities', mm.missed_opportunity, 'Real operators wrongly written off', mm.missed_opportunity > 12 ? 'bad' : 'warn')}
@@ -948,6 +1243,12 @@ function viewQuality() {
 function viewEconomics() {
   const e = S.snap.economics, p = e.per_destination, v = e.versus_manual;
   return `
+  <div class="note"><strong>Scope of this page.</strong> The unit cost is measured from the
+    ${esc(S.snap.destination)} run: its actual API calls and its ${p.operators_surfaced}
+    operators. Everything below it is that measurement projected forward, at list price
+    with free tiers excluded. It is what a destination costs to <em>run</em>, not what this
+    build cost, and those two numbers are deliberately different.</div>
+
   <div class="grid g4">
     ${stat('Cost per destination', gbp(p.total_gbp), 'list price, free tiers excluded')}
     ${stat('Manual equivalent', gbp(v.manual_cost_gbp), `${v.manual_hours}h of analyst time`, 'warn')}
@@ -1147,12 +1448,29 @@ const VIEWS = {
   admin: viewAdmin,
 };
 
+/* The funnel is the journey, so its rows are the navigation. Reading "105
+ * net-new leads" and then hunting the tab row for where they live was the gap
+ * between understanding the numbers and seeing them. */
+function go(view) {
+  S.view = view;
+  render();
+  window.scrollTo(0, 0);
+}
+
 function render() {
   $('#main').innerHTML = VIEWS[S.view]();
   document.querySelectorAll('#tabs button').forEach(b =>
     b.classList.toggle('active', b.dataset.view === S.view));
   renderTopMeta();
-  if (S.view === 'discover') { initMap(); bindDiscover(); }
+  if (S.view === 'discover') {
+    initMap();
+    bindDiscover();
+    // Re-render a previous sweep rather than leaving the page blank. renderRun
+    // repaints the map markers too, which are destroyed with the map on every
+    // view change.
+    const previous = recallRun();
+    if (previous) renderRun(previous);
+  }
   if (S.view === 'leads') bindLeads();
   if (S.view === 'review') bindReview();
   if (S.view === 'admin') bindAdmin();
@@ -1190,6 +1508,7 @@ function bindDiscover() {
 }
 
 function bindLeads() {
+  bindFilters();
   document.querySelectorAll('.lead-head').forEach(h =>
     h.onclick = () => h.parentElement.classList.toggle('open'));
 
@@ -1207,7 +1526,12 @@ function bindLeads() {
     // is a CSV nobody uses twice.
     // Exports what is on screen. Exporting leads the user just removed would
     // make the removal cosmetic.
-    toCsv(S.snap.leads.filter(l => !S.removed[l.place_source_id]).map(l => ({
+    // Filters included deliberately: the button sits above a filtered list, so
+    // exporting the unfiltered set would be a different answer to the one on
+    // screen. Removed leads were already excluded for the same reason.
+    toCsv(applyFilters(
+      S.snap.leads.filter(l => !S.removed[l.place_source_id]), 'leads', 'category',
+    ).map(l => ({
       band: l.band,
       name: l.name,
       category: l.viator_label || l.category || '',
@@ -1238,6 +1562,7 @@ const BAND_MEANING = {
 };
 
 function bindReview() {
+  bindFilters();
   document.querySelectorAll('[data-decide]').forEach(b => b.onclick = () => {
     S.decisions[b.dataset.decide] = b.dataset.v;
     render();
@@ -1281,7 +1606,8 @@ function renderTopMeta() {
   el.style.display = '';
   const c = S.snap.counts;
   el.innerHTML = `
-    <div><div class="k">Published snapshot</div><div class="v">${esc(S.snap.destination)}</div></div>
+    <div><div class="k">Coverage to date</div>
+      <div class="v" title="Sweeping another destination adds to these tables, it does not replace them">${esc(S.snap.destination)}</div></div>
     <div><div class="k">Operators</div><div class="v">${c.operators}</div></div>
     <div><div class="k">Net-new</div><div class="v">${c.net_new}</div></div>`;
 }

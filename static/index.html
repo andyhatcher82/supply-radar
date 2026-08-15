@@ -24,11 +24,15 @@
 
 <nav class="tabs" id="tabs">
   <button data-view="overview" class="active">Overview</button>
-  <button data-view="discover">Discover</button>
   <button data-view="leads">Leads</button>
   <button data-view="review">Review queue</button>
   <button data-view="quality">Accuracy &amp; QA</button>
   <button data-view="economics">Economics</button>
+  <!-- Discover is a mode, not the next step. It sweeps live and stops before
+       matching, so it can never produce a lead. Sitting it inside the sequence
+       above read as step 2 of 6 and invited a click that dead-ends. -->
+  <span class="tabsep" aria-hidden="true"></span>
+  <button data-view="discover">Run a live sweep</button>
   <button data-view="admin" style="margin-left:auto;opacity:.75">Admin</button>
 </nav>
 
