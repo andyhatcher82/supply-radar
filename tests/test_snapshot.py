@@ -84,6 +84,24 @@ def test_viator_claims_are_surfaced_not_acted_on(snap):
         assert lead["match_verdict"] == "net_new"
 
 
+def test_the_lead_count_reconciles_against_the_answer_key(snap):
+    """The console shows what the matcher decided AND what was true.
+
+    "105 net-new leads" reads as 105 businesses Viator does not have. Five of
+    them are businesses Viator does have. The two numbers must stay consistent
+    with each other or the reconciliation on the Overview is decoration.
+    """
+    c = snap["counts"]
+    assert c["net_new_correct_in_leads"] + c["existing_wrongly_in_leads"] == c["net_new"]
+    assert (
+        c["net_new_correct_in_leads"] + c["net_new_held_in_review"]
+        == c["net_new_actual"]
+    ), "true net-new must be the ones we published plus the ones we held back"
+    assert c["net_new_actual"] <= c["operators"]
+    # The wasted calls the QA page reports are exactly the wrong ones we shipped.
+    assert c["existing_wrongly_in_leads"] == snap["metrics"]["matching"]["wasted_call"]
+
+
 def test_band_cutoffs_are_derived_from_the_ceiling(snap):
     bands = snap["bands"]
     assert 0 < bands["band_b"] < bands["band_a"] < bands["ceiling"] <= 1.0

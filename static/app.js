@@ -89,7 +89,9 @@ function viewOverview() {
   <div class="grid g4">
     ${stat('Places discovered', c.places_discovered, 'Real Google Places results')}
     ${stat('Experience operators', c.operators, `${c.not_relevant} filtered out as not relevant`)}
-    ${stat('Genuinely net-new', c.net_new, `of the ${c.operators} operators`, 'good')}
+    ${stat('Net-new leads', c.net_new,
+      c.net_new_actual === undefined ? `of the ${c.operators} operators`
+        : `${c.net_new_actual} are actually net-new`, 'good')}
     ${stat('Sent to a human', pct(m.review_rate), `${pct(m.automation_rate)} decided automatically`)}
   </div>
 
@@ -110,9 +112,29 @@ function viewOverview() {
         <tr class="nav" onclick="go('review')" title="Open the review queue"><td>Needs a human decision</td><td class="num">${c.needs_review}</td>
           <td style="color:var(--muted)">Too close to call automatically</td></tr>
         <tr class="nav" onclick="go('leads')" title="Open the lead list"><td><strong>Net-new leads</strong></td><td class="num"><strong>${c.net_new}</strong></td>
-          <td style="color:var(--muted)">Operators Viator does not have</td></tr>
+          <td style="color:var(--muted)">What the matcher decided. ${c.existing_wrongly_in_leads !== undefined
+            ? `${c.net_new_correct_in_leads} of them are right` : 'Operators Viator does not have'}</td></tr>
       </tbody>
     </table></div>
+    ${c.net_new_actual === undefined ? '' : note(
+      `<strong>${c.net_new} leads, of which ${c.net_new_correct_in_leads} are right.</strong>
+       The true answer is ${c.net_new_actual}.`,
+      `<p>We know the true answer only because the supplier list here is made up, so we can
+        mark our own work. On real data this comparison does not exist.</p>
+      <table style="width:100%;margin:8px 0">
+        <tr><td>Leads we published</td><td class="num">${c.net_new}</td></tr>
+        <tr><td>&nbsp;&nbsp;genuinely net-new</td><td class="num">${c.net_new_correct_in_leads}</td></tr>
+        <tr><td>&nbsp;&nbsp;already a Viator supplier</td><td class="num">${c.existing_wrongly_in_leads}</td></tr>
+        <tr><td>Net-new still sat in the review queue</td><td class="num">${c.net_new_held_in_review}</td></tr>
+        <tr style="border-top:1px solid var(--line)"><td><strong>True total</strong></td>
+          <td class="num"><strong>${c.net_new_actual}</strong></td></tr>
+      </table>
+      <p>So ${c.existing_wrongly_in_leads} businesses Viator already has are sitting in that
+        lead list. Sales would ring them, get told, and move on. That is the cheap mistake,
+        and every threshold in this build is set to take it rather than the expensive one.</p>
+      <p>We could delete those ${c.existing_wrongly_in_leads} using the answer key, and it
+        would be cheating: on your data there is no answer key to delete them with.</p>`)}
+
     ${note(
       `All ${c.net_new} net-new operators become leads. Nothing is sampled or dropped.`,
       `<p>${S.snap.leads.filter(l => l.no_website).length} of them have no website. We could
@@ -1694,7 +1716,10 @@ function renderTopMeta() {
     <div><div class="k">Coverage to date</div>
       <div class="v" title="Sweeping another destination adds to these tables, it does not replace them">${esc(S.snap.destination)}</div></div>
     <div><div class="k">Operators</div><div class="v">${c.operators}</div></div>
-    <div><div class="k">Net-new</div><div class="v">${c.net_new}</div></div>`;
+    <div><div class="k">Net-new</div><div class="v">${c.net_new}${
+      c.net_new_actual === undefined ? '' :
+      `<span style="color:var(--dim);font-weight:400"> / ${c.net_new_actual} actual</span>`
+    }</div></div>`;
 }
 
 boot();

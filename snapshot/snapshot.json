@@ -13,6 +13,10 @@
     "operators": 167,
     "already_on_file": 58,
     "net_new": 105,
+    "net_new_actual": 101,
+    "net_new_correct_in_leads": 100,
+    "existing_wrongly_in_leads": 5,
+    "net_new_held_in_review": 1,
     "needs_review": 4,
     "leads_scored": 105,
     "suppliers_on_file": 107

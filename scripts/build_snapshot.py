@@ -486,6 +486,37 @@ def main() -> None:
                 1 for r in results if r.verdict is MatchVerdict.EXISTING
             ),
             "net_new": sum(1 for r in results if r.verdict is MatchVerdict.NET_NEW),
+            # The pipeline's answer and the right answer, side by side.
+            #
+            # net_new above is what the matcher decided, and it is the only one
+            # of these three that could exist in production. The rest come from
+            # the synthetic answer key, so they are a property of the benchmark
+            # rather than of the method, and every place they are shown says so.
+            #
+            # Publishing only the first would let "105 net-new leads" be read as
+            # 105 businesses Viator does not have, when 5 of them are businesses
+            # Viator does have. That is the same overstatement as the 14
+            # already-supplier leads, one order of magnitude smaller.
+            "net_new_actual": sum(
+                1 for p in operator_places if p.source_id not in answer
+            ),
+            "net_new_correct_in_leads": sum(
+                1
+                for r in results
+                if r.verdict is MatchVerdict.NET_NEW
+                and r.place_source_id not in answer
+            ),
+            "existing_wrongly_in_leads": sum(
+                1
+                for r in results
+                if r.verdict is MatchVerdict.NET_NEW and r.place_source_id in answer
+            ),
+            "net_new_held_in_review": sum(
+                1
+                for r in results
+                if r.verdict is MatchVerdict.NEEDS_REVIEW
+                and r.place_source_id not in answer
+            ),
             "needs_review": len(review_queue),
             "leads_scored": len(leads),
             "suppliers_on_file": len(suppliers),
