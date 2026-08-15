@@ -23,7 +23,11 @@ discover  →  classify  →  normalise  →  match  →  net-new  →  enrich  
 - **Normalise** — locale-aware: diacritics, legal forms, phones, domains.
 - **Match** — deterministic hard keys, then deterministic fuzzy scoring, then
   banding. The ambiguous middle goes to a human, not to a model: see below.
-- **Enrich** — operator website into structured fields.
+- **Enrich** — operator website into structured fields. Around a quarter of
+  sites cannot be read, and mostly not because of us: four of the Split sample
+  sit behind a bot-protection interstitial and one refuses our user agent while
+  serving a browser normally. Sending a browser user agent would fix it and is
+  declined, for the same reason competitor marketplaces are not scraped.
 - **Score** — three separate axes: quality, readiness, gap fit.
 - **Triage** — human review where it matters, which is not where most people
   put it. See the decision log.
@@ -41,9 +45,19 @@ are in the decision log that accompanies this repo. The short version:
   band goes to a human. `DecidedBy.LLM` is in the enum and is used nowhere.
 - The LLM **is** used, for real and with real spend, in classification (is this
   an experience operator?) and in website enrichment.
-- Human review is deliberately pointed at the **auto-matched** decisions rather
-  than the passes. A false positive costs one wasted Sales call. A false
-  negative means an operator is silently never contacted again.
+- The two errors are not equal, and the thresholds are set on that basis. Saying
+  "already on file" about a genuinely new operator means nobody ever contacts
+  them and nothing surfaces the mistake. Saying "net-new" about an existing
+  supplier costs one awkward phone call that corrects itself. The threshold grid
+  prices those differently in analyst-minutes and picks the cheapest point.
+- **What the review queue actually holds** is the ambiguous middle band, four
+  pairs per destination, sent to a human because the score could not settle
+  them. The stronger idea in the decision log — auditing the *auto-decided*
+  results, weighted toward the expensive error — is a practice rather than a
+  feature. It was done by hand during the build, weighting rejects four times
+  more heavily than accepts, and it recovered a real operator Google had tagged
+  `night_club`. `scripts/check_rejects.py` is the tool for redoing that
+  inspection. There is no automated audit sampler for either stage.
 - The Places API silently truncates results at a per-query cap, so a naive
   city-wide sweep quietly loses suppliers. Cells that come back at the cap are
   subdivided and re-queried.
@@ -103,6 +117,12 @@ Stated here rather than discovered by a reader:
   match band was designed and never built; that band goes to a human.
 - **DuckDB is not used.** `duckdb>=1.1` is in `requirements.txt` and nothing
   imports it. It was intended as the local pipeline working set.
+- **A live sweep does not determine net-new.** The Discover view discovers,
+  classifies and scores anywhere; it does not match. It cannot: the synthetic
+  supplier list is built inside `build_snapshot.py`, used and discarded, so the
+  deployed container ships no supplier records. Net-new is a relation between an
+  operator and Viator's supply list, and it is demonstrated on the Split
+  benchmark, where an answer key exists.
 - No supplier contact is automated. The pipeline ends at a qualified lead.
 - Nothing a user does is persisted. Review decisions and lead removals are
   captured in the browser session only, and a live sweep's results are lost on
@@ -110,13 +130,20 @@ Stated here rather than discovered by a reader:
 
 ## Running locally
 
-```bash
+Windows PowerShell:
+
+```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements-dev.txt
-copy .env.example .env   # then fill it in
+Copy-Item .env.example .env   # then fill it in
 uvicorn supply_radar.api.main:app --reload --port 8080
 ```
+
+The console works with no keys at all — it serves the committed snapshot. Keys
+are needed only to run something billable: `GOOGLE_MAPS_API_KEY` for a live
+sweep, `ANTHROPIC_API_KEY` for classification and enrichment, and `ACCESS_CODE`,
+which gates every browser-triggered action that spends money.
 
 ## Deploying
 
