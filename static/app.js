@@ -113,27 +113,31 @@ function viewOverview() {
           <td style="color:var(--muted)">Operators Viator does not have</td></tr>
       </tbody>
     </table></div>
-    <div class="note"><strong>All ${c.net_new} net-new operators are enriched, scored and
-      published as leads.</strong> ${S.snap.leads.filter(l => l.no_website).length} of them
-      have no website, so nothing could be read about how they sell: they score low on
-      missing evidence rather than bad evidence, and each one says so. Enrichment used to
-      run over a sample drawn from all ${c.operators} operators with no net-new filter,
-      which put businesses Viator already had into the lead list. The build now refuses to
-      publish a lead that is not net-new.</div>
+    ${note(
+      `All ${c.net_new} net-new operators become leads. Nothing is sampled or dropped.`,
+      `<p>${S.snap.leads.filter(l => l.no_website).length} of them have no website. We could
+        not read how they sell, so they score low. That is missing evidence, not bad
+        evidence, and each one says so on its card.</p>
+      <p>This used to be wrong. We enriched a sample of all ${c.operators} operators and
+        forgot to filter out the ones Viator already had, so 14 of 40 "leads" were existing
+        suppliers. The build now refuses to publish a lead that is not net-new.</p>`)}
 
-    <div class="note">Classification runs <em>before</em> matching, so the matcher never
-      compares a car park against the supplier list and every figure here shares one
-      denominator: ${c.already_on_file} + ${c.needs_review} + ${c.net_new} = ${c.operators}.</div>
+    ${note(
+      `The numbers add up: ${c.already_on_file} + ${c.needs_review} + ${c.net_new} = ${c.operators}.`,
+      `<p>We decide what a business <em>is</em> before we check whether Viator has it. So the
+        matcher never compares a car park against the supplier list.</p>
+      <p>That order matters. It means every figure on this page counts the same
+        ${c.operators} operators, so nothing is double-counted or lost.</p>`)}
 
-    <div class="note"><strong>The filter is about what a business sells, not what type
-      Google says it is.</strong> A museum running guided tours or workshops is an
-      experience operator; one that only sells admission at the door is an attraction. A
-      restaurant selling a cooking class or a scheduled tasting is an operator; one where
-      you turn up and eat is not. Real decisions from this run:
-      <em>"Meštrović Gallery — selling admission to view exhibits, with no scheduled
-      guided activity"</em> and <em>"Restaurant Krug — no evidence of scheduled tastings
-      or classes, just dining"</em>. Every one of those reasons is shown to the reviewer
-      so they can overrule it.</div>
+    ${note(
+      'We judge a business on what it sells, not on what Google calls it.',
+      `<p>A museum that runs guided tours is an operator. A museum that only sells a ticket
+        at the door is not. A restaurant that sells a cooking class is an operator. One
+        where you turn up and eat is not.</p>
+      <p>Two real decisions from this run: <em>"Meštrović Gallery, selling admission to
+        view exhibits, with no scheduled guided activity"</em> and <em>"Restaurant Krug, no
+        evidence of scheduled tastings or classes, just dining"</em>.</p>
+      <p>Every reason is shown to the reviewer, so a human can overrule it.</p>`)}
   </div>
 
   <p class="section-title">What the pipeline does</p>
@@ -148,9 +152,12 @@ function viewOverview() {
         <tr><td>Score</td><td>Which leads are worth Sales time</td><td class="num">£0.00</td><td>Three separate axes, evidence shown</td></tr>
       </tbody>
     </table></div>
-    <div class="note">Costs are measured from the real Split run, not modelled.
-      Total <strong>${gbp(s.economics.per_destination.total_gbp)}</strong> per destination
-      against an assumed <strong>${gbp(s.economics.versus_manual.manual_cost_gbp)}</strong> of manual research.</div>
+    ${note(
+      `<strong>${gbp(s.economics.per_destination.total_gbp)}</strong> per destination, against
+       <strong>${gbp(s.economics.versus_manual.manual_cost_gbp)}</strong> for doing it by hand.`,
+      `<p>These costs were measured from the real Split run, not estimated.</p>
+      <p>The manual figure is an assumption: one analyst day at &pound;32 an hour. It is
+        editable on the Economics page, so you can put your own number in.</p>`)}
   </div>
 
   ${s.taxonomy ? `
@@ -169,10 +176,11 @@ function viewOverview() {
         ${s.taxonomy.tier1_not_covered.map(t => `<span class="pill grey" style="margin:0 4px 4px 0;display:inline-block">${esc(t)}</span>`).join('')}
       </div>
     </div>
-    <div class="note">Stated rather than glossed over: this build targets a slice of the
-      catalogue, and the slice is measurable. Widening it is search terms and demand-table
-      rows, not new code — the taxonomy file is Viator's own, loaded verbatim, so
-      replacing it when their categories change is a paste rather than a rewrite.</div>
+    ${note(
+      'This build covers part of your catalogue, and we can tell you exactly which part.',
+      `<p>Widening it means adding search terms and demand rows. It does not mean new code.</p>
+      <p>The category list is Viator's own file, loaded as-is. When your categories change,
+        you replace the file.</p>`)}
   </div>` : ''}
 
   <p class="section-title">Where the opportunity actually is <span class="synthetic">demand data synthetic</span></p>
@@ -238,10 +246,8 @@ function viewDiscover() {
              one action in this app that cannot be undone, so the sequence is
              made structural rather than implied. -->
         <div id="rungate" style="display:none">
-          <label class="field" style="margin-top:14px">
-            <span>Access code</span>
-            <input type="password" id="code" placeholder="required to spend money">
-          </label>
+          <div class="note warn" style="margin-top:14px">Spends real money. The estimate
+            above is what it will cost.</div>
           <button class="btn" id="btnRun" style="width:100%">Run sweep</button>
         </div>
       </div>
@@ -260,10 +266,11 @@ function viewDiscover() {
             <span class="pill grey">closed</span><span style="color:var(--muted)">${esc(r.name)}</span>
           </div>
           ${r.note ? `<p style="color:var(--dim);font-size:12.5px;margin:0 0 10px">${esc(r.note)}</p>` : ''}`).join('')}
-        <div class="note">Opening a market is a change to one config file, not a code
-          change. That is what "scales to hundreds of destinations" has to mean in
-          practice. The API re-checks every request, so the map is a courtesy rather
-          than the boundary.</div>
+        ${note(
+          'Opening a new market is a config change, not a code change.',
+          `<p>That is what "scales to hundreds of destinations" has to mean in practice.</p>
+          <p>The greyed-out map is a courtesy. The server checks every request itself, so
+            the limit holds even if someone edits the page.</p>`)}
       </div>
     </div>
     <div>
@@ -513,9 +520,19 @@ async function doEstimate() {
         ${autoCellKm(S.shape)} km, chosen automatically</span></div>
       <div class="row"><span>Search terms</span><span>${e.queries_per_cell}</span></div>
       <div class="row"><span>API calls</span><span>${e.estimated_calls}</span></div>
-      <div class="row"><span>Estimated cost</span><span>${gbp(e.estimated_gbp)}</span></div>
-      <div class="row"><span>Estimated time</span><span>${e.estimated_seconds}s</span></div>
-      <div class="note ${e.within_live_run_limit ? '' : 'warn'}">${esc(e.message)}</div>`;
+      <div class="row"><span>Estimated cost</span><span>${gbp(e.estimated_gbp)} to
+        <strong>${gbp(e.estimated_gbp_max)}</strong></span></div>
+      <div class="row"><span>Estimated time</span><span>${e.estimated_seconds} to
+        ${e.estimated_seconds_max}s</span></div>
+      <div class="note ${e.within_live_run_limit ? '' : 'warn'}">${esc(e.message)}</div>
+      ${note(
+        `Budget for the higher number, ${gbp(e.estimated_gbp_max)}.`,
+        `<p>The lower figure is searching the squares exactly as drawn. Two things push it
+          up: any square that comes back full gets split into four and searched again, and
+          every place we find is then read by a model to decide whether it is an experience
+          operator.</p>
+        <p>Neither can be known before we look, so you get a range rather than a number
+          that turns out to be wrong.</p>`)}`;
     $('#btnRun').disabled = !e.within_live_run_limit;
     // Over the cell limit there is nothing to authorise, so the gate stays shut
     // and the estimate message is the only thing on screen to act on.
@@ -528,13 +545,13 @@ async function doEstimate() {
 
 async function doRun() {
   const body = requestBody();
-  const code = $('#code').value.trim();
   $('#btnRun').disabled = true;
   $('#runout').innerHTML = '<div class="card" style="margin-top:16px">Running a live sweep… discovery, then classification, then scoring.</div>';
   try {
     const r = await api('/api/run', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Access-Code': code },
+      // No code header: the session cookie set at the door already carries it.
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
     renderRun(r);
@@ -579,13 +596,16 @@ function pipelineStrip() {
         <div class="s-head">${STAGE_MARK[state]} ${esc(name)}</div>
         <div class="s-why">${esc(why)}</div>
       </div>`).join('')}</div>
-    <div class="note warn"><strong>There is no queue yet, and that is the honest gap in
-      this build.</strong> The three stopped stages are not blocked only by the missing
-      supplier list. Enrichment is too slow to run inside a web request at all, so in
-      production it runs as an asynchronous job and the results append to the lead table.
-      That job does not exist here: today's published lead list was produced by running
-      the pipeline scripts by hand. Wiring it is one button, a job and a topic, and it
-      changes nothing in the discovery, matching or scoring code.</div>`;
+    ${note(
+      '<strong>A sweep cannot create a lead, and that is the honest gap in this build.</strong>',
+      `<p>Reading one operator's website takes about 3 seconds. A web request has 900 seconds
+        before it is killed. This sweep found operators in one area; a full destination has
+        167. The sum does not work, so enrichment cannot run while you wait.</p>
+      <p>In a real system it runs as a background job and the leads appear when they are
+        ready. That job is the one piece we did not build. Today's lead list was made by
+        running the scripts by hand.</p>
+      <p>Adding it is a button, a job and a queue. It changes nothing in the discovery,
+        matching or scoring code.</p>`, 'warn')}`;
 }
 
 function sweepCard(l, i) {
@@ -616,14 +636,16 @@ function sweepCard(l, i) {
         ${axisCard('Readiness', l.readiness)}
         ${axisCard('Gap fit', l.gap_fit)}
       </div>
-      <div class="note warn"><strong>Two axes here are provisional, because a live sweep
-        reads no websites.</strong> Fetching them takes several seconds each and would make
-        this unusable interactively. Readiness scores on contactability alone.
-        ${l.category ? '' : `Gap fit falls to the country default, because with no website
-        read there is no way to know which categories this operator sells. Once enriched,
-        an operator like this is scored on the mean of its real categories, which in the
-        published list moves the axis by up to 0.07 in either direction.`}
-        The published lead list is enriched; these figures are not.</div>
+      ${note(
+        'Two of these three scores are provisional. A sweep does not read websites.',
+        `<p><strong>Readiness</strong> here only knows whether we can contact them. It cannot
+          see whether they take online bookings, what languages they sell in, or whether
+          they already sell on a marketplace.</p>
+        ${l.category ? '' : `<p><strong>Gap fit</strong> falls back to a country-wide default,
+          because without the website we do not know what this operator sells. Once enriched,
+          an operator like this is scored on its real categories, which moves the number by
+          up to 0.07 either way.</p>`}
+        <p>The published lead list is enriched. These figures are not.</p>`, 'warn')}
       ${c && c.reason ? `<div class="note"><strong>Classified ${esc(c.verdict.replace(/_/g, ' '))}</strong>
         by ${esc(c.decided_by || 'rules')}${c.confidence ? `, confidence ${n3(c.confidence)}` : ''}:
         ${esc(c.reason)}</div>` : ''}
@@ -651,16 +673,18 @@ function explainAddToLeads(name) {
     <div class="modal-card">
       <h3 style="margin:0 0 4px">Not yet a lead</h3>
       <div style="color:var(--muted);font-size:13px;margin-bottom:12px">${esc(name)}</div>
-      <div class="note">${esc(ADD_TO_LEADS_WHY)}</div>
-      <div class="note"><strong>There is a second reason, and it is the more interesting
-        one.</strong> Even with the supplier list connected, this button would have nothing
-        to call. Promoting an operator means enriching it and matching it, and enrichment
-        reads websites at roughly 3 seconds each against a 900-second request ceiling. It
-        cannot run inside a web request. In production the button queues the operator, an
-        asynchronous job does the work, and the lead appears in the list when it is ready.
-        That job is the one part of the architecture this build does not have.</div>
-      <div class="note">The matching itself is demonstrated on the published benchmark,
-        where an answer key exists.</div>
+      ${note(
+        'We do not know whether Viator already has this operator.',
+        `<p>"Net-new" is a comparison, and this deployment holds only one side of it. No
+          supplier records ship with the container.</p>`)}
+      ${note(
+        'Even with the supplier list, this button would have nothing to call.',
+        `<p>Promoting an operator means reading its website and matching it. Reading takes
+          about 3 seconds; a web request is killed at 900. It cannot happen while you wait.</p>
+        <p>In a real system this button adds the operator to a queue, a background job does
+          the work, and the lead appears when it is ready. That job is the one part of the
+          design we did not build.</p>`)}
+      ${note('The matching itself is proven on the published Split run, where we know the right answers.')}
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
         <button class="btn" id="addLeadOk">Understood</button>
       </div>
@@ -714,8 +738,9 @@ function renderRun(r) {
       ${d.unresolved_cells ? `<div class="note warn">${d.unresolved_cells} cells were still returning a
         full page at maximum depth. Coverage is incomplete there, and the tool says so rather
         than reporting a clean result.</div>` : ''}
-      ${r.scope ? `<div class="note warn" style="margin-top:14px">
-        <strong>${esc(r.scope.headline)}</strong><br>${esc(r.scope.detail)}</div>` : ''}
+      ${r.scope ? note(
+        '<strong>These are discovered operators, not net-new leads.</strong>',
+        `<p>${esc(r.scope.detail)}</p>`, 'warn') : ''}
       ${r.caveats.map(c => `<div class="note">${esc(c)}</div>`).join('')}
       ${pipelineStrip()}
       <div class="section-title" style="display:flex;align-items:center;gap:12px">
@@ -878,13 +903,15 @@ function viewLeads() {
       // list with a marketplace", it is only "why this one too".
       const ta = all.filter(l => l.claims_tripadvisor && !l.claims_viator).length;
       if (!ta) return '';
-      return `<div class="note"><strong>${ta} of these ${all.length} operators already
-        sell on Tripadvisor but not on Viator</strong>, according to their own websites.
-        Tripadvisor owns Viator, so these are the warmest leads here: the hard conversation
-        about selling through a third party has already happened, and someone else had it.
-        Read from the operator's site during enrichment, not from any marketplace's
-        catalogue, so it undercounts anyone who sells through a marketplace without
-        advertising it.</div>`;
+      return note(
+        `<strong>${ta} of these ${all.length} already sell on Tripadvisor but not Viator.</strong>`,
+        `<p>Tripadvisor owns Viator. So these operators have already agreed to sell through a
+          marketplace, agreed commission, and handed over their inventory once. Someone else
+          had the hard conversation.</p>
+        <p>The objection is not "why a marketplace". It is only "why this one too". That is a
+          much easier call.</p>
+        <p>We read this from each operator's own website. Anyone who sells on a marketplace
+          without saying so is missed, so the real number is higher.</p>`);
     })()}
 
     <div class="grid g3" style="margin-top:6px">
@@ -898,37 +925,36 @@ function viewLeads() {
         </div>`).join('')}
     </div>
 
-    <div class="note">Bands come from the composite of the three axes, weighted
-      35% quality / 35% readiness / 30% gap fit. <strong>Gap fit is deliberately
-      compressed and 30% is its weight, not its reach.</strong> It multiplies how short a
-      category is of equilibrium by how large that category is, so scoring near 1.0 would
-      need enormous demand and almost no supply, which no real market has. The best
-      achievable cell anywhere in this demand table is 0.42, and in this destination 0.38,
-      so gap fit contributes at most about 0.11 to any composite. That is the intended
-      behaviour: a small unserved category should not outrank a large one. The cut-offs
-      below are derived from what is actually achievable rather than from a
-      theoretical 1.0, which is how the compression is accounted for.${S.snap.bands ? `
-      <strong>A &ge; ${n3(S.snap.bands.band_a)}, B &ge; ${n3(S.snap.bands.band_b)}</strong>
-      here. ${esc(S.snap.bands.basis)}` : ` The cut-offs are recalibrated per
-      destination, because a saturated category scores 0.00 on gap fit and that caps
-      what any operator there can reach.`}</div>
+    ${note(
+      S.snap.bands
+        ? `Bands are set per destination. Here, <strong>A is ${n3(S.snap.bands.band_a)} or above, B is ${n3(S.snap.bands.band_b)} or above.</strong>`
+        : 'Bands are set per destination, not by a fixed number.',
+      `<p>The score is 35% quality, 35% readiness, 30% gap fit.</p>
+      <p><strong>Gap fit cannot reach 1.0, by design.</strong> It multiplies how short a
+        category is by how big that category is. Scoring near 1.0 would need huge demand and
+        almost no operators, which no real market has. The best possible score anywhere in
+        this demand data is 0.42, and 0.38 in this destination. So gap fit adds at most
+        about 0.11 to any lead.</p>
+      <p>That is deliberate. A tiny unserved category should not beat a large one.</p>
+      <p>${S.snap.bands ? esc(S.snap.bands.basis) : 'The cut-offs are worked out from the best score actually achievable here, not from a theoretical 1.0.'}</p>`)}
 
-    ${counts.A === 0 ? `<div class="note warn"><strong>No A-band leads here, and that is
-      the model working rather than failing.</strong> Every operator found sits in a
-      category the demand model says is already well served. Good businesses in a
-      saturated market: worth knowing about, not worth prioritising over an under-served
-      category elsewhere.</div>` : (() => {
+    ${counts.A === 0 ? note(
+      '<strong>No A-band leads here. That is the model working, not failing.</strong>',
+      `<p>Every operator found sells something this destination already has plenty of.</p>
+      <p>They are good businesses in a crowded market. Worth knowing about, not worth
+        putting ahead of an under-served category somewhere else.</p>`, 'warn') : (() => {
       // Counted from the leads on screen rather than asserted. The line this
       // replaced claimed every lead scored 0.00 on gap fit, which was true of
       // the boat-tour-skewed sample it was written against and false the moment
       // the sample was fixed. Nobody re-read it for two weeks.
       const scored = S.snap.leads.filter(l => l.gap_fit.score > 0).length;
       const flat = S.snap.leads.length - scored;
-      return `<div class="note"><strong>${scored} of ${S.snap.leads.length} leads score
-        above zero on gap fit.</strong> The other ${flat} sit in categories the demand
-        model says are already well served, so gap fit contributes nothing and they earned
-        their band on quality and readiness alone: strong operators in a competitive
-        market, rather than an unmet need.</div>`;
+      return note(
+        `${scored} of ${S.snap.leads.length} leads score above zero on gap fit.`,
+        `<p>The other ${flat} sell things this destination already has plenty of, so gap fit
+          gives them nothing.</p>
+        <p>They earned their band on quality and readiness alone. They are good operators in
+          a crowded market, rather than an unmet need.</p>`);
     })()}
     ${removed.length ? `<div class="note warn"><strong>${removed.length} lead${removed.length > 1 ? 's' : ''} removed this session.</strong>
       ${removed.map(r => `<div style="margin-top:6px">${esc(r.name)} — <span style="color:var(--muted)">${esc(r.reason)}</span></div>`).join('')}
@@ -980,21 +1006,25 @@ function leadRow(l, i) {
         ${axisCard('Readiness', l.readiness)}
         ${axisCard('Gap fit', l.gap_fit)}
       </div>
-      ${l.claims_viator ? `<div class="note warn"><strong>This operator's own website says
-        it already sells on Viator, yet it appears here as net-new.</strong> Both
-        statements are true of the data in front of you, and the contradiction is worth
-        understanding rather than hiding. The supplier list in this build is synthetic:
-        40% of discovered operators were seeded into it and the rest are net-new by
-        construction, so whether this business is "on Viator" here was decided by a random
-        seed, not by reality. Against Viator's real supplier list this operator would
-        almost certainly match and never reach a lead list. It is left unchanged
-        deliberately: acting on the website claim would contradict the benchmark's own
-        answer key and report three missed opportunities that are artefacts of the
-        synthetic data rather than failures of the matcher.</div>` : ''}
-      ${l.no_website ? `<div class="note warn">This operator has no website, so nothing
-        could be read about how they sell. Readiness scores on contactability alone and
-        gap fit has no product evidence behind it. The low score reflects missing
-        evidence, not bad evidence, and a caller should treat it that way.</div>` : ''}
+      ${l.claims_viator ? note(
+        `<strong>Their own website says they already sell on Viator. We have still listed
+         them as net-new.</strong>`,
+        `<p>Both things are true of the data here, and the contradiction is worth understanding
+          rather than hiding.</p>
+        <p>The supplier list in this demo is made up. We seeded 40% of the operators we found
+          into it; the rest are net-new because the coin landed that way. So whether this
+          business is "on Viator" here was decided by a random number, not by reality.</p>
+        <p>Against Viator's real supplier list it would almost certainly match, and never
+          reach a lead list at all.</p>
+        <p>We left it alone on purpose. Acting on the website would disagree with the answer
+          key we measure accuracy against, and would report three misses that are artefacts
+          of the fake data rather than mistakes by the matcher.</p>`, 'warn') : ''}
+      ${l.no_website ? note(
+        'No website, so the low score means we know little, not that they are poor.',
+        `<p>We could not read how they sell, what they offer, or whether they take bookings
+          online. Readiness falls back to whether we can contact them at all.</p>
+        <p>Treat this as an unknown to check by phone, not as a business to skip.</p>`,
+        'warn') : ''}
       <div class="decide" style="margin-top:4px">
         <span style="color:var(--muted);font-size:13px">Not a fit? Removing it records
           why, which is what turns a rejection into a scoring signal.</span>
@@ -1040,8 +1070,7 @@ function showRemoveDialog(lead, onConfirm) {
         <span>Why is this not a fit?</span>
         <textarea id="removeReason" rows="3" placeholder="e.g. already a supplier under a different trading name; not an experience operator; ceased trading"></textarea>
       </label>
-      <div class="note">Captured in this session only. In production this writes to the
-        decisions table and feeds threshold tuning.</div>
+      ${note('Recorded in this browser only. In a real system this feeds back into the scoring.')}
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
         <button class="btn ghost" id="removeCancel">Cancel</button>
         <button class="btn" id="removeConfirm" disabled>Remove lead</button>
@@ -1082,9 +1111,10 @@ function viewReview() {
     <h2>Match review queue <span class="pill grey">${q.length}</span></h2>
     <p class="hint">These are the pairs the deterministic stages could not settle. Everything
       above and below this band was decided without a human. ${done ? `<strong>${done} decided this session.</strong>` : ''}</p>
-    <div class="note">A decision here would, in production, write back to the CRM and feed
-      threshold tuning. In this prototype it is captured client-side only, which is stated
-      rather than implied.</div>
+    ${note(
+      'Decisions here are kept in your browser and go nowhere else.',
+      `<p>In a real system each decision writes back to the CRM and tunes the thresholds, so
+        the matcher gets better at the cases people keep overruling.</p>`)}
     ${filterBar(all, 'review', 'experience_type', all.length)}
   </div>
   <div style="margin-top:14px">${q.slice(0, 40).map(reviewCard).join('')}</div>`;
@@ -1132,14 +1162,16 @@ function viewQuality() {
    * which this page already says in three places. It is that precision and
    * recall cannot be computed at all without an answer key, and production has
    * none. The honest production answer is a feedback loop, not a number. */
-  const scopeNote = `<div class="note"><strong>Scope of this page.</strong> Every figure
-    here is measured over the ${esc(S.snap.destination)} run against a synthetic supplier
-    list seeded from it, which is the only reason an answer key exists.
-    <strong>None of these metrics could be computed on Viator's real data on day one.</strong>
-    Precision, recall, missed opportunities and wasted calls all require knowing the right
-    answer in advance. In production the numbers are not calculated, they are earned: a
-    lead called and found to be an existing supplier, or a match a reviewer overturns.
-    The register of matched operators is the surface that produces them.</div>`;
+  const scopeNote = note(
+    `<strong>On your real data, none of these numbers would exist on day one.</strong>`,
+    `<p>Every figure here is measured against a made-up supplier list. We made it up on
+      purpose: it is the only way to know the right answers and therefore the only way to
+      mark our own work.</p>
+    <p>Accuracy needs a right answer to compare against. Viator has real supply data but no
+      marked answers, so on day one there is nothing to score.</p>
+    <p>In use these numbers are earned, not calculated. Someone calls a lead and finds it is
+      already a supplier. A reviewer overturns a match. Each of those is one data point, and
+      the register of matched operators is where they come from.</p>`);
   const sweepRows = (rows) => `
     <div class="scroll"><table>
       <thead><tr><th class="num">high</th><th class="num">low</th><th class="num">precision</th>
@@ -1165,25 +1197,20 @@ function viewQuality() {
   </div>
 
   ${mm.precision >= 0.999 ? `<div class="card" style="margin-top:16px">
-    <div class="note warn"><strong>Read precision 1.000 carefully — it is a real
-      measurement and it is not a forecast.</strong>
-      <div style="margin-top:8px">It says that of the ${mm.correct_existing + mm.missed_opportunity + mm.wrong_supplier}
-        operators this pipeline declared already-on-file, all
-        ${mm.correct_existing} were, against a supplier list whose answer key we hold.
-        Three things about that are worth saying before anyone quotes it.</div>
-      <div style="margin-top:8px"><strong>The denominator is small.</strong>
-        ${mm.correct_existing} decisions, one destination. A single bad call would put it
-        at ${n3(mm.correct_existing / (mm.correct_existing + 1))}.</div>
-      <div style="margin-top:8px"><strong>It was 0.803 on the first real-data run.</strong>
-        The distance between those two numbers is 26 corrections, and that trajectory is
-        the actual evidence here. The endpoint on its own is not.</div>
-      <div style="margin-top:8px"><strong>Real CRM data would score lower, and should.</strong>
-        The supplier list is synthetic. Its corruptions are modelled on how records
-        genuinely rot, but a real Viator extract carries duplicate entries for the same
-        operator, franchise and parent-child relationships, records stale by years, and
-        legitimate near-identical businesses that no answer key can adjudicate. Expect
-        this to fall. What transfers is the method and the corrections, not the figure.</div>
-    </div>
+    ${note(
+      '<strong>Precision 1.000 is a real measurement. It is not a promise.</strong>',
+      `<p>It means that of the ${mm.correct_existing + mm.missed_opportunity + mm.wrong_supplier}
+        operators we said Viator already had, all ${mm.correct_existing} were right. Three
+        things to know before anyone quotes it.</p>
+      <p><strong>It is a small sample.</strong> ${mm.correct_existing} decisions in one town.
+        One bad call takes it to ${n3(mm.correct_existing / (mm.correct_existing + 1))}.</p>
+      <p><strong>It started at 0.803.</strong> The gap between those two numbers is 26
+        corrections. That journey is the evidence here. The end number on its own is not.</p>
+      <p><strong>Real data would score lower, and should.</strong> Our fake supplier list is
+        messy in realistic ways, but a real extract also has the same operator entered twice,
+        franchises and parent companies, records years out of date, and genuinely similar
+        businesses that nobody can tell apart. Expect this to drop. What carries over is the
+        method, not the figure.</p>`, 'warn')}
   </div>` : ''}
 
   <div class="card" style="margin-top:16px">
@@ -1201,9 +1228,12 @@ function viewQuality() {
         lead. One awkward call, self-corrects immediately.</p>
       </div>
     </div>
-    <div class="note">Every threshold in the system is set to spend the cheap error to buy
-      down the expensive one. The classification audit samples deterministic <em>rejects</em>
-      four times more heavily than accepts for the same reason.</div>
+    ${note(
+      'Every setting here trades a cheap mistake to avoid an expensive one.',
+      `<p>A wasted call costs one awkward conversation. A missed operator costs a supplier
+        you never knew you could have had, and nobody ever finds out.</p>
+      <p>So when in doubt we send it to a human. For the same reason, the quality audit
+        checks four rejected businesses for every one we accepted.</p>`)}
   </div>
 
   <p class="section-title">Upper threshold — governs the expensive error</p>
@@ -1211,8 +1241,7 @@ function viewQuality() {
 
   <p class="section-title">Lower threshold — governs human review load</p>
   <div class="card">${sweepRows(m.sweep_lower)}
-    <div class="note">Thresholds are read off these curves, not chosen. The highlighted row
-      is what ships.</div>
+    ${note('We read the settings off these tables rather than picking them. The highlighted row is what ships.')}
   </div>
 
   <p class="section-title">How each decision was reached</p>
@@ -1221,9 +1250,12 @@ function viewQuality() {
     <tbody>${Object.entries(m.decisions_by_stage).sort().map(([k, v]) =>
       `<tr><td>${esc(k.replace(/_/g, ' '))}</td><td class="num">${v}</td></tr>`).join('')}
     </tbody></table></div>
-    <div class="note">Most already-on-file decisions come from deterministic keys. That is
-      why tuning the thresholds could not fix the two identity bugs found on real data —
-      they were never in the fuzzy path.</div>
+    ${note(
+      'Most matches are decided by an exact key, not by fuzzy comparison.',
+      `<p>An exact key is something like a shared website domain or phone number: either it
+        matches or it does not.</p>
+      <p>This is why turning the fuzzy dials could not fix the two worst bugs we found on
+        real data. Those cases never reached the fuzzy stage at all.</p>`)}
   </div>
 
   <p class="section-title">Corruptions applied to the synthetic supplier list <span class="synthetic">synthetic</span></p>
@@ -1232,9 +1264,12 @@ function viewQuality() {
     <tbody>${Object.entries(m.corruptions_applied).sort((a, b) => b[1] - a[1]).map(([k, v]) =>
       `<tr><td>${esc(k.replace(/_/g, ' '))}</td><td class="num">${v}</td></tr>`).join('')}
     </tbody></table></div>
-    <div class="note">The supplier list is seeded from real discovered operators and then
-      degraded the way a real CRM degrades. Because we know what was seeded, precision and
-      recall are measurable rather than asserted.</div>
+    ${note(
+      'We built the fake supplier list from real operators, then broke it on purpose.',
+      `<p>Names get typos, phone numbers get reformatted, addresses go stale, some records
+        are for businesses that no longer exist. That is how real CRM data rots.</p>
+      <p>Because we know exactly what we put in, we can mark our own answers. That is the
+        only reason accuracy on this page is a measurement rather than a claim.</p>`)}
   </div>`;
 }
 
@@ -1243,11 +1278,14 @@ function viewQuality() {
 function viewEconomics() {
   const e = S.snap.economics, p = e.per_destination, v = e.versus_manual;
   return `
-  <div class="note"><strong>Scope of this page.</strong> The unit cost is measured from the
-    ${esc(S.snap.destination)} run: its actual API calls and its ${p.operators_surfaced}
-    operators. Everything below it is that measurement projected forward, at list price
-    with free tiers excluded. It is what a destination costs to <em>run</em>, not what this
-    build cost, and those two numbers are deliberately different.</div>
+  ${note(
+    'This is what one destination costs to run. It is not what this build cost.',
+    `<p>The unit cost is measured from the real ${esc(S.snap.destination)} run: its actual API
+      calls and its ${p.operators_surfaced} operators. Everything else on this page is that
+      measurement projected forward.</p>
+    <p>We use full list prices and ignore free allowances, because a free tier that covers
+      one destination will not cover two hundred. That makes these numbers deliberately
+      pessimistic.</p>`)}
 
   <div class="grid g4">
     ${stat('Cost per destination', gbp(p.total_gbp), 'list price, free tiers excluded')}
@@ -1256,7 +1294,9 @@ function viewEconomics() {
     ${stat('Per operator surfaced', gbp(p.gbp_per_operator_surfaced), `${p.operators_surfaced} operators`)}
   </div>
 
-  ${e.basis ? `<div class="card"><div class="note warn">${esc(e.basis)}</div></div>` : ''}
+  ${e.basis ? `<div class="card">${note(
+    'The actual spend on this whole build was about &pound;0.82.',
+    `<p>${esc(e.basis)}</p>`, 'warn')}</div>` : ''}
 
   <p class="section-title">Where the money goes, per destination</p>
   <div class="card"><div class="scroll"><table>
@@ -1267,9 +1307,12 @@ function viewEconomics() {
       ${costRow('Website enrichment (Sonnet)', p.enrichment_usd, p.total_usd)}
     </tbody>
   </table></div>
-    <div class="note">Enrichment dominates because operator websites are large. Running it
-      through the Batch API halves model cost, which is free money for an overnight job:
-      <strong>${gbp(p.total_gbp_batched)}</strong> per destination.</div>
+    ${note(
+      `Run overnight instead of live, this halves to <strong>${gbp(p.total_gbp_batched)}</strong> per destination.`,
+      `<p>Reading websites is the expensive part, because websites are long and the model is
+        paid by the amount of text it reads.</p>
+      <p>Anthropic charges half price for work you are willing to wait for. This job runs
+        overnight anyway, so that discount costs nothing to take.</p>`)}
   </div>
 
   <p class="section-title">At scale</p>
@@ -1291,9 +1334,11 @@ function viewEconomics() {
       <tr><td>${esc(a.name)}</td><td>${esc(a.value)}</td>
       <td style="color:var(--muted);font-size:13px">${esc(a.source)}</td></tr>`).join('')}
     </tbody></table></div>
-    <div class="note warn">The manual baseline is the number that moves this comparison most,
-      and it is an assumption rather than a measurement. Correct it and every figure above
-      moves with it.</div>
+    ${note(
+      'The manual figure is our biggest assumption. Change it and every number above changes.',
+      `<p>We assumed one analyst day per destination at &pound;32 an hour. Nobody measured it.</p>
+      <p>If your team does it in half a day, halve the saving. If it takes two days, double
+        it. The tool cost stays the same either way.</p>`, 'warn')}
   </div>`;
 }
 
@@ -1315,16 +1360,19 @@ function viewAdmin() {
         <input type="password" id="adminCode" placeholder="5-digit code"></label>
       <button class="btn" id="btnAdmin">Unlock</button>
       <div id="adminErr"></div>
-      <div class="note">A separate key from the one that authorises a sweep.
-        Authorising spend and changing what others may spend it on are different
-        privileges. Role-based access replaces both on day 2.</div>
+      ${note(
+        'A different code from the one that opens the site.',
+        `<p>Spending money on a sweep and changing what everyone else is allowed to sweep are
+          two different powers, so they get two different keys.</p>
+        <p>Proper user accounts and roles replace both of these on day 2.</p>`)}
     </div>`;
   }
 
   const c = S.adminCfg;
   return `
-  <div class="note warn" style="margin-bottom:16px"><strong>Changes apply to this
-    running instance only.</strong> ${esc(c.persistence.note)}</div>
+  ${note(
+    '<strong>Changes here last until the next deploy, then reset.</strong>',
+    `<p>${esc(c.persistence.note)}</p>`, 'warn')}
 
   <div class="grid g2">
     <div class="card">
@@ -1383,10 +1431,12 @@ function viewAdmin() {
 
   <p class="section-title">Not yet built</p>
   <div class="card">
-    <div class="note">Day 2, and named rather than implied: persisting these settings to
-      a config store with an audit trail of who changed what; role-based access replacing
-      both shared codes; per-locale threshold calibration when a second market opens; and
-      alerting when a run trips the daily cap.</div>
+    ${note(
+      'Four things we know are missing here.',
+      `<p>Settings that survive a deploy, with a record of who changed what.</p>
+      <p>Real user accounts instead of two shared codes.</p>
+      <p>Separate matching thresholds per country, once a second market opens.</p>
+      <p>An alert when a run hits the daily spend cap.</p>`)}
   </div>`;
 }
 
@@ -1447,6 +1497,24 @@ const VIEWS = {
   review: viewReview, quality: viewQuality, economics: viewEconomics,
   admin: viewAdmin,
 };
+
+/* Notes say one thing, and hide the rest until asked.
+ *
+ * These had grown into paragraphs. Every sentence was load-bearing to whoever
+ * wrote it and none of it was readable at a glance, which is the only way a
+ * caveat gets read during a demo. So: a single plain-English line on the page,
+ * and the reasoning behind a disclosure triangle for anyone who wants it.
+ *
+ * <details> rather than a JS toggle, because it opens without scripting, it is
+ * keyboard-accessible for free, and browser find-in-page can still reach the
+ * collapsed text.
+ */
+function note(lead, rest, kind) {
+  const cls = `note${kind ? ' ' + kind : ''}`;
+  if (!rest) return `<div class="${cls}">${lead}</div>`;
+  return `<details class="${cls}"><summary>${lead}</summary>
+    <div class="note-rest">${rest}</div></details>`;
+}
 
 /* The funnel is the journey, so its rows are the navigation. Reading "105
  * net-new leads" and then hunting the tab row for where they live was the gap

@@ -4,6 +4,20 @@ import pytest
 
 from supply_radar.models import DiscoveredPlace, Source
 
+
+@pytest.fixture(autouse=True)
+def _site_gate_open(monkeypatch):
+    """Run the suite as an ungated instance unless a test says otherwise.
+
+    Settings are loaded from .env, so a developer with ACCESS_CODE set locally
+    would otherwise watch every API test fail with a 401 that has nothing to do
+    with what the test is checking. test_gate.py sets the code back deliberately.
+    """
+    from supply_radar.api import main, routes
+
+    monkeypatch.setattr(main.settings, "access_code", "")
+    monkeypatch.setattr(routes.settings, "access_code", "")
+
 _NAMES = [
     "Šibenik Boat Excursions", "Adriatic Adventures", "Blue Cave Tours",
     "Dubrovnik Kayak Company", "Split Free Walking Tours", "Hvar Sailing Club",

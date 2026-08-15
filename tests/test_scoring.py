@@ -128,9 +128,17 @@ class TestGapFit:
 
     def test_synthetic_provenance_is_always_disclosed(self):
         """The demand table is invented. Every score derived from it has to say
-        so, or a reader will take it as a Viator figure."""
+        so, or a reader will take it as a Viator figure.
+
+        Asserts the disclosure, not one particular word for it. This test used
+        to require the literal string "synthetic" and failed when the notes were
+        rewritten in plain English for non-technical readers, which is a test
+        objecting to better wording rather than to a real regression.
+        """
         axis = score_gap_fit("split", "food_drink")
-        assert "synthetic" in (axis.note or "").lower()
+        note = (axis.note or "").lower()
+        assert any(phrase in note for phrase in ("synthetic", "made up", "invented"))
+        assert "viator" in note, "must say where the real figures would come from"
 
 
 class TestComposite:

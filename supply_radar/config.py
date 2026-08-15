@@ -39,8 +39,17 @@ class Settings(BaseSettings):
     google_maps_api_key: str = ""
     search_api_key: str = ""
 
-    # Gate on live runs and any billable call triggered from the browser.
+    # One code for two jobs: it opens the site, and it authorises anything
+    # billable. Separating them was considered and rejected. The panel is meant
+    # to drive the live tool, and a second code at the moment they press Run
+    # is friction placed exactly where the demo needs none. Spending stays
+    # capped by the 24-cell live limit rather than by a second secret.
     access_code: str = ""
+
+    # Signs the access cookie. Any non-empty value works; it only has to be
+    # stable across instances and unknown to the client, so that possessing a
+    # cookie cannot be turned back into possessing the code.
+    gate_secret: str = "supply-radar-gate"
 
     # Separate key for the admin surface. Deliberately not the same as the
     # spend code: authorising a sweep and changing what everyone else is

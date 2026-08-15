@@ -164,6 +164,26 @@ tbody tr:hover { background: var(--panel-2); }
   color: var(--muted); font-size: 13px; margin-top: 12px;
 }
 .note.warn { border-left-color: var(--warn); }
+
+/* Expandable notes: one line on the page, the reasoning on request. */
+details.note > summary {
+  cursor: pointer; list-style: none; color: var(--text);
+  display: flex; align-items: baseline; gap: 8px;
+}
+details.note > summary::-webkit-details-marker { display: none; }
+details.note > summary::after {
+  content: 'why'; margin-left: auto; flex: none;
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--dim); border-bottom: 1px dotted var(--dim);
+}
+details.note[open] > summary::after { content: 'less'; }
+details.note > summary:hover::after { color: var(--muted); }
+details.note .note-rest {
+  margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+details.note .note-rest p { margin: 0 0 8px; }
+details.note .note-rest p:last-child { margin-bottom: 0; }
 .synthetic {
   display: inline-block; font-size: 10px; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--warn);

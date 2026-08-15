@@ -88,7 +88,7 @@
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -206,7 +206,7 @@
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -320,7 +320,7 @@
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -434,7 +434,7 @@
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -556,7 +556,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -676,7 +676,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -801,7 +801,7 @@
       },
       "gap_fit": {
         "score": 0.0633,
-        "note": "No single category applies: this operator sells across 6 of them, read from its own website. Scored as the mean of all of them. Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "This operator sells 6 different things, so no single category fits. We read the list from their own website and averaged across all of them. Demand data here is made up; in production it comes from Viator search logs.",
         "components": [
           {
             "name": "boat_tour",
@@ -971,7 +971,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -1089,7 +1089,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -1213,7 +1213,7 @@
       },
       "gap_fit": {
         "score": 0.1233,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -1334,7 +1334,7 @@
       },
       "gap_fit": {
         "score": 0.115,
-        "note": "No single category applies: this operator sells across 2 of them, read from its own website. Scored as the mean of all of them. Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "This operator sells 2 different things, so no single category fits. We read the list from their own website and averaged across all of them. Demand data here is made up; in production it comes from Viator search logs.",
         "components": [
           {
             "name": "adventure",
@@ -1465,7 +1465,7 @@
       },
       "gap_fit": {
         "score": 0.1233,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -1584,7 +1584,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -1699,7 +1699,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -1817,7 +1817,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -1931,7 +1931,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -2056,7 +2056,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -2172,7 +2172,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -2291,7 +2291,7 @@
       },
       "gap_fit": {
         "score": 0.1233,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -2407,7 +2407,7 @@
       },
       "gap_fit": {
         "score": 0.0967,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -2521,7 +2521,7 @@
       },
       "gap_fit": {
         "score": 0.1439,
-        "note": "No single category applies: this operator sells across 6 of them, read from its own website. Scored as the mean of all of them. Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "This operator sells 6 different things, so no single category fits. We read the list from their own website and averaged across all of them. Demand data here is made up; in production it comes from Viator search logs.",
         "components": [
           {
             "name": "boat_tour",
@@ -2682,7 +2682,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -2797,7 +2797,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -2911,7 +2911,7 @@
       },
       "gap_fit": {
         "score": 0.08,
-        "note": "No single category applies: this operator sells across 2 of them, read from its own website. Scored as the mean of all of them. Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "This operator sells 2 different things, so no single category fits. We read the list from their own website and averaged across all of them. Demand data here is made up; in production it comes from Viator search logs.",
         "components": [
           {
             "name": "boat_tour",
@@ -3035,7 +3035,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -3152,7 +3152,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -3270,7 +3270,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -3390,7 +3390,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -3506,7 +3506,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -3622,7 +3622,7 @@
       },
       "gap_fit": {
         "score": 0.1267,
-        "note": "No single category applies: this operator sells across 5 of them, read from its own website. Scored as the mean of all of them. Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "This operator sells 5 different things, so no single category fits. We read the list from their own website and averaged across all of them. Demand data here is made up; in production it comes from Viator search logs.",
         "components": [
           {
             "name": "walking_tour",
@@ -3773,7 +3773,7 @@
       },
       "gap_fit": {
         "score": 0.0322,
-        "note": "No single category applies: this operator sells across 3 of them, read from its own website. Scored as the mean of all of them. Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "This operator sells 3 different things, so no single category fits. We read the list from their own website and averaged across all of them. Demand data here is made up; in production it comes from Viator search logs.",
         "components": [
           {
             "name": "walking_tour",
@@ -3907,7 +3907,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -4022,7 +4022,7 @@
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -4143,7 +4143,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -4262,7 +4262,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -4376,7 +4376,7 @@
       },
       "gap_fit": {
         "score": 0.1233,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -4490,7 +4490,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -4604,7 +4604,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -4717,7 +4717,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -4833,7 +4833,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -4954,7 +4954,7 @@
       },
       "gap_fit": {
         "score": 0.13,
-        "note": "No single category applies: this operator sells across 3 of them, read from its own website. Scored as the mean of all of them. Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "This operator sells 3 different things, so no single category fits. We read the list from their own website and averaged across all of them. Demand data here is made up; in production it comes from Viator search logs.",
         "components": [
           {
             "name": "water_sports",
@@ -5087,7 +5087,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -5202,7 +5202,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -5317,7 +5317,7 @@
       },
       "gap_fit": {
         "score": 0.0817,
-        "note": "No single category applies: this operator sells across 4 of them, read from its own website. Scored as the mean of all of them. Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "This operator sells 4 different things, so no single category fits. We read the list from their own website and averaged across all of them. Demand data here is made up; in production it comes from Viator search logs.",
         "components": [
           {
             "name": "boat_tour",
@@ -5459,7 +5459,7 @@
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -5518,7 +5518,7 @@
       "band": "B",
       "quality": {
         "score": 0.21,
-        "note": "No rating available; quality cannot be assessed from discovery data.",
+        "note": "No Google rating, so we cannot judge quality yet.",
         "components": [
           {
             "name": "rating",
@@ -5578,7 +5578,7 @@
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -5700,7 +5700,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -5815,7 +5815,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -5932,7 +5932,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -6046,7 +6046,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -6161,7 +6161,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -6276,7 +6276,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -6393,7 +6393,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -6508,7 +6508,7 @@
       },
       "gap_fit": {
         "score": 0.1067,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -6625,7 +6625,7 @@
       },
       "gap_fit": {
         "score": 0.1233,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -6673,7 +6673,7 @@
       "band": "B",
       "quality": {
         "score": 0.21,
-        "note": "No rating available; quality cannot be assessed from discovery data.",
+        "note": "No Google rating, so we cannot judge quality yet.",
         "components": [
           {
             "name": "rating",
@@ -6733,7 +6733,7 @@
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -6847,7 +6847,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -6957,7 +6957,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7065,7 +7065,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7184,7 +7184,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7299,7 +7299,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7407,7 +7407,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7478,7 +7478,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -7496,31 +7496,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7577,7 +7577,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -7595,31 +7595,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.1233,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7676,7 +7676,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -7694,31 +7694,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7775,7 +7775,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -7793,31 +7793,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7874,7 +7874,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -7892,31 +7892,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -7973,7 +7973,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -7991,31 +7991,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8072,7 +8072,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -8090,31 +8090,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8213,7 +8213,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8286,7 +8286,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -8304,31 +8304,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8385,7 +8385,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -8403,31 +8403,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8484,7 +8484,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -8502,31 +8502,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8625,7 +8625,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8693,7 +8693,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -8711,31 +8711,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8834,7 +8834,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8900,7 +8900,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -8918,31 +8918,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -8999,7 +8999,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -9017,31 +9017,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -9140,7 +9140,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -9258,7 +9258,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -9306,7 +9306,7 @@
       "band": "C",
       "quality": {
         "score": 0.21,
-        "note": "No rating available; quality cannot be assessed from discovery data.",
+        "note": "No Google rating, so we cannot judge quality yet.",
         "components": [
           {
             "name": "rating",
@@ -9366,7 +9366,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -9485,7 +9485,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -9599,7 +9599,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -9660,7 +9660,7 @@
       "band": "C",
       "quality": {
         "score": 0.21,
-        "note": "No rating available; quality cannot be assessed from discovery data.",
+        "note": "No Google rating, so we cannot judge quality yet.",
         "components": [
           {
             "name": "rating",
@@ -9720,7 +9720,7 @@
       },
       "gap_fit": {
         "score": 0.3767,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -9834,7 +9834,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -9902,7 +9902,7 @@
       },
       "readiness": {
         "score": 0.2,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -9920,31 +9920,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -10001,7 +10001,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -10019,31 +10019,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -10100,7 +10100,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -10118,31 +10118,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -10199,7 +10199,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -10217,31 +10217,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.1,
-        "note": "Destination or category unknown; scored at the country default.",
+        "note": "We do not know what this operator sells, so this is a country-wide average.",
         "components": [
           {
             "name": "unmet demand",
@@ -10295,7 +10295,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -10313,31 +10313,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -10394,7 +10394,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -10412,31 +10412,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -10535,7 +10535,7 @@
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -10608,7 +10608,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -10626,31 +10626,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -10707,7 +10707,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -10725,31 +10725,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -10806,7 +10806,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -10824,31 +10824,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -10905,7 +10905,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -10923,31 +10923,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -11004,7 +11004,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -11022,31 +11022,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -11103,7 +11103,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -11121,31 +11121,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.1067,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -11202,7 +11202,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -11220,31 +11220,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -11301,7 +11301,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -11319,31 +11319,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -11400,7 +11400,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -11418,31 +11418,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -11499,7 +11499,7 @@
       },
       "readiness": {
         "score": 0.0,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -11517,31 +11517,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -11598,7 +11598,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -11616,31 +11616,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -11679,7 +11679,7 @@
       "band": "C",
       "quality": {
         "score": 0.21,
-        "note": "No rating available; quality cannot be assessed from discovery data.",
+        "note": "No Google rating, so we cannot judge quality yet.",
         "components": [
           {
             "name": "rating",
@@ -11697,7 +11697,7 @@
       },
       "readiness": {
         "score": 0.3,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -11715,31 +11715,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.0,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",
@@ -11778,7 +11778,7 @@
       "band": "C",
       "quality": {
         "score": 0.21,
-        "note": "No rating available; quality cannot be assessed from discovery data.",
+        "note": "No Google rating, so we cannot judge quality yet.",
         "components": [
           {
             "name": "rating",
@@ -11796,7 +11796,7 @@
       },
       "readiness": {
         "score": 0.1,
-        "note": "Website not read, so booking capability, languages and email are unknown and score zero. Readiness here reflects contactability only.",
+        "note": "We did not read their website, so booking, languages and email score zero. This only tells you whether we can reach them.",
         "components": [
           {
             "name": "website",
@@ -11814,31 +11814,31 @@
             "name": "booking capability",
             "value": 0.0,
             "weight": 0.35,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "languages sold in",
             "value": 0.0,
             "weight": 0.15,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "contactable by email",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           },
           {
             "name": "sells on a marketplace already",
             "value": 0.0,
             "weight": 0.1,
-            "evidence": "Not assessed: website not read"
+            "evidence": "Unknown, website not read"
           }
         ]
       },
       "gap_fit": {
         "score": 0.1067,
-        "note": "Demand figures are synthetic; in production these come from Viator search logs.",
+        "note": "Demand data here is made up. In production it comes from Viator search logs.",
         "components": [
           {
             "name": "unmet demand",

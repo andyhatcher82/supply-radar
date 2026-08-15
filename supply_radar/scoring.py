@@ -217,7 +217,7 @@ def score_quality(rating: float | None, review_count: int | None) -> Axis:
     reviews = review_count or 0
 
     if rating is None:
-        axis.note = "No rating available; quality cannot be assessed from discovery data."
+        axis.note = "No Google rating, so we cannot judge quality yet."
         axis.components.append(
             Component("rating", 0.35, 0.6, "No rating on the listing")
         )
@@ -278,8 +278,8 @@ def score_readiness(
         # the denominator. Scoring it explicitly also means the UI shows a
         # reviewer exactly which evidence is missing.
         axis.note = (
-            "Website not read, so booking capability, languages and email are "
-            "unknown and score zero. Readiness here reflects contactability only."
+            "We did not read their website, so booking, languages and email score "
+            "zero. This only tells you whether we can reach them."
         )
         for name, weight in (
             ("booking capability", 0.35),
@@ -288,7 +288,7 @@ def score_readiness(
             ("sells on a marketplace already", 0.1),
         ):
             axis.components.append(
-                Component(name, 0.0, weight, "Not assessed: website not read")
+                Component(name, 0.0, weight, "Unknown, website not read")
             )
         return axis
 
@@ -389,12 +389,13 @@ def score_gap_fit(
                 value, detail = _gap_value(table, cell)
                 axis.components.append(Component(cat, value, 1.0, f"{label}: {detail}"))
             axis.note = (
-                f"No single category applies: this operator sells across {len(real)} of them, "
-                "read from its own website. Scored as the mean of all of them. "
-                "Demand figures are synthetic; in production these come from Viator search logs."
+                f"This operator sells {len(real)} different things, so no single category "
+                "fits. We read the list from their own website and averaged across all of "
+                "them. Demand data here is made up; in production it comes from Viator "
+                "search logs."
             )
             return axis
-        axis.note = "Destination or category unknown; scored at the country default."
+        axis.note = "We do not know what this operator sells, so this is a country-wide average."
         cell, label = table["default"], "country default"
     else:
         cell, label = _gap_cell(table, destination_id, category)
@@ -402,7 +403,7 @@ def score_gap_fit(
     value, detail = _gap_value(table, cell)
     axis.components.append(Component("unmet demand", value, 1.0, f"{label}: {detail}"))
     if axis.note is None:
-        axis.note = "Demand figures are synthetic; in production these come from Viator search logs."
+        axis.note = "Demand data here is made up. In production it comes from Viator search logs."
     return axis
 
 

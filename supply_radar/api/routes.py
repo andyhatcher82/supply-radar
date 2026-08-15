@@ -18,10 +18,11 @@ import logging
 import time
 from typing import Literal
 
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 
 from supply_radar import admin
+from supply_radar.api import gate
 from supply_radar.classify import classify, resolve_category
 from supply_radar.config import SNAPSHOT_DIR, get_settings
 from supply_radar.costs import CostLedger, estimate_sweep
@@ -89,16 +90,27 @@ def _load(name: str) -> dict | list:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _require_code(supplied: str | None) -> None:
+def _require_code(supplied: str | None, request: Request | None = None) -> None:
     """Gate the endpoints that spend money.
 
-    Browsing is deliberately open: making someone fight a login before they
-    have seen anything is how a demo goes unopened. Spending is not.
+    Browsing used to be open and spending gated separately. The whole site now
+    sits behind the same code, so anyone who can reach this endpoint has
+    already presented it, and demanding it a second time is friction placed
+    exactly where the demo can least afford it. The session cookie is therefore
+    accepted as proof.
+
+    The header is still honoured, because a script or a curl call has no cookie
+    and there is no reason to force one through the browser flow to use the API.
     """
     if not settings.access_code:
         return
-    if supplied != settings.access_code:
-        raise HTTPException(401, "A valid access code is required to run a live sweep")
+    if supplied == settings.access_code:
+        return
+    if request is not None and gate.has_valid_cookie(
+        request, settings.access_code, settings.gate_secret
+    ):
+        return
+    raise HTTPException(401, "A valid access code is required to run a live sweep")
 
 
 # --------------------------------------------------------------------- read
@@ -223,7 +235,11 @@ def estimate(req: AreaRequest) -> dict:
 
 
 @router.post("/run")
-def run(req: AreaRequest, x_access_code: str | None = Header(default=None)) -> dict:
+def run(
+    req: AreaRequest,
+    request: Request,
+    x_access_code: str | None = Header(default=None),
+) -> dict:
     """A genuinely live sweep: discover, classify, score.
 
     Enrichment is skipped here because fetching operator websites takes several
@@ -231,7 +247,7 @@ def run(req: AreaRequest, x_access_code: str | None = Header(default=None)) -> d
     therefore scores on contactability alone, and the response says so rather
     than letting a reader assume the axis is complete.
     """
-    _require_code(x_access_code)
+    _require_code(x_access_code, request)
 
     if not settings.places_enabled:
         raise HTTPException(503, "Places API is not configured on this deployment")

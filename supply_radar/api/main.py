@@ -8,11 +8,12 @@ from __future__ import annotations
 
 import logging
 
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from supply_radar import __version__
+from supply_radar.api import gate
 from supply_radar.api.routes import router
 from supply_radar.config import STATIC_DIR, get_settings
 
@@ -27,6 +28,54 @@ app = FastAPI(
     docs_url="/api/docs",
     openapi_url="/api/openapi.json",
 )
+
+
+@app.middleware("http")
+async def require_access_code(request: Request, call_next):
+    """One shared code in front of everything, including the API.
+
+    Gating only the front end would be theatre: /api/snapshot returns the whole
+    published lead list, and the page source names the endpoint. So the check
+    runs here, before routing, and the few paths the entry page itself needs are
+    the only exceptions.
+
+    With no code configured the site is open, which keeps local development
+    frictionless and matches how access_code already behaved.
+    """
+    if not settings.access_code or gate.is_open(request.url.path):
+        return await call_next(request)
+    if not gate.has_valid_cookie(request, settings.access_code, settings.gate_secret):
+        return gate.deny(request)
+    return await call_next(request)
+
+
+@app.get("/enter")
+def enter_page():
+    return gate.entry_page()
+
+
+@app.post("/api/enter")
+async def enter(request: Request):
+    """Exchange the code for a signed cookie.
+
+    Rate-limited per client because a 5-digit code is 100,000 combinations,
+    which is nothing to a script. This does not make it strong, it makes
+    guessing slow enough to be pointless for the week this is deployed.
+    """
+    if gate.rate_limited(request):
+        return JSONResponse(
+            {"detail": "Too many attempts. Wait a few minutes and try again."},
+            status_code=429,
+        )
+    body = await request.json()
+    if str(body.get("code", "")).strip() != settings.access_code:
+        gate.record_failure(request)
+        return JSONResponse({"detail": "That code was not recognised."}, status_code=401)
+    response = JSONResponse({"ok": True})
+    gate.grant(
+        response, settings.access_code, settings.gate_secret, gate.is_https(request)
+    )
+    return response
 
 
 @app.get("/api/healthz")

@@ -182,25 +182,79 @@ class CostLedger:
         return out
 
 
+# Measured from the 14 August Split run: 301 places from 28 billable search
+# calls, and USD 0.3657 to classify all 301.
+PLACES_PER_CALL = 10.75
+CLASSIFY_USD_PER_PLACE = 0.0012
+
+# A cell that returns a full page is subdivided into four, up to MAX_LIVE_DEPTH.
+# How many cells that hits cannot be known before searching, so the estimate
+# carries a ceiling rather than pretending to a single number. 1.6x is the
+# headroom a dense city centre needs; Zagreb measured about 1.2x.
+SUBDIVISION_HEADROOM = 1.6
+
+# Places round-trip. The rest of a run's wall-clock is classification, which is
+# one model call per batch of places and dominates: a Zagreb sweep estimated at
+# 11 s took 55.3 s, and Places accounted for about 14 s of that.
+SECONDS_PER_PLACES_CALL = 0.35
+SECONDS_PER_PLACE_CLASSIFIED = 0.12
+
+
 def estimate_sweep(n_cells: int, n_queries: int, avg_pages: float = 1.8) -> dict:
     """Predict a sweep's cost before running it.
 
     Shown in the UI as a confirmation gate, because a public button that spends
     money without telling you first is a design defect, not a feature.
+
+    This used to price Google Places alone, over the grid as drawn. Both were
+    wrong in the same direction:
+
+      - /run also classifies every discovered place with a model, and that
+        spend lands in the same ledger the run reports. The estimate omitted
+        the entire classification bill.
+      - The sweep subdivides any cell that comes back full, so the grid it
+        searches is not the grid you drew.
+
+    A gate that exists to prevent surprise spending had both of its errors
+    pointing at "cheaper than reality", which is the only unacceptable
+    direction. It now returns a range, and the ceiling is the number the UI
+    leads with.
     """
     calls = int(n_cells * n_queries * avg_pages)
+    calls_max = int(calls * SUBDIVISION_HEADROOM)
     rate, free = RATES["places.text_search.enterprise"]
-    usd = calls * rate / 1000
+
+    places_usd = calls * rate / 1000
+    places_usd_max = calls_max * rate / 1000
+    classify_usd = calls * PLACES_PER_CALL * CLASSIFY_USD_PER_PLACE
+    classify_usd_max = calls_max * PLACES_PER_CALL * CLASSIFY_USD_PER_PLACE
+
+    # The floor is Places over the grid as drawn, with nothing subdivided and
+    # classification assumed cheap. It is a genuine lower bound rather than a
+    # best guess, so the pair brackets reality instead of both ends guessing at
+    # it. Measured against Zagreb: floor GBP 0.87, ceiling GBP 1.91, actual 1.06.
+    usd = places_usd
+    usd_max = places_usd_max + classify_usd_max
+    _ = classify_usd  # floor deliberately excludes it; see above
+
     return {
         "cells": n_cells,
         "queries_per_cell": n_queries,
         "estimated_calls": calls,
+        "estimated_calls_max": calls_max,
         "estimated_usd": round(usd, 2),
         "estimated_gbp": round(usd * USD_TO_GBP, 2),
+        "estimated_usd_max": round(usd_max, 2),
+        "estimated_gbp_max": round(usd_max * USD_TO_GBP, 2),
         "free_allowance_remaining_note": (
             f"first {free} Enterprise search calls each month are not charged"
         ),
-        # Places sustains well above this; the limit is politeness and the
-        # wall-clock a demo can tolerate, not the API.
-        "estimated_seconds": int(calls * 0.35),
+        "estimated_seconds": int(
+            calls * SECONDS_PER_PLACES_CALL
+            + calls * PLACES_PER_CALL * SECONDS_PER_PLACE_CLASSIFIED
+        ),
+        "estimated_seconds_max": int(
+            calls_max * SECONDS_PER_PLACES_CALL
+            + calls_max * PLACES_PER_CALL * SECONDS_PER_PLACE_CLASSIFIED
+        ),
     }
