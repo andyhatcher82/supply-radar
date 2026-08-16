@@ -10,6 +10,7 @@ import pytest
 
 from supply_radar.models import DiscoveredPlace, Source
 from supply_radar.scoring import (
+    destination_from_address,
     score_gap_fit,
     score_lead,
     score_quality,
@@ -167,3 +168,41 @@ class TestComposite:
         )
         assert strong.band < weak.band  # "A" sorts before "C"
         assert strong.composite > weak.composite
+
+
+class TestUnenrichedSweep:
+    """A live sweep cannot read websites, so it scores a different axis.
+
+    Removing the four website components was only safe because the axis is
+    renamed. Scored as "readiness" with them omitted, an operator with a website
+    and a phone would report a perfect 1.0 readiness having proved nothing about
+    whether it can transact. That mistake has been made three times here.
+    """
+
+    def test_unenriched_drops_website_components_and_renames_the_axis(self):
+        axis = score_readiness("https://x.hr", "+385 1 234", None, unenriched=True)
+        assert axis.name == "contactability"
+        assert [c.name for c in axis.components] == ["website", "phone"]
+        assert axis.score == 1.0
+
+    def test_enriched_path_still_scores_missing_evidence_at_zero(self):
+        axis = score_readiness("https://x.hr", "+385 1 234", None)
+        assert axis.name == "readiness"
+        assert len(axis.components) == 6
+        assert axis.score < 0.35, "absent evidence must stay in the denominator"
+
+    def test_gap_fit_uses_the_town_in_the_address_when_no_destination_is_set(self):
+        """A sweep sets no destination_id, so every operator it found scored the
+        country default even in destinations the demand table covers."""
+        assert destination_from_address("Biserova ul. 16, 21000, Split, Croatia") == "split"
+        assert destination_from_address("Ilica 1, 10000, Zagreb, Croatia") == "zagreb"
+        # A town the table does not know falls back rather than guessing.
+        assert destination_from_address("1, Kastel Sucurac, Croatia") is None
+        assert destination_from_address(None) is None
+
+    def test_the_fallback_actually_changes_the_score(self):
+        default = score_gap_fit(None, "food_drink").score
+        real = score_gap_fit(
+            destination_from_address("A 1, 21000, Split, Croatia"), "food_drink"
+        ).score
+        assert real != default

@@ -636,8 +636,7 @@ function sweepCard(l, i) {
   <div class="lead" data-sweep="${i}">
     <div class="lead-head">
       <div>
-        <div class="lead-name">${esc(l.name)}
-          <span class="pill ${l.band}" title="${esc(BANDS[l.band][0])}: ${esc(BANDS[l.band][1])}">${l.band}</span></div>
+        <div class="lead-name">${esc(l.name)}</div>
         <div class="lead-meta">${l.category
             ? esc(l.category.replace(/_/g, ' '))
             : '<span style="color:var(--dim)">category not determined: found by the catch-all search term, and a live sweep does not read websites</span>'}
@@ -646,28 +645,28 @@ function sweepCard(l, i) {
       </div>
       <div class="axes">
         ${ax('Quality', l.quality, 'q')}
-        ${ax('Readiness', l.readiness, 'r')}
+        ${ax('Contactability', l.readiness, 'r')}
         ${ax('Gap fit', l.gap_fit, 'g')}
-        <div class="axis"><div class="k">Composite</div>
+        <div class="axis"><div class="k">Provisional</div>
           <div class="v" style="font-size:16px">${n3(l.composite)}</div></div>
       </div>
     </div>
     <div class="lead-body">
       <div class="grid g3" style="margin-top:14px">
         ${axisCard('Quality', l.quality)}
-        ${axisCard('Readiness', l.readiness)}
+        ${axisCard('Contactability', l.readiness)}
         ${axisCard('Gap fit', l.gap_fit)}
       </div>
       ${note(
-        'Two of these three scores are provisional. A sweep does not read websites.',
-        `<p><strong>Readiness</strong> here only knows whether we can contact them. It cannot
-          see whether they take online bookings, what languages they sell in, or whether
-          they already sell on a marketplace.</p>
-        ${l.category ? '' : `<p><strong>Gap fit</strong> falls back to a country-wide default,
-          because without the website we do not know what this operator sells. Once enriched,
-          an operator like this is scored on its real categories, which moves the number by
-          up to 0.07 either way.</p>`}
-        <p>The published lead list is enriched. These figures are not.</p>`, 'warn')}
+        'Websites are only read by the batch job that turns these into leads, so readiness will change.',
+        `<p><strong>Contactability</strong> is not readiness. It scores only what a sweep can
+          see: whether they have a website at all, and whether we have a phone number. It
+          says nothing about online booking, languages sold in, email contact, or whether
+          they already sell on a marketplace. Those four are dropped here rather than
+          scored at zero, which is why this is a different axis with a different name.</p>
+        <p><strong>No band is shown.</strong> A, B and C are calibrated against the enriched
+          lead list, so the same letter would mean something different here. The provisional
+          score is a sort order for this sweep and nothing more.</p>`, 'warn')}
       ${c && c.reason ? `<div class="note"><strong>Classified ${esc(c.verdict.replace(/_/g, ' '))}</strong>
         by ${esc(c.decided_by || 'rules')}${c.confidence ? `, confidence ${n3(c.confidence)}` : ''}:
         ${esc(c.reason)}</div>` : ''}
@@ -1032,16 +1031,16 @@ function leadRow(l, i) {
       </div>
       <div class="axes">
         ${ax('Quality', l.quality, 'q')}
-        ${ax('Readiness', l.readiness, 'r')}
+        ${ax('Contactability', l.readiness, 'r')}
         ${ax('Gap fit', l.gap_fit, 'g')}
-        <div class="axis"><div class="k">Composite</div>
+        <div class="axis"><div class="k">Provisional</div>
           <div class="v" style="font-size:16px">${n3(l.composite)}</div></div>
       </div>
     </div>
     <div class="lead-body">
       <div class="grid g3" style="margin-top:14px">
         ${axisCard('Quality', l.quality)}
-        ${axisCard('Readiness', l.readiness)}
+        ${axisCard('Contactability', l.readiness)}
         ${axisCard('Gap fit', l.gap_fit)}
       </div>
       ${l.claims_viator ? note(

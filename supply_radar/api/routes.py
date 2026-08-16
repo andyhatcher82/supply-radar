@@ -194,6 +194,24 @@ def admin_update(
 # ---------------------------------------------------------------- estimate
 
 
+def _sweep_score(score) -> dict:
+    """A live sweep's score, with the band removed.
+
+    Bands are calibrated against the enriched lead list, so the same letter on a
+    sweep would mean something different from the same letter on the Leads page.
+    An operator shown as A here and B once enriched is exactly the kind of
+    inconsistency this build keeps having to correct, so the letter is withheld
+    rather than qualified.
+
+    The composite stays, because a sweep still needs a sort order, and it is
+    labelled provisional wherever it appears.
+    """
+    out = score.to_dict()
+    out.pop("band", None)
+    out["enriched"] = False
+    return out
+
+
 @router.post("/estimate")
 def estimate(req: AreaRequest) -> dict:
     """What a sweep over this area would cost, before spending anything."""
@@ -303,7 +321,7 @@ def run(
         category = resolve_category(
             place, result.experience_type if result else None
         )
-        score = score_lead(place, category, None)
+        score = score_lead(place, category, None, unenriched=True)
         leads.append(
             {
                 "name": place.name,
@@ -324,7 +342,7 @@ def run(
                 }
                 if result
                 else None,
-                **score.to_dict(),
+                **_sweep_score(score),
             }
         )
 

@@ -247,8 +247,29 @@ def score_readiness(
     website: str | None,
     phone: str | None,
     extract=None,
+    unenriched: bool = False,
 ) -> Axis:
-    axis = Axis(name="readiness")
+    """Can this operator actually transact today?
+
+    Two modes, and they are different axes rather than the same axis with
+    missing parts.
+
+    Enriched (the published lead list): six components, website read, this is
+    readiness.
+
+    Unenriched (a live sweep, which does not fetch websites): only website
+    presence and phone can be known. The four website-derived components are
+    dropped and the axis is renamed CONTACTABILITY, because an axis measuring
+    two things must not be presented as an axis measuring six.
+
+    Dropping them is safe ONLY because of the rename. The default path still
+    scores them at zero, and the comment below says why that matters: omitting
+    them while still calling the result "readiness" would let an operator whose
+    website could not be read score a perfect 1.0 on contactability alone. That
+    bug has been made three times in this pipeline. Renaming the axis is what
+    makes removal honest rather than a fourth repeat.
+    """
+    axis = Axis(name="contactability" if unenriched else "readiness")
 
     axis.components.append(
         Component(
@@ -266,6 +287,17 @@ def score_readiness(
             phone or "No phone number listed",
         )
     )
+
+    if unenriched:
+        # Nothing website-derived is knowable, so nothing website-derived is
+        # claimed. The axis is a real 0-to-1 measurement of the two signals it
+        # does have, not a readiness score with four holes in it.
+        axis.note = (
+            "Websites are only read by the batch job that produces leads. This "
+            "score covers contactability alone, and readiness will change once "
+            "this operator is enriched."
+        )
+        return axis
 
     if extract is None:
         # The missing components are added explicitly at zero rather than
@@ -354,6 +386,33 @@ def _gap_value(table: dict, cell: dict) -> tuple[float, str]:
     return value, detail
 
 
+def destination_from_address(address: str | None, country: str = "croatia") -> str | None:
+    """Which demand-table destination an operator sits in, from its own address.
+
+    A live sweep is a box drawn on a map and carries no destination label, so
+    every operator it found scored gap fit at the country default even in Split,
+    where real demand data exists. The town is already in the address Places
+    returns, and the demand table is keyed by town, so the two just needed
+    joining.
+
+    Per operator rather than per sweep, deliberately: a box drawn around Split
+    can easily contain Solin and Kastel Sucurac, and those are different
+    markets with different supply.
+
+    Returns None when the town is not in the table, which correctly falls back
+    to the country default rather than guessing at a neighbour.
+    """
+    if not address:
+        return None
+    table = load_demand(country)
+    parts = [p.strip().lower() for p in address.split(",") if p.strip()]
+    known = table.get("destinations", {})
+    for part in reversed(parts):
+        if part in known:
+            return part
+    return None
+
+
 def score_gap_fit(
     destination_id: str | None,
     category: str | None,
@@ -413,15 +472,23 @@ def score_lead(
     extract=None,
     weights: dict[str, float] | None = None,
     country: str = "croatia",
+    unenriched: bool = False,
 ) -> LeadScore:
     weights = weights or {"quality": 0.35, "readiness": 0.35, "gap_fit": 0.30}
     # Only consulted when neither category signal produced an answer. The
     # website is the weakest of the three sources, so it is the last one asked.
     from_site = getattr(extract, "product_categories", None) if extract else None
+    # A live sweep does not set destination_id, so fall back to the town in the
+    # operator's own address. Without this every live sweep scored gap fit at
+    # the country default no matter where it swept or what it found, including
+    # in destinations the demand table covers.
+    destination = place.destination_id or destination_from_address(
+        getattr(place, "address", None), country
+    )
     return LeadScore(
         place_source_id=place.source_id,
         quality=score_quality(place.rating, place.review_count),
-        readiness=score_readiness(place.website, place.phone, extract),
-        gap_fit=score_gap_fit(place.destination_id, category, country, from_site),
+        readiness=score_readiness(place.website, place.phone, extract, unenriched),
+        gap_fit=score_gap_fit(destination, category, country, from_site),
         weights=weights,
     )
