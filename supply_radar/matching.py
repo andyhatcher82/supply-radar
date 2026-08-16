@@ -531,6 +531,19 @@ def score_pair(
                 contribution=-PENALTY_PHONE_CONFLICT,
             )
         )
+    elif place_phone and keys.phone:
+        # Agreement carries no contribution: a shared phone is not identity in
+        # this market (13% of Split operators share a number with a different
+        # business), so it must not add to the score here. It is still shown,
+        # because a reviewer who sees only a conflict line cannot tell an
+        # agreement apart from a missing number, and those are different facts.
+        evidence.append(
+            MatchEvidence(
+                signal="phone",
+                detail=f"both on {place_phone}",
+                contribution=None,
+            )
+        )
 
     if name_sim is None or name_sim < NAME_GATE:
         if score > NAME_GATE_CAP:
@@ -636,6 +649,20 @@ def match_place(
         hit = _hard_key_match(place, keys, locale, index.shared_domains)
         if hit:
             signal, detail = hit
+            # The hard key decides on its own, and the score and confidence
+            # below reflect only that. But a reviewer looking at this pair has
+            # to be able to disagree with it, and one line reading "exact
+            # domain" gives them nothing to disagree WITH. The Tinel Boat Tours
+            # pair is the case in point: the supplier record is filed under a
+            # substituted legal name, so the two names share nothing, and a
+            # reader shown only the domain cannot see that the name disagreeing
+            # is expected rather than alarming.
+            #
+            # So the remaining signals are computed and shown as context. They
+            # carry no contribution figure, because they did not contribute:
+            # printing "+0.00 name" beside "+1.00 exact domain" invites the
+            # reader to add them up.
+            _, context = score_pair(place, keys, locale, index.idf)
             return MatchResult(
                 place_source_id=place.source_id,
                 supplier_id=keys.supplier.supplier_id,
@@ -646,9 +673,19 @@ def match_place(
                 evidence=[
                     MatchEvidence(
                         signal=f"exact {signal}",
-                        detail=f"{detail} matches {keys.supplier.display_name}",
+                        detail=(
+                            f"both records use {detail}. Decided on this alone"
+                        ),
                         contribution=1.0,
                     )
+                ]
+                + [
+                    MatchEvidence(
+                        signal=f"{e.signal} (not used)",
+                        detail=e.detail,
+                        contribution=None,
+                    )
+                    for e in context
                 ],
             )
 

@@ -12570,8 +12570,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "tinel-tours.hr matches Horvat obrt",
+          "detail": "both records use tinel-tours.hr. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['tinel'] vs ['horvat'], none in common",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.37 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385953819895",
+          "contribution": null
         }
       ]
     },
@@ -12596,8 +12616,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "blue-lagoon-croatia.com matches Blue Lagoon Croatia d.o.o.",
+          "detail": "both records use blue-lagoon-croatia.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['blue', 'lagoon'] vs ['blue', 'lagoon'], shared: ['blue', 'lagoon']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.47 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'lazareta', 'obala', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -12622,8 +12657,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "boating-split.com matches Boating-Split obrt",
+          "detail": "both records use boating-split.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['boatingsplit'] vs ['boatingsplit'], shared: ['boatingsplit']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.32 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['branimira', 'croatia', 'kneza', 'obala', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385915564612",
+          "contribution": null
         }
       ]
     },
@@ -12648,8 +12703,33 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "split-boat-tours.com matches Split Boat Tours",
+          "detail": "both records use split-boat-tours.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "both names are only market-generic words ('boat, split'), so the name cannot establish identity",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.24 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'lazareta', 'obala', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385953991928",
+          "contribution": null
+        },
+        {
+          "signal": "name gate (not used)",
+          "detail": "no usable name agreement, so location and address alone cannot establish identity",
+          "contribution": null
         }
       ]
     },
@@ -12674,8 +12754,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+385958637551 with 100% name agreement matches Island Hopping Split - Boat Tours and Private Trips d.d.",
+          "detail": "both records use +385958637551 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['hopping', 'island', 'private', 'trips'] vs ['and', 'hopping', 'island', 'private', 'trips'], shared: ['hopping', 'island', 'private', 'trips'] (ignoring 'boat, split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "6.93 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['split'] — but ['split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385958637551",
+          "contribution": null
         }
       ]
     },
@@ -12700,8 +12800,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "hellobluecave.com matches Hello Blue Cave - Boat Tours Split Croatia",
+          "detail": "both records use hellobluecave.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['blue', 'cave', 'hello'] vs ['blue', 'cave', 'hello'], shared: ['blue', 'cave', 'hello'] (ignoring 'boat, split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.08 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'riva', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +38598702250",
+          "contribution": null
         }
       ]
     },
@@ -12726,8 +12846,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "toto.hr matches Toto Travel",
+          "detail": "both records use toto.hr. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['toto'] vs ['toto'], shared: ['toto']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.32 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'obala', 'split', 'trumbiceva'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385997574222",
+          "contribution": null
         }
       ]
     },
@@ -12752,8 +12892,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "condoryachting.com matches Condor Yachting",
+          "detail": "both records use condoryachting.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['condor', 'yachting'] vs ['condor', 'yachting'], shared: ['condor', 'yachting']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.35 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385995775770",
+          "contribution": null
         }
       ]
     },
@@ -12778,8 +12938,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "watersportssplit.com matches Taxi Boat Split Port - Znjan beach",
+          "detail": "both records use watersportssplit.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['beach', 'port', 'taxi', 'znjan'] vs ['beach', 'port', 'taxi', 'znjan'], shared: ['beach', 'port', 'taxi', 'znjan'] (ignoring 'boat, split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "5.89 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['split'] — but ['split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385955181818",
+          "contribution": null
         }
       ]
     },
@@ -12804,8 +12984,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+385958503179 with 92% name agreement matches Catamraan 4U j.d.o.o.",
+          "detail": "both records use +385958503179 with 92% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['4u', 'catamaran'] vs ['4u', 'catamraan'], shared: ['4u']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.85 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['split'] — but ['split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385958503179",
+          "contribution": null
         }
       ]
     },
@@ -12830,8 +13030,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+385952001100 with 100% name agreement matches X Party Boat Split obrt",
+          "detail": "both records use +385952001100 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['party', 'x'] vs ['party', 'x'], shared: ['party', 'x'] (ignoring 'boat, split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.27 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'obala', 'split', 'trumbiceva'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385952001100",
+          "contribution": null
         }
       ]
     },
@@ -12856,8 +13076,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "bluecavetour.com matches All inclusive blue cave tour from Split | lunch & drinks",
+          "detail": "both records use bluecavetour.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['all', 'blue', 'cave', 'drinks', 'from', 'inclusive', 'lunch'] vs ['all', 'blue', 'cave', 'drinks', 'from', 'inclusive', 'lunch'], shared: ['all', 'blue', 'cave', 'drinks', 'from', 'inclusive', 'lunch'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.20 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'obala', 'split', 'trumbiceva'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -12882,8 +13117,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "islanddiscovery.life matches ISLAND DISCOVERY",
+          "detail": "both records use islanddiscovery.life. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['discovery', 'island'] vs ['discovery', 'island'], shared: ['discovery', 'island']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.31 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'obala', 'split', 'trumbiceva'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -12908,8 +13158,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "marinero-sailing.com matches Marinero Sailing d.d.",
+          "detail": "both records use marinero-sailing.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['marinero', 'sailing'] vs ['marinero', 'sailing'], shared: ['marinero', 'sailing']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.35 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'kranjceviceva', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385994008056",
+          "contribution": null
         }
       ]
     },
@@ -12934,8 +13204,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "hemingwaysplit.com matches Hemingway Boat Split",
+          "detail": "both records use hemingwaysplit.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['hemingway'] vs ['hemingway'], shared: ['hemingway'] (ignoring 'boat, split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.20 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385995775770",
+          "contribution": null
         }
       ]
     },
@@ -12960,8 +13250,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "split-taxiboat.com matches Split Taxi Boat - Day Boat Tours And Transfers Split",
+          "detail": "both records use split-taxiboat.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['and', 'day', 'taxi', 'transfers'] vs ['and', 'day', 'taxi', 'transfers'], shared: ['and', 'day', 'taxi', 'transfers'] (ignoring 'boat, split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.44 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'lazareta', 'obala', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385992344774",
+          "contribution": null
         }
       ]
     },
@@ -12986,8 +13296,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "semisubmarine-split.com matches semiSUBMARINE Split d.d.",
+          "detail": "both records use semisubmarine-split.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['semisubmarine'] vs ['semisubmarine'], shared: ['semisubmarine'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.38 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -13012,8 +13337,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "rezgo.me matches Novak obrt",
+          "detail": "both records use rezgo.me. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['private', 'walking'] vs ['novak'], none in common",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.46 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385955326523",
+          "contribution": null
         }
       ]
     },
@@ -13038,8 +13383,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "graylinecroatia.com matches Blažević obrt",
+          "detail": "both records use graylinecroatia.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['gray', 'line'] vs ['blazevic'], none in common",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.28 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385911400800",
+          "contribution": null
         }
       ]
     },
@@ -13064,8 +13429,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "jetskisafarisplit.hr matches Jet Ski Split - Jetski Rental and Safari Tours Split Croatia",
+          "detail": "both records use jetskisafarisplit.hr. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['and', 'jet', 'jetski', 'rental', 'safari', 'ski'] vs ['and', 'jet', 'jetski', 'rental', 'safari', 'ski'], shared: ['and', 'jet', 'jetski', 'rental', 'safari', 'ski'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.25 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'obala', 'split', 'trumbiceva'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -13090,8 +13470,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "citytoursplit.com matches Split by Tuk Tuk - Private City Tour d.o.o.",
+          "detail": "both records use citytoursplit.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['by', 'city', 'private', 'tuk'] vs ['by', 'city', 'private', 'tuk'], shared: ['by', 'city', 'private', 'tuk'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.55 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'franje', 'split', 'trg', 'tudmana'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385913085227",
+          "contribution": null
         }
       ]
     },
@@ -13116,8 +13516,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "sugamantours.com matches Šugaman Tours",
+          "detail": "both records use sugamantours.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['sugaman'] vs ['sugaman'], shared: ['sugaman']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.27 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'lazareta', 'obala', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +38521344085",
+          "contribution": null
         }
       ]
     },
@@ -13142,8 +13562,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "splitbluecave.com matches Split Blue Cave",
+          "detail": "both records use splitbluecave.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['blue', 'cave'] vs ['blue', 'cave'], shared: ['blue', 'cave'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.39 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -13168,8 +13603,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "saltyexperience.hr matches Boat trips by Salty Experince",
+          "detail": "both records use saltyexperience.hr. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['by', 'experince', 'salty', 'trips'] vs ['by', 'experince', 'salty', 'trips'], shared: ['by', 'experince', 'salty', 'trips'] (ignoring 'boat', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.40 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'lazareta', 'obala', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone conflict (not used)",
+          "detail": "+385915530387 vs +38551923267",
+          "contribution": null
         }
       ]
     },
@@ -13194,8 +13649,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "lagida.com matches Lagida d.o.o. obrt",
+          "detail": "both records use lagida.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['lagida'] vs ['lagida'], shared: ['lagida']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.33 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'duilova', 'put', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -13220,8 +13690,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "escaperoomsplit.com matches escape room split mystery room j.d.o.o.",
+          "detail": "both records use escaperoomsplit.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['escape', 'mystery', 'room'] vs ['escape', 'mystery', 'room'], shared: ['escape', 'mystery', 'room'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.31 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'dubrovacka', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385976131845",
+          "contribution": null
         }
       ]
     },
@@ -13246,8 +13736,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "xcapecruises.com matches Jurić d.o.o.",
+          "detail": "both records use xcapecruises.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['catamaran', 'cruise', 'day', 'xcape'] vs ['juric'], none in common",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.32 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'franje', 'split', 'trg', 'tudmana'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -13272,8 +13777,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "timewalksplit.com matches Time Walk (VR Walking Tour Split) j.d.o.o.",
+          "detail": "both records use timewalksplit.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['time', 'vr', 'walk', 'walking'] vs ['time', 'vr', 'walk', 'walking'], shared: ['time', 'vr', 'walk', 'walking'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.20 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'senoina', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385919204433",
+          "contribution": null
         }
       ]
     },
@@ -13298,8 +13823,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+385955316701 with 100% name agreement matches Split walking tour - Goran Kosta tour",
+          "detail": "both records use +385955316701 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['goran', 'kosta', 'walking'] vs ['goran', 'kosta', 'walking'], shared: ['goran', 'kosta', 'walking'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.40 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'kralja', 'split', 'tomislava'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385955316701",
+          "contribution": null
         }
       ]
     },
@@ -13324,8 +13869,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "grandtourcroatia.com matches grand tour croatia d.o.o.",
+          "detail": "both records use grandtourcroatia.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['grand'] vs ['grand'], shared: ['grand']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.27 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'jobova', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385997030885",
+          "contribution": null
         }
       ]
     },
@@ -13350,8 +13915,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "splitandsip.com matches Knežević d.d.",
+          "detail": "both records use splitandsip.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['sip'] vs ['knezevic'], none in common",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.40 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['bulata', 'croatia', 'gaje', 'split', 'trg'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385981325550",
+          "contribution": null
         }
       ]
     },
@@ -13376,8 +13961,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+38598408123 with 100% name agreement matches Hole in the Wall Cellar: Gin and Wine Tastings in Split",
+          "detail": "both records use +38598408123 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['cellar', 'gin', 'hole', 'in', 'tastings', 'the', 'wall', 'wine'] vs ['and', 'cellar', 'gin', 'hole', 'in', 'tastings', 'the', 'wall', 'wine'], shared: ['cellar', 'gin', 'hole', 'in', 'tastings', 'the', 'wall', 'wine'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.22 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'plinarska', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +38598408123",
+          "contribution": null
         }
       ]
     },
@@ -13402,8 +14007,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "booker.hr matches Booker obrt",
+          "detail": "both records use booker.hr. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['booker'] vs ['booker'], shared: ['booker']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.16 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'maruliceva', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385914343000",
+          "contribution": null
         }
       ]
     },
@@ -13428,8 +14053,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+38521394518 with 100% name agreement matches Ilocki podrumi",
+          "detail": "both records use +38521394518 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['ilocki', 'podrumi'] vs ['ilocki', 'podrumi'], shared: ['ilocki', 'podrumi']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.46 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'plinarska', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +38521394518",
+          "contribution": null
         }
       ]
     },
@@ -13454,8 +14099,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "bgnautica.eu matches BG Nautica d.d.",
+          "detail": "both records use bgnautica.eu. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['bg', 'nautica'] vs ['bg', 'nautica'], shared: ['bg', 'nautica']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.33 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'marmontova', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385915576326",
+          "contribution": null
         }
       ]
     },
@@ -13480,8 +14145,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "given2flyadventures.com matches Perić j.d.o.o.",
+          "detail": "both records use given2flyadventures.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['bike', 'given2fly', 'rental'] vs ['peric'], none in common",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "5.26 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['split'] — but ['split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +38598408123",
+          "contribution": null
         }
       ]
     },
@@ -13506,8 +14191,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "crozziespubcrawl.com matches Crozzies Open Bar Split",
+          "detail": "both records use crozziespubcrawl.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['bar', 'crozzies', 'open'] vs ['bar', 'crozzies', 'open'], shared: ['bar', 'crozzies', 'open'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.48 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'split', 'trogirska'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -13532,8 +14232,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+385998656176 with 100% name agreement matches Gariful Travel and Charter Agency",
+          "detail": "both records use +385998656176 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['charter', 'gariful'] vs ['and', 'charter', 'gariful'], shared: ['charter', 'gariful']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.43 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'put', 'split', 'supavla'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385998656176",
+          "contribution": null
         }
       ]
     },
@@ -13558,8 +14278,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "splitboattours.com matches Split Boat Tours by Juts Book Croatia",
+          "detail": "both records use splitboattours.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['book', 'by', 'just'] vs ['book', 'by', 'juts'], shared: ['book', 'by'] (ignoring 'boat, split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.36 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'dioklecijanova', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -13584,8 +14319,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "juniorexcursions.com matches Juniro Excursions",
+          "detail": "both records use juniorexcursions.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['junior'] vs ['juniro'], none in common",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.22 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'gaspini', 'solin'] — but ['croatia'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385995200442",
+          "contribution": null
         }
       ]
     },
@@ -13610,8 +14365,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "split-travel.com matches Petrović d.o.o.",
+          "detail": "both records use split-travel.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "only one side carries a distinguishing word (['petrovic']); the rest is generic to this market",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "1.55 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['split'] — but ['split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385919392074",
+          "contribution": null
         }
       ]
     },
@@ -13636,8 +14411,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "ilirios-hvar-tours.com matches Ilirio's Hvar Tuors",
+          "detail": "both records use ilirios-hvar-tours.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['hvar', 'ilirios'] vs ['hvar', 'ilirios', 'tuors'], shared: ['hvar', 'ilirios']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.41 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'grgura', 'ninskog', 'poljana', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +38598405551",
+          "contribution": null
         }
       ]
     },
@@ -13662,8 +14457,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "tempertravel.com matches Blažević obrt",
+          "detail": "both records use tempertravel.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['temper'] vs ['blazevic'], none in common",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.44 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'smiljaniceva', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone conflict (not used)",
+          "detail": "+385989620610 vs +38521878480",
+          "contribution": null
         }
       ]
     },
@@ -13688,8 +14503,23 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "sirena-booking.hr matches SIRENA Travel Agency L",
+          "detail": "both records use sirena-booking.hr. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['ltd', 'sirena'] vs ['l', 'sirena'], shared: ['sirena']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.30 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'manuska', 'poljana', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
         }
       ]
     },
@@ -13714,8 +14544,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+385998215383 with 100% name agreement matches DALMATIA BY CABRIO",
+          "detail": "both records use +385998215383 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['by', 'cabrio', 'dalmatia'] vs ['by', 'cabrio', 'dalmatia'], shared: ['by', 'cabrio', 'dalmatia']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.28 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'dioklecijanova', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385998215383",
+          "contribution": null
         }
       ]
     },
@@ -13740,8 +14590,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "kukuvia.com matches KUKUVIA, obrt za usluge, vl. Jelena Tanjić",
+          "detail": "both records use kukuvia.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['jelena', 'kukuvia', 'obrt', 'tanjic', 'usluge', 'vl', 'za'] vs ['jelena', 'kukuvia', 'obrt', 'tanjic', 'usluge', 'vl', 'za'], shared: ['jelena', 'kukuvia', 'obrt', 'tanjic', 'usluge', 'vl', 'za']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.43 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'split', 'vukovarska'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385916201238",
+          "contribution": null
         }
       ]
     },
@@ -13766,8 +14636,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+38521420899 with 100% name agreement matches Game of Thrones Split Tour",
+          "detail": "both records use +38521420899 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['game', 'of', 'thrones'] vs ['game', 'of', 'thrones'], shared: ['game', 'of', 'thrones'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "6.85 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['split'] — but ['split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +38521420899",
+          "contribution": null
         }
       ]
     },
@@ -13792,8 +14682,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "privateguidesincroatia.com matches Private Guides in Croatia d.d.",
+          "detail": "both records use privateguidesincroatia.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['guides', 'in', 'private'] vs ['guides', 'in', 'private'], shared: ['guides', 'in', 'private']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.16 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'split', 'vinkovacka'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385912030148",
+          "contribution": null
         }
       ]
     },
@@ -13818,8 +14728,28 @@
       "evidence": [
         {
           "signal": "exact domain and name",
-          "detail": "tantulika28.wixsite.com with 100% name agreement matches Croatia Private Tours",
+          "detail": "both records use tantulika28.wixsite.com with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['private'] vs ['private'], shared: ['private']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "3.40 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['split'] — but ['split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone conflict (not used)",
+          "detail": "+385996941644 vs +38552835244",
+          "contribution": null
         }
       ]
     },
@@ -13844,8 +14774,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+385958150190 with 100% name agreement matches Zip Line Split obrt",
+          "detail": "both records use +385958150190 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['line', 'zip'] vs ['line', 'zip'], shared: ['line', 'zip'] (ignoring 'split', common to this market)",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.20 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'dujma', 'mikacica', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385958150190",
+          "contribution": null
         }
       ]
     },
@@ -13870,8 +14820,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "splitdiving.com matches Slpit Diving Experience d.d.",
+          "detail": "both records use splitdiving.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['diving'] vs ['diving', 'slpit'], shared: ['diving']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.50 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['croatia', 'dioklecijanova', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +385998215383",
+          "contribution": null
         }
       ]
     },
@@ -13896,8 +14866,28 @@
       "evidence": [
         {
           "signal": "exact phone and name",
-          "detail": "+38521260346 with 100% name agreement matches Extreme Fishing",
+          "detail": "both records use +38521260346 with 100% name agreement. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['extreme', 'fishing'] vs ['extreme', 'fishing'], shared: ['extreme', 'fishing']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.17 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['brigade', 'croatia', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +38521260346",
+          "contribution": null
         }
       ]
     },
@@ -13922,8 +14912,28 @@
       "evidence": [
         {
           "signal": "exact domain",
-          "detail": "private-tours-croatia.com matches Private Tours Croatia",
+          "detail": "both records use private-tours-croatia.com. Decided on this alone",
           "contribution": 1.0
+        },
+        {
+          "signal": "name (not used)",
+          "detail": "distinctive words ['private'] vs ['private'], shared: ['private']",
+          "contribution": null
+        },
+        {
+          "signal": "location (not used)",
+          "detail": "0.03 km apart",
+          "contribution": null
+        },
+        {
+          "signal": "address (not used)",
+          "detail": "shared: ['bihacka', 'croatia', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": null
+        },
+        {
+          "signal": "phone (not used)",
+          "detail": "both on +38521510801",
+          "contribution": null
         }
       ]
     }
