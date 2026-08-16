@@ -1158,21 +1158,36 @@ function viewReview() {
   <div style="margin-top:14px">${q.slice(0, 40).map(reviewCard).join('')}</div>`;
 }
 
+/* One field of a discovered-vs-supplier comparison.
+ *
+ * `omitIfEmpty` exists for trading name. synth.py never populates it: when a
+ * record gets legal_name_substituted, the CRM keeps only the registered entity
+ * ("Horvat d.o.o.") and the operating name is gone, which is the hard case the
+ * matcher exists for. Printing "Trading name —" on all 58 rows advertises a
+ * field this dataset structurally does not have. Real CRM data does have it, so
+ * the field stays and simply hides when absent.
+ */
+function pairField(label, value, omitIfEmpty) {
+  if (omitIfEmpty && !value) return '';
+  return `<div class="l">${label}</div><div class="val">${esc(value || '—')}</div>`;
+}
+
 function reviewCard(r, i) {
   const decided = S.decisions[i];
-  const f = (label, a) => `<div class="l">${label}</div><div class="val">${esc(a || '—')}</div>`;
   return `
   <div class="lead" style="margin-bottom:12px">
     <div class="pair">
       <div>
         <h4>Discovered operator</h4>
-        ${f('Name', r.discovered_name)}${f('Address', r.discovered_address)}
-        ${f('Website', r.discovered_website)}${f('Phone', r.discovered_phone)}
+        ${pairField('Name', r.discovered_name)}${pairField('Address', r.discovered_address)}
+        ${pairField('Website', r.discovered_website)}${pairField('Phone', r.discovered_phone)}
       </div>
       <div>
         <h4>Possible existing supplier</h4>
-        ${f('Name', r.supplier_name)}${f('Address', r.supplier_address)}
-        ${f('Website', r.supplier_website)}${f('Phone', r.supplier_phone)}
+        ${pairField('Name', r.supplier_name)}
+        ${pairField('Trading name', r.supplier_trading_name, true)}
+        ${pairField('Address', r.supplier_address)}${pairField('Website', r.supplier_website)}
+        ${pairField('Phone', r.supplier_phone)}
       </div>
     </div>
     <div style="padding:12px 16px;border-top:1px solid var(--line)">
@@ -1252,19 +1267,20 @@ function viewMatched() {
 function matchedCard(m) {
   const id = m.place_source_id;
   const flag = FLAGS[id];
-  const f = (label, a) => `<div class="l">${label}</div><div class="val">${esc(a || '—')}</div>`;
   return `
   <div class="lead" style="margin-bottom:12px">
     <div class="pair">
       <div>
         <h4>Discovered operator</h4>
-        ${f('Name', m.discovered_name)}${f('Address', m.discovered_address)}
-        ${f('Website', m.discovered_website)}${f('Phone', m.discovered_phone)}
+        ${pairField('Name', m.discovered_name)}${pairField('Address', m.discovered_address)}
+        ${pairField('Website', m.discovered_website)}${pairField('Phone', m.discovered_phone)}
       </div>
       <div>
         <h4>Viator supplier on file</h4>
-        ${f('Name', m.supplier_name)}${f('Trading name', m.supplier_trading_name)}
-        ${f('Address', m.supplier_address)}${f('Website', m.supplier_website)}
+        ${pairField('Name', m.supplier_name)}
+        ${pairField('Trading name', m.supplier_trading_name, true)}
+        ${pairField('Address', m.supplier_address)}${pairField('Website', m.supplier_website)}
+        ${pairField('Phone', m.supplier_phone)}
       </div>
     </div>
     <div style="padding:12px 16px;border-top:1px solid var(--line)">
