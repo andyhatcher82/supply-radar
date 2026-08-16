@@ -56,7 +56,13 @@ def locality_of(address: str | None) -> str | None:
 
 DATA = Path("data")
 
-# Recorded assumption, confirmed by Andy: a Destination Specialist researching
+# Andy's estimate, NOT confirmed by anyone at Viator. An earlier version of this
+# file and the economics page both said the hiring team had confirmed it. They
+# had not, and attributing an assumption to the audience is the worst possible
+# place to be wrong: it is the number the whole 93x comparison rests on, and the
+# person who would notice is the one it was attributed to.
+#
+# Recorded assumption: a Destination Specialist researching
 # one Croatian city by hand takes roughly one working day. Editable in the UI
 # and labelled as an assumption wherever it drives a number.
 # Stamped onto every match so the log has a date column from day one. Fixed
@@ -401,8 +407,9 @@ def main() -> None:
             {
                 "name": "Manual research time per destination",
                 "value": f"{MANUAL_HOURS_PER_DESTINATION} hours (one working day)",
-                "source": "Recorded assumption, not measured. Confirmed with the "
-                          "hiring team as a working figure.",
+                "source": "My estimate, not a measurement, and nobody at Viator "
+                          "has confirmed it. Every figure on this page moves "
+                          "with it, so correct it and the comparison changes.",
             },
             {
                 "name": "Analyst cost per hour",
