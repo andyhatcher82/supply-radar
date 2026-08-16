@@ -19,24 +19,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from supply_radar.classify import resolve_category  # noqa: E402
-
-
-def locality_of(address: str | None) -> str | None:
-    """Which town an operator is in, from its own postal address.
-
-    Location is a property of the operator, not of the area that was swept. A
-    sweep is a box drawn on a map and a box has no name, especially over open
-    country. Every discovered operator carries a full address, so the town comes
-    from the operator and the naming problem never arises.
-
-    String-splitting is honest only for the Croatian format Places returns here.
-    Production reads the structured addressComponents locality field instead;
-    this is a prototype standing in for that.
-    """
-    if not address:
-        return None
-    parts = [p.strip() for p in address.split(",") if p.strip()]
-    return parts[-2] if len(parts) >= 2 else None
 from supply_radar.config import SNAPSHOT_DIR  # noqa: E402
 from supply_radar.costs import USD_TO_GBP  # noqa: E402
 from supply_radar.evaluate import evaluate, threshold_sweep  # noqa: E402
@@ -54,11 +36,34 @@ from supply_radar.scoring import (  # noqa: E402
 from supply_radar.taxonomy import breadcrumb, coverage, label, top_level  # noqa: E402
 from supply_radar.synth import expected_verdicts, generate_supplier_list  # noqa: E402
 
+def locality_of(address: str | None) -> str | None:
+    """Which town an operator is in, from its own postal address.
+
+    Location is a property of the operator, not of the area that was swept. A
+    sweep is a box drawn on a map and a box has no name, especially over open
+    country. Every discovered operator carries a full address, so the town comes
+    from the operator and the naming problem never arises.
+
+    String-splitting is honest only for the Croatian format Places returns here.
+    Production reads the structured addressComponents locality field instead;
+    this is a prototype standing in for that.
+    """
+    if not address:
+        return None
+    parts = [p.strip() for p in address.split(",") if p.strip()]
+    return parts[-2] if len(parts) >= 2 else None
+
+
 DATA = Path("data")
 
 # Recorded assumption, confirmed by Andy: a Destination Specialist researching
 # one Croatian city by hand takes roughly one working day. Editable in the UI
 # and labelled as an assumption wherever it drives a number.
+# Stamped onto every match so the log has a date column from day one. Fixed
+# rather than datetime.now(): the snapshot is a build artefact and rebuilding
+# it from unchanged inputs should produce an identical file.
+SNAPSHOT_DATE = "2026-08-14"
+
 MANUAL_HOURS_PER_DESTINATION = 7.5
 ANALYST_COST_PER_HOUR_GBP = 32.0
 
@@ -258,6 +263,62 @@ def main() -> None:
                 ],
             }
         )
+
+    # ---- match log ---------------------------------------------------------
+    # Every pair the matcher settled on its own, published so a human can
+    # disagree with one.
+    #
+    # This is not a QA report. Precision cannot be computed on real data,
+    # because precision needs an answer key and Viator has none. In production
+    # the number is not calculated, it is earned: someone opens a pair here and
+    # says "those are two different businesses". This page is where that
+    # happens, so it is the thing that PRODUCES the metric rather than the thing
+    # that displays it.
+    #
+    # It grows without bound as destinations are added, which is why it is its
+    # own page with filters rather than a panel inside Accuracy & QA.
+    matched = []
+    for r in results:
+        if r.verdict is not MatchVerdict.EXISTING:
+            continue
+        place = place_by_id.get(r.place_source_id)
+        supplier = supplier_by_id.get(r.supplier_id) if r.supplier_id else None
+        matched.append(
+            {
+                "place_source_id": r.place_source_id,
+                "discovered_name": place.name if place else None,
+                "discovered_address": place.address if place else None,
+                "discovered_website": place.website if place else None,
+                "discovered_phone": place.phone if place else None,
+                "locality": locality_of(place.address if place else None),
+                "experience_type": resolve_category(
+                    place, classified.get(r.place_source_id, {}).get("experience_type")
+                ) if place else None,
+                "supplier_id": r.supplier_id,
+                "supplier_name": getattr(supplier, "legal_name", None),
+                "supplier_trading_name": getattr(supplier, "trading_name", None),
+                "supplier_address": getattr(supplier, "address", None),
+                "supplier_website": getattr(supplier, "website", None),
+                "supplier_phone": getattr(supplier, "phone", None),
+                "score": round(r.score, 4),
+                "confidence": round(r.confidence, 4),
+                "decided_by": r.decided_by.value,
+                # The date the match was made. One run, so one date today, but
+                # the column has to exist now: a log without dates stops being
+                # a log the moment a second destination lands in it.
+                "matched_on": SNAPSHOT_DATE,
+                "evidence": [
+                    {
+                        "signal": e.signal,
+                        "detail": e.detail,
+                        "contribution": e.contribution,
+                    }
+                    for e in r.evidence
+                ],
+            }
+        )
+    matched.sort(key=lambda m: m["confidence"])
+    print(f"  match log         {len(matched)} auto-matched pairs")
 
     # ---- category gap picture ---------------------------------------------
     category_counts: dict[str, int] = {}
@@ -532,6 +593,7 @@ def main() -> None:
             "sweep_lower": lower,
         },
         "review_queue": review_queue,
+        "matched": matched,
         "category_gaps": gaps,
         "taxonomy": coverage(),
         "economics": economics,

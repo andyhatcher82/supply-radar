@@ -107,7 +107,7 @@ function viewOverview() {
         <tr style="border-top:2px solid var(--line)"><td><strong>Experience operators</strong></td>
           <td class="num"><strong>${c.operators}</strong></td>
           <td style="color:var(--muted)">Everything below is a subset of this</td></tr>
-        <tr class="nav" onclick="go('quality')" title="See how matching was measured"><td>Already a Viator supplier</td><td class="num">${c.already_on_file}</td>
+        <tr class="nav" onclick="go('matched')" title="Open the match log"><td>Already a Viator supplier</td><td class="num">${c.already_on_file}</td>
           <td style="color:var(--muted)">Matched to the supplier list</td></tr>
         <tr class="nav" onclick="go('review')" title="Open the review queue"><td>Needs a human decision</td><td class="num">${c.needs_review}</td>
           <td style="color:var(--muted)">Too close to call automatically</td></tr>
@@ -861,7 +861,11 @@ const BANDS = {
  *
  * Both fields are properties of the operator rather than of the run, so neither
  * needs rewriting when a second destination is added. */
-const FILTERS = { leads: { locality: '', type: '' }, review: { locality: '', type: '' } };
+const FILTERS = {
+  leads: { locality: '', type: '' },
+  review: { locality: '', type: '' },
+  matched: { locality: '', type: '' },
+};
 
 function filterValues(rows, key) {
   return [...new Set(rows.map(r => r[key]).filter(Boolean))].sort();
@@ -1186,6 +1190,142 @@ function reviewCard(r, i) {
            <button class="btn" data-decide="${i}" data-v="new">Genuinely net-new</button>`}
     </div>
   </div>`;
+}
+
+/* ------------------------------------------------------------ match log */
+
+/* Every pair the matcher settled on its own, published so a human can disagree.
+ *
+ * Not a QA report. Precision needs an answer key and production has none, so
+ * the number is not calculated there, it is earned: someone opens a pair and
+ * says "those are two different businesses". This page is what produces the
+ * metric rather than what displays it.
+ *
+ * Its own page rather than a panel inside Accuracy & QA, because it grows with
+ * every destination added and a QA panel does not.
+ */
+const FLAGS = {};
+
+function viewMatched() {
+  const all = S.snap.matched || [];
+  const rows = applyFilters(all, 'matched', 'experience_type');
+  const flagged = Object.keys(FLAGS).length;
+  const byStage = all.reduce((a, m) => (a[m.decided_by] = (a[m.decided_by] || 0) + 1, a), {});
+
+  return `
+  <div class="card">
+    <h2>Match log <span class="pill grey">${all.length}</span></h2>
+    <p class="hint">Operators the matcher decided Viator already has, weakest match first.
+      Nothing here needs doing unless a pair looks wrong.</p>
+
+    ${note(
+      '<strong>This page is how accuracy gets measured on your own data.</strong>',
+      `<p>Precision needs a right answer to compare against. On the made-up supplier list
+        here we have one, which is the only reason this build can quote a number at all.
+        On Viator's real data there is no answer key, so on day one there is no score.</p>
+      <p>It is earned instead. Every time someone opens a pair here and says "those are two
+        different businesses", that is one data point. Enough of them and you have a real
+        precision figure, measured on real supply rather than on a benchmark.</p>
+      <p>There is no "confirm correct" button on purpose. Nobody clicks confirm ${all.length}
+        times, so the absence of a flag has to mean "not looked at yet" rather than
+        "checked and fine".</p>`)}
+
+    ${note(
+      `${byStage.hard_key || 0} of these were decided by an exact key. Only ${byStage.fuzzy_score || 0} needed fuzzy matching.`,
+      `<p>An exact key is a shared website domain, a shared phone number, or a registration
+        number: either it matches or it does not, and there is no judgement in it.</p>
+      <p>That ratio is the useful part. Tuning the fuzzy thresholds only ever moves those
+        ${byStage.fuzzy_score || 0}, which is why threshold changes could not fix the two
+        worst identity bugs found on real data.</p>`)}
+
+    ${flagged ? note(
+      `<strong>${flagged} flagged as wrong this session.</strong>`,
+      `<p>Kept in this browser only. In production each flag writes back and moves the
+        measured precision figure.</p>`, 'warn') : ''}
+
+    ${filterBar(all, 'matched', 'experience_type', all.length)}
+  </div>
+  <div style="margin-top:14px">${rows.map(matchedCard).join('')}</div>
+  ${rows.length ? '' : '<div class="card"><p class="hint">Nothing matches those filters.</p></div>'}`;
+}
+
+function matchedCard(m) {
+  const id = m.place_source_id;
+  const flag = FLAGS[id];
+  const f = (label, a) => `<div class="l">${label}</div><div class="val">${esc(a || '—')}</div>`;
+  return `
+  <div class="lead" style="margin-bottom:12px">
+    <div class="pair">
+      <div>
+        <h4>Discovered operator</h4>
+        ${f('Name', m.discovered_name)}${f('Address', m.discovered_address)}
+        ${f('Website', m.discovered_website)}${f('Phone', m.discovered_phone)}
+      </div>
+      <div>
+        <h4>Viator supplier on file</h4>
+        ${f('Name', m.supplier_name)}${f('Trading name', m.supplier_trading_name)}
+        ${f('Address', m.supplier_address)}${f('Website', m.supplier_website)}
+      </div>
+    </div>
+    <div style="padding:12px 16px;border-top:1px solid var(--line)">
+      <div class="evidence">${(m.evidence || []).map(e => `
+        <div class="ev"><div class="n">${esc(e.signal)}</div>
+        <div class="v">${e.contribution == null ? '' : (e.contribution > 0 ? '+' : '') + Number(e.contribution).toFixed(2)}</div>
+        <div class="d">${esc(e.detail)}</div></div>`).join('')}</div>
+    </div>
+    <div class="decide">
+      <span style="color:var(--muted);font-size:13px">Matched ${esc(m.matched_on)} &middot;
+        ${esc((m.decided_by || '').replace(/_/g, ' '))} &middot; similarity ${n3(m.score)}</span>
+      <div class="spacer"></div>
+      ${flag
+        ? `<span class="pill bad" title="${esc(flag.reason)}">Flagged as wrong</span>`
+        : `<button class="btn ghost" data-flag="${esc(id)}">Not the same business</button>`}
+    </div>
+  </div>`;
+}
+
+function bindMatched() {
+  bindFilters();
+  document.querySelectorAll('[data-flag]').forEach(b => b.onclick = () => {
+    const id = b.dataset.flag;
+    const m = (S.snap.matched || []).find(x => x.place_source_id === id);
+    askFlag(m, (reason) => {
+      // source distinguishes a flag a person made from one seeded by a
+      // benchmark. Not rendered; without it, counting real feedback later means
+      // string-matching reason text.
+      FLAGS[id] = { reason, source: 'user' };
+      render();
+    });
+  });
+}
+
+function askFlag(m, onConfirm) {
+  const wrap = document.createElement('div');
+  wrap.className = 'modal-overlay';
+  wrap.innerHTML = `
+    <div class="modal-card">
+      <h3 style="margin:0 0 4px">Not the same business</h3>
+      <div style="color:var(--muted);font-size:13px;margin-bottom:12px">
+        ${esc(m.discovered_name)} &nbsp;vs&nbsp; ${esc(m.supplier_name)}</div>
+      <label style="display:block">
+        <span>What tells you they are different?</span>
+        <textarea id="flagReason" rows="3" placeholder="e.g. same name, different town; one closed years ago; franchise of the other, not the same entity"></textarea>
+      </label>
+      ${note('This is the feedback that builds a real precision figure. The reason matters more than the flag.')}
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+        <button class="btn ghost" id="flagCancel">Cancel</button>
+        <button class="btn" id="flagConfirm" disabled>Flag as wrong</button>
+      </div>
+    </div>`;
+  document.body.appendChild(wrap);
+  const ta = wrap.querySelector('#flagReason');
+  const ok = wrap.querySelector('#flagConfirm');
+  const close = () => wrap.remove();
+  ta.focus();
+  ta.oninput = () => { ok.disabled = ta.value.trim().length < 3; };
+  wrap.querySelector('#flagCancel').onclick = close;
+  wrap.onclick = (e) => { if (e.target === wrap) close(); };
+  ok.onclick = () => { const r = ta.value.trim(); close(); onConfirm(r); };
 }
 
 /* -------------------------------------------------------------- quality */
@@ -1533,7 +1673,8 @@ function bindAdmin() {
 
 const VIEWS = {
   overview: viewOverview, discover: viewDiscover, leads: viewLeads,
-  review: viewReview, quality: viewQuality, economics: viewEconomics,
+  review: viewReview, matched: viewMatched, quality: viewQuality,
+  economics: viewEconomics,
   admin: viewAdmin,
 };
 
@@ -1580,6 +1721,7 @@ function render() {
   }
   if (S.view === 'leads') bindLeads();
   if (S.view === 'review') bindReview();
+  if (S.view === 'matched') bindMatched();
   if (S.view === 'admin') bindAdmin();
   window.scrollTo(0, 0);
 }

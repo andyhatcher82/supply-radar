@@ -12333,6 +12333,1596 @@
       ]
     }
   ],
+  "matched": [
+    {
+      "place_source_id": "ChIJ_U08scdfNRMR4j-0MNxvszM",
+      "discovered_name": "Blue Shark",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "discovered_website": "https://www.blueshark.tours/",
+      "discovered_phone": "+385 91 234 5995",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00003",
+      "supplier_name": "Blue Shark",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": "+38521446479",
+      "score": 0.8528,
+      "confidence": 0.606,
+      "decided_by": "fuzzy_score",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "name",
+          "detail": "distinctive words ['blue', 'shark'] vs ['blue', 'shark'], shared: ['blue', 'shark']",
+          "contribution": 1.0
+        },
+        {
+          "signal": "location",
+          "detail": "0.36 km apart",
+          "contribution": 0.864
+        },
+        {
+          "signal": "address",
+          "detail": "shared: ['croatia', 'hrvatskog', 'narodnog', 'obala', 'preporoda', 'split'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": 1.0
+        },
+        {
+          "signal": "phone conflict",
+          "detail": "+385912345995 vs +38521446479",
+          "contribution": -0.12
+        },
+        {
+          "signal": "runner-up",
+          "detail": "next best Split Blue Cave at 0.35",
+          "contribution": 0.35
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ0Wpcx_9dNRMRZXP8rSiAMAA",
+      "discovered_name": "Split Sea Tours",
+      "discovered_address": "Trumbićeva obala 14a, 21000, Split, Croatia",
+      "discovered_website": null,
+      "discovered_phone": "+385 97 774 4717",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00015",
+      "supplier_name": "Split Sea Tours",
+      "supplier_trading_name": null,
+      "supplier_address": "Trumbićeva obala 14a, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": null,
+      "score": 0.9689,
+      "confidence": 0.838,
+      "decided_by": "fuzzy_score",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "name",
+          "detail": "distinctive words ['sea'] vs ['sea'], shared: ['sea'] (ignoring 'split', common to this market)",
+          "contribution": 1.0
+        },
+        {
+          "signal": "location",
+          "detail": "0.40 km apart",
+          "contribution": 0.845
+        },
+        {
+          "signal": "address",
+          "detail": "shared: ['14a', 'croatia', 'obala', 'split', 'trumbiceva'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": 1.0
+        },
+        {
+          "signal": "runner-up",
+          "detail": "next best Jet Ski Split - Jetski Rental and Safari Tours Split Croatia at 0.30",
+          "contribution": 0.302
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJU496nv5dNRMR2LgeDIl1Yr8",
+      "discovered_name": "Smokvina Travel",
+      "discovered_address": "Ul. kralja Zvonimira 5, 21000, Split, Croatia",
+      "discovered_website": "https://www.smokvina.com/",
+      "discovered_phone": "+385 21 271 040",
+      "locality": "Split",
+      "experience_type": null,
+      "supplier_id": "VS-00036",
+      "supplier_name": "Smokvina Travel",
+      "supplier_trading_name": null,
+      "supplier_address": "Ul. kralja Zvonimira 5, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": null,
+      "score": 0.9705,
+      "confidence": 0.841,
+      "decided_by": "fuzzy_score",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "name",
+          "detail": "distinctive words ['smokvina'] vs ['smokvina'], shared: ['smokvina']",
+          "contribution": 1.0
+        },
+        {
+          "signal": "location",
+          "detail": "0.38 km apart",
+          "contribution": 0.853
+        },
+        {
+          "signal": "address",
+          "detail": "shared: ['croatia', 'kralja', 'split', 'zvonimira'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": 1.0
+        },
+        {
+          "signal": "runner-up",
+          "detail": "next best Max Nautica at 0.22",
+          "contribution": 0.216
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJHX7oGzxdNRMRJgSWYn13eV0",
+      "discovered_name": "Max Nautica",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda - STAND NUMBER 8, 21000, Grad, Split, Croatia",
+      "discovered_website": "https://gyg.me/kaGUxDyn",
+      "discovered_phone": "+385 91 111 1154",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00020",
+      "supplier_name": "Max Nautica",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda - STAND NUMBER 8, 21000, Grad, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": null,
+      "score": 0.9748,
+      "confidence": 0.85,
+      "decided_by": "fuzzy_score",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "name",
+          "detail": "distinctive words ['max', 'nautica'] vs ['max', 'nautica'], shared: ['max', 'nautica']",
+          "contribution": 1.0
+        },
+        {
+          "signal": "location",
+          "detail": "0.34 km apart",
+          "contribution": 0.874
+        },
+        {
+          "signal": "address",
+          "detail": "shared: ['croatia', 'grad', 'hrvatskog', 'narodnog', 'number', 'obala', 'preporoda', 'split', 'stand'] — but ['croatia', 'obala', 'split'] appear on many operators here, so they count for little",
+          "contribution": 1.0
+        },
+        {
+          "signal": "runner-up",
+          "detail": "next best Split Sea Tours at 0.23",
+          "contribution": 0.234
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ8RjfSVddNRMRFh0U7kFPhyk",
+      "discovered_name": "Korsaro Boat Tour from Split",
+      "discovered_address": "Mletački mul, Riva, 21000, Split, Croatia",
+      "discovered_website": "https://tantulika28.wixsite.com/tour/blank",
+      "discovered_phone": null,
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00025",
+      "supplier_name": "Korsaro Boat Tour from Split obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Mletački mul, Riva, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": null,
+      "score": 0.9756,
+      "confidence": 0.851,
+      "decided_by": "fuzzy_score",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "name",
+          "detail": "distinctive words ['from', 'korsaro'] vs ['from', 'korsaro'], shared: ['from', 'korsaro'] (ignoring 'boat, split', common to this market)",
+          "contribution": 1.0
+        },
+        {
+          "signal": "location",
+          "detail": "0.33 km apart",
+          "contribution": 0.878
+        },
+        {
+          "signal": "address",
+          "detail": "shared: ['croatia', 'mletacki', 'mul', 'riva', 'split'] — but ['croatia', 'split'] appear on many operators here, so they count for little",
+          "contribution": 1.0
+        },
+        {
+          "signal": "runner-up",
+          "detail": "next best Split walking tour - Goran Kosta tour at 0.23",
+          "contribution": 0.225
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJh8CEwf9dNRMRlyoDa63btaw",
+      "discovered_name": "Tinel Boat tours",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "discovered_website": "https://www.tinel-tours.hr/",
+      "discovered_phone": "+385 95 381 9895",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00057",
+      "supplier_name": "Horvat obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "supplier_website": "https://booking.tinel-tours.hr/",
+      "supplier_phone": "00385953819895",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "tinel-tours.hr matches Horvat obrt",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJQ59kcPldNRMR8kmpi24_PXk",
+      "discovered_name": "Blue Lagoon Croatia",
+      "discovered_address": "Obala Lazareta 1, 21000, Split, Croatia",
+      "discovered_website": "https://blue-lagoon-croatia.com/tour",
+      "discovered_phone": "+385 97 608 3184",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00026",
+      "supplier_name": "Blue Lagoon Croatia d.o.o.",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Lazareta 1, 21000, Split, Croatia",
+      "supplier_website": "https://blue-lagoon-croatia.com/tour",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "blue-lagoon-croatia.com matches Blue Lagoon Croatia d.o.o.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJnxdWti5eNRMRHhJWUV8B29o",
+      "discovered_name": "Boating-Split",
+      "discovered_address": "Obala kneza Branimira 1, 21000, Split, Croatia",
+      "discovered_website": "http://boating-split.com/",
+      "discovered_phone": "+385 91 556 4612",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00009",
+      "supplier_name": "Boating-Split obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala kneza Branimira 1, 21000, Split, Croatia",
+      "supplier_website": "http://boating-split.com/",
+      "supplier_phone": "+385 91 556 4612",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "boating-split.com matches Boating-Split obrt",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJWeB-hItdNRMROq12f_LSb5U",
+      "discovered_name": "Split Boat Tours",
+      "discovered_address": "Obala Lazareta 1, 21000, Split, Croatia",
+      "discovered_website": "http://www.split-boat-tours.com/",
+      "discovered_phone": "+385 95 399 1928",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00044",
+      "supplier_name": "Split Boat Tours",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Lazareta 1, 21000, Split, Croatia",
+      "supplier_website": "http://booking.split-boat-tours.com/",
+      "supplier_phone": "+385 95 399 1928",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "split-boat-tours.com matches Split Boat Tours",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJMTqpnuddNRMRt4JHzhRd3FA",
+      "discovered_name": "Island Hopping Split - Boat Tours & Private Trips",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "discovered_website": "https://www.islandhoppingsplit.com/",
+      "discovered_phone": "+385 95 863 7551",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00004",
+      "supplier_name": "Island Hopping Split - Boat Tours and Private Trips d.d.",
+      "supplier_trading_name": null,
+      "supplier_address": "Trg Republike 60, split",
+      "supplier_website": null,
+      "supplier_phone": "0958637551",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+385958637551 with 100% name agreement matches Island Hopping Split - Boat Tours and Private Trips d.d.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJMc4Fyf9dNRMR0Ymg4gf5yjk",
+      "discovered_name": "Hello Blue Cave - Boat Tours Split Croatia",
+      "discovered_address": "Riva, Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "discovered_website": "http://www.hellobluecave.com/",
+      "discovered_phone": "+385 98 702 250",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00041",
+      "supplier_name": "Hello Blue Cave - Boat Tours Split Croatia",
+      "supplier_trading_name": null,
+      "supplier_address": "Riva, Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "supplier_website": "http://www.hellobluecave.com/",
+      "supplier_phone": "+385 98 702 250",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "hellobluecave.com matches Hello Blue Cave - Boat Tours Split Croatia",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJQQTG8R5dNRMRe4Q74ZthYOw",
+      "discovered_name": "Toto Travel",
+      "discovered_address": "Trumbićeva obala 2, 21000, Split, Croatia",
+      "discovered_website": "https://www.toto.hr/",
+      "discovered_phone": "+385 99 757 4222",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00054",
+      "supplier_name": "Toto Travel",
+      "supplier_trading_name": null,
+      "supplier_address": "Trumbićeva obala 2, 21000, Split, Croatia",
+      "supplier_website": "https://www.toto.hr/",
+      "supplier_phone": "099/757-4222",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "toto.hr matches Toto Travel",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ5Zp4zv9dNRMR1_z756RhIv4",
+      "discovered_name": "Condor Yachting",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "discovered_website": "https://condoryachting.com/",
+      "discovered_phone": "+385 99 577 5770",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00042",
+      "supplier_name": "Condor Yachting",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "supplier_website": "https://condoryachting.com/",
+      "supplier_phone": "0995775770",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "condoryachting.com matches Condor Yachting",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJfZISX6thNRMRjXJPp5yrlsI",
+      "discovered_name": "Taxi Boat Split Port - Žnjan beach",
+      "discovered_address": "Trumbićeva obala, 21000, Split, Croatia",
+      "discovered_website": "https://watersportssplit.com/split-port-znjan-beach-boat-taxi.html",
+      "discovered_phone": "+385 95 518 1818",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00064",
+      "supplier_name": "Taxi Boat Split Port - Znjan beach",
+      "supplier_trading_name": null,
+      "supplier_address": "Šetalište Bačvice 48, split",
+      "supplier_website": "https://watersportssplit.com/split-port-znjan-beach-boat-taxi.html",
+      "supplier_phone": "0955181818",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "watersportssplit.com matches Taxi Boat Split Port - Znjan beach",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ5QWpVxNdNRMR2fJkJKfGZv0",
+      "discovered_name": "Catamaran 4U",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "discovered_website": "http://www.catamaran4u.com/",
+      "discovered_phone": "+385 95 850 3179",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00063",
+      "supplier_name": "Catamraan 4U j.d.o.o.",
+      "supplier_trading_name": null,
+      "supplier_address": "Šetalište Bačvice 59, split",
+      "supplier_website": null,
+      "supplier_phone": "+385 95 850 3179",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+385958503179 with 92% name agreement matches Catamraan 4U j.d.o.o.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJK6iZZMddNRMR8ku2izjTuqg",
+      "discovered_name": "X Party Boat Split",
+      "discovered_address": "Trumbićeva obala 18, 21000, Split, Croatia",
+      "discovered_website": null,
+      "discovered_phone": "+385 95 200 1100",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00017",
+      "supplier_name": "X Party Boat Split obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Trumbićeva obala 18, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": "0952001100",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+385952001100 with 100% name agreement matches X Party Boat Split obrt",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJq4IfvS5dNRMRLN6rDoIyMCo",
+      "discovered_name": "All inclusive blue cave tour from Split | lunch & drinks",
+      "discovered_address": "Trumbićeva obala 14, 21000, Split, Croatia",
+      "discovered_website": "https://bluecavetour.com/",
+      "discovered_phone": "+385 97 613 2503",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00021",
+      "supplier_name": "All inclusive blue cave tour from Split | lunch & drinks",
+      "supplier_trading_name": null,
+      "supplier_address": "Trumbićeva obala 14, 21000, Split, Croatia",
+      "supplier_website": "https://bluecavetour.com/",
+      "supplier_phone": "+3851390782",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "bluecavetour.com matches All inclusive blue cave tour from Split | lunch & drinks",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ8SO2RgBdNRMRmwjOi2h7X-M",
+      "discovered_name": "ISLAND DISCOVERY",
+      "discovered_address": "Trumbićeva obala 2, 21000, Split, Croatia",
+      "discovered_website": "http://www.islanddiscovery.life/",
+      "discovered_phone": "+385 95 363 5839",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00001",
+      "supplier_name": "ISLAND DISCOVERY",
+      "supplier_trading_name": null,
+      "supplier_address": "Trumbićeva obala 2, 21000, Split, Croatia",
+      "supplier_website": "http://www.islanddiscovery.life/",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "islanddiscovery.life matches ISLAND DISCOVERY",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJCzGZUGdnNRMRvl9yoyLhXwM",
+      "discovered_name": "Marinero Sailing",
+      "discovered_address": "Kranjčevićeva ul. 35, 21000, Split, Croatia",
+      "discovered_website": "https://marinero-sailing.com/",
+      "discovered_phone": "+385 99 400 8056",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00040",
+      "supplier_name": "Marinero Sailing d.d.",
+      "supplier_trading_name": null,
+      "supplier_address": "Kranjčevićeva ul. 35, 21000, Split, Croatia",
+      "supplier_website": "https://marinero-sailing.com/",
+      "supplier_phone": "0994008056",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "marinero-sailing.com matches Marinero Sailing d.d.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJYQn5Q1xdNRMRbcs-4WzJu-Q",
+      "discovered_name": "Hemingway Boat Split",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "discovered_website": "https://www.hemingwaysplit.com/",
+      "discovered_phone": "+385 99 577 5770",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00033",
+      "supplier_name": "Hemingway Boat Split",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "supplier_website": "http://hemingwaysplit.com/",
+      "supplier_phone": "+385 99 577 5770",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "hemingwaysplit.com matches Hemingway Boat Split",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJic7ozpddNRMRKKLuh0rbQ2E",
+      "discovered_name": "Split Taxi Boat - Day Boat Tours And Transfers Split",
+      "discovered_address": "Obala Lazareta 3, 21000, Split, Croatia",
+      "discovered_website": "https://split-taxiboat.com/",
+      "discovered_phone": "+385 99 234 4774",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00056",
+      "supplier_name": "Split Taxi Boat - Day Boat Tours And Transfers Split",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Lazareta 3, 21000, Split, Croatia",
+      "supplier_website": "https://split-taxiboat.com/",
+      "supplier_phone": "+385 99 234 4774",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "split-taxiboat.com matches Split Taxi Boat - Day Boat Tours And Transfers Split",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJk9rbpf9dNRMRTBvhz9_GJxg",
+      "discovered_name": "semiSUBMARINE Split",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "discovered_website": "http://www.semisubmarine-split.com/",
+      "discovered_phone": "+385 99 350 0905",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00005",
+      "supplier_name": "semiSUBMARINE Split d.d.",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda, 21000, Split, Croatia",
+      "supplier_website": "http://www.semisubmarine-split.com/",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "semisubmarine-split.com matches semiSUBMARINE Split d.d.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJoXiqw3ZdNRMRkTu0kpqCAjs",
+      "discovered_name": "Private Split Walking Tour",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda 23, 21000, Split, Croatia",
+      "discovered_website": "https://rezgo.me/kktlOKo9JA",
+      "discovered_phone": "+385 95 532 6523",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00023",
+      "supplier_name": "Novak obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda 23, 21000, Split, Croatia",
+      "supplier_website": "https://rezgo.me/kktlOKo9JA",
+      "supplier_phone": "+385 95 532 6523",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "rezgo.me matches Novak obrt",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJddwgzP9dNRMRyY9SsxbwvF0",
+      "discovered_name": "Gray Line Croatia",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda 21, 21000, Split, Croatia",
+      "discovered_website": "http://graylinecroatia.com/",
+      "discovered_phone": "+385 91 140 0800",
+      "locality": "Split",
+      "experience_type": "food_drink",
+      "supplier_id": "VS-00066",
+      "supplier_name": "Blažević obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda 21, 21000, Split, Croatia",
+      "supplier_website": "http://graylinecroatia.com/",
+      "supplier_phone": "0911400800",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "graylinecroatia.com matches Blažević obrt",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJg7v9-VFfNRMRBy9nla94uik",
+      "discovered_name": "Jet Ski Split - Jetski Rental and Safari Tours Split Croatia",
+      "discovered_address": "Trumbićeva obala 13, 21000, Split, Croatia",
+      "discovered_website": "http://www.jetskisafarisplit.hr/",
+      "discovered_phone": "+385 99 605 9879",
+      "locality": "Split",
+      "experience_type": "water_sports",
+      "supplier_id": "VS-00052",
+      "supplier_name": "Jet Ski Split - Jetski Rental and Safari Tours Split Croatia",
+      "supplier_trading_name": null,
+      "supplier_address": "Trumbićeva obala 13, 21000, Split, Croatia",
+      "supplier_website": "http://www.jetskisafarisplit.hr/",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "jetskisafarisplit.hr matches Jet Ski Split - Jetski Rental and Safari Tours Split Croatia",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJT7qnRJpdNRMRnDEAmwuqZ4g",
+      "discovered_name": "Split by Tuk Tuk - Private City Tour",
+      "discovered_address": "Trg Franje Tuđmana, 21000, Split, Croatia",
+      "discovered_website": "https://citytoursplit.com/",
+      "discovered_phone": "+385 91 308 5227",
+      "locality": "Split",
+      "experience_type": null,
+      "supplier_id": "VS-00062",
+      "supplier_name": "Split by Tuk Tuk - Private City Tour d.o.o.",
+      "supplier_trading_name": null,
+      "supplier_address": "Trg Franje Tuđmana, 21000, Split, Croatia",
+      "supplier_website": "http://citytoursplit.com/",
+      "supplier_phone": "+385 91 308 5227",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "citytoursplit.com matches Split by Tuk Tuk - Private City Tour d.o.o.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJPaB3uPhdNRMRexszk9TI8Qg",
+      "discovered_name": "Šugaman Tours",
+      "discovered_address": "Obala Lazareta 3, 21000, Split, Croatia",
+      "discovered_website": "https://www.sugamantours.com/",
+      "discovered_phone": "+385 21 344 085",
+      "locality": "Split",
+      "experience_type": null,
+      "supplier_id": "VS-00058",
+      "supplier_name": "Šugaman Tours",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Lazareta 3, 21000, Split, Croatia",
+      "supplier_website": "https://www.sugamantours.com/",
+      "supplier_phone": "+385 21 344 085",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "sugamantours.com matches Šugaman Tours",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJS3Am_5BdNRMRD-I6VePszPM",
+      "discovered_name": "Split Blue Cave",
+      "discovered_address": "Obala Hrvatskog narodnog preporoda 12, 21000, Split, Croatia",
+      "discovered_website": "http://splitbluecave.com/",
+      "discovered_phone": "+385 95 385 7476",
+      "locality": "Split",
+      "experience_type": null,
+      "supplier_id": "VS-00032",
+      "supplier_name": "Split Blue Cave",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Hrvatskog narodnog preporoda 12, 21000, Split, Croatia",
+      "supplier_website": "http://splitbluecave.com/",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "splitbluecave.com matches Split Blue Cave",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJI63GGj5dNRMR6rpyUULLPTI",
+      "discovered_name": "Boat trips by Salty Experince",
+      "discovered_address": "Obala Lazareta, 21000, Split, Croatia",
+      "discovered_website": "http://www.saltyexperience.hr/",
+      "discovered_phone": "+385 91 553 0387",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00006",
+      "supplier_name": "Boat trips by Salty Experince",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala Lazareta, 21000, Split, Croatia",
+      "supplier_website": "http://booking.saltyexperience.hr/",
+      "supplier_phone": "+38551923267",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "saltyexperience.hr matches Boat trips by Salty Experince",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJhwMKbQBfNRMRAL3cLCYDj00",
+      "discovered_name": "Lagida d.o.o.",
+      "discovered_address": "Put Duilova 47, 21000, Split, Croatia",
+      "discovered_website": "http://www.lagida.com/",
+      "discovered_phone": "+385 99 354 2991",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00053",
+      "supplier_name": "Lagida d.o.o. obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Put Duilova 47, 21000, Split, Croatia",
+      "supplier_website": "http://www.lagida.com/",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "lagida.com matches Lagida d.o.o. obrt",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJj5dL1ZtfNRMRXD2ElEeZyqQ",
+      "discovered_name": "Escape Room Split Mystery room",
+      "discovered_address": "Dubrovačka ul. 3A, 21000, Split, Croatia",
+      "discovered_website": "https://escaperoomsplit.com/",
+      "discovered_phone": "+385 97 613 1845",
+      "locality": "Split",
+      "experience_type": null,
+      "supplier_id": "VS-00019",
+      "supplier_name": "escape room split mystery room j.d.o.o.",
+      "supplier_trading_name": null,
+      "supplier_address": "Dubrovačka ul. 3A, 21000, Split, Croatia",
+      "supplier_website": "https://escaperoomsplit.com/",
+      "supplier_phone": "00385976131845",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "escaperoomsplit.com matches escape room split mystery room j.d.o.o.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJfXMAm_1dNRMRFnvVtlre2WM",
+      "discovered_name": "XCAPE CATAMARAN DAY CRUISE",
+      "discovered_address": "Trg Franje Tuđmana 3, 21000, Split, Croatia",
+      "discovered_website": "http://www.xcapecruises.com/",
+      "discovered_phone": "+385 95 372 7945",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00061",
+      "supplier_name": "Jurić d.o.o.",
+      "supplier_trading_name": null,
+      "supplier_address": "Trg Franje Tuđmana 3, 21000, Split, Croatia",
+      "supplier_website": "http://www.xcapecruises.com/",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "xcapecruises.com matches Jurić d.o.o.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ9f_W_YqZShMRz0TnMECZjAY",
+      "discovered_name": "Time Walk (VR Walking Tour Split)",
+      "discovered_address": "Šenoina 10, 21000, Split, Croatia",
+      "discovered_website": "https://timewalksplit.com/",
+      "discovered_phone": "+385 91 920 4433",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00060",
+      "supplier_name": "Time Walk (VR Walking Tour Split) j.d.o.o.",
+      "supplier_trading_name": null,
+      "supplier_address": "Šenoina 10, 21000, Split, Croatia",
+      "supplier_website": "https://timewalksplit.com/",
+      "supplier_phone": "+385 91 920 4433",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "timewalksplit.com matches Time Walk (VR Walking Tour Split) j.d.o.o.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJl1-ZrR1dNRMR2QuuzhAL_1U",
+      "discovered_name": "Split walking tour - Goran Kosta tour",
+      "discovered_address": "Ul. kralja Tomislava 13, 21000, Split, Croatia",
+      "discovered_website": null,
+      "discovered_phone": "+385 95 531 6701",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00031",
+      "supplier_name": "Split walking tour - Goran Kosta tour",
+      "supplier_trading_name": null,
+      "supplier_address": "Ul. kralja Tomislava 13, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": "095/531-6701",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+385955316701 with 100% name agreement matches Split walking tour - Goran Kosta tour",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJlfNehCJdNRMR3A7HH9vrGWM",
+      "discovered_name": "Grand Tour Croatia",
+      "discovered_address": "Jobova ul. 3, 21000, Split, Croatia",
+      "discovered_website": "http://www.grandtourcroatia.com/",
+      "discovered_phone": "+385 99 703 0885",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00043",
+      "supplier_name": "grand tour croatia d.o.o.",
+      "supplier_trading_name": null,
+      "supplier_address": "Jobova ul. 3, 21000, Split, Croatia",
+      "supplier_website": "http://www.grandtourcroatia.com/",
+      "supplier_phone": "099/703-0885",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "grandtourcroatia.com matches grand tour croatia d.o.o.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJUacfzv1dNRMRDx19kVt3Rc8",
+      "discovered_name": "Split & sip",
+      "discovered_address": "Trg Gaje Bulata 6, 21000, Split, Croatia",
+      "discovered_website": "https://splitandsip.com/",
+      "discovered_phone": "+385 98 132 5550",
+      "locality": "Split",
+      "experience_type": "food_drink",
+      "supplier_id": "VS-00002",
+      "supplier_name": "Knežević d.d.",
+      "supplier_trading_name": null,
+      "supplier_address": "Trg Gaje Bulata 6, 21000, Split, Croatia",
+      "supplier_website": "http://splitandsip.com/",
+      "supplier_phone": "098/132-5550",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "splitandsip.com matches Knežević d.d.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJcZrzpIZdNRMRP87y3Cb7Vv4",
+      "discovered_name": "Hole in the Wall Cellar: Gin & Wine Tastings in Split",
+      "discovered_address": "Plinarska ul. 29, 21000, Split, Croatia",
+      "discovered_website": null,
+      "discovered_phone": "+385 98 408 123",
+      "locality": "Split",
+      "experience_type": "food_drink",
+      "supplier_id": "VS-00038",
+      "supplier_name": "Hole in the Wall Cellar: Gin and Wine Tastings in Split",
+      "supplier_trading_name": null,
+      "supplier_address": "Plinarska ul. 29, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": "+385 98 408 123",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+38598408123 with 100% name agreement matches Hole in the Wall Cellar: Gin and Wine Tastings in Split",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ130HqeFfNRMRjCm8qyrLrUE",
+      "discovered_name": "Booker",
+      "discovered_address": "Marulićeva ul. 4, 21000, Split, Croatia",
+      "discovered_website": "https://www.booker.hr/",
+      "discovered_phone": "+385 91 434 3000",
+      "locality": "Split",
+      "experience_type": "food_drink",
+      "supplier_id": "VS-00037",
+      "supplier_name": "Booker obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Marulićeva ul. 4, 21000, Split, Croatia",
+      "supplier_website": "http://booker.hr/",
+      "supplier_phone": "+385 91 434 3000",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "booker.hr matches Booker obrt",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJQ8S-JDddNRMRhlZhT0JI1EM",
+      "discovered_name": "Iločki podrumi",
+      "discovered_address": "Plinarska ul. 29, 21000, Split, Croatia",
+      "discovered_website": null,
+      "discovered_phone": "+385 21 394 518",
+      "locality": "Split",
+      "experience_type": "food_drink",
+      "supplier_id": "VS-00046",
+      "supplier_name": "Ilocki podrumi",
+      "supplier_trading_name": null,
+      "supplier_address": "Plinarska ul. 29, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": "021394518",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+38521394518 with 100% name agreement matches Ilocki podrumi",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ-_eIEQJdNRMRAXUyO45rKAw",
+      "discovered_name": "BG Nautica",
+      "discovered_address": "Marmontova ul. 6, 21000, Split, Croatia",
+      "discovered_website": "https://www.bgnautica.eu/",
+      "discovered_phone": "+385 91 557 6326",
+      "locality": "Split",
+      "experience_type": "water_sports",
+      "supplier_id": "VS-00024",
+      "supplier_name": "BG Nautica d.d.",
+      "supplier_trading_name": null,
+      "supplier_address": "Marmontova ul. 6, 21000, Split, Croatia",
+      "supplier_website": "https://www.bgnautica.eu/",
+      "supplier_phone": "0915576326",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "bgnautica.eu matches BG Nautica d.d.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJw_YUJv9dNRMRq6gcqR2nifI",
+      "discovered_name": "Given2Fly Adventures - Adventure Tours & Bike Rental",
+      "discovered_address": "Plinarska ul. 25, 21000, Split, Croatia",
+      "discovered_website": "http://www.given2flyadventures.com/",
+      "discovered_phone": "+385 98 408 123",
+      "locality": "Split",
+      "experience_type": "adventure",
+      "supplier_id": "VS-00016",
+      "supplier_name": "Perić j.d.o.o.",
+      "supplier_trading_name": null,
+      "supplier_address": "Obala hrvatskog narodnog preporoda 86, split",
+      "supplier_website": "http://www.given2flyadventures.com/",
+      "supplier_phone": "098408123",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "given2flyadventures.com matches Perić j.d.o.o.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJQW5eagBdNRMRzSsQH7NIoSY",
+      "discovered_name": "Crozzies Open Bar Split",
+      "discovered_address": "Trogirska ul. 7, 21000, Split, Croatia",
+      "discovered_website": "https://www.crozziespubcrawl.com/",
+      "discovered_phone": "+385 95 515 7332",
+      "locality": "Split",
+      "experience_type": null,
+      "supplier_id": "VS-00048",
+      "supplier_name": "Crozzies Open Bar Split",
+      "supplier_trading_name": null,
+      "supplier_address": "Trogirska ul. 7, 21000, Split, Croatia",
+      "supplier_website": "https://www.crozziespubcrawl.com/",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "crozziespubcrawl.com matches Crozzies Open Bar Split",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJw33HgzpdNRMRSg5ubfw7pYA",
+      "discovered_name": "Gariful Travel & Charter Agency",
+      "discovered_address": "Put Supavla 1, 21000, Split, Croatia",
+      "discovered_website": "https://garifulyachtcharter.com/",
+      "discovered_phone": "+385 99 865 6176",
+      "locality": "Split",
+      "experience_type": null,
+      "supplier_id": "VS-00018",
+      "supplier_name": "Gariful Travel and Charter Agency",
+      "supplier_trading_name": null,
+      "supplier_address": "Put Supavla 1, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": "099/865-6176",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+385998656176 with 100% name agreement matches Gariful Travel and Charter Agency",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJAxGMR_5dNRMRyraptMzbWdE",
+      "discovered_name": "Split Boat Tours by Just Book Croatia",
+      "discovered_address": "Dioklecijanova 1, 21000, Split, Croatia",
+      "discovered_website": "http://www.splitboattours.com/",
+      "discovered_phone": null,
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00065",
+      "supplier_name": "Split Boat Tours by Juts Book Croatia",
+      "supplier_trading_name": null,
+      "supplier_address": "Dioklecijanova 1, 21000, Split, Croatia",
+      "supplier_website": "http://www.splitboattours.com/",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "splitboattours.com matches Split Boat Tours by Juts Book Croatia",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJnTDn7SFdNRMRzH_ZALtyEV8",
+      "discovered_name": "Junior Excursions",
+      "discovered_address": "Gašpini ul. 9, 21210, Solin, Croatia",
+      "discovered_website": "https://juniorexcursions.com/",
+      "discovered_phone": "+385 99 520 0442",
+      "locality": "Solin",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00035",
+      "supplier_name": "Juniro Excursions",
+      "supplier_trading_name": null,
+      "supplier_address": "Gašpini ul. 9, 21210, Solin, Croatia",
+      "supplier_website": "http://juniorexcursions.com/",
+      "supplier_phone": "00385995200442",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "juniorexcursions.com matches Juniro Excursions",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJwUyzTjJdNRMRUmIrBZ_fGvA",
+      "discovered_name": "Split Travel - Boat Tours",
+      "discovered_address": "Vukovarska ul. 123, 21000, Split, Croatia",
+      "discovered_website": "https://www.split-travel.com/",
+      "discovered_phone": "+385 91 939 2074",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00028",
+      "supplier_name": "Petrović d.o.o.",
+      "supplier_trading_name": null,
+      "supplier_address": "Trg Republike 85, split",
+      "supplier_website": "https://www.split-travel.com/",
+      "supplier_phone": "00385919392074",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "split-travel.com matches Petrović d.o.o.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ4ZHYnABeNRMR2qQc3xGWI7M",
+      "discovered_name": "Ilirio's Hvar Tours",
+      "discovered_address": "Poljana Grgura Ninskog 9, 21000, Split, Croatia",
+      "discovered_website": "https://www.ilirios-hvar-tours.com/",
+      "discovered_phone": "+385 98 405 551",
+      "locality": "Split",
+      "experience_type": "boat_tour",
+      "supplier_id": "VS-00012",
+      "supplier_name": "Ilirio's Hvar Tuors",
+      "supplier_trading_name": null,
+      "supplier_address": "Poljana Grgura Ninskog 9, 21000, Split, Croatia",
+      "supplier_website": "https://www.ilirios-hvar-tours.com/",
+      "supplier_phone": "098405551",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "ilirios-hvar-tours.com matches Ilirio's Hvar Tuors",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJoXqfhHZfNRMR9ZCMviiTsxo",
+      "discovered_name": "TEMPER TRAVEL",
+      "discovered_address": "Smiljanićeva ul. 13, 21000, Split, Croatia",
+      "discovered_website": "https://tempertravel.com/",
+      "discovered_phone": "+385 98 962 0610",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00010",
+      "supplier_name": "Blažević obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Smiljanićeva ul. 13, 21000, Split, Croatia",
+      "supplier_website": "https://tempertravel.com/",
+      "supplier_phone": "+38521878480",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "tempertravel.com matches Blažević obrt",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJPQ06oABeNRMRaoVEMaav7KY",
+      "discovered_name": "SIRENA Travel Agency Ltd.",
+      "discovered_address": "Manuška poljana 18, 21000, Split, Croatia",
+      "discovered_website": "http://www.sirena-booking.hr/",
+      "discovered_phone": "+385 99 234 8419",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00039",
+      "supplier_name": "SIRENA Travel Agency L",
+      "supplier_trading_name": null,
+      "supplier_address": "Manuška poljana 18, 21000, Split, Croatia",
+      "supplier_website": "http://www.sirena-booking.hr/",
+      "supplier_phone": null,
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "sirena-booking.hr matches SIRENA Travel Agency L",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJa2aPH_5dNRMRhf2fKvY8xqw",
+      "discovered_name": "DALMATIA BY CABRIO",
+      "discovered_address": "Dioklecijanova 3, 21000, Split, Croatia",
+      "discovered_website": null,
+      "discovered_phone": "+385 99 821 5383",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00047",
+      "supplier_name": "DALMATIA BY CABRIO",
+      "supplier_trading_name": null,
+      "supplier_address": "Dioklecijanova 3, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": "+385 99 821 5383",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+385998215383 with 100% name agreement matches DALMATIA BY CABRIO",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJN-UIAgnOggwRSXB1g6jzufY",
+      "discovered_name": "KUKUVIA, obrt za usluge, vl. Jelena Tanjić",
+      "discovered_address": "Vukovarska ul. 3, 21000, Split, Croatia",
+      "discovered_website": "https://kukuvia.com/",
+      "discovered_phone": "+385 91 620 1238",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00049",
+      "supplier_name": "KUKUVIA, obrt za usluge, vl. Jelena Tanjić",
+      "supplier_trading_name": null,
+      "supplier_address": "Vukovarska ul. 3, 21000, Split, Croatia",
+      "supplier_website": "http://kukuvia.com/",
+      "supplier_phone": "091/620-1238",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "kukuvia.com matches KUKUVIA, obrt za usluge, vl. Jelena Tanjić",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJZwbvfQpeNRMRZTtnOvINBs4",
+      "discovered_name": "Game of Thrones Split Tour",
+      "discovered_address": "Put Supavla, 21000, Split, Croatia",
+      "discovered_website": null,
+      "discovered_phone": "+385 21 420 899",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00045",
+      "supplier_name": "Game of Thrones Split Tour",
+      "supplier_trading_name": null,
+      "supplier_address": "Trg Republike 59, split",
+      "supplier_website": null,
+      "supplier_phone": "+385 21 420 899",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+38521420899 with 100% name agreement matches Game of Thrones Split Tour",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ_Vw4HkJfNRMR5S5DooeXa6w",
+      "discovered_name": "Private Guides in Croatia",
+      "discovered_address": "Vinkovačka ul. 6, 21000, Split, Croatia",
+      "discovered_website": "http://www.privateguidesincroatia.com/",
+      "discovered_phone": "+385 91 203 0148",
+      "locality": "Split",
+      "experience_type": "private_guide",
+      "supplier_id": "VS-00051",
+      "supplier_name": "Private Guides in Croatia d.d.",
+      "supplier_trading_name": null,
+      "supplier_address": "Vinkovačka ul. 6, 21000, Split, Croatia",
+      "supplier_website": "http://www.privateguidesincroatia.com/",
+      "supplier_phone": "+385 91 203 0148",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "privateguidesincroatia.com matches Private Guides in Croatia d.d.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJBUZjGAxeNRMRChH3Wq9HAhw",
+      "discovered_name": "Croatia Private Tours",
+      "discovered_address": "Ul. Domovinskog rata 49A, 21000, Split, Croatia",
+      "discovered_website": "https://tantulika28.wixsite.com/tour/blank",
+      "discovered_phone": "+385 99 694 1644",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00030",
+      "supplier_name": "Croatia Private Tours",
+      "supplier_trading_name": null,
+      "supplier_address": "Ulica Petra Preradovića 28, split",
+      "supplier_website": "https://tantulika28.wixsite.com/tour/blank",
+      "supplier_phone": "+38552835244",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain and name",
+          "detail": "tantulika28.wixsite.com with 100% name agreement matches Croatia Private Tours",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ7V3gXwdeNRMRV6NsfaKE91Q",
+      "discovered_name": "Zip Line Split",
+      "discovered_address": "Ul. Dujma Mikačića, 21000, Split, Croatia",
+      "discovered_website": "http://www.zip-split.com/",
+      "discovered_phone": "+385 95 815 0190",
+      "locality": "Split",
+      "experience_type": "walking_tour",
+      "supplier_id": "VS-00055",
+      "supplier_name": "Zip Line Split obrt",
+      "supplier_trading_name": null,
+      "supplier_address": "Ul. Dujma Mikačića, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": "095/815-0190",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+385958150190 with 100% name agreement matches Zip Line Split obrt",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJa2aPH_5dNRMREEisLqD-ECA",
+      "discovered_name": "Split Diving Experience",
+      "discovered_address": "Dioklecijanova 3/4, 21000, Split, Croatia",
+      "discovered_website": "http://www.splitdiving.com/",
+      "discovered_phone": "+385 99 821 5383",
+      "locality": "Split",
+      "experience_type": "water_sports",
+      "supplier_id": "VS-00034",
+      "supplier_name": "Slpit Diving Experience d.d.",
+      "supplier_trading_name": null,
+      "supplier_address": "Dioklecijanova 3/4, 21000, Split, Croatia",
+      "supplier_website": "http://www.splitdiving.com/",
+      "supplier_phone": "0998215383",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "splitdiving.com matches Slpit Diving Experience d.d.",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJrzoKrCZfNRMRVWn9BQ4_qGQ",
+      "discovered_name": "Extreme Fishing",
+      "discovered_address": "141. Brigade 1, 21000, Split, Croatia",
+      "discovered_website": "http://www.extremefishing.hr/",
+      "discovered_phone": "+385 21 260 346",
+      "locality": "Split",
+      "experience_type": "water_sports",
+      "supplier_id": "VS-00059",
+      "supplier_name": "Extreme Fishing",
+      "supplier_trading_name": null,
+      "supplier_address": "141. Brigade 1, 21000, Split, Croatia",
+      "supplier_website": null,
+      "supplier_phone": "021260346",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact phone and name",
+          "detail": "+38521260346 with 100% name agreement matches Extreme Fishing",
+          "contribution": 1.0
+        }
+      ]
+    },
+    {
+      "place_source_id": "ChIJ8W68IgheNRMRUL1GFe-ZVh4",
+      "discovered_name": "Private Tours Croatia",
+      "discovered_address": "Bihaćka ul. 2a, 21000, Split, Croatia",
+      "discovered_website": "https://www.private-tours-croatia.com/",
+      "discovered_phone": "+385 21 510 801",
+      "locality": "Split",
+      "experience_type": "private_guide",
+      "supplier_id": "VS-00029",
+      "supplier_name": "Private Tours Croatia",
+      "supplier_trading_name": null,
+      "supplier_address": "Bihaćka ul. 2a, 21000, Split, Croatia",
+      "supplier_website": "http://private-tours-croatia.com/",
+      "supplier_phone": "021/510-801",
+      "score": 1.0,
+      "confidence": 0.97,
+      "decided_by": "hard_key",
+      "matched_on": "2026-08-14",
+      "evidence": [
+        {
+          "signal": "exact domain",
+          "detail": "private-tours-croatia.com matches Private Tours Croatia",
+          "contribution": 1.0
+        }
+      ]
+    }
+  ],
   "category_gaps": [
     {
       "category": "boat_tour",

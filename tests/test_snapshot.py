@@ -102,6 +102,33 @@ def test_the_lead_count_reconciles_against_the_answer_key(snap):
     assert c["existing_wrongly_in_leads"] == snap["metrics"]["matching"]["wasted_call"]
 
 
+def test_the_match_log_holds_every_already_on_file_decision(snap):
+    """The Match log is what produces the precision figure in production, so it
+    has to contain every decision that figure is computed over. A log missing
+    rows is worse than no log: it looks complete."""
+    matched = snap["matched"]
+    assert len(matched) == snap["counts"]["already_on_file"]
+    ids = {m["place_source_id"] for m in matched}
+    assert len(ids) == len(matched), "a pair appears twice"
+    # Must not overlap the review queue: one is a record, the other a work queue.
+    assert not ids & {r["place_source_id"] for r in snap["review_queue"]}
+
+
+def test_match_log_rows_carry_what_the_page_needs(snap):
+    for m in snap["matched"]:
+        assert m["discovered_name"] and m["supplier_name"]
+        assert m["evidence"], "a match with no evidence cannot be disagreed with"
+        assert m["matched_on"], "a log without dates stops being a log at two destinations"
+        assert 0.0 <= m["confidence"] <= 1.0
+
+
+def test_the_match_log_is_weakest_first(snap):
+    """Sorted by confidence ascending. The pairs most worth a human's attention
+    are the ones the matcher was least sure about, so they go at the top."""
+    confidences = [m["confidence"] for m in snap["matched"]]
+    assert confidences == sorted(confidences)
+
+
 def test_band_cutoffs_are_derived_from_the_ceiling(snap):
     bands = snap["bands"]
     assert 0 < bands["band_b"] < bands["band_a"] < bands["ceiling"] <= 1.0
