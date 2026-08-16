@@ -7,6 +7,11 @@
     "band_b": 0.4375,
     "basis": "Best achievable composite in this destination is 0.795, from the best score observed on each axis. Band A is the top 80% of that, band B the top 55%. A fixed cut-off has been wrong in both directions here: unreachable at 0.65, then too generous at 0.55 once the quality axis was corrected."
   },
+  "classification": {
+    "total": 301,
+    "by_rules": 117,
+    "by_model": 184
+  },
   "counts": {
     "places_discovered": 301,
     "not_relevant": 134,

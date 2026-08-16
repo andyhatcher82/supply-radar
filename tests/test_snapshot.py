@@ -129,6 +129,15 @@ def test_the_match_log_is_weakest_first(snap):
     assert confidences == sorted(confidences)
 
 
+def test_classification_split_is_published_and_adds_up(snap):
+    """The console used to quote "the ambiguous 64%" as a literal in the source.
+    It happened to be right, and nothing checked it."""
+    c = snap["classification"]
+    assert c["by_rules"] + c["by_model"] == c["total"]
+    assert c["total"] == snap["counts"]["places_discovered"]
+    assert c["by_model"] > 0, "a rules-only run would make the model cost a lie"
+
+
 def test_band_cutoffs_are_derived_from_the_ceiling(snap):
     bands = snap["bands"]
     assert 0 < bands["band_b"] < bands["band_a"] < bands["ceiling"] <= 1.0

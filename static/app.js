@@ -168,7 +168,11 @@ function viewOverview() {
       <thead><tr><th>Stage</th><th>What it decides</th><th class="num">Cost</th><th>Who decides</th></tr></thead>
       <tbody>
         <tr><td>Discover</td><td>Which operators exist in the area</td><td class="num">£0.76</td><td>Google Places, adaptive cell subdivision</td></tr>
-        <tr><td>Classify</td><td>Is this an experience operator at all</td><td class="num">£0.29</td><td>Rules first, model only for the ambiguous 64%</td></tr>
+        <tr><td>Classify</td><td>Is this an experience operator at all</td><td class="num">£0.29</td>
+          <td>${s.classification
+            ? `Type rules settled ${s.classification.by_rules} of ${s.classification.total}
+               for free. The model was asked about the other ${s.classification.by_model}`
+            : 'Type rules first, and the model only for what they cannot settle'}</td></tr>
         <tr><td>Match</td><td>Are they already a Viator supplier</td><td class="num">£0.00</td><td>Deterministic keys, then fuzzy, then a human</td></tr>
         <tr><td>Enrich</td><td>Can they actually transact</td><td class="num">£1.53</td><td>Their own website, read by the model</td></tr>
         <tr><td>Score</td><td>Which leads are worth Sales time</td><td class="num">£0.00</td><td>Three separate axes, evidence shown</td></tr>
@@ -601,7 +605,7 @@ const RUN_KEY = 'supply-radar.lastRun';
  * it plainly is worth more than papering over it. */
 const SWEEP_STAGES = [
   ['Discover', 'ran', 'Google Places, adaptive cell subdivision'],
-  ['Classify', 'ran', 'Rules first, model only for the ambiguous'],
+  ['Classify', 'ran', 'Type rules first, and the model only for what they cannot settle'],
   ['Score', 'partial', 'Quality is final. Readiness and gap fit are provisional until enrichment'],
   ['Enrich', 'stopped', 'Reading a website takes about 3 seconds and the request ceiling is 900. Belongs in a batch'],
   ['Match against supplier list', 'stopped', 'This deployment holds no supplier records'],
@@ -753,7 +757,9 @@ function renderRun(r) {
       <div class="grid g4" style="margin-top:14px">
         ${stat('Places found', d.places, `${d.cells_queried} cells, ${d.api_calls} API calls`)}
         ${stat('Cells subdivided', d.cells_subdivided, `${d.truncated_cells} hit the result cap`)}
-        ${stat('Operators', r.leads.length, c ? `${pct(c.model_share)} needed the model` : '')}
+        ${stat('Operators', r.leads.length, c
+          ? `of ${c.total} places found; ${c.model_calls} needed the model`
+          : `of ${d.places} places found`)}
         ${stat('Cost', gbp(r.cost.gbp), 'this run, measured')}
       </div>
       ${d.unresolved_cells ? note(

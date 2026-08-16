@@ -539,6 +539,20 @@ def main() -> None:
         },
         # One funnel, one denominator, and it adds up. Every figure after
         # "operators" is a subset of it.
+        # How the classifier reached its verdicts. Published because the
+        # console quoted "the ambiguous 64%" as a literal in the source, correct
+        # for this run and unverifiable by anything. Prose about behaviour goes
+        # stale when behaviour moves, which is the pattern behind most of this
+        # build's corrections, so the figure is now read from the data.
+        "classification": {
+            "total": len(classified),
+            "by_rules": sum(
+                1 for c in classified.values() if c.get("decided_by") == "deterministic"
+            ),
+            "by_model": sum(
+                1 for c in classified.values() if c.get("decided_by") == "model"
+            ),
+        },
         "counts": {
             "places_discovered": len(places),
             "not_relevant": len(places) - len(operator_places),
