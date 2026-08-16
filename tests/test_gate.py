@@ -10,7 +10,11 @@ from starlette.testclient import TestClient
 
 from supply_radar.api import gate, main, routes
 
-CODE = "18079"
+# A dummy. The fixture monkeypatches settings, so this test never needed the
+# real code, and hardcoding the live one put a working credential in the repo
+# — which mattered the moment the repo was made public, because git history
+# publishes too and no later edit removes it.
+CODE = "test-code-0000"
 
 
 @pytest.fixture
