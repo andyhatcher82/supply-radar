@@ -611,9 +611,14 @@ const SWEEP_STAGES = [
   // destination, so place.destination_id is None and the demand lookup falls
   // back to the country default. Two different limits with two different fixes,
   // and calling them both "enrichment" hid the second one entirely.
+  // "Country average" was wrong twice. The fallback is a fixed conservative
+  // cell (demand 25, supply 9), not a mean of anything — the real cells average
+  // demand 50.1 and supply 24.8. And calling it an average implied a reasonable
+  // estimate, when what actually happens is that every operator gets the SAME
+  // 0.1000 whatever they sell, so the axis stops discriminating altogether.
   ['Score', 'partial', 'Quality is final. Readiness needs the operator website, which only the batch job reads. '
-    + 'Gap fit falls back to the country average, because a drawn area is not one of the destinations '
-    + 'that has demand data'],
+    + 'Gap fit returns the same fallback value for every operator here, because a drawn area is not one '
+    + 'of the 12 destinations that has its own demand figures'],
   ['Match against supplier list', 'stopped', 'Could run right here. Missing because we have no supplier records, not because it is slow'],
   ['Net-new determination', 'stopped', 'Needs the supplier list above, and nothing else'],
   ['Enrich', 'stopped', 'The only step that genuinely cannot run live: about 3 seconds a website, against a 900 second ceiling'],
