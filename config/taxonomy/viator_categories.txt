@@ -1,9 +1,13 @@
-# Viator's own category filters, as displayed on their destination pages.
-# Three tiers, delimited by "/". Supplied by the hiring team.
+# Viator's category filters, as displayed publicly on their destination pages.
+# Three tiers, delimited by "/".
 #
-# Held verbatim rather than re-modelled into nested YAML, for two reasons: the
-# file is provably their data rather than my paraphrase of it, and replacing it
-# when the taxonomy changes is a paste rather than an edit.
+# Transcribed by hand from those pages into a spreadsheet and exported here.
+# Nobody supplied it. That matters in both directions: it is public information
+# rather than anything confidential, and the mapping is my reading of their
+# taxonomy, so an error in it is mine.
+#
+# Held flat rather than re-modelled into nested YAML so that replacing it when
+# the taxonomy changes is a paste rather than an edit.
 #
 # "Likely To Sell Out" is deliberately absent. It appears alongside these in the
 # filter UI but it is a merchandising badge, not a category: it describes how a
