@@ -1404,8 +1404,9 @@ function viewQuality() {
         things to know before anyone quotes it.</p>
       <p><strong>It is a small sample.</strong> ${mm.correct_existing} decisions in one town.
         One bad call takes it to ${n3(mm.correct_existing / (mm.correct_existing + 1))}.</p>
-      <p><strong>It started at 0.803.</strong> The gap between those two numbers is 26
-        corrections. That journey is the evidence here. The end number on its own is not.</p>
+      <p><strong>It started at 0.803 on the first run against real data.</strong> Every
+        correction between then and now is written down, and that journey is the evidence
+        here. The end number on its own is not.</p>
       <p><strong>Real data would score lower, and should.</strong> Our fake supplier list is
         messy in realistic ways, but a real extract also has the same operator entered twice,
         franchises and parent companies, records years out of date, and genuinely similar
