@@ -194,6 +194,46 @@ def admin_update(
 # ---------------------------------------------------------------- estimate
 
 
+def _already_in_pipeline() -> dict[str, dict]:
+    """Operators this pipeline has already seen, keyed by Google Place ID.
+
+    This is not matching. The same operator returns the same place_source_id on
+    every sweep, because it is Google's identifier and both sides come from
+    Google, so it is an exact lookup with nothing to get wrong. Costs a dict
+    build over the published snapshot.
+
+    It exists so a live sweep cannot offer to queue an operator that is already
+    a lead, already awaiting review, or already known to be a Viator supplier.
+    Without it, the obvious way to use this tool twice is to queue everything
+    twice.
+
+    In production the same lookup runs against the live lead table rather than a
+    published file, which is the only difference.
+    """
+    try:
+        snap = _load("snapshot.json")
+    except HTTPException:
+        return {}
+
+    seen: dict[str, dict] = {}
+    for lead in snap.get("leads", []):
+        seen[lead["place_source_id"]] = {
+            "where": "leads",
+            "label": f"Already a lead, band {lead.get('band', '?')}",
+        }
+    for item in snap.get("review_queue", []):
+        seen[item["place_source_id"]] = {
+            "where": "review",
+            "label": "Already awaiting human review",
+        }
+    for m in snap.get("matched", []):
+        seen[m["place_source_id"]] = {
+            "where": "matched",
+            "label": f"Already a Viator supplier, matched {m.get('matched_on', '')}".strip(),
+        }
+    return seen
+
+
 def _sweep_score(score) -> dict:
     """A live sweep's score, with the band removed.
 
@@ -313,6 +353,8 @@ def run(
         classification = classify(sweep.places, llm)
         results_by_id = {r.place_source_id: r for r in classification.results}
 
+    known = _already_in_pipeline()
+
     leads = []
     for place in sweep.places:
         result = results_by_id.get(place.source_id)
@@ -342,6 +384,9 @@ def run(
                 }
                 if result
                 else None,
+                # Absent for anything new, so the console can treat presence
+                # as the signal rather than testing a status string.
+                "known": known.get(place.source_id),
                 **_sweep_score(score),
             }
         )
@@ -351,6 +396,7 @@ def run(
     return {
         "elapsed_seconds": round(time.time() - started, 1),
         "discovery": sweep.summary(),
+        "already_known": sum(1 for lead in leads if lead.get("known")),
         "classification": classification.summary() if classification else None,
         "leads": leads,
         "cost": ledger.summary(),

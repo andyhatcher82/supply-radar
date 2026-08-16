@@ -89,9 +89,7 @@ function viewOverview() {
   <div class="grid g4">
     ${stat('Places discovered', c.places_discovered, 'Real Google Places results')}
     ${stat('Experience operators', c.operators, `${c.not_relevant} filtered out as not relevant`)}
-    ${stat('Net-new leads', c.net_new,
-      c.net_new_actual === undefined ? `of the ${c.operators} operators`
-        : `${c.net_new_actual} are actually net-new`, 'good')}
+    ${stat('Net-new leads', c.net_new, `of the ${c.operators} operators`, 'good')}
     ${stat('Sent to a human', pct(m.review_rate), `${pct(m.automation_rate)} decided automatically`)}
   </div>
 
@@ -117,8 +115,8 @@ function viewOverview() {
       </tbody>
     </table></div>
     ${c.net_new_actual === undefined ? '' : note(
-      `<strong>${c.net_new} leads, of which ${c.net_new_correct_in_leads} are right.</strong>
-       The true answer is ${c.net_new_actual}.`,
+      `<strong>How many of these ${c.net_new} leads are genuinely net-new?</strong>
+       On this benchmark we can actually check. On your data you could not.`,
       `<p>We know the true answer only because the supplier list here is made up, so we can
         mark our own work. On real data this comparison does not exist.</p>
       <table style="width:100%;margin:8px 0">
@@ -607,9 +605,9 @@ const SWEEP_STAGES = [
   ['Discover', 'ran', 'Google Places, adaptive cell subdivision'],
   ['Classify', 'ran', 'Type rules first, and the model only for what they cannot settle'],
   ['Score', 'partial', 'Quality is final. Readiness and gap fit are provisional until enrichment'],
-  ['Enrich', 'stopped', 'Reading a website takes about 3 seconds and the request ceiling is 900. Belongs in a batch'],
-  ['Match against supplier list', 'stopped', 'This deployment holds no supplier records'],
-  ['Net-new determination', 'stopped', 'Needs both the enrichment above and the supplier list'],
+  ['Match against supplier list', 'stopped', 'Could run right here. Missing because we have no supplier records, not because it is slow'],
+  ['Net-new determination', 'stopped', 'Needs the supplier list above, and nothing else'],
+  ['Enrich', 'stopped', 'The only step that genuinely cannot run live: about 3 seconds a website, against a 900 second ceiling'],
 ];
 
 const STAGE_MARK = { ran: '&#10003;', partial: '&#189;', stopped: '&#9679;' };
@@ -623,15 +621,17 @@ function pipelineStrip() {
         <div class="s-why">${esc(why)}</div>
       </div>`).join('')}</div>
     ${note(
-      '<strong>A sweep cannot create a lead, and that is the honest gap in this build.</strong>',
-      `<p>Reading one operator's website takes about 3 seconds. A web request has 900 seconds
-        before it is killed. This sweep found operators in one area; a full destination has
-        167. The sum does not work, so enrichment cannot run while you wait.</p>
-      <p>In a real system it runs as a background job and the leads appear when they are
-        ready. That job is the one piece we did not build. Today's lead list was made by
-        running the scripts by hand.</p>
-      <p>Adding it is a button, a job and a queue. It changes nothing in the discovery,
-        matching or scoring code.</p>`, 'warn')}`;
+      '<strong>Only one of these three stopped stages actually needs to be overnight work.</strong>',
+      `<p><strong>Matching could run right here.</strong> It makes no network calls and no
+        model calls: it is string and geometry work, about 11 milliseconds an operator. It
+        is missing because we do not hold Viator's supplier list, not because it is slow.</p>
+      <p><strong>Reading websites is the real batch job.</strong> Roughly 3 seconds each,
+        against a request that gets killed at 900 seconds. That one has to happen overnight
+        however it is built.</p>
+      <p>So with the supplier list connected, a sweep would show only genuinely net-new
+        operators and the queue button would mean one thing: enrich this. That queue is the
+        single piece of the architecture this build does not have. Today's published lead
+        list was produced by running the pipeline scripts by hand.</p>`, 'warn')}`;
 }
 
 function sweepCard(l, i) {
@@ -640,7 +640,9 @@ function sweepCard(l, i) {
   <div class="lead" data-sweep="${i}">
     <div class="lead-head">
       <div>
-        <div class="lead-name">${esc(l.name)}</div>
+        <div class="lead-name">${esc(l.name)}${l.known
+          ? ` <span class="pill ${l.known.where === 'matched' ? 'grey' : 'good'}"
+                    style="font-size:11px">${esc(l.known.label)}</span>` : ''}</div>
         <div class="lead-meta">${l.category
             ? esc(l.category.replace(/_/g, ' '))
             : '<span style="color:var(--dim)">category not determined: found by the catch-all search term, and a live sweep does not read websites</span>'}
@@ -675,11 +677,12 @@ function sweepCard(l, i) {
         by ${esc(c.decided_by || 'rules')}${c.confidence ? `, confidence ${n3(c.confidence)}` : ''}:
         ${esc(c.reason)}</div>` : ''}
       <div class="decide" style="margin-top:4px">
-        <span style="color:var(--muted);font-size:13px">Promoting a discovery to a lead
-          needs enrichment and the net-new comparison, neither of which can run inside a
-          web request.</span>
+        <span style="color:var(--muted);font-size:13px">${l.known
+          ? esc(l.known.label) + '. Nothing to queue.'
+          : 'Queueing sends this for website enrichment, which is the one step that has to run overnight.'}</span>
         <div class="spacer"></div>
-        <button class="btn ghost" data-addlead="${esc(l.name)}">Add to leads</button>
+        ${l.known ? '' :
+          `<button class="btn ghost" data-addlead="${esc(l.name)}">Queue for lead enrichment</button>`}
       </div>
     </div>
   </div>`;
@@ -696,20 +699,20 @@ function explainAddToLeads(name) {
   wrap.className = 'modal-overlay';
   wrap.innerHTML = `
     <div class="modal-card">
-      <h3 style="margin:0 0 4px">Not yet a lead</h3>
+      <h3 style="margin:0 0 4px">There is no queue to add it to yet</h3>
       <div style="color:var(--muted);font-size:13px;margin-bottom:12px">${esc(name)}</div>
       ${note(
-        'We do not know whether Viator already has this operator.',
-        `<p>"Net-new" is a comparison, and this deployment holds only one side of it. No
-          supplier records ship with the container.</p>`)}
+        'This is the one part of the design that was not built.',
+        `<p>Queueing an operator means reading its website and checking it against Viator's
+          supply. Reading one website takes about 3 seconds and a web request is killed at
+          900, so it cannot happen while you wait. It belongs in an overnight job.</p>
+        <p>In a working system this button adds the operator to that queue, the job does the
+          work, and the lead appears in the list when it is ready. The job is a job and a
+          queue; nothing in the discovery, matching or scoring code changes.</p>`)}
       ${note(
-        'Even with the supplier list, this button would have nothing to call.',
-        `<p>Promoting an operator means reading its website and matching it. Reading takes
-          about 3 seconds; a web request is killed at 900. It cannot happen while you wait.</p>
-        <p>In a real system this button adds the operator to a queue, a background job does
-          the work, and the lead appears when it is ready. That job is the one part of the
-          design we did not build.</p>`)}
-      ${note('The matching itself is proven on the published Split run, where we know the right answers.')}
+        'The other half is missing too: no supplier records ship with this deployment.',
+        `<p>"Net-new" is a comparison and we hold only one side of it here. The matching
+          itself is proven on the published Split run, where we know the right answers.</p>`)}
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
         <button class="btn" id="addLeadOk">Understood</button>
       </div>
@@ -761,6 +764,8 @@ function renderRun(r) {
           ? `of ${c.total} places found; ${c.model_calls} needed the model`
           : `of ${d.places} places found`)}
         ${stat('Cost', gbp(r.cost.gbp), 'this run, measured')}
+        ${r.already_known ? stat('Already known', r.already_known,
+          'seen before, so not offered again') : ''}
       </div>
       ${d.unresolved_cells ? note(
         `<strong>${d.unresolved_cells} ${d.unresolved_cells === 1 ? 'square' : 'squares'} had
@@ -810,10 +815,9 @@ function renderRun(r) {
 // data rather than an oversight, so it is stated on demand instead of the
 // button being hidden.
 const ADD_TO_LEADS_WHY =
-  'Nothing here has been checked against Viator\'s supplier list, so it ' +
-  'cannot be promoted to a lead yet. Net-new is a comparison, and we only hold one ' +
-  'side of it. Once the real supplier list is connected, operators move from here ' +
-  'straight into the leads list, or into the review queue where the match is ambiguous.';
+  'Queueing an operator sends it for website enrichment and a check against ' +
+  'Viator\'s supply. Neither runs in this deployment: there is no queue, and no ' +
+  'supplier records ship with the container.';
 
 /* ------------------------------------------------------------------ csv */
 
@@ -1879,10 +1883,7 @@ function renderTopMeta() {
     <div><div class="k">Coverage to date</div>
       <div class="v" title="Sweeping another destination adds to these tables, it does not replace them">${esc(S.snap.destination)}</div></div>
     <div><div class="k">Operators</div><div class="v">${c.operators}</div></div>
-    <div><div class="k">Net-new</div><div class="v">${c.net_new}${
-      c.net_new_actual === undefined ? '' :
-      `<span style="color:var(--dim);font-weight:400"> / ${c.net_new_actual} actual</span>`
-    }</div></div>`;
+    <div><div class="k">Net-new</div><div class="v">${c.net_new}</div></div>`;
 }
 
 boot();

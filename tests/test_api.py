@@ -39,3 +39,31 @@ def test_index_serves_the_spa():
 def test_static_assets_are_served():
     assert client.get("/static/styles.css").status_code == 200
     assert client.get("/static/app.js").status_code == 200
+
+
+def test_a_sweep_marks_operators_already_in_the_pipeline():
+    """A live sweep must not offer to queue something already held.
+
+    Not matching: place_source_id is Google's own identifier and both sides come
+    from Google, so it is an exact lookup. Without it, the obvious way to use
+    the tool twice is to queue everything twice.
+    """
+    from supply_radar.api.routes import _already_in_pipeline
+
+    known = _already_in_pipeline()
+    snap = client.get("/api/snapshot").json()
+
+    # Every published lead, review item and match is recognised.
+    for lead in snap["leads"]:
+        assert known[lead["place_source_id"]]["where"] == "leads"
+    for item in snap["review_queue"]:
+        assert known[item["place_source_id"]]["where"] == "review"
+    for m in snap["matched"]:
+        assert known[m["place_source_id"]]["where"] == "matched"
+
+    assert len(known) == (
+        len(snap["leads"]) + len(snap["review_queue"]) + len(snap["matched"])
+    ), "the three sets must be disjoint or one is shadowing another"
+
+    # Something never discovered is not claimed as known.
+    assert "not-a-real-place-id" not in known
