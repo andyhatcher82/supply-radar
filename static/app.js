@@ -101,7 +101,8 @@ function viewOverview() {
         <tr><td>Discovered</td><td class="num">${c.places_discovered}</td>
           <td style="color:var(--muted)">Everything Google Places returned for the search terms</td></tr>
         <tr><td>Not an experience operator</td><td class="num">−${c.not_relevant}</td>
-          <td style="color:var(--muted)">Judged on what they <em>sell</em>, not what they are</td></tr>
+          <td style="color:var(--muted)">Judged on what they <em>sell</em> (e.g. a cooking
+            class), not what they are (e.g. a restaurant)</td></tr>
         <tr style="border-top:2px solid var(--line)"><td><strong>Experience operators</strong></td>
           <td class="num"><strong>${c.operators}</strong></td>
           <td style="color:var(--muted)">Everything below is a subset of this</td></tr>
