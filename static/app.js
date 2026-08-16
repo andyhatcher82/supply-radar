@@ -605,7 +605,15 @@ const RUN_KEY = 'supply-radar.lastRun';
 const SWEEP_STAGES = [
   ['Discover', 'ran', 'Google Places, adaptive cell subdivision'],
   ['Classify', 'ran', 'Type rules first, and the model only for what they cannot settle'],
-  ['Score', 'partial', 'Quality is final. Readiness and gap fit are provisional until enrichment'],
+  // Gap fit was wrongly blamed on enrichment here. It does not depend on the
+  // website at all: score_gap_fit takes a destination and a category. What
+  // actually degrades it live is that a hand-drawn area is not a named
+  // destination, so place.destination_id is None and the demand lookup falls
+  // back to the country default. Two different limits with two different fixes,
+  // and calling them both "enrichment" hid the second one entirely.
+  ['Score', 'partial', 'Quality is final. Readiness needs the operator website, which only the batch job reads. '
+    + 'Gap fit falls back to the country average, because a drawn area is not one of the destinations '
+    + 'that has demand data'],
   ['Match against supplier list', 'stopped', 'Could run right here. Missing because we have no supplier records, not because it is slow'],
   ['Net-new determination', 'stopped', 'Needs the supplier list above, and nothing else'],
   ['Enrich', 'stopped', 'The only step that genuinely cannot run live: about 3 seconds a website, against a 900 second ceiling'],
